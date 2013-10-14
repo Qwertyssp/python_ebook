@@ -1,0 +1,43 @@
+﻿==resource 模块==
+
+
+(只用于 Unix , 可选) ``resource`` 模块用于查询或修改当前系统资源限制设置. 
+[Example 12-10 #eg-12-10] 展示了如何执行查询操作, Example 12-11 展示了如何执行修改操作.
+
+====Example 12-10. 使用 resource 模块查询当前设置====[eg-12-10]
+
+```
+File: resource-example-1.py
+
+import resource
+
+print "usage stats", "=>", resource.getrusage(resource.RUSAGE_SELF)
+print "max cpu", "=>", resource.getrlimit(resource.RLIMIT_CPU)
+print "max data", "=>", resource.getrlimit(resource.RLIMIT_DATA)
+print "max processes", "=>", resource.getrlimit(resource.RLIMIT_NPROC)
+print "page size", "=>", resource.getpagesize()
+
+*B*usage stats => (0.03, 0.02, 0, 0, 0, 0, 75, 168, 0, 0, 0, 0, 0, 0, 0, 0)
+max cpu => (2147483647, 2147483647)
+max data => (2147483647, 2147483647)
+max processes => (256, 256)
+page size => 4096*b*
+```
+
+====Example 12-11. 使用 resource 模块限制资源====[eg-12-11]
+
+```
+File: resource-example-2.py
+
+import resource
+
+resource.setrlimit(resource.RLIMIT_CPU, (0, 1))
+
+# pretend we're busy
+for i in range(1000):
+    for j in range(1000):
+        for k in range(1000):
+            pass
+
+*B*CPU time limit exceeded*b*
+```

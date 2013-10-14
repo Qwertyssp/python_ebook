@@ -1,0 +1,21 @@
+﻿==find 模块==
+
+
+(已废弃, 只用于 1.5.2) ``find`` 模块用于在给定目录及其子目录中查找符合给定匹配模式的文件, 
+如 [Example 14-36 #eg-14-36] 所示.
+
+匹配模式的语法与 ``fnmatch`` 中相同.
+
+====Example 14-36. 使用 find 模块====[eg-14-36]
+
+```
+File: find-example-1.py
+
+import find
+
+# find all JPEG files in or beneath the current directory
+for file in find.find("*.jpg", "."):
+    print file
+
+*B*.\samples\sample.jpg*b*
+```

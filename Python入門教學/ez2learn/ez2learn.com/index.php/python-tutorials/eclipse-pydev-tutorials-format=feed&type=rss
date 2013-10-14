@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<rss version="2.0">
+	<channel>
+		<title>Eclipse 的 Pydev IDE教學</title>
+		<description>Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包</description>
+		<link>http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials</link>
+		<lastBuildDate>Thu, 11 Feb 2010 14:07:52 +0000</lastBuildDate>
+		<generator>Joomla! 1.5 - Open Source Content Management</generator>
+		<language>zh-tw</language>
+		<item>
+			<title>介紹Eclipse 與 Pydev</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials/180-eclipse--pydev</link>
+			<description><![CDATA[<h2>什麼是Eclipse 與 Pydev?</h2>
+<p>Eclipse是一款用Java寫成的開放式的IDE平台，有活躍的社群和許多的外掛、插件，而Pydev就是其中一款用來擴充Eclipse的插件，安裝了之後就可以使用Eclipse來開發Python，或許有人覺得我們已經有了Python內建的介面，為什麼還要有Eclipse和Pydev來開發Python? 原因在於官方的介面太過陽春，開發大型程式相當不方便，因此我們需要功能更完備的Python IDE，Eclipse的Pydev就是相當不錯的選擇，目前我所有的Python專案都是使用Pydev開發，以下是使用Pydev開發中的專案畫面</p>
+<dl class="image-inline captioned"><dt><a rel="lightbox" href="http://ez2learn.com//resource/57167247/python/20081010_153028.png"><img src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/0.png_large" alt="Pydev執行畫面" title="Pydev執行畫面" height="452" width="768" /></a></dt>
+ <dd class="image-caption" style="width:768px"></dd>
+</dl><p>接著介紹它的特點</p>
+<h2>Eclipse 與 Pydev的特色</h2>
+<h3>專案管理</h3>
+<p>對於大型程式來說，有專案管理的介面是很重要的，所有檔案都可以一目瞭然</p>
+<h3>強大的除錯器支援</h3>
+<p>它提供良好的除錯器介面，讓除錯工作相當輕鬆</p>
+<h3>強大的自動完成功能</h3>
+<p>基本上只要是能夠由程式碼直接推斷出形別的物件，幾乎都有自動完成的功能，而各種括號的輸入，一樣有自動完成的功能，這點可以說是它最強的地方</p>
+<h3>優良的介面</h3>
+<p>例如Traceback印出來時，自動將程式碼錄徑標成連結，點擊就可以直接跳到該檔案的該行程式碼，使用上相當方便</p>
+<h3>需要相當多記憶體</h3>
+<p>是的，Eclipse會吃掉不少的記憶體，很多同樣是用Java開發出來的東西都有這樣的毛病，如果你在記憶體很少的環境執行會相當痛苦</p>]]></description>
+			<category>Eclipse 的 Pydev IDE教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:45 +0000</pubDate>
+		</item>
+		<item>
+			<title>安裝Eclipse 與 Pydev</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials/181-eclipse--pydev</link>
+			<description><![CDATA[<h2>下載並安裝Eclipse</h2>
+<p>Eclipse可以在它的官方網站<a class="external-link" href="http://www.eclipse.org/">Eclipse.org</a>找到並下載，通常我們選擇Eclipse Classic版本，下載完成後是一個壓縮檔，可能令人覺得奇怪為何沒有安裝檔，事實上只要將壓縮檔案內的eclipse資料夾，解壓縮到你想安裝的目錄中就算安裝完成了</p>
+<h3>常見問題</h3>
+<p>當你執行安裝完成的eclipse資料夾裡的eclipse.exe，如果出現下面錯誤訊息</p>
+<blockquote>
+<p>A Java Runtime Environment or Java Development Kit must be available in order to run Eclipse. No Java
+Virtual Machine was found after searching the following
+locations</p>
+<p>c:\eclipse\jre\bin\javaw.exe<br />javaw.exe in your current PATH  </p>
+</blockquote>
+<p>這表示你沒有安裝Java的執行環境，要執行eclipse必須安裝JRE或JDK，你可以到</p>
+<p><a class="external-link" href="http://www.java.com/en/download/manual.jsp">Java官方網站的JRE下載頁面</a></p>
+<p>找到JRE下載並安裝</p>
+<h2>安裝PyDev</h2>
+<p>當你安裝完eclipse並且可以執行後，就可以安裝PyDev，執行eclipse它會顯示一個視窗</p>
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/1.png" alt="Eclipse workspace選擇視窗" /></p>
+<p>要你選擇工作用的資料夾，Eclipse的設定還有專案都會放進此資料夾，你可以改成你想要的資料夾，或是直接按OK使用它預設的資料夾</p>
+<p>當Eclipse開啟後，從選單按Help -&gt; Software Updates，如下圖所示</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/2.png" alt="Eclipse 更新軟體" /></p>
+<p>然後選擇Available Software頁面，接著按Add site，貼上下列網址</p>
+<blockquote>
+<p>http://pydev.sourceforge.net/updates/</p>
+</blockquote>
+<p>如圖所示<br /><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/3.png" alt="Eclipse 新增站台" /></p>
+<p>完成後按Ok，接著點擊 PyDev的"+"，展開PyDev的節點，接著要等一小段時間，讓它上網抓取PyDev相關的套件，當完成後會多出PyDev的相關套件在子節點裡，勾選它們然後按Install</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/4.png" alt="Eclipse 選取PyDev並按安裝" /></p>
+<p>接著Eclipse就會開始下載PyDev的套件，需要一小段時間，接著出現如下圖所示的視窗</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/5.png" alt="Eclipse 套件選擇" /></p>
+<p>接著按Next進行下個步驟，它會要求你接受條款，選擇I accept the terms of the license agreements然後按Finish</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/6.png" alt="Ecplise 接受條款" /></p>
+<p>接著它會要你重新啟動Eclipse，按Yes就算安裝完成了</p>
+<p>設定PyDev</p>
+<p>雖然安裝完成了，但是還不能直接使用，我們還需要設定PyDev，如下圖所示，我們選擇Window -&gt; Preferences來設定PyDev</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/7.png" alt="Eclipse 開啟設定" /></p>
+<p>接著開啟設定視窗，我們首先設定檔案的編碼為UTF8，這麼做是為了讓檔案使用UTF8編碼，如果程式中有中文比較不易出問題</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/8.png" alt="Eclipse 設定編碼為UTF8" /></p>
+<p>接著是設定Python直譯器的路徑，從Pydev的Interpreter - Python頁面選擇New</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/9.png" alt="Eclipse PyDev設定Python直譯器路徑" /></p>
+<p>之後會跳出一個視窗讓你選擇Python直譯器的檔案位置，選擇你安裝的Python直譯器的所在位置</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/10.png" alt="Eclipse PyDev選擇Python.exe" /></p>
+<p>按開啟後會執行一些動作來搜尋相關的函式庫，接著按OK，同樣會執行一些動作，完成之後PyDev就設定完成，可以開始使用<br /></p>]]></description>
+			<category>Eclipse 的 Pydev IDE教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:47 +0000</pubDate>
+		</item>
+		<item>
+			<title>PyDev開新專案</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials/182-pydev</link>
+			<description><![CDATA[<h2>開新專案</h2>
+<p>當安裝好Eclipse + PyDev我們就可以開始使用它來開發專案，首先先選擇File -&gt; New -&gt; Project</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/11.png" alt="PyDev 選擇開新專案" /></p>
+<p>會跳出一個新專案類形選擇視窗，選擇Pydev Project後按Next</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/12.png" alt="PyDev 選擇Pydev專案" /></p>
+<p>之後會出現讓你設定專案相關設定的視窗，輸入你專案的名稱，選擇你所使用的Python版本後按Finish，就完成了開新專案</p>
+<h2>開新模組</h2>
+<p>光有專案是無法執行的，我們接著介紹如何開新模組，選擇File -&gt; New -&gt; Pydev Module</p>
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/13.png_preview" alt="PyDev 開新模組" /></p>
+<p>接著會有開新模組的視窗跑出來，我們在此設定模組的名稱為hello後按Finish，注意名稱不用加.py，它會自動幫我們加</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/14.png" alt="PyDev 開新模組視窗" /></p>
+<p>接著我們就有了第一個python的模組 : hello.py</p>
+<h2>執行模組</h2>
+<p>我們在hello.py中輸入一些程式碼後，就可以開始執行，在上方的工具列上面找到執行的按鈕</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/15.png" alt="PyDev 執行模組" /></p>
+<p>在這之後會出現一個讓你選擇執行方式的視窗，通常我們選澤Python Run</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/16.png" alt="PyDev 選擇執行類形" /></p>
+<p>然後hello.py就開始執行，結果會出現在下面的Console視窗中，到此就可以開始使用PyDev開發Python專案</p>]]></description>
+			<category>Eclipse 的 Pydev IDE教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:48 +0000</pubDate>
+		</item>
+		<item>
+			<title>PyDev除錯器教學</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials/183-pydev</link>
+			<description><![CDATA[<h2>PyDev的除錯器(Debugger)</h2>
+<p>PyDev的除錯器是它相當強大好用的一個特點，以下我們介紹如何使用PyDev的除錯器</p>
+<h2>設定中斷點</h2>
+<p>可以在程式碼左邊的空白處，點右鍵後選擇Add Breakpoint，或是雙擊空白處也有一樣的效果</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/17.png" alt="PyDev 設定中斷點" /></p>
+<h2>執行除錯模式</h2>
+<p>設定完中斷點後，我們以除錯模式執行，在上方工具列找到一隻小蟲子的圖示執行</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/18.png" alt="PyDev 執行除錯模式" /></p>
+<p>然後就開始用除錯模式執行程式，當遇到中斷點，它會問題要不要將介面切換成除錯模式，選擇Yes</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/19.png" alt="PyDev 遇到中斷點" /></p>
+<p>選擇Yes之後，PyDev會將介面切換成除錯用的介面</p>
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/eclipse-pydev-tutorial/20.png_large" alt="PyDev 除錯介面" /></p>
+<p>接著介紹除錯器的使用方式，在Debug視窗中，可以看見上方有一排工具列，分別是以下功能</p>
+<ol><li>移除所有已終止的執行</li><li>繼續執行</li><li>暫停，當正在執行但還沒遇到中斷點可以用此功能來中斷</li><li>終止除錯</li><li>除錯器離線</li><li>步進追蹤進入，也就是追蹤進入函數</li><li>步進跨過函數，也就是遇到函數呼叫不會跟著進入，而是等函數執行完後到下一行繼續執行</li><li>步進到回傳，也就是執行直到目前return</li></ol><p>而Debug視窗中的樹，是Thread和呼叫堆疊，右邊的視窗，是變數的觀察，你可以按右鍵然後選Create Watch Expression來增加Watch觀察，到此大至上就掌握了PyDev除錯的方法</p>]]></description>
+			<category>Eclipse 的 Pydev IDE教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:49 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

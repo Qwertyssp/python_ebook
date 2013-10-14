@@ -1,0 +1,140 @@
+﻿==random 模块==
+
+
+	"Anyone who considers arithmetical methods of producing random digits is, of course, in a state of sin."
+
+	- John von Neumann, 1951
+
+
+``random`` 模块包含许多随机数生成器. 
+
+基本随机数生成器(基于 Wichmann 和 Hill , 1982 的数学运算理论) 可以通过很多方法访问, 
+如 [Example 2-29 #eg-2-29] 所示.
+
+====Example 2-29. 使用 random 模块获得随机数字====[eg-2-29]
+
+```
+File: random-example-1.py
+
+import random
+
+for i in range(5):
+
+    # random float: 0.0 <= number < 1.0
+    print random.random(),
+
+    # random float: 10 <= number < 20
+    print random.uniform(10, 20),
+
+    # random integer: 100 <= number <= 1000
+    print random.randint(100, 1000),
+
+    # random integer: even numbers in 100 <= number < 1000
+    print random.randrange(100, 1000, 2)
+
+*B*0.946842713956 19.5910069381 709 172
+0.573613195398 16.2758417025 407 120
+0.363241598013 16.8079747714 916 580
+0.602115173978 18.386796935 531 774
+0.526767588533 18.0783794596 223 344*b*
+```
+
+注意这里的 ``randint`` 函数可以返回上界, 
+而其他函数总是返回小于上界的值. 所有函数都有可能返回下界值.
+
+[Example 2-30 #eg-2-30] 展示了 ``choice`` 函数, 它用来从一个序列里分拣出一个随机项目. 
+它可以用于列表, 元组, 以及其他序列(当然, 非空的).
+
+====Example 2-30. 使用 random 模块从序列取出随机项====[eg-2-30]
+
+```
+File: random-example-2.py
+
+import random
+
+# random choice from a list
+for i in range(5):
+    print random.choice([1, 2, 3, 5, 9])
+
+*B*2
+3
+1
+9
+1*b*
+```
+
+在 2.0 及以后版本, ``shuffle`` 函数可以用于打乱一个列表的内容
+(也就是生成一个该列表的随机全排列). [Example 2-31 #eg-2-31] 展示了如何在旧版本中实现该函数.
+
+====Example 2-31. 使用 random 模块打乱一副牌====[eg-2-31]
+
+```
+File: random-example-4.py
+
+import random
+
+try:
+    # available in 2.0 and later
+    shuffle = random.shuffle
+except AttributeError:
+    def shuffle(x):
+        for i in xrange(len(x)-1, 0, -1):
+            # pick an element in x[:i+1] with which to exchange x[i]
+            j = int(random.random() * (i+1))
+            x[i], x[j] = x[j], x[i]
+
+cards = range(52)
+
+shuffle(cards)
+
+myhand = cards[:5]
+
+print myhand
+
+*B*[4, 8, 40, 12, 30]*b*
+```
+
+``random`` 模块也包含了非恒定分布的随机生成器函数. [Example 2-32 #eg-2-32] 
+使用了 gauss (高斯)函数来生成满足高斯分的布随机数字.
+
+====Example 2-32. 使用 random 模块生成高斯分布随机数====[eg-2-32]
+
+```
+File: random-example-3.py
+
+import random
+
+histogram = [0] * 20
+
+# calculate histogram for gaussian
+# noise, using average=5, stddev=1
+for i in range(1000):
+    i = int(random.gauss(5, 1) * 2)
+    histogram[i] = histogram[i] + 1
+
+# print the histogram
+m = max(histogram)
+for v in histogram:
+    print "*" * (v * 50 / m)
+
+
+*B*****
+**********
+*************************
+***********************************
+************************************************
+**************************************************
+*************************************
+***************************
+*************
+***
+**b*
+```
+
+你可以在 //Python Library Reference// 找到更多关于非恒定分布随机生成器函数的信息.
+
+	*Note*标准库中提供的随机数生成器都是伪随机数生成器. 不过这对于很多目的来说已经足够了, 比如模拟, 数值分析, 以及游戏. 可以确定的是它不适合密码学用途.*note*
+ 
+ 
+
+

@@ -1,0 +1,32 @@
+﻿==dospath 模块==
+
+
+``dospath`` 模块(参见 [Example 13-1 #eg-13-1] )提供了 DOS 平台下的 ``os.path`` 功能. 你可以使用它在其他平台处理 DOS 路径. 
+
+
+====Example 13-1. 使用 dospath 模块====[eg-13-1]
+
+```
+File: dospath-example-1.py
+
+import dospath 
+
+file = "/my/little/pony"
+
+print "isabs", "=>", dospath.isabs(file)
+print "dirname", "=>", dospath.dirname(file)
+print "basename", "=>", dospath.basename(file)
+print "normpath", "=>", dospath.normpath(file)
+print "split", "=>", dospath.split(file)
+print "join", "=>", dospath.join(file, "zorba")
+
+*B*isabs => 1
+dirname => /my/little
+basename => pony
+normpath => \my\little\pony
+split => ('/my/little', 'pony')
+join => /my/little/pony\zorba*b*
+```
+
+注意 Python 的 DOS 支持可以使用斜杠和反斜杠作为目录分隔符.
+

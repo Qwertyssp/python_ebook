@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials/186-turbogears" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="快速建立TurboGears網站" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>快速建立TurboGears網站</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					快速建立TurboGears網站			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>建立網站</h2>
+
+<p>
+TurboGears有個tg-admin指令工具，可以快速建立一個樣版網站，通常我們在寫TurboGears網站都不是直接手動寫，而是用建出來的樣版來修改，以下我們介紹如何建立TurboGears的網站。</p>
+
+<h2>tg-admin工具</h2>
+
+<p>
+這是TurboGears特有的工具，它可以進行很多TurboGears的相關工作，如果你安裝正確PATH設定也沒問題，在"開始"-&gt;"執行"-&gt;"cmd"下執行"tg-admin"指令，應該會出現下面的訊息</p>
+
+<p>指令:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+Microsoft Windows XP [版本 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Administrator&gt;tg-admin
+</pre>
+
+<p>結果:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+TurboGears 1.0.7 command line interface
+
+Usage: C:\Python25\Scripts\tg-admin-script.py [options] &lt;command&gt;
+
+Options:
+    -c CONFIG --config=CONFIG    Config file to use
+    -e EGG_SPEC --egg=EGG_SPEC   Run command on given Egg
+
+Commands:
+      i18n  Manage i18n data
+      info  Show version info
+quickstart  Create a new TurboGears project
+     shell  Start a Python prompt with your database available
+       sql  Run the database provider manager
+   toolbox  Launch the TurboGears Toolbox
+    update  Update an existing turbogears project
+</pre>
+
+<h2>quickstart</h2>
+
+<p>接著，我們將切換到想要建立專案的目錄，然後執行quickstart指令</p>
+
+<p>指令</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+C:\Documents and Settings\Administrator&gt;cd c:\
+
+C:\&gt;tg-admin quickstart
+</pre>
+
+<p>結果:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+Enter project name: myproject
+Enter package name [myproject]:
+Do you need Identity (usernames/passwords) in this project? [no]
+</pre>
+
+<p>
+第一行是project的名稱，在這裡我們輸入myproject，第二行是產生的package名稱，通常都是和project一樣，預設值也是，直接按enter就可以，第三行是問你要加入Identity的功能在你的專案裡嗎?
+那是使用者帳號密碼登入認證的功能，在這裡我們只做為示範，預設值為no，如果有需要可以輸入yes或y，在程序跑完之後專案就已經建置完成</p>
+
+<h2>瀏覽專案</h2>
+
+<p>接著我們啟動我們剛建置好的TurboGears網站伺服器，然後用瀏覽器查看，使用以下指令</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+C:\&gt;cd myproject
+
+C:\myproject&gt;python start-myproject.py
+</pre>
+
+<p>
+myproject資料夾是我們剛才用指令建置出來的專案資料夾，我們切換到該資料夾，然後執行start-myproject.py這個檔案，它會啟動一個獨立運行的伺服器，在開發階段相當好用，你不必安裝任何伺服器，它一樣也可以做為產品的伺服器，當它初始化完成之後，打開瀏覽器，連線到</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+127.0.0.1:8080
+</pre>
+
+<p>
+8080是它預設的port，你一樣可以改變它，以後會介紹，如果沒有問題的話，你應該會看到TurboGears的歡迎畫面，恭喜你的專案已經建置完成，可以開始動手修改</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="185-turbogears.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials/185-turbogears">&lt; 前一個</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

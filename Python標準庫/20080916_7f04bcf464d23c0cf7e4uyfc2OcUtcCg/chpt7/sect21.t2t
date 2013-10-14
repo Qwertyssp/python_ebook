@@ -1,0 +1,23 @@
+﻿==CGIHTTPServer 模块==
+
+
+``CGIHTTPServer`` 模块是一个可以通过公共网关接口( common gateway interface 
+ , CGI )调用外部脚本的 HTTP 服务器. 如 [Example 7-39 #eg-7-39] 所示.
+
+====Example 7-39. 使用 CGIHTTPServer 模块====[eg-7-39]
+
+```
+File: cgihttpserver-example-1.py
+
+import CGIHTTPServer
+import BaseHTTPServer
+
+class Handler(CGIHTTPServer.CGIHTTPRequestHandler):
+    cgi_directories = ["/cgi"]
+
+PORT = 8000
+
+httpd = BaseHTTPServer.HTTPServer(("", PORT), Handler)
+print "serving at port", PORT
+httpd.serve_forever()
+```

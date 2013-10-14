@@ -1,0 +1,29 @@
+﻿==robotparser 模块==
+
+
+(2.0 中新增) ``robotparser`` 模块用来读取 ``robots.txt`` 文件, 
+该文件用于 Robot Exclusion Protocol 
+(搜索机器人排除协议? http://info.webcrawler.com/mak/projects/robots/robots.html).
+
+如果你实现的一个 HTTP 机器人会访问网路上的任意站点(并不只是你自己的站点), 
+那么最好还是用该模块检查下你所做的一切是不是受欢迎的. [Example 7-21 #eg-7-21] 展示了该模块的使用.
+
+====Example 7-21. 使用 robotparser 模块====[eg-7-21]
+
+```
+File: robotparser-example-1.py
+
+import robotparser
+
+r = robotparser.RobotFileParser()
+r.set_url("http://www.python.org/robots.txt")
+r.read()
+
+if r.can_fetch("*", "/index.html"):
+    print "may fetch the home page"
+
+if r.can_fetch("*", "/tim_one/index.html"):
+    print "may fetch the tim peters archive"
+
+*B*may fetch the home page*b*
+```

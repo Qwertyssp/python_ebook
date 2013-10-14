@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/175-easyinstall" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="如何使用easy_install輕鬆安裝第三方模組" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>如何使用easy_install輕鬆安裝第三方模組</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					如何使用easy_install輕鬆安裝第三方模組			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>安裝函式庫的麻煩</h2>
+<p>很多時候我們需要安裝函式庫，最常見的方法就是找到該函式庫的官方網站，然後找到載點、合適的版本，接著下載並安裝，這過程相當煩人，每個網站的設計都不太一樣，而挑選合適的版本也是個問題，是吃力不討好的工作</p>
+<h2>easy_install</h2>
+<p>為了輕鬆下載並安裝第三方函式庫，Python有一個好用的工具指令叫做easy_install，可以讓你很輕鬆地執行一行指令，就上網到Python package的index中找到該套件選擇合適的版本，並且下載後安裝，節省了我們寶貴的時間，以下介紹如何安裝和使用easy_install</p>
+<h2>下載並安裝</h2>
+<p>easy_install這個工具可以在這裡被找到</p>
+<p><a class="external-link" href="javascript:if(confirm('http://pypi.python.org/pypi/setuptools  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://pypi.python.org/pypi/setuptools'" tppabs="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a></p>
+<p>拉到網頁靠近底部，找到一個適合的版本，例如假設你現在用的是Python 2.5，就下載</p>
+<blockquote>setuptools-0.6c9.win32-py2.5.exe <br /></blockquote>
+<p>這個檔案後執行安裝</p>
+<h2>如何使用</h2>
+<p>使用easy_install下載套件比吃飯還簡單，只要在easy_install指令後面加上你想要的套件名稱，就會自動執行整個工作，下面是幾個例子</p>
+<pre name="code" class="python:nogutter:nocontrols">easy_install sqlalchemy
+easy_install lxml
+easy_install pylab
+</pre>
+<p>當然，easy_install還有更多功能和參數，詳細說明，可以執行下面指令來查看，在此不多做贅述</p>
+<pre name="code" class="python:nogutter:nocontrols">easy_install --help
+</pre>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="174-cpython.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/174-cpython">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="176-py2exepythonexe.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/176-py2exepythonexe">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿==sndhdr 模块==
+
+
+``sndhdr`` 模块, 可来识别不同的音频文件格式, 并提取文件内容相关信息. 如 [Example 9-2 #eg-9-2] 所示.
+
+执行成功后, ``what`` 函数将返回一个由文件类型, 
+采样频率, 声道数, 音轨数和每个采样点位数组成的元组. 具体含义请参考 ``help(sndhdr)`` .
+
+====Example 9-2. 使用 sndhdr 模块====[eg-9-2]
+
+```
+File: sndhdr-example-1.py
+
+import sndhdr
+
+result = sndhdr.what("samples/sample.wav")
+
+if result:
+    print "file format:", result
+else:
+    print "cannot identify file"
+
+*B*file format: ('wav', 44100, 1, -1, 16)*b*
+```

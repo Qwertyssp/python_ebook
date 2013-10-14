@@ -1,0 +1,181 @@
+﻿==概览==
+
+
+本章描述了 Python 的 socket 协议支持以及其他建立在 socket 模块上的网络
+模块. 这些包含了对大多流行 Internet 协议客户端的支持, 以及一些可用来
+实现 Internet 服务器的框架.
+
+对于那些本章中的底层的例子, 我将使用两个协议作为样例: 
+Internet Time Protocol ( Internet 时间协议 )
+以及 Hypertext Transfer Protocol (超文本传输协议, HTTP 协议).
+
+===Internet 时间协议===
+
+Internet 时间协议 ( RFC 868, Postel 和 Harrenstien, 1983) 可以让
+一个网络客户端获得一个服务器的当前时间.
+
+因为这个协议是轻量级的, 许多 Unix 系统(但不是所有)都提供了这个服务. 
+它可能是最简单的网络协议了. 服务器等待连接请求并在连接后返回当前时间
+( 4 字节整数, 自从 1900 年 1 月 1 日到当前的秒数).
+
+协议很简单, 这里我们提供规格书给大家:
+
+```
+File: rfc868.txt
+
+Network Working Group                                    J. Postel - ISI
+Request for Comments: 868                           K. Harrenstien - SRI
+                                                                May 1983
+
+                             Time Protocol
+
+This RFC specifies a standard for the ARPA Internet community.  Hosts on
+the ARPA Internet that choose to implement a Time Protocol are expected
+to adopt and implement this standard.
+
+本 RFC 规范提供了一个 ARPA Internet community 上的标准. 
+在 ARPA Internet 上的所有主机应当采用并实现这个标准.
+
+This protocol provides a site-independent, machine readable date and
+time.  The Time service sends back to the originating source the time in
+seconds since midnight on January first 1900.
+
+此协议提供了一个独立于站点的, 机器可读的日期和时间信息. 
+时间服务返回的是从 1900 年 1 月 1 日午夜到现在的秒数.
+
+One motivation arises from the fact that not all systems have a
+date/time clock, and all are subject to occasional human or machine
+error.  The use of time-servers makes it possible to quickly confirm or
+correct a system's idea of the time, by making a brief poll of several
+independent sites on the network.
+
+设计这个协议的一个重要目的在于, 网络上的一些主机并没有时钟, 
+这有可能导致人工或者机器错误. 我们可以依靠时间服务器快速确认或者修改
+一个系统的时间.
+
+This protocol may be used either above the Transmission Control Protocol
+(TCP) or above the User Datagram Protocol (UDP).
+
+该协议可以用在 TCP 协议或是 UDP 协议上.
+
+When used via TCP the time service works as follows:
+
+通过 TCP 访问时间服务器的步骤:
+
+ *  S: Listen on port 37 (45 octal).
+ *  U: Connect to port 37.
+ *  S: Send the time as a 32 bit binary number.
+ *  U: Receive the time.
+ *  U: Close the connection.
+ *  S: Close the connection.
+ 
+ *  S: 监听 37 ( 45 的八进制) 端口.
+ *  U: 连接 37 端口.
+ *  S: 将时间作为 32 位二进制数字发送.
+ *  U: 接收时间.
+ *  U: 关闭连接.
+ *  S: 关闭连接.  
+
+   The server listens for a connection on port 37.  When the connection
+   is established, the server returns a 32-bit time value and closes the
+   connection.  If the server is unable to determine the time at its
+   site, it should either refuse the connection or close it without
+   sending anything.
+   
+   服务器在 37 端口监听. 当连接建立的时候, 服务器返回一个 32 位的数字值
+   并关闭连接. 如果服务器自己无法决定当前时间, 那么它应该拒绝这个连接或者
+   不发送任何数据立即关闭连接.
+
+When used via UDP the time service works as follows:
+
+通过 TCP 访问时间服务器的步骤:
+   
+   S: Listen on port 37 (45 octal).
+   U: Send an empty datagram to port 37.
+   S: Receive the empty datagram.
+   S: Send a datagram containing the time as a 32 bit binary number.
+   U: Receive the time datagram.
+
+   S: 监听 37 ( 45 的八进制) 端口.
+   U: 发送空数据报文到 37 端口.
+   S: 接受空报文.
+   S: 发送包含时间( 32 位二进制数字 )的报文.
+   U: 接受时间报文.
+   
+   The server listens for a datagram on port 37.  When a datagram
+   arrives, the server returns a datagram containing the 32-bit time
+   value.  If the server is unable to determine the time at its site, it
+   should discard the arriving datagram and make no reply.
+   
+   服务器在 37 端口监听报文. 当报文到达时, 服务器返回包含 32 位时间值
+   的报文. 如果服务器无法决定当前时间, 那么它应该丢弃到达的报文, 
+   不做任何回复.
+
+The Time
+
+时间
+
+The time is the number of seconds since 00:00 (midnight) 1 January 1900
+GMT, such that the time 1 is 12:00:01 am on 1 January 1900 GMT; this
+base will serve until the year 2036.
+
+时间是自 1900 年 1 月 1 日 0 时到当前的秒数, 
+这个协议标准会一直服务到2036年. 到时候数字不够用再说.
+
+For example:
+
+   the time  2,208,988,800 corresponds to 00:00  1 Jan 1970 GMT,
+             2,398,291,200 corresponds to 00:00  1 Jan 1976 GMT,
+             2,524,521,600 corresponds to 00:00  1 Jan 1980 GMT,
+             2,629,584,000 corresponds to 00:00  1 May 1983 GMT,
+        and -1,297,728,000 corresponds to 00:00 17 Nov 1858 GMT.
+		
+
+例如:
+
+     时间值  2,208,988,800 对应 to 00:00  1 Jan 1970 GMT,
+             2,398,291,200 对应 to 00:00  1 Jan 1976 GMT,
+             2,524,521,600 对应 to 00:00  1 Jan 1980 GMT,
+             2,629,584,000 对应 to 00:00  1 May 1983 GMT,
+       最后 -1,297,728,000 对应 to 00:00 17 Nov 1858 GMT.
+
+	   
+RFC868.txt Translated By Andelf(gt: andelf@gmail.com )
+非商业用途, 转载请保留作者信息. Thx.
+```
+
+===HTTP 协议===
+
+超文本传输协议 ( HTTP, RFC 2616 ) 是另个完全不同的东西. 
+最近的格式说明书( Version 1.1 )超过了 100 页. 
+
+从它最简单的格式来看, 这个协议是很简单的. 客户端发送如下的请求到服务器, 
+请求一个文件:
+
+```
+GET /hello.txt HTTP/1.0
+Host: hostname
+User-Agent: name
+
+[optional request body , 可选的请求正文]
+```
+
+服务器返回对应的响应:
+
+```
+HTTP/1.0 200 OK
+Content-Type: text/plain
+Content-Length: 7
+
+Hello
+```
+
+请求和响应的 headers (报头)一般会包含更多的域, 但是请求 header 中的 Host 
+域/字段是必须提供的.
+
+header 行使用 "``\r\n``" 分割, 而且 header 后必须有一个空行, 即使没有正文
+(请求和响应都必须符合这条规则).
+
+剩下的 HTTP 协议格式说明书细节, 例如内容协商, 缓存机制, 保持连接, 等等, 
+请参阅 Hypertext TransferProtocol - HTTP/1.1 ( http://www.w3.org/Protocols ).
+

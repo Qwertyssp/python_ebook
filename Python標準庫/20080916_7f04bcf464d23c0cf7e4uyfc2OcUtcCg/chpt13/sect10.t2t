@@ -1,0 +1,19 @@
+﻿==py_compile 模块==
+
+
+``py_compile`` 模块用于将 Python 模块编译为字节代码. 
+它和 Python 的 import 语句行为类似, 不过它接受文件名而不是模块名作为参数. 
+使用方法如 [Example 13-10 #eg-13-10] 所示.
+
+====Example 13-10. 使用 py_compile 模块====[eg-13-10]
+
+```
+File: py-compile-example-1.py
+
+import py_compile
+
+# explicitly compile this module
+py_compile.compile("py-compile-example-1.py")
+```
+
+``compileall`` 模块可以把一个目录树下的所有 Python 文件编译为字节代码. 

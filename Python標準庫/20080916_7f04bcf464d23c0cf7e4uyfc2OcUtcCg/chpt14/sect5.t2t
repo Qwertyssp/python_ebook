@@ -1,0 +1,39 @@
+﻿==rexec 模块==
+
+
+Feather 注: 版本 2.3 时取消了改模块的支持, 具体原因请参阅 :
+http://www.amk.ca/python/howto/rexec/ 和
+http://mail.python.org/pipermail/python-dev/2002-December/031160.html
+
+解决方法请参阅: http://mail.python.org/pipermail/python-list/2003-November/234581.html 
+
+``rexec`` 模块提供了在限制环境下的 ``exec`` , ``eval`` , 
+以及 ``import`` 语句, 如 [Example 14-6 #eg-14-6] 所示. 
+在这个环境下, 所有可能对机器造成威胁的函数都不可用. 
+
+====Example 14-6. 使用 rexec 模块====[eg-14-6]
+
+```
+File: rexec-example-1.py
+
+import rexec
+
+r = rexec.RExec()
+print r.r_eval("1+2+3")
+print r.r_eval("_ _import_ _('os').remove('file')")
+
+*B*6
+Traceback (innermost last):
+  File "rexec-example-1.py", line 5, in ?
+    print r.r_eval("_ _import_ _('os').remove('file')")
+  File "/usr/local/lib/python1.5/rexec.py", line 257, in r_eval
+    return eval(code, m._ _dict_ _)
+  File "<string>", line 0, in ?
+AttributeError: remove*b*
+```
+
+
+
+
+
+

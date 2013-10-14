@@ -1,0 +1,31 @@
+﻿==ihooks 模块==
+
+
+``ihooks`` 模块为替换导入提供了一个框架. 这允许多个导入机制共存. 
+使用方法参见 [Example 13-12 #eg-13-12] .
+
+====Example 13-12. 使用 ihooks 模块====[eg-13-12]
+
+```
+File: ihooks-example-1.py
+
+import ihooks, imp, os
+
+def import_from(filename):
+    "Import module from a named file"
+
+    loader = ihooks.BasicModuleLoader()
+    path, file = os.path.split(filename)
+    name, ext  = os.path.splitext(file)
+    m = loader.find_module_in_dir(name, path)
+    if not m:
+        raise ImportError, name
+    m = loader.load_module(name, m)
+    return m
+
+colorsys = import_from("/python/lib/colorsys.py")
+
+print colorsys
+
+*B*<module 'colorsys' from '/python/lib/colorsys.py'>*b*
+```

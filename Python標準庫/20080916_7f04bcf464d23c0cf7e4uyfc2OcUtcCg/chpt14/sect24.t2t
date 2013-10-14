@@ -1,0 +1,34 @@
+﻿==tzparse 模块==
+
+
+(已废弃) ``tzparse`` 模块用于解析时区标志( time zone specification ). 
+导入时它会自动分析 ``TZ`` 环境变量. 如 [Example 14-31 #eg-14-31] 所示.
+
+====Example 14-31. 使用 tzparse 模块====[eg-14-31]
+
+```
+File: tzparse-example-1.py
+
+import os
+if not os.environ.has_key("TZ"):
+    # set it to something...
+    os.environ["TZ"] = "EST+5EDT;100/2,300/2"
+
+# importing this module will parse the TZ variable
+import tzparse
+
+print "tzparams", "=>", tzparse.tzparams
+print "timezone", "=>", tzparse.timezone
+print "altzone", "=>", tzparse.altzone
+print "daylight", "=>", tzparse.daylight
+print "tzname", "=>", tzparse.tzname
+
+*B*tzparams => ('EST', 5, 'EDT', 100, 2, 300, 2)
+timezone => 18000
+altzone => 14400
+daylight => 1
+tzname => ('EST', 'EDT')*b*
+```
+
+除了这些变量之外, 该模块还提供了一些用于时间计算的函数.
+

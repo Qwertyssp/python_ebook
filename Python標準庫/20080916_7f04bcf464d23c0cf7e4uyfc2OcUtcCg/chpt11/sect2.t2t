@@ -1,0 +1,48 @@
+﻿==pdb 模块==
+
+
+``pdb`` 模块是标准 Python 调试器( debugger ). 它基于 ``bdb`` 调试器框架.
+
+你可以从命令行调用调试器 (键入 n [或 next] 进入下一行代码, 
+键入 help 获得可用命令列表):
+
+```
+$ pdb.py hello.py
+> hello.py(0)?()
+(Pdb) n
+> hello.py()
+(Pdb) n
+hello again, and welcome to the show
+--Return--
+> hello.py(1)?()->None
+(Pdb)
+```
+
+[Example 11-2 #eg-11-2] 展示了如何从程序中启动调试器.
+
+====Example 11-2. 使用 pdb 模块====[eg-11-2]
+
+```
+File: pdb-example-1.py
+
+import pdb
+
+def test(n):
+    j = 0
+    for i in range(n):
+        j = j + i
+    return n
+
+db = pdb.Pdb()
+db.runcall(test, 1)
+
+*B*> pdb-example-1.py(3)test()
+-> def test(n):
+(Pdb) s
+> pdb-example-1.py(4)test()
+-> j = 0
+(Pdb) s
+> pdb-example-1.py(5)test()
+-> for i in range(n):
+...*b*
+```

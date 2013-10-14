@@ -1,0 +1,54 @@
+﻿==htmllib 模块==
+
+
+``htmlib`` 模块包含了一个标签驱动的( tag-driven ) HTML 语法分析器, 
+它会将数据发送至一个格式化对象. 如 [Example 5-9 #eg-5-9] 所示. 
+更多关于如何解析 HTML 的例子请参阅 ``formatter`` 模块.  
+
+
+====Example 5-9. 使用 htmllib 模块====[eg-5-9]
+
+```
+File: htmllib-example-1.py
+
+import htmllib
+import formatter
+import string
+
+class Parser(htmllib.HTMLParser):
+    # return a dictionary mapping anchor texts to lists
+    # of associated hyperlinks
+
+    def _ _init_ _(self, verbose=0):
+        self.anchors = {}
+        f = formatter.NullFormatter()
+        htmllib.HTMLParser._ _init_ _(self, f, verbose)
+
+    def anchor_bgn(self, href, name, type):
+        self.save_bgn()
+        self.anchor = href
+
+    def anchor_end(self):
+        text = string.strip(self.save_end())
+        if self.anchor and text:
+            self.anchors[text] = self.anchors.get(text, []) + [self.anchor]
+
+file = open("samples/sample.htm")
+html = file.read()
+file.close()
+
+p = Parser()
+p.feed(html)
+p.close()
+
+for k, v in p.anchors.items():
+    print k, "=>", v
+
+print
+
+*B*link => ['http://www.python.org']*b*
+```
+
+如果你只是想解析一个 HTML 文件, 而不是将它交给输出设备, 
+那么 ``sgmllib`` 模块会是更好的选择.
+

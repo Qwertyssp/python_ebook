@@ -1,0 +1,33 @@
+﻿==strop 模块==
+
+
+(已废弃) ``strop`` 为 ``string`` 模块中的大多函数提供了底层 C 语言实现. 
+``string`` 模块会自动调用它, 所以一般你不需要直接使用它. 
+
+不过在导入 Python 模块之前处理路径的时候你可能会用到它. 如 [Example 13-5 #eg-13-5] 
+所示. 
+
+====Example 13-5. 使用 strop 模块====[eg-13-5]
+
+```
+File: strop-example-1.py
+
+import strop
+import sys
+
+# assuming we have an executable named ".../executable", add a
+# directory named ".../executable-extra" to the path
+
+if strop.lower(sys.executable)[-4:] == ".exe":
+    extra = sys.executable[:-4] # windows
+else:
+    extra = sys.executable
+
+sys.path.insert(0, extra + "-extra")
+
+import mymodule
+```
+
+在 Python 2.0 及以后版本中, 你应该使用字符串方法代替 ``strop`` , 
+例如在上边的代码中. 使用 "``sys.executable.lower()``" 替换 
+"``strop.lower(sys.executable)``" .

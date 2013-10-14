@@ -1,0 +1,87 @@
+﻿==operator 模块==
+
+
+``operator`` 模块为 Python 提供了一个 "功能性" 的标准操作符接口. 当使用 ``map`` 以及 
+``filter`` 一类的函数的时候, ``operator`` 模块中的函数可以替换一些 ``lambda`` 函式. 
+而且这些函数在一些喜欢写晦涩代码的程序员中很流行. [Example 1-62 #eg-1-62] 展示了 
+``operator`` 模块的一般用法.
+
+====Example 1-62. 使用 operator 模块====[eg-1-62]
+
+```
+File: operator-example-1.py
+
+import operator
+
+sequence = 1, 2, 4
+
+print "add", "=>", reduce(operator.add, sequence)
+print "sub", "=>", reduce(operator.sub, sequence)
+print "mul", "=>", reduce(operator.mul, sequence)
+print "concat", "=>", operator.concat("spam", "egg")
+print "repeat", "=>", operator.repeat("spam", 5)
+print "getitem", "=>", operator.getitem(sequence, 2)
+print "indexOf", "=>", operator.indexOf(sequence, 2)
+print "sequenceIncludes", "=>", operator.sequenceIncludes(sequence, 3)
+
+*B*add => 7
+sub => -5
+mul => 8
+concat => spamegg
+repeat => spamspamspamspamspam
+
+getitem => 4
+indexOf => 1
+sequenceIncludes => 0*b*
+```
+
+[Example 1-63 #eg-1-63] 展示了一些可以用于检查对象类型的 ``operator`` 函数.
+
+====Example 1-63. 使用 operator 模块检查类型====[eg-1-63]
+
+```
+File: operator-example-2.py
+
+import operator
+import UserList
+
+def dump(data):
+    print type(data), "=>",
+    if operator.isCallable(data):
+        print "CALLABLE",
+    if operator.isMappingType(data):
+        print "MAPPING",
+    if operator.isNumberType(data):
+        print "NUMBER",
+    if operator.isSequenceType(data):
+        print "SEQUENCE",
+    print
+        
+dump(0)
+dump("string")
+dump("string"[0])
+dump([1, 2, 3])
+dump((1, 2, 3))
+dump({"a": 1})
+dump(len) # function 函数
+dump(UserList) # module 模块
+dump(UserList.UserList) # class 类
+dump(UserList.UserList()) # instance 实例
+
+*B*<type 'int'> => NUMBER
+<type 'string'> => SEQUENCE
+<type 'string'> => SEQUENCE
+<type 'list'> => SEQUENCE
+<type 'tuple'> => SEQUENCE
+<type 'dictionary'> => MAPPING
+<type 'builtin_function_or_method'> => CALLABLE
+<type 'module'> =>
+<type 'class'> => CALLABLE
+<type 'instance'> => MAPPING NUMBER SEQUENCE*b*
+```
+
+这里需要注意 ``operator`` 模块使用非常规的方法处理对象实例. 所以使用 
+``isNumberType`` , ``isMappingType`` , 以及 ``isSequenceType`` 函数的时候要小心, 
+这很容易降低代码的扩展性.
+
+同样需要注意的是一个字符串序列成员 (单个字符) 也是序列. 所以当在递归函数使用 isSequenceType 来截断对象树的时候, 别把普通字符串作为参数(或者是任何包含字符串的序列对象).

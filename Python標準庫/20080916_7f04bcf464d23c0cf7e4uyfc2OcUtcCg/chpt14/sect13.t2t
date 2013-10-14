@@ -1,0 +1,19 @@
+﻿==grep 模块==
+
+
+``grep`` 模块提供了在文本文件中搜索字符串的另种方法, 如 Example 14-16 所示.
+
+版本 2.1 时被声明不支持, 及就是说, 当前版本已经无法使用该模块.
+
+====Example 14-16. 使用 grep 模块====[eg-14-16]
+
+```
+File: grep-example-1.py
+
+import grep
+import glob
+
+grep.grep("\<rather\>", glob.glob("samples/*.txt"))
+
+# 4: indentation, rather than delimiters, might become
+```

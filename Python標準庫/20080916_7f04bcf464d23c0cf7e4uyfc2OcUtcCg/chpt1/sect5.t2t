@@ -1,0 +1,278 @@
+﻿== os.path 模块 ==
+
+
+``os.path`` 模块包含了各种处理长文件名(路径名)的函数. 先导入 (import) ``os`` 
+模块, 然后就可以以 ``os.path`` 访问该模块. 
+
+=== 处理文件名===
+
+``os.path`` 模块包含了许多与平台无关的处理长文件名的函数. 
+也就是说, 你不需要处理前后斜杠, 冒号等. 我们可以看看 [Example 1-42 #eg-1-42] 中的样例代码. 
+
+====Example 1-42. 使用 os.path 模块处理文件名====[eg-1-42]
+
+```
+File: os-path-example-1.py
+
+import os
+
+filename = "my/little/pony"
+
+print "using", os.name, "..."
+print "split", "=>", os.path.split(filename)
+print "splitext", "=>", os.path.splitext(filename)
+print "dirname", "=>", os.path.dirname(filename)
+print "basename", "=>", os.path.basename(filename)
+print "join", "=>", os.path.join(os.path.dirname(filename),
+                                 os.path.basename(filename))
+
+*B*using nt ...
+split => ('my/little', 'pony')
+splitext => ('my/little/pony', '')
+dirname => my/little
+basename => pony
+join => my/little\pony*b*
+```
+
+注意这里的 ``split`` 只分割出最后一项(不带斜杠).
+
+``os.path`` 模块中还有许多函数允许你简单快速地获知文件名的一些特征，如 [Example 1-43 #eg-1-43] 所示。 
+
+====Example 1-43. 使用 os.path 模块检查文件名的特征====[eg-1-43]
+
+```
+File: os-path-example-2.py
+
+import os
+
+FILES = (
+    os.curdir,
+    "/",
+    "file",
+    "/file",
+    "samples",
+    "samples/sample.jpg",
+    "directory/file",
+    "../directory/file",
+    "/directory/file"
+    )
+
+for file in FILES:
+    print file, "=>",
+    if os.path.exists(file):
+        print "EXISTS",
+    if os.path.isabs(file):
+        print "ISABS",
+    if os.path.isdir(file):
+        print "ISDIR",
+    if os.path.isfile(file):
+        print "ISFILE",
+    if os.path.islink(file):
+        print "ISLINK",
+    if os.path.ismount(file):
+        print "ISMOUNT",
+    print
+
+*B*. => EXISTS ISDIR
+/ => EXISTS ISABS ISDIR ISMOUNT
+file =>
+/file => ISABS
+samples => EXISTS ISDIR
+samples/sample.jpg => EXISTS ISFILE
+directory/file =>
+../directory/file =>
+/directory/file => ISABS*b*
+```
+
+``expanduser`` 函数以与大部分Unix shell相同的方式处理用户名快捷符号(~, 
+不过在 Windows 下工作不正常), 如 [Example 1-44 #eg-1-44] 所示. 
+
+====Example 1-44. 使用 os.path 模块将用户名插入到文件名====[eg-1-44]
+
+```
+File: os-path-expanduser-example-1.py
+
+import os
+
+print os.path.expanduser("~/.pythonrc")
+
+# /home/effbot/.pythonrc
+```
+
+``expandvars`` 函数将文件名中的环境变量替换为对应值, 如 [Example 1-45 #eg-1-45] 所示. 
+
+====Example 1-45. 使用 os.path 替换文件名中的环境变量====[eg-1-45]
+
+```
+File: os-path-expandvars-example-1.py
+
+import os
+
+os.environ["USER"] = "user"
+
+print os.path.expandvars("/home/$USER/config")
+print os.path.expandvars("$USER/folders")
+
+*B*/home/user/config
+user/folders*b*
+```
+
+=== 搜索文件系统===
+
+``walk`` 函数会帮你找出一个目录树下的所有文件 (如 [Example 1-46 #eg-1-46]
+ 所示). 它的参数依次是目录名, 回调函数, 以及传递给回调函数的数据对象. 
+
+====Example 1-46. 使用 os.path 搜索文件系统====[eg-1-46]
+
+```
+File: os-path-walk-example-1.py
+
+import os
+
+def callback(arg, directory, files):
+    for file in files:
+        print os.path.join(directory, file), repr(arg)
+
+os.path.walk(".", callback, "secret message")
+
+*B*./aifc-example-1.py 'secret message'
+./anydbm-example-1.py 'secret message'
+./array-example-1.py 'secret message'
+...
+./samples 'secret message'
+./samples/sample.jpg 'secret message'
+./samples/sample.txt 'secret message'
+./samples/sample.zip 'secret message'
+./samples/articles 'secret message'
+./samples/articles/article-1.txt 'secret message'
+./samples/articles/article-2.txt 'secret message'
+...*b*
+```
+
+``walk`` 函数的接口多少有点晦涩 (也许只是对我个人而言, 我总是记不住参数的顺序). 
+[Example 1-47 #eg-1-47] 中展示的 ``index`` 函数会返回一个文件名列表, 
+你可以直接使用 ``for-in`` 循环处理文件. 
+
+====Example 1-47. 使用 os.listdir 搜索文件系统====[eg-1-47]
+
+```
+File: os-path-walk-example-2.py
+
+import os
+
+def index(directory):
+    # like os.listdir, but traverses directory trees
+    stack = [directory]
+    files = []
+    while stack:
+        directory = stack.pop()
+        for file in os.listdir(directory):
+            fullname = os.path.join(directory, file)
+            files.append(fullname)
+            if os.path.isdir(fullname) and not os.path.islink(fullname):
+                stack.append(fullname)
+    return files
+
+for file in index("."):
+    print file
+
+*B*.\aifc-example-1.py
+.\anydbm-example-1.py
+.\array-example-1.py
+...*b*
+```
+
+如果你不想列出所有的文件 (基于性能或者是内存的考虑) , [Example 1-48 #eg-1-48] 展示了另一种方法. 
+这里 //DirectoryWalker// 类的行为与序列对象相似, 一次返回一个文件. (generator?) 
+
+====Example 1-48. 使用 DirectoryWalker 搜索文件系统====[eg-1-48]
+
+```
+File: os-path-walk-example-3.py
+
+import os
+
+class DirectoryWalker:
+    # a forward iterator that traverses a directory tree
+
+    def _ _init_ _(self, directory):
+        self.stack = [directory]
+        self.files = []
+        self.index = 0
+
+    def _ _getitem_ _(self, index):
+        while 1:
+            try:
+                file = self.files[self.index]
+                self.index = self.index + 1
+            except IndexError:
+                # pop next directory from stack
+                self.directory = self.stack.pop()
+                self.files = os.listdir(self.directory)
+                self.index = 0
+            else:
+                # got a filename
+                fullname = os.path.join(self.directory, file)
+                if os.path.isdir(fullname) and not os.path.islink(fullname):
+                    self.stack.append(fullname)
+                return fullname
+
+for file in DirectoryWalker("."):
+    print file
+
+*B*.\aifc-example-1.py
+.\anydbm-example-1.py
+.\array-example-1.py
+...*b*
+```
+
+注意 //DirectoryWalker// 类并不检查传递给 ``_ _getitem_ _`` 方法的索引值. 
+这意味着如果你越界访问序列成员(索引数字过大)的话, 这个类将不能正常工作. 
+
+最后, 如果你需要处理文件大小和时间戳, [Example 1-49 #eg-1-49] 给出了一个类, 
+它返回文件名和它的 ``os.stat`` 属性(一个元组). 这个版本在每个文件上都能节省一次或两次 
+``stat`` 调用( ``os.path.isdir`` 和 ``os.path.islink`` 内部都使用了 ``stat`` ), 
+并且在一些平台上运行很快. 
+
+====Example 1-49. 使用 DirectoryStatWalker 搜索文件系统====[eg-1-49]
+
+```
+File: os-path-walk-example-4.py
+
+import os, stat
+
+class DirectoryStatWalker:
+    # a forward iterator that traverses a directory tree, and
+    # returns the filename and additional file information
+
+    def _ _init_ _(self, directory):
+        self.stack = [directory]
+        self.files = []
+        self.index = 0
+
+    def _ _getitem_ _(self, index):
+        while 1:
+            try:
+                file = self.files[self.index]
+                self.index = self.index + 1
+            except IndexError:
+                # pop next directory from stack
+                self.directory = self.stack.pop()
+                self.files = os.listdir(self.directory)
+                self.index = 0
+            else:
+                # got a filename
+                fullname = os.path.join(self.directory, file)
+                st = os.stat(fullname)
+                mode = st[stat.ST_MODE]
+                if stat.S_ISDIR(mode) and not stat.S_ISLNK(mode):
+                    self.stack.append(fullname)
+                return fullname, st
+
+for file, st in DirectoryStatWalker("."):
+    print file, st[stat.ST_SIZE]
+
+*B*.\aifc-example-1.py 336
+.\anydbm-example-1.py 244
+.\array-example-1.py 526*b*
+```

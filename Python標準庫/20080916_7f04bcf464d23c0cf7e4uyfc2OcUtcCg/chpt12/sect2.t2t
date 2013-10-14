@@ -1,0 +1,57 @@
+﻿==fcntl 模块==
+
+
+(只用于 Unix) ``fcntl`` 模块为 Unix上的 ``ioctl`` 和 ``fcntl`` 函数提供了一个接口. 
+它们用于文件句柄和 I/O 设备句柄的 "out of band" 操作, 包括读取扩展属性, 控制阻塞. 更改终端行为等等. 
+(out of band management: 指使用分离的渠道进行设备管理. 这使系统管理员能在机器关机的时候对服务器, 
+网络进行监视和管理. 出处: http://en.wikipedia.org/wiki/Out-of-band_management )
+
+关于如何在平台上使用这些函数, 请查阅对应的 Unix man 手册.
+
+该模块同时提供了 Unix 文件锁定机制的接口. [Example 12-1 #eg-12-1] 
+展示了如何使用 ``flock`` 函数, 更新文件时为文件设置一个 //advisory lock// .
+
+输出结果是由同时运行 3 个副本得到的. 像这样(都在一句命令行里):
+
+```
+python fcntl-example-1.py& python fcntl-example-1.py& python fcntl-example-1.py&
+```
+
+如果你注释掉对 ``flock`` 的调用, 那么 counter 文件不会正确地更新.
+
+
+====Example 12-1. Using the fcntl Module====[eg-12-1]
+
+```
+File: fcntl-example-1.py
+
+import fcntl, FCNTL
+import os, time
+
+FILE = "counter.txt"
+
+if not os.path.exists(FILE):
+    # create the counter file if it doesn't exist
+	# 创建 counter 文件
+    file = open(FILE, "w")
+    file.write("0")
+    file.close()
+
+for i in range(20):
+    # increment the counter
+    file = open(FILE, "r+")
+    fcntl.flock(file.fileno(), FCNTL.LOCK_EX)
+    counter = int(file.readline()) + 1
+    file.seek(0)
+    file.write(str(counter))
+    file.close() # unlocks the file
+    print os.getpid(), "=>", counter
+    time.sleep(0.1)
+
+*B*30940 => 1
+30942 => 2
+30941 => 3
+30940 => 4
+30941 => 5
+30942 => 6*b*
+```

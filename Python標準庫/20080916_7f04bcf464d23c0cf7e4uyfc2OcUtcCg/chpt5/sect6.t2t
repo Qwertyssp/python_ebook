@@ -1,0 +1,91 @@
+﻿==htmlentitydefs 模块==
+
+
+``htmlentitydefs`` 模块包含一个由 HTML 中 ISO Latin-1 字符实体构成的字典. 
+如 [Example 5-10 #eg-5-10] 所示.
+
+====Example 5-10. 使用 htmlentitydefs 模块====[eg-5-10]
+
+```
+File: htmlentitydefs-example-1.py
+
+import htmlentitydefs
+
+entities = htmlentitydefs.entitydefs
+
+for entity in "amp", "quot", "copy", "yen":
+    print entity, "=", entities[entity]
+
+*B*amp = &
+quot = "
+copy = \302\251
+yen = \302\245*b*
+```
+
+Example 5-11 展示了如何将正则表达式与这个字典结合起来翻译字符串中的实体 
+( ``cgi.escape`` 的逆向操作).
+
+====Example 5-11. 使用 htmlentitydefs 模块翻译实体====[eg-5-11]
+
+```
+File: htmlentitydefs-example-2.py
+
+import htmlentitydefs
+import re
+import cgi
+
+pattern = re.compile("&(\w+?);")
+
+def descape_entity(m, defs=htmlentitydefs.entitydefs):
+    # callback: translate one entity to its ISO Latin value
+    try:
+        return defs[m.group(1)]
+    except KeyError:
+        return m.group(0) # use as is
+
+def descape(string):
+    return pattern.sub(descape_entity, string)
+
+print descape("&lt;spam&amp;eggs&gt;")
+print descape(cgi.escape("<spam&eggs>"))
+
+*B*<spam&eggs>
+<spam&eggs>*b*
+```
+
+最后, [Example 5-12 #eg-5-12] 展示了如何将 XML 保留字符和 ISO Latin-1 字符转换为 XML 字符串. 
+与 ``cgi.escape`` 相似, 但它会替换非 ASCII 字符.
+
+====Example 5-12. 转义 ISO Latin-1 实体====[eg-5-12]
+
+```
+File: htmlentitydefs-example-3.py
+
+import htmlentitydefs
+import re, string
+
+# this pattern matches substrings of reserved and non-ASCII characters
+pattern = re.compile(r"[&<>\"\x80-\xff]+")
+
+# create character map
+entity_map = {}
+
+for i in range(256):
+    entity_map[chr(i)] = "&%d;" % i
+
+for entity, char in htmlentitydefs.entitydefs.items():
+    if entity_map.has_key(char):
+        entity_map[char] = "&%s;" % entity
+
+def escape_entity(m, get=entity_map.get):
+    return string.join(map(get, m.group()), "")
+
+def escape(string):
+    return pattern.sub(escape_entity, string)
+
+print escape("<spam&eggs>")
+print escape("\303\245 i \303\245a \303\244 e \303\266")
+
+*B*&lt;spam&amp;eggs&gt;
+&aring; i &aring;a &auml; e &ouml;*b*
+```

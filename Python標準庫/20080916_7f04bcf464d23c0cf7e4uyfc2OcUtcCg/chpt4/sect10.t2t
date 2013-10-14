@@ -1,0 +1,28 @@
+﻿==repr 模块==
+
+
+``repr`` 模块提供了内建 ``repr`` 函数的另个版本. 它限制了很多(字符串长度, 
+递归等). [Example 4-17 #eg-4-17] 展示了如何使用该模块.
+
+====Example 4-17. 使用 repr 模块====[eg-4-17]
+
+```
+File: repr-example-1.py
+
+# note: this overrides the built-in 'repr' function
+from repr import repr
+
+# an annoyingly recursive data structure
+data = (
+    "X" * 100000,
+    )
+data = [data]
+data.append(data)
+
+print repr(data)
+
+*B*[('XXXXXXXXXXXX...XXXXXXXXXXXXX',), [('XXXXXXXXXXXX...XXXXXXXXXX
+XXX',), [('XXXXXXXXXXXX...XXXXXXXXXXXXX',), [('XXXXXXXXXXXX...XX
+XXXXXXXXXXX',), [('XXXXXXXXXXXX...XXXXXXXXXXXXX',), [(...), [...
+]]]]]]]*b*
+```

@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" >
+<head>
+  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/167-slice" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="切片(Slice)" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>切片(Slice)</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+<link rel="stylesheet" href="../../../templates/system/css/system.css" tppabs="http://ez2learn.com/templates/system/css/system.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/system/css/general.css" tppabs="http://ez2learn.com/templates/system/css/general.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/green.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/green.css" type="text/css" />
+<!--[if lte IE 6]>
+<link href="../../../templates/themza_j15_11/css/ieonly.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/ieonly.css"  rel="stylesheet" type="text/css" />
+<![endif]-->
+</head>
+<body id="page_bg">
+<a name="up" id="up"></a>
+<div id="main_bg" class="main_bg_center">
+	<div id="logo_bg"><img src="../../../templates/themza_j15_11/images/green/logo.png" tppabs="http://ez2learn.com/templates/themza_j15_11/images/green/logo.png" alt="logo" align="left" hspace="5" />        <a href="javascript:if(confirm('http://ez2learn.com/index.php  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php'" tppabs="http://ez2learn.com/index.php" class="logo">Victor 易記學 程式設計教學</a>
+        <div id="user4"><form action="http://ez2learn.com/index.php/python-tutorials/python-tutorials/index.php" method="post">
+	<div class="search">
+		<input name="searchword" id="mod_search_searchword" maxlength="20" alt="搜尋" class="inputbox" type="text" size="20" value="搜尋..."  onblur="if(this.value=='') this.value='搜尋...';" onfocus="if(this.value=='搜尋...') this.value='';" />	</div>
+	<input type="hidden" name="task"   value="search" />
+	<input type="hidden" name="option" value="com_search" />
+</form></div>
+        <br clear="all" />
+    </div>
+    <div id="user3"><div id="pillmenu"><ul id="mainlevel-nav"><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/home  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/home'" tppabs="http://ez2learn.com/index.php/home" class="mainlevel-nav" >首頁</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/news  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/news'" tppabs="http://ez2learn.com/index.php/news" class="mainlevel-nav" >最新消息</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/faqs  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/faqs'" tppabs="http://ez2learn.com/index.php/faqs" class="mainlevel-nav" >常見問題</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/resources  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/resources'" tppabs="http://ez2learn.com/index.php/resources" class="mainlevel-nav" >好站連結</a></li><li><a href="javascript:if(confirm('http://phorum.study-area.org/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://phorum.study-area.org/'" tppabs="http://phorum.study-area.org/" class="mainlevel-nav" >酷學園討論區</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/contact-us  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/contact-us'" tppabs="http://ez2learn.com/index.php/contact-us" class="mainlevel-nav" >聯絡我們</a></li></ul></div><div id="date">Thursday 11th of February 2010</div></div>
+		<div id="leftcolumn">
+            		<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>程式設計教學</h3>
+											<ul class="menu"><li class="parent active item56"><a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials"><span>Python教學</span></a><ul><li class="item62"><a href="../python-basic-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials"><span>Python基礎教學</span></a></li><li id="current" class="active item63"><a href="../python-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials"><span>Python入門教學</span></a></li><li class="item64"><a href="../advance-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials"><span>Python進階教學</span></a></li><li class="item65"><a href="../python-examples.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples"><span>Python程式範例</span></a></li><li class="item67"><a href="../twisted-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials"><span>Twisted教學</span></a></li><li class="item66"><a href="../turbogears-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials"><span>TurboGears教學</span></a></li><li class="item68"><a href="../eclipse-pydev-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials"><span>Eclipse 的 Pydev IDE教學</span></a></li></ul></li><li class="parent item58"><a href="javascript:if(confirm('http://ez2learn.com/index.php/c-tutorials  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/c-tutorials'" tppabs="http://ez2learn.com/index.php/c-tutorials"><span>C語言教學</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>相關網站</h3>
+											<ul class="menu"><li class="item54"><a href="javascript:if(confirm('http://blog.ez2learn.com/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://blog.ez2learn.com/'" tppabs="http://blog.ez2learn.com/"><span>Victor's 程式設計遇上小提琴 個人部落格</span></a></li><li class="item76"><a href="javascript:if(confirm('http://walele.com/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://walele.com/'" tppabs="http://walele.com/"><span>Walele創意投票系統</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_text">
+			<div>
+				<div>
+					<div>
+													<h3>廣告</h3>
+											<div class="bannergroup_text">
+
+	<div class="bannerheader">廣告贊助商</div>
+
+	<div class="bannerfooter_text">
+		 <script type="text/javascript"><!--
+google_ad_client = "pub-2676784508728825";
+/* 120x600, 已建立 2008/9/11 */
+google_ad_slot = "8822539468";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="../../../../pagead2.googlesyndication.com/pagead/show_ads.js" tppabs="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>	</div>
+</div>					</div>
+				</div>
+			</div>
+		</div>
+	
+        <br />
+        <div align="center"></div>
+    </div>
+    	<div id="maincolumn_middle" class="maincolumn_white">
+    	<div class="path"><span class="breadcrumbs pathway">
+<a href="javascript:if(confirm('http://ez2learn.com/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/'" tppabs="http://ez2learn.com/" class="pathway">首頁</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials" class="pathway">Python教學</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="../python-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials" class="pathway">Python入門教學</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> 切片(Slice)</span>
+</div>
+    	<div class="nopad"><table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					切片(Slice)			</td>
+						<td align="right" width="100%" class="buttonheading">
+		<a href="167-slice-format=pdf.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/167-slice?format=pdf" title="PDF" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/pdf_button.png" tppabs="http://ez2learn.com/images/M_images/pdf_button.png" alt="PDF"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="167-slice-tmpl=component&print=1&page=.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/167-slice?tmpl=component&print=1&page=" title="列印" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="javascript:if(confirm('http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tdHV0b3JpYWxzLzE2Ny1zbGljZQ%3D%3D  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tdHV0b3JpYWxzLzE2Ny1zbGljZQ%3D%3D'" tppabs="http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tdHV0b3JpYWxzLzE2Ny1zbGljZQ%3D%3D" title="E-mail" onclick="window.open(this.href,'win2','width=400,height=350,menubar=yes,resizable=yes'); return false;"><img src="../../../images/M_images/emailButton.png" tppabs="http://ez2learn.com/images/M_images/emailButton.png" alt="E-mail"  /></a>		</td>
+					</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>什麼是切片</h2>
+
+<p>
+不管是字串、還是List，在Python裡只要是符合"序列"概念的物件，都可以使用"切片"(slice)的方式去存取，至於為什麼叫切片呢?
+想像一下字串是一條香腸，你要取其中的一段，就像在切片一樣，你要從頭到尾，還是從頭到中間，又或著中間取一段呢?
+這就是所謂的切片的概念，以下讓我們介紹字串切片的使用方法:</p>
+
+<table class="grid listing"><tr><th>語法</th>
+<th>說明</th>
+</tr><tbody><tr><td><span id="content0"><span id="content28"><span id="content29">s[i]</span></span></span></td>
+<td>取第i個字元的字串，從0當做第一個開始算</td>
+</tr><tr class="even"><td><span id="content0"><span id="content28"><span id="content29">s[i:j]</span></span></span></td>
+<td>取從第i個開始，到j的前一個，也就是不包含j</td>
+</tr><tr><td><span id="content0"><span id="content28"><span id="content29">s[i:j:k]</span></span></span></td>
+<td>取從第i個開始，到j的前一個，也就是不包含j，但是每k步個才取一個字<br /></td>
+</tr></tbody></table>
+
+我們先從最簡單的介紹起，就是第一個，取其中一個字，<strong>Python和其它大部份語言一樣，索引是從0開始算的</strong>，所以這語法也就是取從0開始的第i+1個字，但是請注意的一點是，如果你學過其它程式語言，可能知道什麼是字元，<strong>
+在Python裡沒有所謂的字元，只有長度為1的字串</strong>，所以回傳的也是長度為1的字串，而不是字元，除此之外，如果索引是負數的話，代表從右邊數過來的第幾個，例如s
+= 'abcd'，s[-1]就是'd'。 
+
+<p>接下來我們看第二個，通常也是最常用的方式，例如字串是s = 'abcd'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[0:2]
+</pre>
+
+<p>的結果就是'ab'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[1:2]
+</pre>
+
+<p>就是'b'，和</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[1]
+</pre>
+
+<p>的效果一樣，而</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:4]
+</pre>
+
+<p>也就是'cd'，除了這樣的規則之外，如果起始為0的話，可以省略0不寫，換言之，省略不寫第一個，就會被當成從0開始，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[0:2]
+</pre>
+
+<p>可以省略成</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[:2]
+</pre>
+
+<p>
+前面的數字被省略了，Python就知道前面是0，而終止的數字如果是字串的長度，也一樣可以省略不寫，換言之終止的數字省略不寫就會被設為字串的長度，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:4]
+</pre>
+
+<p>可以省略為</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:]
+</pre>
+
+<p>除了這些，還有和上面一樣的負數規則，就是負數代表是從右邊數過來的第幾個，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[:-1]
+</pre>
+
+<p>結果是'abc'，而</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[-2:-1]
+</pre>
+
+<p> 就是'c'，效果和</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[-2]
+</pre>
+
+<p>是一樣的。</p>
+
+<p>最後是第三種形式，規則都和上面一樣，只是加了k步取一個字的規則，例如s = 'abcd'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::1]
+</pre>
+
+<p>的結果是'abcd'，因為是從頭到尾的切片，而且隔一步取一個，所以有和沒有是一樣的，但是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::2]
+</pre>
+
+<p>就不一樣了，兩步才取一個字，所以是'ac'，而比較複雜的是，步數也有負數的規則，如果步數是負的，表是從i到j以負數前進，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::-1]
+</pre>
+
+<p>結果會是dcba，除此之外，對於負的步數而言，起始省略會變成字串的最後一個字元開始，而終止省略的話，會變成字串的第一個字元，因此</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::-1]
+</pre>
+
+<p>可以寫成</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[3::-1]
+</pre>
+
+為什麼不寫 
+
+<p>這樣呢?</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[3:0:-1]
+</pre>
+
+<p>
+因為終止條件不包括在被取到的字在內，只有省略才能表示，如果寫成這樣會變成'dcb'，因為不包括0，但是比0前面的字元如果用負數表示卻又變成了從後
+面數過來，因此只能用省略來表示負步數的第一個字元之前當結尾，這個部份有點難懂，但是知道s[::-1]可以將字串反過來就好，因為這個部份比較少用
+到。</p>
+
+<p>字串abcd用表格表示:</p>
+
+<span id="content0"><span id="content28"><span id="content31"></span></span></span> 
+
+<table class="grid listing"><tbody><tr class="even"><td>正數索引</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr><tr class="odd"><td>負數索引</td>
+<td>-4</td>
+<td>-3</td>
+<td>-2</td>
+<td>-1</td>
+</tr><tr class="even"><td>字串內容</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr><tr class="odd"><td>s[0:4] 結果是 abcd<br /></td>
+<td>取0</td>
+<td>取1</td>
+<td>取2</td>
+<td>取3，不包括4，到3就終止</td>
+</tr><tr class="even"><td>s[:2] 結果是 ab</td>
+<td>取0</td>
+<td>取1，不包括2，到1就終止</td>
+<td> </td>
+<td> </td>
+</tr><tr class="odd"><td>s[-2:-1] 結果是 c</td>
+<td> </td>
+<td> </td>
+<td>-2開始，取-2，不包括-1，所以到-2就終止</td>
+<td> </td>
+</tr><tr class="even"><td>s[::2] 結果是 ac</td>
+<td>取0</td>
+<td>2步取1字，此步不取</td>
+<td>取2</td>
+<td>2步取1字，此步不取，不包括4，到3就終止</td>
+</tr><tr class="odd"><td>s[::-1] 結果是dcba<br /></td>
+<td>取0，不包括0前面一個，到0終止<br /></td>
+<td>取1<br /></td>
+<td>取2<br /></td>
+<td>負步數省略由-1開始</td>
+</tr></tbody></table><p>接下來我們示範字串切片的使用:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+string = u"中文字測試"
+
+# 印出前三個字
+print string[:3]
+
+# 印出中間三個字
+print string[1:4]
+
+# 印出最後一個字
+print string[-1]
+
+# 跳一個字印
+print string[::2]
+
+# 倒過來印
+print string[::-1]
+</pre>
+
+<h2>可改變的序列使用切片</h2>
+
+<p>
+什麼是可改變，什麼是不可改變，在這裡我們還不打算說明，將在後面的章節解釋，在這裡請先記得，字串是不可改變的序列，而List是可改變的序列，以上的方法都可以應用在可改變和不可改變的序列，換言之，你也可以應用上面的方法在List，而不只有在字串上，以下我們介紹針對可改變的序列的切片操作。</p>
+
+<table class="grid listing"><tr><th>語法<br /></th>
+<th>說明<br /></th>
+</tr><tbody><tr><td>s[i] = x<br /></td>
+<td>取代s中第i個元素為x</td>
+</tr><tr class="even"><td>s[i:j] = t</td>
+<td>取代s的切片內容為<strong>t序列</strong>的內容<br /></td>
+</tr><tr><td>del s[i:j]<br /></td>
+<td>從s中刪除切片所含的元素</td>
+</tr><tr class="even"><td>s[i:j:k] = t</td>
+<td>取代s的切片內容成為<strong>t序列</strong>的內容(t序列的長度必須和切片長度一樣)</td>
+</tr><tr><td>del s[i:j:k]<br /></td>
+<td>從s中刪除切片中所含的元素<br /></td>
+</tr></tbody></table>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="166-list.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/166-list">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="168-dictionary.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/168-dictionary">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+</div>
+    </div>
+	<div id="rightcolumn">
+        </div>
+
+		
+    <br clear="all" />
+
+
+<p id="power_by" align="center">
+	核心是 <a href="javascript:if(confirm('http://www.joomla.org/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.joomla.org/'" tppabs="http://www.joomla.org/">Joomla!</a>.
+    Designed by: <a href="javascript:if(confirm('http://www.themza.com/joomla1.5/computer-society-template.html  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.themza.com/joomla1.5/computer-society-template.html'" tppabs="http://www.themza.com/joomla1.5/computer-society-template.html" target="_blank" title="Computer Society template">Free Joomla Theme</a>, <a href="javascript:if(confirm('http://www.ntchosting.com/domains/whois-id-protection.html  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.ntchosting.com/domains/whois-id-protection.html'" tppabs="http://www.ntchosting.com/domains/whois-id-protection.html" target="_blank" title="protect the whois information of your domains">whois protect</a>.&nbsp;Valid <a href="javascript:if(confirm('http://validator.w3.org/check/referer  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://validator.w3.org/check/referer'" tppabs="http://validator.w3.org/check/referer">XHTML</a> and <a href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>.
+</p>
+
+
+
+</div>
+
+<!-- Google Analysis begin -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www./");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-390311-6");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- Google Analysis end -->
+
+</body>
+</html>

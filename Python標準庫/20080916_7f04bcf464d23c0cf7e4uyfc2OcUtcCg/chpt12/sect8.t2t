@@ -1,0 +1,27 @@
+﻿==tty 模块==
+
+
+(只用于 Unix) ``tty`` 模块包含一些用于处理 tty 设备的工具函数. 
+[Example 12-9 #eg-12-9] 将终端窗口切换为 "raw" 模式.
+
+====Example 12-9. 使用 tty 模块====[eg-12-9]
+
+```
+File: tty-example-1.py
+
+import tty
+import os, sys
+
+fileno = sys.stdin.fileno()
+
+tty.setraw(fileno)
+print raw_input("raw input: ")
+
+tty.setcbreak(fileno)
+print raw_input("cbreak input: ")
+
+os.system("stty sane") # ...
+
+*B*raw input: this is raw input
+cbreak input: this is cbreak input*b*
+```

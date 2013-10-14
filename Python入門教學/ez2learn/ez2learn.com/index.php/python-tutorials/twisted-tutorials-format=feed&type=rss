@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<rss version="2.0">
+	<channel>
+		<title>Twisted教學</title>
+		<description>Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包</description>
+		<link>http://ez2learn.com/index.php/python-tutorials/twisted-tutorials</link>
+		<lastBuildDate>Thu, 11 Feb 2010 14:07:42 +0000</lastBuildDate>
+		<generator>Joomla! 1.5 - Open Source Content Management</generator>
+		<language>zh-tw</language>
+		<item>
+			<title>什麼是Twisted</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/187-twisted</link>
+			<description><![CDATA[<h2>什麼是Twisted</h2>
+
+<p>Twisted是一款Open source且基於Python的網路通訊引擎，快速開發有彈性、穩定、安全的伺服器的利器。</p>
+
+<h2>為什麼使用Twisted</h2>
+
+<h3>良好的架構</h3>
+
+它使用有名的<a class="external-link" href="http://en.wikipedia.org/wiki/Reactor_pattern">Reactor
+pattern</a>，非同步IO對它而言是相當容易處理的事情，加上它的Deferred物件，用來處理Callback的呼叫 
+
+<h3>極佳的彈性</h3>
+
+<p>它的Deferred物件，讓它在處理非同步事件，可以將責任分散並且封裝起來，可以有相當好的彈性</p>
+
+<h3>安全性</h3>
+
+以Python語言寫成，天生就沒有<a class="external-link" href="http://en.wikipedia.org/wiki/Buffer_overflow">buffer
+overflow</a>的問題 
+
+<h3>極度穩定</h3>
+
+<p>
+它非常的穩定，做為一個伺服器最重要的指標之一就是穩定性，根據官方網站的說法，他們的官方網站架構在Twisted上，不會當機，而且極少需要重開</p>
+
+<h3>快速開發</h3>
+
+<p>
+Python就是以快速開發著稱，任何修改都不需重新編譯可以直接看到結果，加上底層的東西都被架構良好地封裝起來，開發者所需要關心的就只有他們想要的功能，而不是處理底層的細節</p>
+
+<h3>跨平台</h3>
+
+<p>
+Python天生就是一款跨平台的語言，而Twisted對於各平台都有實作不同的Reactor，所以同樣的伺服器或客戶端不需要任何編譯都可以直接移植到你想要的平台上</p>
+
+<h3>容易除錯</h3>
+
+<p>
+伺服器需要長期執行，最難除錯的就是遇到偶爾才會出現的Bug，如果是編譯語言通常難以除錯，動態語言的特性之一就是可以動態取得堆疊，加上logging系統，可以記錄crash時的trace
+back，讓除錯的工作變得容易許多</p>
+
+<h3>內建常見的通訊協定</h3>
+
+<p>
+實作通訊協定的過程是痛苦且漫長的，更是開發者的生產力的殺手，在這裡它已經內建了HTTP、SSH、SMTP、DNS等通訊協定，可以直接使用更加速了開發的進度</p>
+
+<h3>良好的文件</h3>
+
+<p>它有良好的文件、以及範例說明如何使用，不會讓開發者盲目地猜測使用方式</p>]]></description>
+			<category>Twisted教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:10:51 +0000</pubDate>
+		</item>
+		<item>
+			<title>Twisted的核心 : Reactor</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/188-twisted--reactor</link>
+			<description><![CDATA[<h2>什麼是Reactor</h2>
+
+<p>Reactor是Twisted運作的核心，它實作了<a class="external-link" href="http://en.wikipedia.org/wiki/Reactor_pattern">Reactor
+pattern</a>，是用來處理非同步事件的一種模形，在一開始有點難以理解它是如何運作，所以我們用擬人的形容來說明reactor的運作方式</p>
+
+<p>
+Reactor就像是一個中央指揮所，而非同步事件就像派給別人去做的工作，中央指揮所派出去工作，到完成前它不會想去管這件事的細節，但是一但完成了工作，或是出了差錯，就回排隊向中央指揮所回報，舉個例子:</p>
+
+<blockquote>
+<p>張三去砍柴<br />
+李四挖壕溝<br />
+王五煮飯</p>
+</blockquote>
+
+<p>
+這些事情同時開始做，過了一陣子李四做完了，便到中央指揮所去排隊報告完成這件事，王五也做完了，就排在李四後面，接著張三也完成了，排在王五後面，而中央指揮所就一一地檢視這些報告，做出相應的命令</p>
+
+<p>
+而對於網路程式而言，就會像這樣的例子很多非同步的任務，例如下載一個頁面，事情從開始做到發生，就是一個非同步的事件，一個下載網頁頁面的過程，從Reactor的角度來看會像這樣子</p>
+
+<blockquote>
+<p>開始執行下載網頁<br />
+開始執行連線到遠端<br />
+開始接受連線<br /><br />
+下載網頁完成，將完成的訊息放入reactor的queue裡<br />
+接受連線完成，將完成訊息放入reactor的queue裡<br />
+連線遠端錯誤，將錯誤訊息放入reactor的queue裡</p>
+</blockquote>
+
+<p>
+如你所見reactor有一個queue，所有事情完成或失敗都會推入queue中，而reactor的主要迴圈就是負責從queue中拿出這些事件一個一個處理，在Twisted中這樣的迴圈就是由這個方法所執行的。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+reactor.run()
+</pre>
+
+<p>使用Reactor有什麼樣的好處?
+好處在於，所有事情最終處理的thread，都是執行reactor.run()的那個thread，這表示，你不必擔心race
+condition等事情，因為它們都會在同一個thread裡被完成。</p>]]></description>
+			<category>Twisted教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:10:53 +0000</pubDate>
+		</item>
+		<item>
+			<title>Twisted的Callback機制 : Deferred</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/189-twistedcallback--deferred</link>
+			<description><![CDATA[<h2>什麼是Deferred</h2>
+
+<p>
+簡單的一句話來說，它是Twisted的Callback機制，或許會令人覺得很奇怪，Callback不就是函數當參數傳遞，執行完成後再呼叫如此而以，何以需要一個特別的機制，事實上除此之外還有更多事情要處理，而它的Deferred帶來很大的好處，我們直接參考<a class="external-link" href="http://twistedmatrix.com/projects/core/documentation/howto/defer.html">
+官方文件</a>，來說明什麼是Deferred</p>
+
+<h2>Deferred的使用方式<br /></h2>
+
+<p>以下這張圖說明Deferred物件是這樣被使用的</p>
+
+<p><img src="http://ez2learn.com/images/stories/python-tutorial/third-party/twisted-tutorial/0.png" alt="" /></p>
+
+<ol><li>送出資料需求</li>
+
+<li>回傳Deferred物件</li>
+
+<li>綁定Callback到Deferred物件</li>
+</ol><p>這樣或許有些難懂，我們用一個實際一點的例子來說明</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    print html
+
+def printError(error):
+    print error
+
+# 1. request google page
+# 2. return deferred object
+deferred = getPage('http://www.google.com')
+
+# 3. add callbacks, printPage for print page content
+# print error for print error message
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<p>這個程式會下載Google的首頁並且印出來，我們的程式兩個Callbacks函數就是圖形中的Data
+sink，也就是最後資料的去處，而Data source就是getPage函數，所以對應的步驟是</p>
+
+<ol><li>呼叫getPage函數，它會送出http的request，但是並不會立刻完成</li>
+
+<li>
+因為getPage不會立刻完成，是非同步的任務，所以這個函數不會Blocked，而是立刻回傳一個deferred物件，我們就可以增加callback到deferred物件</li>
+
+<li>當網頁下載成功或失敗了，它就會呼叫deferred裡的callback函數</li>
+</ol><h2> Deferred的運作方式</h2>
+
+<p>以下這張圖是當非同步事件完成時，Deferred物件會呼叫Callback的流程</p>
+
+<img src="http://ez2learn.com/images/stories/python-tutorial/third-party/twisted-tutorial/1.png" alt="" /><ol><li>
+當結果(非同步的任務完成的資料、或發生錯誤)已經準備好時，如果成功則呼叫.callback(結果)，如果失敗則呼叫.errback(失敗)
+(所謂的失敗是一個twisted.python.failure.Failure的實體，裡面夾帶了失敗的原因)</li>
+
+<li>Deferred物件會以上一個callback或errback的回傳值傳給下一層，並且根據下面的規責執行</li>
+</ol><ul><li>callback的回傳值都會當做下一個callback的第一個參數</li>
+
+<li>如果callback raise一個例外，則呼叫下一層的errback</li>
+
+<li>一個沒有被處理的失敗會往下面的errback傳，就像except:那樣一個一個的處理</li>
+
+<li>如果errback沒有回傳失敗或raise一個例外(表示被處理掉了)，則呼叫下一層的callback</li>
+</ul><h2>為什麼要有這樣的機制?</h2>
+
+<p>這樣的機制雖然沒有太複雜，但是也是要花一點心思去了解，那為何要有這樣的機制?
+因為在這樣非同步的情況下，沒有地方去攔截例外，因為所有事件的處理都是reactor.run()在做，例外會從那裡跑出來，但是那並不是我們想要的，我們只想針對某個非同步的事件做處理，因此有了這套機制我們就可以針對我們想要的例外或失敗做處理，除此之外，它本身也是<a class="external-link" href="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">責任鏈</a>的設計樣式(Design
+pattern)，這表示你可以增加一串的函數來處理資料，舉個例子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+取得網頁資料 -&gt; 解析網頁資料 -&gt; 計算統計分析 -&gt; 儲存到資料庫
+</pre>
+
+<p>
+你可以有這樣一串的責任各負責不同的事情，它們都不與前後要做的事情無關，所以重覆使用性就大大提升，而且就算其中一個環節出錯，它並不是丟出例外，而是向下傳播，如果你在某一層上不想處理那樣的錯誤，就不要加上errback，錯誤還是會往下傳播，而且它們又無知於上層和下層，達到降低藕合度的效果。</p>
+
+<p>Deferred使用的技巧</p>
+
+<p>Deferred在回傳的時候，就是增加callback的好時機，舉個例子你可以這樣封裝你非同步函數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import re
+
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def parsePage(html):
+    result = re.match('(.*)&lt;title&gt;(.*?)&lt;/title&gt;(.*)', html, re.IGNORECASE)
+    return result.groups()[1]
+
+def getTitle(url):
+    d = getPage(url)
+    d.addCallback(parsePage)
+    return d
+
+def printTitle(title):
+    print title
+
+def printError(error):
+    print error
+
+# get page's title
+deferred = getTitle('http://www.google.com')
+
+deferred.addCallbacks(printTitle, printError)
+
+reactor.run()
+</pre>
+
+<p>在這個例子中我們封裝了getPage，取得它回傳的Deferred然後增加上我們的parsePage
+callback，如此一來外界看來這個getTitle就是取得某個網頁然後解析title的行為，當然，你也可以選擇不封裝成getTitle，而只是使用parsePage當做第一個callback去處理html</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import re
+
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def parsePage(html):
+    result = re.match('(.*)&lt;title&gt;(.*?)&lt;/title&gt;(.*)', html, re.IGNORECASE)
+    return result.groups()[1]
+
+def printTitle(title):
+    print title
+
+def printError(error):
+    print error
+
+# get page's title
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(parsePage, printError)
+deferred.addCallbacks(printTitle, printError)
+
+reactor.run()
+</pre>
+
+<p>你有你的選擇，這就是它的彈性</p>
+
+<h2>Callback的回呼參數</h2>
+
+<p>
+callback函數的第一個參數是回傳的資料，在讀完上面的說明相信都已經很清楚，但是事實上很多時候，我們會有很多非同步事件同時進行，而完成時光靠第一個參數的資料，我們並不能知道當初我們呼叫這函數的目的為何，所以很多時候我們都想要在事情完成時，順便附帶一些當初這任務執行時的訊息，這時候就可以用到回呼參數了，下面這個例子示範如何使用回呼參數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html, siteName):
+    print siteName, 'page length', len(html)
+
+def printError(error):
+    print error
+
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError, callbackArgs=('Google',))
+
+deferred = getPage('http://yahoo.com')
+deferred.addCallbacks(printPage, printError, callbackArgs=('Yahoo',))
+
+reactor.run()
+</pre>
+
+<p>
+回呼參數會當做第二個參數傳給callback，如此一來就可以夾代一些有用的資訊給回呼函數去處理，errback一樣可以使用這樣的參數，關於詳細情況請查詢Twisted的API參考手冊</p>
+
+<h2>為什麼我的錯誤不會被印出來?</h2>
+
+<p>
+有個很常見的問題就是，如果你的某個callback函數丟出某個例外，可是你卻發現錯誤訊息沒有被補捉並且印出來，以下例子示範這樣的情況</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    # raise a exception
+    a = 10 / 0
+    print html
+
+def printError(error):
+    print error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<p>
+你會發現你一直等，但是就是不見錯誤訊息出現，或是結果印出，原因出在於，未被補捉的錯誤，會在deferred物件被摧毀時才會印出，所以你看不到它被印出來，解決的方法就是，在下面再加一層的errback，如此一來就能補捉到上一層的錯誤，不用等到deferred被摧毀</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    # raise a exception
+    a = 10 / 0
+    print html
+
+def printError(error):
+    print error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+deferred.addErrback(printError)
+
+reactor.run()
+</pre>
+
+<h2>確保callback都有回傳資料</h2>
+
+<p>
+以上範例都因為目的只為印出資料程式便結束了，如果說你的程式想要被重覆使用，可以和其它callback串在一起，最好在每個callback後面都回傳資料，否則Python預設沒回傳的回傳值為None，下面的callback就不能處理上面的資料，以下範例示範正確的做法</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    print html
+    # we pass it to chain, so other callback can handle it
+    return html
+
+def printError(error):
+    print error
+    # pass it
+    return error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<strong><span class="visualHighlight">請注意，如果errback沒有回傳值的話，依照Deferred的規則，回傳值不是失敗或是沒有丟出例外的話，會轉到callback繼續執行</span></strong>
+
+
+<p> </p>]]></description>
+			<category>Twisted教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:10:55 +0000</pubDate>
+		</item>
+		<item>
+			<title>Deferred應用的實例 : retry</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/190-deferred--retry</link>
+			<description><![CDATA[<h2>為什麼需要Retry</h2>
+
+<p>
+因為網路連線並不是百分之一百一定成功的，很多時候都會遇到斷線、伺服器忙錄中等等狀況，當我在寫截取網頁資料時就遇到這樣的問題，這個時候就需要有重試的機制，最簡單的方法就是，替每個可能出錯的網路連線的非同步函數都寫一個可重試的版本，那會是一場惡夢，我為了解決這樣的問題，就考慮到Deferred本身的特性，讓它可以套用在任何其它回傳Deferred物件的函數身上，封裝其它函數時可以增加你需要的功能進去，但是又保持對外界的一致性</p>
+
+<h2>程式碼</h2>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import logging
+
+from twisted.internet import defer
+
+log = logging.getLogger('retry')
+
+def retry(times, func, *args, **kwargs):
+    """retry a defer function
+    
+    @param times: how many times to retry
+    @param func: defer function
+    """
+    errorList = []
+    deferred = defer.Deferred()
+    def run():
+        log.info('Try %s(*%s, **%s)', func.__name__, args, kwargs)
+        d = func(*args, **kwargs)
+        d.addCallbacks(deferred.callback, error)
+    def error(error):
+        errorList.append(error)
+        # Retry
+        if len(errorList) &lt; times:
+            log.info('Failed to try %s(*%s, **%s) %d times, retry...', func.__name__, args, kwargs, len(errorList))
+            run()
+        # Fail
+        else:
+            log.info('Failed to try %s(*%s, **%s) over %d times, stop', func.__name__, args, kwargs, len(errorList))
+            deferred.errback(errorList)
+    run()
+    return deferred
+</pre>
+
+<p>有了這樣的機制，我們可以輕鬆地將它與任何defer函數串在一起，以下是和getPage一起使用的範例</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def output(data):
+    print 'output', data
+    
+def error(error):
+    print 'finall error', error
+
+d = retry(3, getPage, 'http://www.google2.com')
+d.addCallbacks(output, error)
+
+d = retry(3, getPage, 'http://www.google.com')
+d.addCallbacks(output, error)
+
+reactor.run()
+</pre>
+
+<p>你不必更改你現有的任何程式碼，只要將這個函數套用在你想retry的函數上，它就會自行重試，就就是Deferred機制帶來的彈性</p>]]></description>
+			<category>Twisted教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:10:56 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

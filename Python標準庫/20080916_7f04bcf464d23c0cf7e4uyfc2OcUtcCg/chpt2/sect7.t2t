@@ -1,0 +1,74 @@
+﻿==mmap 模块==
+
+
+(2.0 新增) ``mmap`` 模块提供了操作系统内存映射函数的接口, 如 [Example 2-13 #eg-2-13] 所示. 
+映射区域的行为和字符串对象类似, 但数据是直接从文件读取的.
+
+====Example 2-13. 使用 mmap 模块====[eg-2-13]
+
+```
+File: mmap-example-1.py
+
+import mmap
+import os
+
+filename = "samples/sample.txt"
+
+file = open(filename, "r+")
+size = os.path.getsize(filename)
+
+data = mmap.mmap(file.fileno(), size)
+
+# basics
+print data
+print len(data), size
+
+# use slicing to read from the file
+# 使用切片操作读取文件
+print repr(data[:10]), repr(data[:10])
+
+# or use the standard file interface
+# 或使用标准的文件接口
+print repr(data.read(10)), repr(data.read(10))
+
+*B*<mmap object at 008A2A10>
+302 302
+'We will pe' 'We will pe'
+'We will pe' 'rhaps even'*b*
+```
+
+在 Windows 下, 这个文件必须以既可读又可写的模式打开( `r+` , `w+` , 或 `a+` ), 否则 ``mmap`` 调用会失败. 
+
+``` [!Feather 注: 经本人测试, a+ 模式是完全可以的, 原文只有 r+ 和 w+]
+
+%% WindowsError: [Error 5] Access is denied 一般是这个错误 
+
+[Example 2-14 #eg-2-14] 展示了内存映射区域的使用, 在很多地方它都可以替换普通字符串使用, 
+包括正则表达式和其他字符串操作.
+
+====Example 2-14. 对映射区域使用字符串方法和正则表达式====[eg-2-14]
+
+```
+File: mmap-example-2.py
+
+import mmap
+import os, string, re
+
+def mapfile(filename):
+    file = open(filename, "r+")
+    size = os.path.getsize(filename)
+    return mmap.mmap(file.fileno(), size)
+
+data = mapfile("samples/sample.txt")
+
+# search
+index = data.find("small")
+print index, repr(data[index-5:index+15])
+
+# regular expressions work too!
+m = re.search("small", data)
+print m.start(), m.group()
+
+*B*43 'only small\015\012modules '
+43 small*b*
+```

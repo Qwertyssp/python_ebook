@@ -1,0 +1,34 @@
+﻿==UserDict 模块==
+
+
+``UserDict`` 模块包含了一个可继承的字典类 (事实上是对内建字典类型的 Python 封装).
+
+[Example 2-15 #eg-2-15] 展示了一个增强的字典类, 允许对字典使用 "加/+" 
+操作并提供了接受关键字参数的构造函数.
+
+====Example 2-15. 使用 UserDict 模块====[eg-2-15]
+
+```
+File: userdict-example-1.py
+
+import UserDict
+
+class FancyDict(UserDict.UserDict):
+
+    def _ _init_ _(self, data = {}, **kw):
+        UserDict.UserDict._ _init_ _(self)
+        self.update(data)
+        self.update(kw)
+
+    def _ _add_ _(self, other):
+        dict = FancyDict(self.data)
+        dict.update(b)
+        return dict
+
+a = FancyDict(a = 1)
+b = FancyDict(b = 2)
+
+print a + b
+
+*B*{'b': 2, 'a': 1}*b*
+```

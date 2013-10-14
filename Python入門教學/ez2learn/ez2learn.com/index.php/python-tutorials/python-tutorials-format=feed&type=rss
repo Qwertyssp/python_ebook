@@ -1,0 +1,1693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<rss version="2.0">
+	<channel>
+		<title>Python入門教學</title>
+		<description>Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包</description>
+		<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials</link>
+		<lastBuildDate>Thu, 11 Feb 2010 14:07:15 +0000</lastBuildDate>
+		<generator>Joomla! 1.5 - Open Source Content Management</generator>
+		<language>zh-tw</language>
+		<item>
+			<title>註解</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/161-2009-02-11-13-09-11</link>
+			<description><![CDATA[<h2>Python的註解</h2>
+<p>在讀這篇教學之前，如果你對程式語言還沒有任何概念，可以參考C語言教學的前幾篇 : 程式語言的需求、程式語言的執行、註解 等概念，有了基本的概念後就可以開始學習Python。<br /><br /> 一如往常，我們還是先教註解，因為有了註解之後我們就可以解釋程式碼的運作，所有程式語言幾乎都有註解，至少目前為止我學過的語言裡還沒看過有沒有註解的，而註解是寫給人看的，程式在執行時遇到註解都會當作沒看到，並不會去理會它，現在就直接介紹註解的語法。</p>
+<h2>註解的語法</h2>
+<p><span id="content0"><span id="content4"></span></span></p>
+<div id="node6"><span id="content6"></span>
+<p>Python的註解嚴格說起來只有一種，但是另一種，也就是字串也被拿來當註解用，為了先會使用就好，我們還是先講語法就好。</p>
+<p>第一種註解，由<strong>#</strong>開頭，從井字號後面都屬於註解 :</p>
+<pre name="code" class="python:nogutter:nocontrols">
+# 這行的意思是印出 Hello baby!的字樣
+print 'Hello baby!'
+
+a = 2 ** 10 # 這一行計算2的10次方，並指定給a這個變數
+
+# 把a的值印出來
+print a
+</pre>
+另一種是字串，也可以當成註解使用，通常都使用多行字串來當作註解，語法是以"""開頭，同樣以"""結束:</div>
+<pre name="code" class="python:nogutter:nocontrols">""" 這個程式說明多行註解如何使用
+多行註解可以跨很多行寫
+這就是多行註解的好處
+
+"""
+
+""" print的功能就是印出想要印出的字
+在下面這一行我們印出hello的字樣
+
+"""
+print 'hello'
+
+# 由於它本身就是字串，只是被拿來當成註解使用
+# 因此它不能接在指令的後面
+# 只能單獨存在
+# 以下這行示範它是字串的事實
+print """ 字串 """
+</pre>
+<p>值得注意的是，""" """ 的格式本身就是字串，拿來當註解只能單獨存在幾行裡面，不能接在其它語句後面，例如 :</p>
+<pre name="code" class="python:nogutter:nocontrols">print 'hello' """這句印出hello字樣""
+</pre>
+<p>這樣是錯誤的。</p>
+<p><span id="content0"><span id="content4"></span></span></p>
+<p><span id="content0"><span id="content4"></span></span></p>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:11 +0000</pubDate>
+		</item>
+		<item>
+			<title>變數</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/162-2009-02-11-13-09-12</link>
+			<description><![CDATA[<h2>Python的變數</h2>
+
+<p>
+對於程式而言，如果沒有辦法記住事情，就好像一個沒有記憶的人，你只能告訴他一件事，要他去做，但是他馬上會忘記自己做過什麼，程式也一樣，沒有辦法記住資料，就沒辦法自行做好一些事情，這就是變數的目的。</p>
+
+<p><span id="content3"></span><span id="content0"><span id="content2"></span></span></p>
+
+<div id="node3"><span id="content3"></span> 
+
+<p>
+而變數就是在電腦裡一塊用來裝資料的空間，而我們在使用它時都把它當做"變數"，而不是空間來看，但是它的本質就是空間，變數就是對應到空間的一個
+名稱，例如我們有一個變數叫做number，寫number =
+10，事實上就是把10這樣的資料放到number所對應的空間裡，而那個空間在哪裡、有多大，這點我們在Python裡不用費心，它會幫我們處理。</p>
+
+<p>對於Python而言，變數的建立是在於第一次設定它的值，例如money =
+1000，之前都沒有建立過money這個變數，這行指令就是建立money這個變數，並且指定它的值為1000，從此money的值就是1000，可以
+加以應用，但是，相反地，如果一個變數還沒建立，就被使用，會引發錯誤，這點要注意。</p>
+
+<p>接下來就讓我們用範例來介紹變數的用法。<span id="content3"></span></p>
+</div>
+
+<h2>變數的用法<span id="content3"></span></h2>
+
+<span id="content0"><span id="content2"></span></span> 
+
+<div id="node3">
+<pre name="code" class="python:nogutter:nocontrols">
+""" 這個程式用來介紹Python變數的使用，
+借由各種使用變數的方式來說明變數的用法
+"""
+
+# number是第一次出現被指定值，因此可以視為建立變數
+number = 10
+
+# 我們在這裡建立一個名為result的變數，把它的值設為number * 5
+# 因為先前number的值是10，所以其實是 10 * 5
+# 也就是 50
+# 所以經過這行之後，result的值就是50了
+result = number * 5
+
+# 這行把result這個變數印出來看看是不是50
+print result
+
+# 當然，變數的值不是生下來就永遠不會改變
+# 我們一樣可以改變變數的值
+result = 123
+
+# 這行把result這個變數印出來看看是不是123
+print result
+
+# 變數也可以被指定給其它變數
+# 也就是把值複製一份給它變數
+result = number
+
+# 這行把result這個變數印出來看看是不是和number一樣
+print result
+
+# 印出number
+print number
+</pre>
+
+如這個範例所示的，要設定變數就使用 變數名稱 = 值
+這樣的語法來設定就可以了，這個部份新手可能很容易和數學裡的等號想在一起，其實是不一樣的東西，程式語言裡的等號，通常都是指把右邊的東西存放到左邊，這裡也是這樣，只要搞清礎了其實非常的簡單。</div>
+
+<h2>變數的命名</h2>
+
+<div id="node3">變數可以命名最好是有意義的，但是變數有一定的限制，以下是命名限制 :<br /><br /><ol><li>不能以數字開頭，只能以大小寫的英文字母或底線開頭，例如12day就是錯誤的變數名稱</li>
+
+<li>不能使用保留字，例如if, for, while, print等等...<br /></li>
+</ol><br />
+除此之外，還有一點值得注意的是，Python的變數大小寫是有區別的，也就是說，兩個名稱，只要有英文字母大小寫不一樣，就會被認為是不同的變數，例如
+Abc、ABC、abc分別會被當成三個不同的變數看待。<br />
+還有，還沒有建立的變數，不能使用，否則會引發錯誤，以下我們示範一些錯誤的變數使用方法。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 錯誤，以數字開頭命名
+5day = 5
+
+# 錯誤，以保留字命名
+print = 'my name'
+
+# 錯誤，john_name尚未被建立就被使用
+name = john_name
+
+Abc = 123
+
+# 錯誤，雖然上面有Abc，但是與abc被視為不同變數，因此abc未被建立
+result = abc
+</pre>
+
+<p>
+最後，還有一點，就是命名的原則，雖然Python沒有規定一定要你這樣做，但是為了程式好讀易懂，所以建議變數的命名，盡量以該變數的用途做為命名，例如studentName就比abc這種意義不明的名稱來得好多了。</p>
+
+<div id="node3"><span id="content3"></span><span id="content3"></span><span id="content3"></span></div><more_text></more_text>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:12 +0000</pubDate>
+		</item>
+		<item>
+			<title>輸入與輸出</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/163-2009-02-11-13-09-14</link>
+			<description><![CDATA[<h2>輸出<br /></h2>
+
+<p>
+任何程式語言，輸入輸出都算是最基本的功能之一，當然Python也不例外，我們在這裡就介紹Python的基本輸入與輸出的功能，首先介紹輸出。Python的輸出比較特別，它是"語法"，而不是函數呼叫，它的語法是這樣，print加一個空白，再接要輸出的資料，可以用逗號分好幾個</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print 第一個物件, 第二個物件, 第三個物件...
+</pre>
+
+<p>
+基本上，丟給print的物件都會被自動轉成字串，只要該物件有轉成字串的功能，因此不管是數字，字串，還是什麼物件，只要能轉成字串的物件都可以直接由print輸出，下面示範print的用法。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+number = 100
+
+# 印出變數指向的數字
+print number
+
+# 印出數字
+print 100
+
+# 印出文字
+print "hello"
+
+# 用逗號分割
+print "money", 1000
+</pre>
+
+<h2>輸入<br /></h2>
+
+<p>接著就是輸入的功能，也就是從鍵盤輸入資料，這次就是函數呼叫，而不是"語法"，這個函數叫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input()
+</pre>
+
+<p>使用上很簡單，它會回傳使用者輸入的資料，以下是使用的範例:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 詢問使用者姓名
+print "Hello! What's your name?"
+
+# 讀入使用者姓名
+name = raw_input()
+
+# 向使用者打招呼
+print "Bonjour!", name
+</pre>
+
+<p>其實raw_input()有一個參數可以使用，它是選擇性的</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input([輸入提示])
+</pre>
+
+<p>在這裡用中括號括起來表示可以省略的意思，不管在官方的文件、或是這教學中，都還會看到，以下是使用輸入提示的範例</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input('How much:')
+</pre>
+
+<p>以這個例子而言，輸出會像這樣子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+How much:
+</pre>
+
+<p>游標會停在提示字串的後面</p>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:14 +0000</pubDate>
+		</item>
+		<item>
+			<title>字串</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/164-2009-02-11-13-09-16</link>
+			<description><![CDATA[<h2>Python的字串</h2>
+<p>文字是人類特有的溝通方式之一，對於電腦而言，程式語言本身也是由文字組成的語言，因此從這裡就可以看出文字的處理對於電腦而言是非常重要的，其實我們和電腦溝通幾乎都是用文字，下指令是文字、程式語言是文字、顯示出來的訊息也是文字，因此程式語言通常都會有處理字的能力，那什麼是字串呢?就是電腦裡的一段文字，都可以叫字串，如同其它語言一樣，Python一樣有屬於它的字串，而且Python的字串處理非常強大且簡單，現在就讓我們來介紹Python的字串。<br /><br />Python的字串可以由"和'或是"""包起來，基本上效果是一樣的</p>
+<pre name="code" class="python:nogutter:nocontrols">'字串'
+</pre>
+<pre name="code" class="python:nogutter:nocontrols">"字串"
+</pre>
+<pre name="code" class="python:nogutter:nocontrols">"""多行字串"""
+</pre>
+<p>像這樣把字包起來就是一個字串，多行字串我們在註解裡介紹過了，其實單一行存在的字串可以拿來當註解，更精確的來說，應該是程式的文件，有關於這一點，請看Python的內件文件一文，由於那不是本篇的重點，所以在這裡只提醒帶過而已。<br /><br />還有一點值得注意的是，字串是屬於"不可改變"的物件，也就是說，所有對於字串的修改，其實都是創造出一個新的字串，而不是改變字串物件本身，關於這點在以後會看到其它"可改變的"和"不可改變"的物件。<br /><br />以下示範一下字串的用法:</p>
+<pre name="code" class="python:nogutter:nocontrols"># 設定名字為Victor Lin這樣的字串
+name = "Victor Lin"
+print name
+
+# 有兩種'和"的好處就是可以交替使用
+# 就不會有衝到的問題，在這裡用""括起來'
+msg = "Victor's Programming Tutorial"
+print msg
+
+# 同樣的也可以這樣使用
+msg = 'What is "Python"?'
+print msg
+
+# 多行的文字
+# 同樣裡面也可以使用'和"
+multiLine = """Hello! Baby!
+second line!
+third line!
+Welcome to Victor's Tutorial
+What is "python"
+"""
+print multiLine
+</pre>
+<h2>跳脫字元</h2>
+<p>那你可能會問，如果我非得使用'和"或是"""在字串裡不可該怎麼辦?答案很簡單，使用跳脫字元，如果你有學過其它程式語言就知道，Python當然也有跳脫字元，所謂的跳脫字元就是\再加上一些特定符號，來代表特殊符號，打不出來或會被誤解的符號，以下列出表格表示Python的各種跳脫字元:</p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>跳脫字元</th><th>代表字元</th>
+</tr>
+</tbody>
+<tbody>
+<tr class="odd">
+<td>\\</td>
+<td>表示反斜線\</td>
+</tr>
+<tr class="even">
+<td>\'</td>
+<td>表示單引號'</td>
+</tr>
+<tr>
+<td>\"</td>
+<td>表示雙引號"</td>
+</tr>
+<tr class="even">
+<td>\a</td>
+<td>ASCII裡的Bell<br /></td>
+</tr>
+<tr>
+<td>\b</td>
+<td>ASCII裡的Backspace</td>
+</tr>
+<tr class="even">
+<td>\f</td>
+<td>ASCII裡的Formfeed</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>ASCII裡的Linefeed，也就是一般認知裡的換行</td>
+</tr>
+<tr class="even">
+<td>\N{name}</td>
+<td>在Unicode裡名為name代表的字元</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>ASCII裡的Carriage Return</td>
+</tr>
+<tr class="even">
+<td>\t</td>
+<td>ASCII裡的Horizontal Tab</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td>Unicode裡16位元的xxxx在16進制裡代表的字元</td>
+</tr>
+<tr class="even">
+<td>\Uxxxxxxxx</td>
+<td>Unicode裡32位元的xxxxxxxx在16進制裡代表的字元</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>ASCII裡的Vertical Tab</td>
+</tr>
+<tr class="even">
+<td>\ooo</td>
+<td>ooo在8進制代表的字元</td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>hh在16進指代表的字元</td>
+</tr>
+<tr class="even">
+<td>\0</td>
+<td>代表ASCII裡的 NULL，但是並不中斷字串</td>
+</tr>
+</tbody>
+</table>
+<p>有一點值得注意的是，如果你有學過其它語言，你可能知道<strong>很多語言都拿'\0'來當做字串結束的符號，但Python字串裡的'\0'不會中斷字串</strong>，因為Python的字串並不以'\0'做為字串的結束記號，因此字串在Python也可以拿來存放Binary的資料，以下就讓我們示範如何使用跳脫字元。</p>
+<pre name="code" class="python:nogutter:nocontrols"># 使用\\跳脫字元
+print "c:\\windows\\system32"
+
+# 使用\n跳脫字元
+print "First line\nSecond line"
+
+# 我們在這裡跳脫了"""的第一個"，因此沒問題
+print """You can write string in \"""string\""" format."""
+</pre>
+<h2>Unicode</h2>
+<p>我們在這裡不打算從頭到尾介紹Unicode，有興趣請上Google或維基百科搜尋，而Unicode簡單的來說，就是可以編任何語言的一種文字的編碼，相較於更早之前的ASCII或Big5等只能編特定語言的編碼來得方便多，不用每個地方的程式都要特別寫，統一起來就大家都用一樣的編碼，Python一個優勢就是它天生就支援Unicode，所以比起其它語言，這樣的先天優勢使用起來就非常方便，那我們現在就直接介紹Unicode的使用方式，只要在字串的前面加一個前綴字u就可以了，而這個U是不分大小寫的</p>
+<pre name="code" class="python:nogutter:nocontrols">u'中文字'
+U"和偉大的許功蓋先生說再見~"
+u"""多行也一樣""
+</pre>
+<p>u的大小寫並不會有任何影響，在寫範例示範之前，有一點需要注意的就是，Python程式的檔案編碼請設為utf-8，如果你搞錯弄成ASCII 等，很可能就會造成無法執行，Python直譯器在讀時遇到未預期的字元通常就會出錯，Python有提供一種方法可以讓直譯器知道這個檔案是用什麼樣的編碼，就是</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: 編碼名稱 -*-
+</pre>
+<p>這樣放在第一行的註解，而通常我們使用的都是utf-8比較多，所以也就是</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+</pre>
+<p>而使用Python官方的IDLE有個好處就是，在存檔時它會幫你抓第一行看是什麼編碼，在存檔時就會幫你存成該種編碼，因此你只要加了這行執行起來應該就沒問題，如果你是使用記事本等編輯py檔，那就必需把該檔案設為正確的編碼。<br /><br />以下示範unicode的使用方式:</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# U的大小寫並不造成影響
+print U'中文字'
+
+# 終於不用再和許功蓋先生拼命了
+print u"和偉大的許功蓋先生說再見~"
+
+print u"""多行也一樣"""
+
+# 用跳脫字元來表示也可以
+print u'\u7528\u8df3\u812b\u5b57\u5143\u4f86\u8868\u793a\u4e5f\u53ef\u4ee5'
+
+# 日文也可以，不過在DOS下可能印不出來
+print u'涼宮ハルヒの憂鬱'
+</pre>
+<h2>字串的運算</h2>
+<p>字串也可以運算，你或許會覺得很奇怪，為什麼字串也需要運算，原因很簡單，當你想要把不同的字串合起來時，或是一個字串重覆個幾次，就需要字串的運算，而字串的運算有幾種，並不是像數字運算那樣每樣都有，而我們在這裡並沒有介紹所有的字串運算，先介紹最常用的幾種:</p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>字串運算<br /></th><th>說明<br /></th>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">ls + rs</span></span></span></td>
+<td>左右字串串接在一起變成"lsrs"的字串</td>
+</tr>
+<tr class="even">
+<td><span id="content0"><span id="content20"><span id="content21">n*s</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">字串乘上一個數字，或是數字乘上一個字串，表示重覆該字串n次</span></span></span></td>
+</tr>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">x in  s</span></span></span></td>
+<td>如果x出現在字串s中為真</td>
+</tr>
+<tr class="even">
+<td><span id="content0"><span id="content20"><span id="content21">x not in s</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">如果x不出現在字串s中為真</span></span></span></td>
+</tr>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">len(s)</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">len函數回傳s字串的長度</span></span></span><span id="content0"><span id="content20"><span id="content21"></span></span></span><span id="content0"><span id="content20"><span id="content21"></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<p><span id="content0"><span id="content20"><span id="content21">接下來示範字串運算的用法:</span></span></span></p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+firstName = "Victor"
+familyName = "Lin"
+
+# 在這裡我們用 + 將字串接起來
+print "My name is " + firstName + " " + familyName
+
+# 在這裡我們用 * 將同一字串重覆n次
+print u"一二三" * 3
+
+# 這裡我們用in來判斷字串裡是否有某段文字
+# 因為成立，所以回傳True
+print u'中文' in u'中文字藏在中文字裡'
+
+# 這裡我們用not in來判斷字串裡是否沒有某段文字
+# 因為不成立，所以回傳False
+print u'中文' not in u'中文字藏在中文字裡'
+
+# 我們用len函數計算"王小名"有幾個字
+print len(u'王小明')
+</pre>
+<p><span id="content0"><span id="content20"><span id="content21">以上運算的對象都有限定，例如你不能把字串和數字做相加<br /></span></span></span></p>
+<pre name="code" class="python:nogutter:nocontrols">'my age : ' + 3
+</pre>
+<span id="content0"><span id="content20"><span id="content21"></span></span></span>
+<p>像這樣是錯誤的，那應該怎麼辦呢? 我們下面介紹如何將其它物件轉為字串。</p>
+<h2><span id="content0"><span id="content20"><span id="content21">將物件轉換成字串</span></span></span></h2>
+<p><span id="content0"><span id="content20"><span id="content21">如我們上面所說的，你不能將字串和非字串做相加，但是卻又非這麼做不可，那該怎麼辦呢? 方法很簡單，就是先將該物件轉成字串，然後兩邊都是字串就可以相加了，以下是轉成字串的函數:</span></span></span></p>
+<p><span id="content0"><span id="content20"><span id="content21"></span></span></span></p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>Col 01</th><th>Col 11</th>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td>str(o)</td>
+<td>回傳o物件轉換成易讀的字串</td>
+</tr>
+<tr class="even">
+<td>unicode(o)</td>
+<td><span id="content0"><span id="content20"><span id="content21">回傳</span></span></span>o此物件轉換成易讀的unicode字串</td>
+</tr>
+<tr>
+<td>repr(o)</td>
+<td><span id="content0"><span id="content20"><span id="content21">回傳</span></span></span>o此物件轉換成以跳脫字元表達的字串</td>
+</tr>
+</tbody>
+</table>
+<span id="content0"><span id="content20"><span id="content21">str() 通常或是unicode()通常就是拿來將物件轉換成為字串用的，那你可能會問和repr()有什麼差別，差別在於，str()和unicode()轉換出來的字串是易讀的類形，而repr()轉換出來會把換行、unicode等字都換成跳脫字元表示的形式，且是以Python的字串方式表示，如果你正在寫程式的話，你可能會想把一個字串用repr()的形式轉換印出來看看，因為這樣可以確定字串的實際內容到底是什麼，或是字串的跳脫字元表示出來的形式是怎樣，這個字串是不是unicode，以下讓我們示範這幾種方式:</span></span></span>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+myAge = 3
+
+# 將myAge轉成字串，和前面的字結合印出"Hello, my age is 3"
+print 'Hello, my age is ' + str(myAge)
+
+# unicode的字串可以和非unicode的字串接合，但結果還是unicode
+print u'你好，我今年' + str(myAge) + u'歲'
+
+# 這會以跳脫字元的形式印出來，所以會是'c:\\windows\\system32'
+print repr('c:\\windows\\system32')
+
+# 一樣使用跳脫字元的形式印出來，結果會是'First line\nSecond line'
+print repr('First line\nSecond line')
+
+# 下面這行會印出u'\u4e2d\u6587\u5b57'
+# 也就是用Python字串表示的方式
+# 連前面的u一樣也會印出來
+# 我們可以知道這是一個unicode字串
+print repr(u'中文字')
+
+# 我們也可以將一個一般字串
+# 用unicode轉成unicode字串
+# 再用repr轉換，你會發現結果是u'hello'
+# 原本的'hello'變成了unicode的u'hello'字串了
+print repr(unicode('hello')
+</pre>
+<span id="content0"><span id="content17"><span id="content25">Python並沒有限定可以轉換成字串的物件，不只有數字可以轉換，而是每個物件都可以有一個轉換成字串的函數，也就是由該物件來決定自己轉換成字串後是什麼樣子，下面例子示範轉換其它種類的物件:<br /></span></span></span>
+<pre name="code" class="python:nogutter:nocontrols">
+# 引入sys這個module
+import sys
+
+# 將sys此module轉換成字串印出來
+# 結果會是&lt;module 'sys'="sys" (built-in)="(built-in)" /&gt;
+# 這也是module物件自己定的字串形式
+print str(sys)
+
+# 當然如我們所說的
+# 只要是物件都可以轉成字串
+# 因為str、unicode、repr都是函數物件
+# 我們轉換試試
+print str(str)
+print str(unicode)
+print str(repr
+</pre>
+<p><span id="content0"><span id="content20"><span id="content21"></span></span></span></p><more_text></more_text>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:16 +0000</pubDate>
+		</item>
+		<item>
+			<title>數值運算</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/165-2009-02-11-13-09-18</link>
+			<description><![CDATA[<h2>Python的數值運算</h2>
+
+<p>Python
+在需要數學計算的領域受到相當程度的歡迎，我們可以猜想，Python的數值運算能力相當強大?是的，Python的數值運算的確非常強大，本身就有良好的體質，在加上第三方函式庫的加持，Python在這方面可以說是數學運算的最佳選擇，現在就讓我們來介紹Python有的運算能力。</p>
+
+<h2>數字的表示</h2>
+
+<p>Python有幾種值，首先是整數，也就是沒有帶小數點的數字，例如
+:0、10、123、-999、1234567這些都算是整數，而<strong>Python在數值上一個很大的優勢就是，整數基本上是沒有限制位數</strong>的，也就是，不管你是999999999999999999999還是1234567890123456789，只要超過一定範圍，Python都會幫你轉換成"長整數"，也就是對Python而言沒有限制位數的整數，如此一來你就可以進行任何你想要的天文數字運算而不用受到語言限制。<br /><br />
+有小數點的是浮點數，例如 :
+0.1、123.456、3.1415、123.0都是浮點數，你可能覺得很奇怪，123.0明明就是整數，它的小數點是0，為何說它是浮點數，其實只要數字有.後面加任何數字，就算是0也會被視為浮點數，還有請記住一點就是，<strong>
+浮點數有誤差，並不是完全精確的</strong>，目前只要先知道這點就好，而符點數也可以用科學表示法來表示，例如 :
+1.23e-007、1e+017。<br /><br />
+接著Python最神奇的一點就是，它有複數的數值類形，例如1 + 2j、123.5 +
+456.7j、0.5J這些都是複數，就我個人而言我是用不到複數，但是數學領域，或是電子學的計算，例如傅利葉轉換就會用到複數。</p>
+
+<h2>數值運算</h2>
+
+<p>
+接著讓我們來介紹Python的基本數值運算，當然最基本的就是+、-、*、/、%，分別是加、減、乘、除、求餘數，基本上跟其它程式語言差不多，我們在下面介紹
+:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
++
+-
+</pre>
+
+<p>加減運算，例如 : 123+456、abc+1、100+money等等，相當簡單易懂。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+*
+</pre>
+
+<p>乘法運算，例如 : 7*5、times*10、money*0.5等等。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+/
+</pre>
+
+<p>除法運算，例如 : member /
+10、10/5、10/0.3等等，但是請注意，<strong>除以0會引發錯誤</strong>，現在請先記得不要除以0就好。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%
+</pre>
+
+<p>求餘數運算(模除)，例如 : 我想求 100是不是2的倍數，我可以用100 %
+2，看餘數是不是0，是0的話就表示可以整除，也就是2的倍數<br />
+，這裡也請注意，求餘數因為其實就是除完之後才得知餘數是多少，所以骨子裡也是除法，既然是除法，和除法一樣，不能模除0。</p>
+
+<h2>運算結果小數點的問題</h2>
+
+<p>
+如果上面你學會如何運算，也自己試試看之後，你可能會發現一個問題，就是運算結果怎麼跟我想的不一樣，例如10/3應該會是3.33333....，可是答案卻顯示3，原因很簡單，<strong>
+這部份Python跟其它很多語言都一樣</strong>，會看兩個運算子的類形 :<br /><br />
+如果整數和整數做運算，結果就會是整數，因為整數不能存放小數點以後的數字，所以小數的部份就會被捨去。<br /><br />
+如果浮點數和浮點數做運算，結果就會是浮點數，小數的部份會被保留下來，但是跟上面說的一樣，因為是浮點數，所以會有誤差。<br /><br />
+如果是兩種不同的數值做運算，<strong>Python會以把兩個運算子間較簡單的形別轉換成比較複雜的形別下去做運算</strong>，例如50*0.5，因為0.5是浮點數，有小數比起整數來的複雜，所以50會被轉換成50.0，而兩個浮點數運算結果就會是浮點數，又例如10
++ 3j - 3j，雖然複數的部份被減掉了，結果變成10 +
+0j，但是因為和複數運算，複數比較複雜，因此整數的部份也會被變成複數，所以運算結果會是複數，總而言之，只要記得這個法則，可以知道運算的結果是什麼形別了，就是比較複雜的那個形別。</p>
+
+<h2>形別轉換問題</h2>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 數字A設為整數100
+NumberA = 100
+
+# 數字B設為整數
+NumberB = 30
+
+# 這裡印出來的結果是3
+print NumberA / NumberB
+</pre>
+
+<p>上面這段程式碼示範兩個整數相除，這時你可能想到一個問題，那如果我想要保留運算結果的小數點怎麼辦?
+方法很簡單，就是先把其中一個數轉換成浮點數，依照上面的規則，另一個整數其實也會被轉換成浮點數，如此一來答案就會是浮點數，而且保留小數的部份，如果是一個變數和一個常數做運算很簡單，例如
+NumberA / 30.0，但是上面兩個都是變數阿! 那該如何是好? Python這時就有提供轉換數值形別的函數 :<br /><br />
+int(數值) 將數值轉換成整數，也就是會捨棄小數點等等<br /><br />
+float(數值) 將數值轉換成浮點數<br /><br />
+complex(數值) 將數值轉換成複數<br /><br />
+有了這些函數可以使用，我們就能轉換一個運算子的形別，或是捨去小數點等等，除此之外<strong>也可以用來將字串等也轉成整數或浮點數</strong>。<br /><br />
+下面這個範例改寫上面的程式，我們想要結果是保留小數 :</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 數字A設為整數100
+NumberA = 100
+
+# 數字B設為整數
+NumberB = 30
+
+# 這裡印出來的結果是3.33333333333
+print float(NumberA) / NumberB
+
+# 這裡印出來的結果也是3.33333333333
+print NumberA / float(NumberB)
+
+# 這裡印出來的結果還是3.33333333333
+print float(NumberA) / float(NumberB)
+</pre>
+
+<p>
+事實上你的float轉換加在其中一個就可以了，因為照上面寫的規則，只要有一個浮點，另一個會被自動轉成浮點來計算，當然，你也可以例用int函數，將小數點的部份捨去轉變成整數
+:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 圓周率
+PI = 3.14159
+
+# 我們只想知道它整數的部份，所以把它轉成整數再輸出
+# 因此輸出的結果是 3
+print int(PI)
+</pre>
+
+<h2>Python與其它語言不同的數值運算</h2>
+
+<p>上面的概念大至上和其它的語言都大同小異，現在我們要介紹Python和其它語言不太一樣的運算 : **和//</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+**
+</pre>
+
+<p>乘方運算，也就是某個數的幾次方的意思，例如你想算2的5次方，一般打字是打2^5，而在Python裡要寫2 **
+5，而它的好處還有，小數點一樣也可以運算，所以假設我們要計算 16 開平方等於多少，就可以這樣寫 16 **
+0.5，相當方便的一個運算語法。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+//
+</pre>
+
+<p>捨去小數的除法運算，也就是就算照上面的規則，兩個浮點數相除，它還是會幫你捨去小數，例如10.0 //
+3.0結果會是3.0，它幫你捨去小數了，當然，別忘了，這也算是除法，都一樣除0就會出錯的。</p>
+
+<h2>運算的優先順序</h2>
+
+<p>相信大家在小學時都有學過先乘除後加減的概念，是的，在程式語言，例如Python也是如此，有這樣的概念，像 1 + 2 *
+3答案會是7，它會依照運算的優先順序幫你決定哪些先算，但是我並不打算列出那樣的順序表，因為我認為記那樣的東西沒有什麼價值，因為程式除了給機器看還要給人看，當然是越清楚越好，所以遇到這種情況，不管三七二十一，一律都用()把我想讓它先算的部份括起來，這樣子好處就是你不用記什麼優先順序，括號就對了，二來這樣看的人也一目了然知道哪些先算。</p>
+
+<h2>從數學公式到Python運算語法</h2>
+
+<p>事實上，任何公式都可以用程式語言寫出來，這裡我們示範將一個簡單的公式用Python寫出來，這個公式就是加總的公式 :<br /><br />
+1 + 2 + 3 + .... + 100<br /><br />
+其實可以寫成 ((1 + 100) * n) / 2<br /><br />
+一般式也就是 ((首項 + 末項) * 項數) / 2<br /><br />
+這樣的式子沒有任何難度，只是全部擠在一行上面而以，這裡因為用打字的沒畫圖，所以看不出差別來，不然其實只要搞清礎運算順序，然後分子分母的關係變成除法，就結束了，以下是這個程式。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 首項
+n = 1
+
+# 末項
+m = 100
+
+# 用Python寫的加總公式
+result = ((m + n) * (m - n + 1)) / 2
+
+# 將運算結果印出來，答案是5050
+print result
+</pre>
+
+<p>是的，就是那麼簡單，這樣的範例沒什麼難度，我們找來稍微複雜一點的數學公式 : <a class="external-link" href="http://zh.wikipedia.org/w/index.php?title=%E4%B8%80%E5%85%83%E4%BA%8C%E6%AC%A1%E6%96%B9%E7%A8%8B&amp;variant=zh-tw#.E5.85.AC.E5.BC.8F.E8.A7.A3.E6.B3.95">
+一元二次方程式解公式</a><br /><br />
+公式請連至Wiki查看，我們在這裡說明如何從數學公式改寫成Python，只是為了示範，所以我們只示範其中一個解的公式 :<br /><br />
+首先，我們看到分子和分母，就很直覺的這一定是除法。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+分子 / 分母
+</pre>
+
+<p>像這樣，只是改寫成公式的運算，還有記得想要優先運算全部加上()</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(分子) / (2 * a)
+</pre>
+
+<p>接下來我們開始轉換分子<br /><br />
+-b就直接寫，比較複雜的是裡面，b平方減4ac，用到我們上面教的乘方運算 ** 來做平方和開根號</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+((b ** 2) - (4 * a * c)) ** 0.5
+</pre>
+
+<p>所以組合起來就是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+-b + (((b ** 2) - (4 * a * c)) ** 0.5)
+</pre>
+
+<p>分子就完成了，因此整個式子合起來就是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(-b + (((b ** 2) - (4 * a * c)) ** 0.5)) / (2 * a)
+</pre>
+
+<p>這樣的公式有點長，當公式過長時，我們可以考慮將公式拆成幾個變數湊起來</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# x^2 -3x + 2公式裡的變數a, b, c
+a = 1
+b = -3
+c = 2
+
+# 分子部份
+n = -b + (((b ** 2) - (4 * a * c)) ** 0.5)
+
+# 分母部份
+m = 2 * a
+
+# 計算結果
+result = n / m
+
+# 印出結果，其中一個解答案等於2
+print result
+</pre>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:18 +0000</pubDate>
+		</item>
+		<item>
+			<title>串列(List)</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/166-list</link>
+			<description><![CDATA[<h2>串列(List)物件<br /></h2>
+
+<p>
+Python裡的List物件，它是一種有序的資料結構，而且可以動態新增或是刪除等等操作，如果你有學果其它語言，可以把它想成可以動態新增、刪除等等的陣列，且有一點很重要的請記住，他是可改變的序列(Mutable
+Sequence)，我們在後面的章節裡會提到，我們直接就來介紹它的語法:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+[物件1, 物件2, 物件3, .....]
+</pre>
+
+<p>用[]括起來，物件以逗號分開，而存取方式和字串差不多，以下我們用範例介紹如何使用。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 學生列表
+studentList = ['John', 'Merry', 'Tom', 'Victor']
+
+# 因為列表沒有限制裡面放的是何種物件
+# 因此List裡放List也是可以的
+# 如此一來就是巢狀的結構
+nestList = [[1, 2, 3], [4, 5, 6], [7, 8]]
+
+# 存取的方式跟string差不多
+# 印出第一個學生，John
+print studentList[0]
+
+# List一樣也有切片的存取方式
+# 印出0~1的List
+print studentList[:2]
+
+# 巢狀存取的方式也一樣
+print nestList[0][2]
+
+# 印出List長度
+print len(studentList)
+
+# 除此之外，List一樣也有一些物件的方法
+# 此方法就是在List最後加上資料
+studentList.append('1900')
+
+# 印出List長度
+print len(studentList)
+
+# 印出增加後的List
+print studentList
+</pre>
+
+<h2>可改變的序列物件的操作</h2>
+
+<p><span id="content9"></span></p>
+
+<p><span id="content0"><span id="content7"><span id="content10"></span></span></span></p>
+
+<span id="content0"><span id="content7"></span></span> 
+
+<div id="node9"><span id="content9"></span> 
+
+<p>List是屬於"可改變的序列"(Mutable
+Sequence)，因此以下操作都可以用在List上，換言之，<strong>只要是"可改變的序列"，都可以使用以下方法來操作。</strong></p>
+
+<p>而在下表中，如果是以 .方法名稱()
+的方式呼叫，可以看到有些參數是用[]括起來，那不是語法的一部份，而是表示那是可以省略不寫的，會有一定的預設值，例如s.index(x[,
+i[, j]])的i和j可以省略不寫，只寫s.index(x)，而一般而言，i和j將會是預設變成整段序列的範圍。</p>
+
+<p>如果不懂什麼是"切片"，可以參考<a title="切片" class="internal-link" href="http://ez2learn.com//python-tutorial/tutorial/slice">切片</a>。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>s[i] = x</td>
+<td>取代s中第i個元素為x</td>
+</tr><tr class="even"><td><span id="content0"><span id="content7"><span id="content8">s[i:j]
+= t</span></span></span></td>
+<td>取代s的切片內容為<strong>t序列</strong>的內容</td>
+</tr><tr><td>del s[i:j]</td>
+<td>從s中刪除切片所含的元素</td>
+</tr><tr class="even"><td>s[i:j:k] = t</td>
+<td>取代s的切片內容成為<strong>t序列</strong>的內容(t序列的長度必須和切片長度一樣)</td>
+</tr><tr><td>del s[i:j:k]</td>
+<td>從s中刪除切片中所含的元素</td>
+</tr><tr class="even"><td>s.append(x)</td>
+<td>在最後面新增x物件，效果和s[len(s):len(s)] = [x] 一樣</td>
+</tr><tr><td>s.extend(x)<br /></td>
+<td>在最後面新增x的內容，效果和s[len(s):len(s)] = x 一樣</td>
+</tr><tr class="even"><td>s.count(x)</td>
+<td>回傳s[i] == x在序列裡的個數</td>
+</tr><tr><td>s.index(x[, i[, j]])</td>
+<td>回傳在i到j的切片裡，最小的k值滿足s[k] == x</td>
+</tr><tr class="even"><td>s.insert(i, x)</td>
+<td>在索引i前插入x元素，效果和s[i:i] = [x] 一樣</td>
+</tr><tr><td>s.pop([i])</td>
+<td>回傳第一個元素，並且將它從序列中刪除</td>
+</tr><tr class="even"><td>s.remove(x)</td>
+<td>刪除在i到j的切片裡，最小的k值滿足s[k] == x，的s[k]，效果和del s[s.index(x)] 一樣</td>
+</tr><tr><td>s.reverse()</td>
+<td>將元素的順序倒過來</td>
+</tr><tr class="even"><td>s.sort([cmp[, key[, reverse]]])</td>
+<td>將序列內容進行排序</td>
+</tr></tbody></table><p><span id="content0"><span id="content7"><span id="content10">以下我們用簡單的例子來示範如何操作可改變的序列:</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+設定我們的List
+s = [1, 2, 3]
+
+# 在最後面加入4
+s.append(4)
+
+# 在最後面加入5, 6
+s.extend([5, 6])
+
+# 印出內容
+print s
+
+# 取代[4, 5]該段切片成為[3, 2, 7, 6, 8]
+s[3:5] = [3, 2, 7, 6, 8]
+
+# 印出內容
+print s
+
+# 負值索引規則在此也一樣
+# 刪除最後一個
+del s[-1]
+
+# 印出內容
+print s
+
+# 將順序倒過來
+s.reverse()
+
+# 印出內容
+print s
+
+# 進行排序
+s.sort()
+
+# 印出內容
+print s
+</pre>
+</div>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:20 +0000</pubDate>
+		</item>
+		<item>
+			<title>切片(Slice)</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/167-slice</link>
+			<description><![CDATA[<h2>什麼是切片</h2>
+
+<p>
+不管是字串、還是List，在Python裡只要是符合"序列"概念的物件，都可以使用"切片"(slice)的方式去存取，至於為什麼叫切片呢?
+想像一下字串是一條香腸，你要取其中的一段，就像在切片一樣，你要從頭到尾，還是從頭到中間，又或著中間取一段呢?
+這就是所謂的切片的概念，以下讓我們介紹字串切片的使用方法:</p>
+
+<table class="grid listing"><tr><th>語法</th>
+<th>說明</th>
+</tr><tbody><tr><td><span id="content0"><span id="content28"><span id="content29">s[i]</span></span></span></td>
+<td>取第i個字元的字串，從0當做第一個開始算</td>
+</tr><tr class="even"><td><span id="content0"><span id="content28"><span id="content29">s[i:j]</span></span></span></td>
+<td>取從第i個開始，到j的前一個，也就是不包含j</td>
+</tr><tr><td><span id="content0"><span id="content28"><span id="content29">s[i:j:k]</span></span></span></td>
+<td>取從第i個開始，到j的前一個，也就是不包含j，但是每k步個才取一個字<br /></td>
+</tr></tbody></table>
+
+我們先從最簡單的介紹起，就是第一個，取其中一個字，<strong>Python和其它大部份語言一樣，索引是從0開始算的</strong>，所以這語法也就是取從0開始的第i+1個字，但是請注意的一點是，如果你學過其它程式語言，可能知道什麼是字元，<strong>
+在Python裡沒有所謂的字元，只有長度為1的字串</strong>，所以回傳的也是長度為1的字串，而不是字元，除此之外，如果索引是負數的話，代表從右邊數過來的第幾個，例如s
+= 'abcd'，s[-1]就是'd'。 
+
+<p>接下來我們看第二個，通常也是最常用的方式，例如字串是s = 'abcd'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[0:2]
+</pre>
+
+<p>的結果就是'ab'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[1:2]
+</pre>
+
+<p>就是'b'，和</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[1]
+</pre>
+
+<p>的效果一樣，而</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:4]
+</pre>
+
+<p>也就是'cd'，除了這樣的規則之外，如果起始為0的話，可以省略0不寫，換言之，省略不寫第一個，就會被當成從0開始，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[0:2]
+</pre>
+
+<p>可以省略成</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[:2]
+</pre>
+
+<p>
+前面的數字被省略了，Python就知道前面是0，而終止的數字如果是字串的長度，也一樣可以省略不寫，換言之終止的數字省略不寫就會被設為字串的長度，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:4]
+</pre>
+
+<p>可以省略為</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[2:]
+</pre>
+
+<p>除了這些，還有和上面一樣的負數規則，就是負數代表是從右邊數過來的第幾個，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[:-1]
+</pre>
+
+<p>結果是'abc'，而</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[-2:-1]
+</pre>
+
+<p> 就是'c'，效果和</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[-2]
+</pre>
+
+<p>是一樣的。</p>
+
+<p>最後是第三種形式，規則都和上面一樣，只是加了k步取一個字的規則，例如s = 'abcd'</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::1]
+</pre>
+
+<p>的結果是'abcd'，因為是從頭到尾的切片，而且隔一步取一個，所以有和沒有是一樣的，但是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::2]
+</pre>
+
+<p>就不一樣了，兩步才取一個字，所以是'ac'，而比較複雜的是，步數也有負數的規則，如果步數是負的，表是從i到j以負數前進，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::-1]
+</pre>
+
+<p>結果會是dcba，除此之外，對於負的步數而言，起始省略會變成字串的最後一個字元開始，而終止省略的話，會變成字串的第一個字元，因此</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[::-1]
+</pre>
+
+<p>可以寫成</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[3::-1]
+</pre>
+
+為什麼不寫 
+
+<p>這樣呢?</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+s[3:0:-1]
+</pre>
+
+<p>
+因為終止條件不包括在被取到的字在內，只有省略才能表示，如果寫成這樣會變成'dcb'，因為不包括0，但是比0前面的字元如果用負數表示卻又變成了從後
+面數過來，因此只能用省略來表示負步數的第一個字元之前當結尾，這個部份有點難懂，但是知道s[::-1]可以將字串反過來就好，因為這個部份比較少用
+到。</p>
+
+<p>字串abcd用表格表示:</p>
+
+<span id="content0"><span id="content28"><span id="content31"></span></span></span> 
+
+<table class="grid listing"><tbody><tr class="even"><td>正數索引</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr><tr class="odd"><td>負數索引</td>
+<td>-4</td>
+<td>-3</td>
+<td>-2</td>
+<td>-1</td>
+</tr><tr class="even"><td>字串內容</td>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+<td>d</td>
+</tr><tr class="odd"><td>s[0:4] 結果是 abcd<br /></td>
+<td>取0</td>
+<td>取1</td>
+<td>取2</td>
+<td>取3，不包括4，到3就終止</td>
+</tr><tr class="even"><td>s[:2] 結果是 ab</td>
+<td>取0</td>
+<td>取1，不包括2，到1就終止</td>
+<td> </td>
+<td> </td>
+</tr><tr class="odd"><td>s[-2:-1] 結果是 c</td>
+<td> </td>
+<td> </td>
+<td>-2開始，取-2，不包括-1，所以到-2就終止</td>
+<td> </td>
+</tr><tr class="even"><td>s[::2] 結果是 ac</td>
+<td>取0</td>
+<td>2步取1字，此步不取</td>
+<td>取2</td>
+<td>2步取1字，此步不取，不包括4，到3就終止</td>
+</tr><tr class="odd"><td>s[::-1] 結果是dcba<br /></td>
+<td>取0，不包括0前面一個，到0終止<br /></td>
+<td>取1<br /></td>
+<td>取2<br /></td>
+<td>負步數省略由-1開始</td>
+</tr></tbody></table><p>接下來我們示範字串切片的使用:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+string = u"中文字測試"
+
+# 印出前三個字
+print string[:3]
+
+# 印出中間三個字
+print string[1:4]
+
+# 印出最後一個字
+print string[-1]
+
+# 跳一個字印
+print string[::2]
+
+# 倒過來印
+print string[::-1]
+</pre>
+
+<h2>可改變的序列使用切片</h2>
+
+<p>
+什麼是可改變，什麼是不可改變，在這裡我們還不打算說明，將在後面的章節解釋，在這裡請先記得，字串是不可改變的序列，而List是可改變的序列，以上的方法都可以應用在可改變和不可改變的序列，換言之，你也可以應用上面的方法在List，而不只有在字串上，以下我們介紹針對可改變的序列的切片操作。</p>
+
+<table class="grid listing"><tr><th>語法<br /></th>
+<th>說明<br /></th>
+</tr><tbody><tr><td>s[i] = x<br /></td>
+<td>取代s中第i個元素為x</td>
+</tr><tr class="even"><td>s[i:j] = t</td>
+<td>取代s的切片內容為<strong>t序列</strong>的內容<br /></td>
+</tr><tr><td>del s[i:j]<br /></td>
+<td>從s中刪除切片所含的元素</td>
+</tr><tr class="even"><td>s[i:j:k] = t</td>
+<td>取代s的切片內容成為<strong>t序列</strong>的內容(t序列的長度必須和切片長度一樣)</td>
+</tr><tr><td>del s[i:j:k]<br /></td>
+<td>從s中刪除切片中所含的元素<br /></td>
+</tr></tbody></table>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:23 +0000</pubDate>
+		</item>
+		<item>
+			<title>字典(Dictionary)</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/168-dictionary</link>
+			<description><![CDATA[<p>什麼是字典(Dictionary)</p>
+
+<p><span id="content0"><span id="content2"><span id="content3">在Python中，什麼是字典? 它是Python的映射物件，而什麼是映射(Mapping)呢?
+簡單的來說，就是<strong>鍵(Key)</strong>與<strong>值(Value)</strong>的關係，想像一下你身為班長，你手中有張點名表，我們就可以把它想做是映射，以人名當鍵，學號當值，我們可以有下列的關係</span></span></span></p>
+
+<pre>
+張三 -> D9512345
+李四 -> D9556678
+王五 -> D9677880
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3">所以當我查詢王五，我得到的是D9512345的值，這樣的概念就是映射，而Python的字典就是實作這樣概念的容器，以下我們介紹此物件的用法</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d = {鍵: 值, 鍵: 值, ....}
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>
+由鍵值物件來對應到資料物件，既然是物件，只要是物件，符合一定條件就能夠當做"鍵值物件"，<strong>只有"不可改變"物件可以當鍵值</strong>，例如字
+串、整數等等因為是"不可改變"，所以可以當鍵值，而不可當鍵值的，有串列、字典等等，因為這些是"可改變"的物件。</p>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>而如上面所說的，字典可以改變，也就是說創造Dictionary之後還可以改變物件的資料，以下是新增鍵值和資料的方式:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d[鍵] = 值
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>取得資料的方式也是一樣</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d[鍵]
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>現在就讓我們來示範如何使用字典。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 建立一個Dictionary
+friendMap = {'John': 'My classmate', 'Tom': 'Who he is?', '1900': 'A great pianist'}
+
+# 印出John對應的資料
+print friendMap['John']
+
+# 改變Tom對應的值
+friendMap['Tom'] = "John's brother"
+
+# 印出Tom對應的資料
+print friendMap['Tom']
+
+# 新增Victor對應到資料
+friendMap['Victor'] = "Owner of this site"
+
+# 印出friendMap
+print friendMap
+
+</pre>
+
+<span id="content0"><span id="content2"><span id="content3"></span></span></span> 
+
+<h2>映射物件的操作</h2>
+
+<p>
+在介紹操作之前，有一點值得注意的是，<strong>字典不是有序的序列</strong>，你新增任一個鍵值對應到資料，不一定會出哪一個特定的位置，因此不是有序的，相同地，只要符合"映射"
+(Mapping)的物件，都可以用同樣的方法操作，只要該物件有實作這些功能，現在就讓我們來介紹"映射物件"的操作。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>len(a)</td>
+<td>回傳a的元素個數</td>
+</tr><tr class="even"><td>a[k]</td>
+<td>取得鍵k的對應值</td>
+</tr><tr><td>a[k] = v</td>
+<td>設定鍵k的對應值</td>
+</tr><tr class="even"><td>del a[k]</td>
+<td>從映設物件中刪除鍵k的元素</td>
+</tr><tr><td>a.clear()</td>
+<td>刪除所有元素</td>
+</tr><tr class="even"><td>a.copy()</td>
+<td>複製一份映射物件(shallow copy)</td>
+</tr><tr><td>k in a<br /></td>
+<td>k鍵值是否存在於a</td>
+</tr><tr class="even"><td>k not in a</td>
+<td>k鍵值是否不存在於a</td>
+</tr><tr><td>a.has_key(k)</td>
+<td>效果和k in a一樣，鍵值是否存在於a</td>
+</tr><tr class="even"><td>a.items()</td>
+<td>傳以(鍵, 對應值)為元素的List</td>
+</tr><tr><td>a.keys()</td>
+<td>回傳以鍵為元素的串列</td>
+</tr><tr class="even"><td>a.update([b])</td>
+<td>以b此映射物件更新a映射物件，也就是同鍵值會被覆蓋，新鍵值會被建立</td>
+</tr><tr><td>a.fromkeys(seq[, value])</td>
+<td>建立一個新的字典以seq此序列的元素為鍵，而對應值全設為value</td>
+</tr><tr class="even"><td>a.values()</td>
+<td>回傳以資料值為元素的串列</td>
+</tr><tr><td>a.get(k[, x])</td>
+<td>取得鍵k的對應值，如果不存在則回傳x</td>
+</tr><tr class="even"><td>a.setdefault(k[, x])<br /></td>
+<td>如果鍵k存在，則回傳k的對應值，否則不存在的話設定a[k] = x，且回傳x</td>
+</tr><tr><td>a.pop(k[, x])</td>
+<td>刪除鍵為k的元素並回傳，如果不存在則回傳x</td>
+</tr><tr class="even"><td>a.popitem()</td>
+<td>以(鍵值, 對應值)回傳任意一個元素</td>
+</tr><tr><td>a.iteritems()</td>
+<td>回傳一個(鍵值, 對應值)的iterator</td>
+</tr><tr class="even"><td>a.iterkeys()</td>
+<td>回傳一個指的iterator</td>
+</tr><tr><td>a.itervalues()</td>
+<td>回傳一個對應值的iterator</td>
+</tr></tbody></table><p>以下讓我們示範如何操作Dictionary:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 建立Dictionary
+a = {'a': 123, 'b': 456}
+
+# 回傳a是否有'b'此鍵值
+print 'b' in a
+
+# 設定'abc'鍵值的對應值為7788
+a['abc'] = 7788
+
+# 印出鍵值List
+print a.keys()
+
+# 印出對應值List
+print a.values()
+
+# 印出(鍵值, 對應值)的List
+print a.items()
+
+# 取得鍵值'x'的對應值，如果不存在回傳
+# 'Nothing, but ghost and shallow'
+print a.get('x', 'Nothing, but ghost and shallow')
+
+# 如果'x'鍵值存在，則回傳對應值
+# 否則設定'x'對應'Nothing, but ghost and shallow'
+# 並且回傳對應值
+print a.setdefault('x', 'Nothing, but ghost and shallow')
+
+# 印出a
+print a
+
+# 鍵立一個新的Dictionary
+b = {'abc': 'Suck', 'hello': 'world'}
+
+# 以b來更新a
+# 舊的abc會被覆蓋
+# 並且建立'hello'對應'world'
+a.update(b)
+
+# 印出a
+print a
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:25 +0000</pubDate>
+		</item>
+		<item>
+			<title>元組(Tuple)</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/169-tuple</link>
+			<description><![CDATA[<h2>什麼是元組(Tuple)</h2>
+
+<p>
+簡單的來說，就是不可改變的序列，也就是元素的組合，和串列很像，只差在它不可改變和語法，你可能會覺得很疑惑，都已經有了串列為何還需要元組，答案就是因為有時我們希望一個序列創造出來不能被改變，一個最好的例子就是字典的鍵值，還記得我們提過，字典的鍵必須滿足"不可改變"的條件，因此用串列就無法當做鍵，而用元組就可以，以下讓我們來介紹元組。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(物件1, 物件2, 物件3, ....)
+</pre>
+
+<p>語法和串列幾乎一樣，只是[]改成用()，還有一點需要注意的是，當元素的元素只有一個，像這樣</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(元素)
+</pre>
+
+<p>這樣寫並不會被當成Tuple，為什麼?
+因為這樣和運算優先的括號是一樣的，Python並沒有辦法分別它們之間的差別，因此當元組的元素只有一個時，必須這樣寫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(元素, )
+</pre>
+
+<p>多一個多餘的逗號，讓Python的直譯器就能知道這是一個元組而不是指運算優先的括號。</p>
+
+<h2>序列的操作</h2>
+
+<p>像之前說過的，由於元組是"不可改變"的物件，因此元組的操作只有讀取之類的操作，而其它操作像 a + b
+這類的操作，其實都是創立一個新的元組出來，而沒有造成任何改變，字串也是這樣的物件。<br /><br />
+而我們現在要介紹的操作方式，是針對序列(Sequence)的操作，也就是說，只要是"序列"，這些操作基本上都適用，而目前學過的序列有哪些呢?
+第一個是字串，接著是串列，再來就是元組，換言之，以下介紹的操作，都可以應用在這三種，或是其它實作序列方法的物件上面。<br /><br />
+我們之前就有在字串的"字串運算"中介紹了大致上的操作方式，其實那些運算是因為字串也是序列，所以也一樣可以使用，以下我們完整地介紹序列的操作方式。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>x in  s</td>
+<td>如果x出現在序列s中為真</td>
+</tr><tr class="even"><td>x not in s</td>
+<td>如果x不出現在序列s中為真</td>
+</tr><tr><td>s + t</td>
+<td>兩個序列s和t連接在一起成為一個新的序列</td>
+</tr><tr class="even"><td>n*s 或 s*n</td>
+<td>序列s的內容重覆n次</td>
+</tr><tr><td>s[i]</td>
+<td>取得第i個元素</td>
+</tr><tr class="even"><td>s[i:j]</td>
+<td>取得從i開始，到j前一個元素的切片</td>
+</tr><tr><td>s[i:j:k]</td>
+<td>取得i到j的切片，且每k個元素取一個</td>
+</tr><tr class="even"><td>len(s)</td>
+<td>len函數回傳s序列的元素個數</td>
+</tr><tr><td>min(s)</td>
+<td>回傳序列中最小的元素</td>
+</tr><tr class="even"><td>max(s)</td>
+<td>回傳序列中最大的元素</td>
+</tr></tbody></table><p><span id="content0"><span id="content5"><span id="content8">雖然字串和List都也一樣可以使用以上的操作方式，但是這次是在說明Tuple，因此只以Tuple做示範，以下是程式範例。</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols"># 建立一個Tuple
+tupleA = (1, 2, 3)
+
+# 建立另一個Tuple
+tupleB = (7, 7, 8, 8)
+
+# 印出兩個Tuple連接後的結果
+print tupleA + tupleB
+
+# 印出tupleA重覆3次的結果
+print tupleA * 3
+
+# 印出3是否在tupleA裡
+print 3 in tupleA
+
+# 印出tupleB的元素個數
+print len(tupleB)
+
+# 印出從1開始的切片
+print tupleA[1:]
+
+# 印出tupleB中最大的元素
+print max(tupleB)
+
+# 建立一個Dictionary
+tupleMap = {}
+
+# 如同我們前面說的
+# 因為Tuple是"不可改變"的物件
+# 因此可以當成Dictionary的鍵值
+tupleMap[tupleA] = 'hello'
+
+# 印出(1, 2, 3)的對應值
+print tupleMap[(1, 2, 3)]
+
+</pre>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:27 +0000</pubDate>
+		</item>
+		<item>
+			<title>字串格式運算</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-tutorials/170-2009-02-11-13-09-29</link>
+			<description><![CDATA[<h2>字串格式運算</h2>
+
+<p><span id="content0"><span id="content1"></span></span></p>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>我們先來看看我們對於字串的格式，有什麼樣的功能，是的，如果你沒忘記的話，我們有字串相加等等的運算，例如我們想印出"Number :
+數字"可以使用"Number :" + str(number)等方法，但是如果我們想要"特定格式"的字串輸出呢?例如我們想以16進制輸出?
+又或著想用科學表示法來表示數字呢? 我們得字己轉換?
+你可以這樣做，但是這麼常用的功能，Python並沒有忘記，如果你有學過C語言，你可能會懷念printf好用的格式化語法，事實上Python也承襲了這樣好用的語法，如果你已經學過C語言的printf，或其它語言的字串格式你會發現他們大多都大同小異，現在就讓我們來介紹Python的字串格式運算。</p>
+
+<p>Python的字串格式運算很簡單，總共有分兩種方式，第一種，使用元組來按順序填入格式，只要字串後面接著一個百分比符號 "%"
+然後再接一個元組:</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"欲格式化字串" % (物件1, 物件2, 物件3, ...)
+</pre>
+
+<div id="node2">
+<p>像這樣，另一種是使用Dictionary來進行格式化，有個好處就是不按照順序，只看鍵值</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"欲格式化字串" % {'鍵值1': 對應資料1, '鍵值2': 對應資料2, ....}
+</pre>
+
+<div id="node2">
+<p>而格式的語法有些不同，讓我們一一介紹這兩種方法。</p>
+
+<span id="content2"></span></div>
+
+<h2>使用元組格式</h2>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>
+基本上元組和C語言的printf語法很類似，幾乎可以說沒什麼差別，所以如果你學過其它類似的語法，也會覺得很親切，以下讓我們介紹元組的格式語法。</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]格式參數
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>一個%後面接著旗標，在這裡用[]括起來，不是屬於語法，而是指可以省略不寫，舉個例子</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %s" % 'Victor'
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>
+像這一行的%s，就是字串格式運算的語法，s代表將資料轉換成字串格式，而這裡的特例是，當元素只有一個就可以不用使用Tuple接在後面，如果一個元素你要接Tuple也是可以的</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %s" % ('Victor',)
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>只是結果還是一樣，這種語法的概念很簡單，簡單的來說，就是"<strong>一個蘿蔔一個坑</strong>"，什麼意思呢?
+請把左邊的%開頭的格式符號想成是坑，右邊的資料元組裡的元素是蘿蔔，按照順序，第一個蘿蔔塞進第一個坑，第二個塞進第二個坑，以此類推，換言之，就是左邊出現的第一個%格式符號，會由右邊的第一個元素來提供格式化用的資料，有一點值得注意的是，蘿蔔和坑的個數必須一樣，否則會出現錯誤，以下就讓我們用簡單的例子來說明使用方式。</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-  
+
+# 建立名稱
+name = 'Victor Lin'
+
+# 建立天氣資料
+weatherData = (u'台中地區', u'多雲時晴', u'15~18', u'度C', u'0%')
+
+# 第一個%s以name當資料來格式化
+print 'Hello, %s' % name
+
+# 印出今日天氣概況
+print u"%s 的今天氣是 %s，氣溫是 %s度%s，降雨機率是 %s" % weatherData
+</pre>
+
+<span id="content0"></span> 
+
+<div id="node2">
+<h2><span id="content2"></span>使用字典格式</h2>
+
+字典的格式方式比較特別，它依據鍵來決定該位置要用哪筆資料來做格式化，以下讓我們介紹語法。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數](鍵值名稱)格式參數
+</pre>
+
+<div id="node2">比起元組的格式，多出了一個用()括起來的鍵值名稱，舉個例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %(name)s" % {'name': 'Victor'}
+</pre>
+
+<div id="node2">
+當它發現%(name)s時，就會在右邊的字典中找到name對應的資料，並且按照s，也就是字串的格式印出來，這樣有個好處，不用考慮順序，只要特定位置使用特定名稱就可以了，還有一點和元組不一樣的是，字典中元素的個數可以多出來，並沒有影響，但是出現在格式中的鍵值卻一個也不能少，否則一樣會出錯，舉個不會出錯，但元素多出來的例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+author = {'name': 'Victor', 'age': 19}
+print "My name is %(name)s" % author
+</pre>
+
+<div id="node2">
+我們可以在這個例子中發現author中多出了age這個鍵和對應值，但是在格式的字串中，只出現name此鍵值，因此沒有影響，但是如果格式字串中出現鍵，就一定得同樣出現在右邊的字典中，以下是一個會引發錯誤的例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print "My name is %(name)s" % {'age': 19}
+</pre>
+
+<div id="node2">因為找不到name鍵，上面的範例會產生錯誤。<br /><br />
+介紹完了字典的語法，以下讓我們簡單地示範如何使用字典的字串格式化運算。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-  
+
+# 建立作者資訊的Dictionary
+author = {'name': 'Victor Lin', 'age': 19, 'professional': 'student'}
+
+# 設定格式化後的字串給變數
+authorMessage = "Author of this article is %(name)s, his age is %(age)d." % author 
+
+# 印出authorMessage
+print authorMessage
+
+# 印出職業
+print "He is a %(professional)s." % author
+</pre>
+
+<h2>格式化參數與旗標</h2>
+
+<p>介紹完了字串格式運算的語法，接下來我們來介有哪些控制字串格式的旗標與參數。</p>
+
+<p>首先介紹的轉換的參數所代表的格式。</p>
+
+<table class="grid listing"><tr><th>格式參數</th>
+<th>說明</th>
+</tr><tbody><tr><td>d</td>
+<td>有號的十進制整數</td>
+</tr><tr class="even"><td>i</td>
+<td>有號的十進制整數，同上</td>
+</tr><tr><td>o</td>
+<td>無號的八進制整數</td>
+</tr><tr class="even"><td>u</td>
+<td>無號的十進制整數</td>
+</tr><tr><td>x</td>
+<td>無號的十六進制(小寫)</td>
+</tr><tr class="even"><td>X</td>
+<td>無號的十六進制(大寫)</td>
+</tr><tr><td>e</td>
+<td>指數表示法表示浮點數(小寫)</td>
+</tr><tr class="even"><td>E</td>
+<td>指數表示法表示浮點數(大寫)</td>
+</tr><tr><td>f</td>
+<td>十進制的浮點數</td>
+</tr><tr class="even"><td>F</td>
+<td>十進制的浮點數，同上</td>
+</tr><tr><td>g</td>
+<td>浮點數格式，如果指數大於-4使用指數表示法，否則使用一般十進制浮點數表示法(小寫)</td>
+</tr><tr class="even"><td>G</td>
+<td>浮點數格式，如果指數大於-4使用指數表示法，否則使用一般十進制浮點數表示法(大寫)</td>
+</tr><tr><td>c</td>
+<td>單一字元(接受整數，或是單一字元的字串)</td>
+</tr><tr class="even"><td>r</td>
+<td>字串，以repr()函數轉換資料成字串格式</td>
+</tr><tr><td>s</td>
+<td>字串，以str()函數轉換資料成字串格式</td>
+</tr><tr class="even"><td>%</td>
+<td>輸出單一字元"%"，並不讀取右邊的參數</td>
+</tr></tbody></table><p>
+轉換類形的大小寫是表示，其中的英文部份是以大寫或小寫輸出，例如十六進制的0xFFF，大寫就是0xFFF，小寫就是0xfff，就是這樣的差別而已，而比較特別的是%，在格式字串裡，你想要打%，可是可能會被誤以為是字串格式運算用的符號，因此你只要打兩個%，例如"今天的降雨機率是%d%%"
+% rate，這裡最後出現的%%會被變成一個%輸出，而且不會讀取右邊的任何資料，只是用來解決%無法輸出的問題。</p>
+
+<p>以下幾個例子讓我們來示範各種類形的格式。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*- 
+
+# 輸出數字類形
+print u'說好不提%d的' % 261
+
+# 輸出repr轉換後的字串
+print u'repr : %r' % u'許功蓋先生'
+
+# 輸出浮點數格式，指數大於-4，會以指數形態輸出
+print u'float: %G' % 0.00005
+
+# 輸出浮點數格式，指數小於-4，會以浮點形態輸出
+print u'float: %G' % 0.05
+
+# 輸出十六進制
+print u'Hex: %X' % 12345678
+
+# 輸出 %
+print u'今天的降雨機率是%d%%' % 12
+</pre>
+
+<h2>寬度與小數點位數<br /></h2>
+
+<p>如我們前面所提的格式</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]轉換類形
+</pre>
+
+<p>還有寬度和小數點位數兩個欄位，我們還沒說明，所謂的寬度就是指，格式化後佔多少個字元，不足的部份會以空白補足，舉個例子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print repr('%5s' % 'abc')
+</pre>
+
+<p>這句的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'  abc'
+</pre>
+
+<p>前面被兩個空白補足了，因為預設是靠右，所以補足前面的空白，總而言之它會補空白直到補滿"寬度"為止。<br />
+而小數點位是是指，對於浮點數你想要它顯示到小數點後面多少位數，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print '%.3f' % (10/3.0)
+</pre>
+
+<p>的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+3.333
+</pre>
+
+<p>總共有三個位數，然而，因為小數點位數與寬度是不同欄位，所以你可以同時寫寬度和小數點位數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print repr('%7.3f' % (10/3.0))
+</pre>
+
+<p>的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'  3.333'
+</pre>
+
+<p>前面被補足了兩個空白，因為寬度是7，而小數點位數是3，字串的長度是5，因此前面會補兩個空白。<br />
+以下我們示範寬度與小數點位數的應用。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 輸出寬度為10的字串
+print '&lt;p&gt;%10s&lt;/p&gt;' % 'hello'
+
+# 建立floatNumber為3.33333....
+floatNumber = 10/3.0
+
+# 輸出寬度為7，小數點位數到4的浮點數格式
+print '%7.4f' % floatNumber
+</pre>
+
+<h2>旗標</h2>
+
+<p>如果們前面格式所寫的，在最前面還可以加一個旗標</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]轉換類形
+</pre>
+
+<p>
+因為和其它的寬度、小數點位數等是不同欄位，因此也可以和其它欄位同時存在，舉個例子，例如我們想讓輸出的數字不管正負號都把正負號給顯示出來，這時+這個旗標就可以加上去，可以這樣寫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'%+.3f' % (10/3.0)
+</pre>
+
+<p>以下讓我們介紹旗標的種類。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>#</td>
+<td>在前面增加前綴，例如十六進制的前綴是0x，八進制的是0</td>
+</tr><tr class="even"><td>0</td>
+<td>0會補足剩餘的寬度</td>
+</tr><tr><td>-</td>
+<td>靠左對齊(預設是靠右邊)</td>
+</tr><tr class="even"><td>(空白)</td>
+<td>如果數值是正數，則在最前面補一個空白</td>
+</tr><tr><td>+</td>
+<td>在前面標明正負號(+ or -)</td>
+</tr></tbody></table><p>以下我們示範簡單的旗標使用方法。</p>
+
+<span id="content0"><span id="content19"><span id="content27"></span></span></span> 
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 輸出寬度為10的字串，並且讓它靠左對齊
+print '&lt;p&gt;%-10s&lt;/p&gt;' % 'hello'
+
+# 建立floatNumber為3.33333....
+floatNumber = 10/3.0
+
+# 輸出寬度為7，小數點位數到4的浮點數格式，並且顯示正負號
+print '%+7.4f' % floatNumber
+
+# 輸出寬度為10的字串，多出來的部份補0
+print '%010d' % 7788
+
+# 輸出正整數，如果正數左邊補空白
+print '% d' % 7788
+
+# 輸出負整數，如果正數左邊補空白
+print '% d' % -778
+</pre>
+
+<span id="content0"></span><more_text></more_text>]]></description>
+			<category>Python入門教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:29 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

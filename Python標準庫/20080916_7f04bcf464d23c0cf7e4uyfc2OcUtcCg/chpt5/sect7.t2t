@@ -1,0 +1,150 @@
+﻿==formatter 模块==
+
+
+``formatter`` 模块提供了一些可用于 ``htmllib`` 的格式类( formatter classes ).
+
+这些类有两种, //formatter// 和 //writer// . 
+formatter 将 HTML 解析器的标签和数据流转换为适合输出设备的事件流( 
+event stream ), 而 writer 将事件流输出到设备上. 如 [Example 5-13 #eg-5-13] 所示.
+
+大多情况下, 你可以使用 //AbstractFormatter// 类进行格式化. 
+它会根据不同的格式化事件调用 writer 对象的方法. //AbstractWriter// 类在每次方法调用时打印一条信息.
+
+====Example 5-13. 使用 formatter 模块将 HTML 转换为事件流====[eg-5-13]
+
+```
+File: formatter-example-1.py
+
+import formatter
+import htmllib
+
+w = formatter.AbstractWriter()
+f = formatter.AbstractFormatter(w)
+
+file = open("samples/sample.htm")
+
+p = htmllib.HTMLParser(f)
+p.feed(file.read())
+p.close()
+
+file.close()
+
+*B*send_paragraph(1)
+new_font(('h1', 0, 1, 0))
+send_flowing_data('A Chapter.')
+send_line_break()
+send_paragraph(1)
+new_font(None)
+send_flowing_data('Some text. Some more text. Some')
+send_flowing_data(' ')
+new_font((None, 1, None, None))
+send_flowing_data('emphasized')
+new_font(None)
+send_flowing_data(' text. A')
+send_flowing_data(' link')
+send_flowing_data('[1]')
+send_flowing_data('.')*b*
+```
+
+``formatter`` 模块还提供了 //NullWriter// 类, 它会将任何传递给它的事件忽略; 以及 //DumbWriter// 类, 
+它会将事件流转换为纯文本文档. 如 [Example 5-14 #eg-5-14] 所示.
+
+====Example 5-14. 使用 formatter 模块将 HTML 转换为纯文本====[eg-5-14]
+
+```
+File: formatter-example-2.py
+
+import formatter
+import htmllib
+
+w = formatter.DumbWriter() # plain text
+f = formatter.AbstractFormatter(w)
+
+file = open("samples/sample.htm")
+
+# print html body as plain text
+p = htmllib.HTMLParser(f)
+p.feed(file.read())
+p.close()
+
+file.close()
+
+# print links
+print
+print
+i = 1
+for link in p.anchorlist:
+    print i, "=>", link
+    i = i + 1
+
+*B*A Chapter.
+
+Some text. Some more text. Some emphasized text. A link[1].
+
+1 => http://www.python.org*b*
+```
+
+[Example 5-15 #eg-5-15] 提供了一个自定义的 Writer , 它继承自 //DumbWriter// 类, 
+会记录当前字体样式并根据字体美化输出格式.
+
+====Example 5-15. 使用 formatter 模块自定义 Writer====[eg-5-15]
+
+```
+File: formatter-example-3.py
+
+import formatter
+import htmllib, string
+
+class Writer(formatter.DumbWriter):
+
+    def _ _init_ _(self):
+        formatter.DumbWriter._ _init_ _(self)
+        self.tag = ""
+        self.bold = self.italic = 0
+        self.fonts = []
+
+    def new_font(self, font):
+        if font is None:
+            font = self.fonts.pop()
+            self.tag, self.bold, self.italic = font
+        else:
+            self.fonts.append((self.tag, self.bold, self.italic))
+            tag, bold, italic, typewriter = font
+            if tag is not None:
+                self.tag = tag
+            if bold is not None:
+                self.bold = bold
+            if italic is not None:
+                self.italic = italic
+
+    def send_flowing_data(self, data):
+        if not data:
+            return
+        atbreak = self.atbreak or data[0] in string.whitespace
+        for word in string.split(data):
+            if atbreak:
+                self.file.write(" ")
+            if self.tag in ("h1", "h2", "h3"):
+                word = string.upper(word)
+            if self.bold:
+                word = "*" + word + "*"
+            if self.italic:
+                word = "_" + word + "_"
+            self.file.write(word)
+            atbreak = 1
+        self.atbreak = data[-1] in string.whitespace
+
+w = Writer()
+f = formatter.AbstractFormatter(w)
+
+file = open("samples/sample.htm")
+
+# print html body as plain text
+p = htmllib.HTMLParser(f)
+p.feed(file.read())
+p.close()
+
+*B*_A_ _CHAPTER._
+
+Some text. Some more text. Some *emphasized* text. A link[1].*b*
+```

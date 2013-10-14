@@ -1,0 +1,22 @@
+﻿==syslog 模块==
+
+
+(只用于 Unix 可选) syslog 模块用于向系统日志设备发送信息( syslogd ). 
+这些信息如何处理依不同的系统而定, 通常会被记录在一个 log 文件中, 例如 ///var/log/messages// , ///var/adm/syslog// , 
+或者其他类似处理. (如果你找不到这个文件, 请联系你的系统管理员). [Example 12-12 #eg-12-12] 展示了该模块的使用.
+
+====Example 12-12. 使用 syslog 模块====[eg-12-12]
+
+```
+File: syslog-example-1.py
+
+import syslog
+import sys
+
+syslog.openlog(sys.argv[0])
+
+syslog.syslog(syslog.LOG_NOTICE, "a log notice")
+syslog.syslog(syslog.LOG_NOTICE, "another log notice: %s" % "watch out!")
+
+syslog.closelog()
+```

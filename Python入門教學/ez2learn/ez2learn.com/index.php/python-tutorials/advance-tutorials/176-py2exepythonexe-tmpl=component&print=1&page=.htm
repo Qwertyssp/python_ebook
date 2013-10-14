@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/176-py2exepythonexe" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="如何使用py2exe將Python程式打包成.exe執行檔的教學" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>如何使用py2exe將Python程式打包成.exe執行檔的教學</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					如何使用py2exe將Python程式打包成.exe執行檔的教學			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>依賴直譯器的煩人問題</h2>
+<p>你是否有這樣的煩腦，用Python寫了一個很酷的程式，傳給你同學看卻因為他沒有裝Python直譯器，為了執行你這個小程式，他得安裝直譯器才能執行，更麻煩的還有第三方的模組要安裝，意願就大大的降低，同樣的，面對你的客戶，你總不能要求你的客戶安裝Python直譯器，然後用easy_install下載需要的模組，那會是很麻煩的事情，很多時候，我們希望Python像.exe檔一樣只要是Windows就可以執行，該如何解決?</p>
+<h2><a class="external-link" href="javascript:if(confirm('http://www.py2exe.org/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.py2exe.org/'" tppabs="http://www.py2exe.org/">py2exe</a></h2>
+<p>所幸我們有現成的工具可以使用，叫做py2exe，它會將Python程式所需要的東西收集，並且打包成可以不用安裝直譯器就可以執行的.exe程式，以下我們就教你一步一步將Python程式打包成.exe檔</p>
+<h3>安裝py2exe</h3>
+<p>如果你有安裝easy_install，你可以直接在cmd下這樣的指令，就可以輕鬆地安裝py2exe，關於easy_install的教學可以參考<a title="如何使用easy_install輕鬆安裝第三方模組" class="internal-link" href="javascript:if(confirm('http://ez2learn.com/python-tutorial/advance-tutorial/how-to-use-easy-install  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://ez2learn.com/python-tutorial/advance-tutorial/how-to-use-easy-install'" tppabs="http://ez2learn.com/python-tutorial/advance-tutorial/how-to-use-easy-install">這篇</a></p>
+<pre name="code" class="python:nogutter:nocontrols">easy_install py2exe
+</pre>
+<p>如果沒有的話，你可以直接從它的<a class="external-link" href="javascript:if(confirm('http://www.py2exe.org/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.py2exe.org/'" tppabs="http://www.py2exe.org/">官方網站</a>下載並且安裝</p>
+<h3>開始打包</h3>
+<p>首先，你需要建立一個這樣的python檔案，放在你想打包的python程式同一個目錄下</p>
+<pre name="code" class="python:nogutter:nocontrols">from distutils.core import setup
+import py2exe
+
+setup(console=['python_file.py'])</pre>
+<p>其中的python_file.py請改成你要當做執行檔的python檔案名稱，例如我想打包test.py成為.exe檔，就將上面程式裡的python_file.py改成test.py，當完成之後，檔名存成setup.py，放在你python程式的同一個目錄下</p>
+<p>接著，開啟 開始 -&gt; 執行 -&gt; cmd，也就是所謂的命令提示字元，然後切換到你專案所在的目錄，然後執行如下面指令</p>
+<pre name="code" class="python:nogutter:nocontrols">cd /d G:\Programming\Python\dstreamer\src\src\dist
+python setup.py install
+</pre>
+<p>完成之後，再執行以下指令</p>
+<pre name="code" class="python:nogutter:nocontrols">python setup.py py2exe</pre>
+<p>此時py2exe就會開始幫你收集你程式會用到的模組，並且打包好，如果沒有問題，執行完同一個目錄下應該會多出build和dist兩個資料夾，dist裡會有一個和你python檔案名稱一樣的.exe檔，那就是封裝後的.exe執行檔，而該目錄下的所有其它檔案，就是該執行檔所需要的模組和檔案所封裝成的檔案，因此如果想要將程式移到沒有安裝Python直譯器的環境下執行，只要將dist下的所有檔案複製過去然後再執行.exe檔就可以了</p>
+<h2>常見錯誤</h2>
+<p>有一個很常見的錯誤是，我成功地產生了.exe檔，也可以執行，但一執行就會產生找不到模組的錯誤，如下面所示範</p>
+<pre name="code" class="python:nogutter:nocontrols">Traceback (most recent call last):
+  File "demo3.py", line 7, in &lt;module&gt;
+  File "base.pyc", line 5, in &lt;module&gt;
+  File "twisted\web\client.pyc", line 16, in &lt;module&gt;
+  File "twisted\web\error.pyc", line 9, in &lt;module&gt;
+ImportError: No module named resource
+</pre>
+<p>關於這點，是因為有些模組py2exe沒有辦法自動幫你找出來，因此你需要自己下參數要它加入那些模組，解決方法請參考我寫的，<a class="external-link" href="javascript:if(confirm('http://blog.ez2learn.com/2008/10/04/py2exe-no-module-problem/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://blog.ez2learn.com/2008/10/04/py2exe-no-module-problem/'" tppabs="http://blog.ez2learn.com/2008/10/04/py2exe-no-module-problem/">py2exe 找不到Module的問題</a></p>
+<p> </p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="175-easyinstall.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/175-easyinstall">&lt; 前一個</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

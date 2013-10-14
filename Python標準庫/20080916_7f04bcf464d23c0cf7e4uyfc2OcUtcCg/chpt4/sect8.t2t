@@ -1,0 +1,114 @@
+﻿==copy_reg 模块==
+
+
+你可以使用 ``copy_reg`` 模块注册你自己的扩展类型. 这样 ``pickle`` 和 ``copy`` 模块就会知道
+如何处理非标准类型.
+
+例如, 标准的 ``pickle`` 实现不能用来处理 Python code 对象, 如下所示:
+
+```
+File: copy-reg-example-1.py
+
+import pickle
+
+CODE = """
+print 'good evening'
+"""
+
+code = compile(CODE, "<string>", "exec")
+
+exec code
+exec pickle.loads(pickle.dumps(code))
+
+*B*good evening
+Traceback (innermost last):
+...
+pickle.PicklingError: can't pickle 'code' objects*b*
+```
+
+我们可以注册一个 code 对象处理器来完成目标. 处理器应包含两个部分: 一个 ``pickler`` , 接受 code 对象
+并返回一个只包含简单数据类型的元组, 以及一个 ``unpickler`` , 作用相反, 接受这样的元组作为参数. 
+如 [Example 4-14 #eg-4-14] 所示.
+
+====Example 4-14. 使用 copy_reg 模块实现 code 对象的 pickle 操作====[eg-4-14]
+
+```
+File: copy-reg-example-2.py
+
+import copy_reg
+import pickle, marshal, types
+
+#
+# register a pickle handler for code objects
+
+def code_unpickler(data):
+    return marshal.loads(data)
+
+def code_pickler(code):
+    return code_unpickler, (marshal.dumps(code),)
+
+copy_reg.pickle(types.CodeType, code_pickler, code_unpickler)
+
+#
+# try it out
+
+CODE = """
+print "suppose he's got a pointed stick"
+"""
+
+code = compile(CODE, "<string>", "exec")
+
+exec code
+exec pickle.loads(pickle.dumps(code))
+
+*B*suppose he's got a pointed stick
+suppose he's got a pointed stick*b*
+```
+
+如果你是在网络中传输 pickle 后的数据, 那么请确保自定义的 ``unpickler`` 在数据接收端也是可用的.
+
+Example 4-15 展示了如何实现 pickle 一个打开的文件对象.
+
+====Example 4-15. 使用 copy_reg 模块实现文件对象的 pickle 操作====[eg-4-15]
+
+```
+File: copy-reg-example-3.py
+
+import copy_reg
+import pickle, types
+import StringIO
+
+#
+# register a pickle handler for file objects
+
+def file_unpickler(position, data):
+    file = StringIO.StringIO(data)
+    file.seek(position)
+    return file
+
+def file_pickler(code):
+    position = file.tell()
+    file.seek(0)
+    data = file.read()
+    file.seek(position)
+    return file_unpickler, (position, data)
+
+copy_reg.pickle(types.FileType, file_pickler, file_unpickler)
+
+#
+# try it out
+
+file = open("samples/sample.txt", "rb")
+
+print file.read(120),
+print "<here>",
+print pickle.loads(pickle.dumps(file)).read()
+
+*B*We will perhaps eventually be writing only small
+modules, which are identified by name as they are
+used to build larger <here> ones, so that devices like
+indentation, rather than delimiters, might become
+feasible for expressing local structure in the
+source language.
+     -- Donald E. Knuth, December 1974*b*
+```

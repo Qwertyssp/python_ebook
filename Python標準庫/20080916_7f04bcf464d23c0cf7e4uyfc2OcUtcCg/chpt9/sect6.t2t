@@ -1,0 +1,24 @@
+﻿==sunau 模块==
+
+
+sunau 模块用于读写 Sun AU 音频文件. 如 [Example 9-5 #eg-9-5] 所示.
+
+====Example 9-5. 使用 sunau 模块====[eg-9-5]
+
+```
+File: sunau-example-1.py
+
+import sunau
+
+w = sunau.open("samples/sample.au", "r")
+
+if w.getnchannels() == 1:
+    print "mono,",
+else:
+    print "stereo,",
+
+print w.getsampwidth()*8, "bits,",
+print w.getframerate(), "Hz sampling rate"
+
+*B*mono, 16 bits, 8012 Hz sampling rate*b*
+```

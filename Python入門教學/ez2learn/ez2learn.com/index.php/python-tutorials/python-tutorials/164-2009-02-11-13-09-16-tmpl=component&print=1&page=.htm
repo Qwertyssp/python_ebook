@@ -1,0 +1,355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/164-2009-02-11-13-09-16" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="字串" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>字串</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					字串			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>Python的字串</h2>
+<p>文字是人類特有的溝通方式之一，對於電腦而言，程式語言本身也是由文字組成的語言，因此從這裡就可以看出文字的處理對於電腦而言是非常重要的，其實我們和電腦溝通幾乎都是用文字，下指令是文字、程式語言是文字、顯示出來的訊息也是文字，因此程式語言通常都會有處理字的能力，那什麼是字串呢?就是電腦裡的一段文字，都可以叫字串，如同其它語言一樣，Python一樣有屬於它的字串，而且Python的字串處理非常強大且簡單，現在就讓我們來介紹Python的字串。<br /><br />Python的字串可以由"和'或是"""包起來，基本上效果是一樣的</p>
+<pre name="code" class="python:nogutter:nocontrols">'字串'
+</pre>
+<pre name="code" class="python:nogutter:nocontrols">"字串"
+</pre>
+<pre name="code" class="python:nogutter:nocontrols">"""多行字串"""
+</pre>
+<p>像這樣把字包起來就是一個字串，多行字串我們在註解裡介紹過了，其實單一行存在的字串可以拿來當註解，更精確的來說，應該是程式的文件，有關於這一點，請看Python的內件文件一文，由於那不是本篇的重點，所以在這裡只提醒帶過而已。<br /><br />還有一點值得注意的是，字串是屬於"不可改變"的物件，也就是說，所有對於字串的修改，其實都是創造出一個新的字串，而不是改變字串物件本身，關於這點在以後會看到其它"可改變的"和"不可改變"的物件。<br /><br />以下示範一下字串的用法:</p>
+<pre name="code" class="python:nogutter:nocontrols"># 設定名字為Victor Lin這樣的字串
+name = "Victor Lin"
+print name
+
+# 有兩種'和"的好處就是可以交替使用
+# 就不會有衝到的問題，在這裡用""括起來'
+msg = "Victor's Programming Tutorial"
+print msg
+
+# 同樣的也可以這樣使用
+msg = 'What is "Python"?'
+print msg
+
+# 多行的文字
+# 同樣裡面也可以使用'和"
+multiLine = """Hello! Baby!
+second line!
+third line!
+Welcome to Victor's Tutorial
+What is "python"
+"""
+print multiLine
+</pre>
+<h2>跳脫字元</h2>
+<p>那你可能會問，如果我非得使用'和"或是"""在字串裡不可該怎麼辦?答案很簡單，使用跳脫字元，如果你有學過其它程式語言就知道，Python當然也有跳脫字元，所謂的跳脫字元就是\再加上一些特定符號，來代表特殊符號，打不出來或會被誤解的符號，以下列出表格表示Python的各種跳脫字元:</p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>跳脫字元</th><th>代表字元</th>
+</tr>
+</tbody>
+<tbody>
+<tr class="odd">
+<td>\\</td>
+<td>表示反斜線\</td>
+</tr>
+<tr class="even">
+<td>\'</td>
+<td>表示單引號'</td>
+</tr>
+<tr>
+<td>\"</td>
+<td>表示雙引號"</td>
+</tr>
+<tr class="even">
+<td>\a</td>
+<td>ASCII裡的Bell<br /></td>
+</tr>
+<tr>
+<td>\b</td>
+<td>ASCII裡的Backspace</td>
+</tr>
+<tr class="even">
+<td>\f</td>
+<td>ASCII裡的Formfeed</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>ASCII裡的Linefeed，也就是一般認知裡的換行</td>
+</tr>
+<tr class="even">
+<td>\N{name}</td>
+<td>在Unicode裡名為name代表的字元</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>ASCII裡的Carriage Return</td>
+</tr>
+<tr class="even">
+<td>\t</td>
+<td>ASCII裡的Horizontal Tab</td>
+</tr>
+<tr>
+<td>\uxxxx</td>
+<td>Unicode裡16位元的xxxx在16進制裡代表的字元</td>
+</tr>
+<tr class="even">
+<td>\Uxxxxxxxx</td>
+<td>Unicode裡32位元的xxxxxxxx在16進制裡代表的字元</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>ASCII裡的Vertical Tab</td>
+</tr>
+<tr class="even">
+<td>\ooo</td>
+<td>ooo在8進制代表的字元</td>
+</tr>
+<tr>
+<td>\xhh</td>
+<td>hh在16進指代表的字元</td>
+</tr>
+<tr class="even">
+<td>\0</td>
+<td>代表ASCII裡的 NULL，但是並不中斷字串</td>
+</tr>
+</tbody>
+</table>
+<p>有一點值得注意的是，如果你有學過其它語言，你可能知道<strong>很多語言都拿'\0'來當做字串結束的符號，但Python字串裡的'\0'不會中斷字串</strong>，因為Python的字串並不以'\0'做為字串的結束記號，因此字串在Python也可以拿來存放Binary的資料，以下就讓我們示範如何使用跳脫字元。</p>
+<pre name="code" class="python:nogutter:nocontrols"># 使用\\跳脫字元
+print "c:\\windows\\system32"
+
+# 使用\n跳脫字元
+print "First line\nSecond line"
+
+# 我們在這裡跳脫了"""的第一個"，因此沒問題
+print """You can write string in \"""string\""" format."""
+</pre>
+<h2>Unicode</h2>
+<p>我們在這裡不打算從頭到尾介紹Unicode，有興趣請上Google或維基百科搜尋，而Unicode簡單的來說，就是可以編任何語言的一種文字的編碼，相較於更早之前的ASCII或Big5等只能編特定語言的編碼來得方便多，不用每個地方的程式都要特別寫，統一起來就大家都用一樣的編碼，Python一個優勢就是它天生就支援Unicode，所以比起其它語言，這樣的先天優勢使用起來就非常方便，那我們現在就直接介紹Unicode的使用方式，只要在字串的前面加一個前綴字u就可以了，而這個U是不分大小寫的</p>
+<pre name="code" class="python:nogutter:nocontrols">u'中文字'
+U"和偉大的許功蓋先生說再見~"
+u"""多行也一樣""
+</pre>
+<p>u的大小寫並不會有任何影響，在寫範例示範之前，有一點需要注意的就是，Python程式的檔案編碼請設為utf-8，如果你搞錯弄成ASCII 等，很可能就會造成無法執行，Python直譯器在讀時遇到未預期的字元通常就會出錯，Python有提供一種方法可以讓直譯器知道這個檔案是用什麼樣的編碼，就是</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: 編碼名稱 -*-
+</pre>
+<p>這樣放在第一行的註解，而通常我們使用的都是utf-8比較多，所以也就是</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+</pre>
+<p>而使用Python官方的IDLE有個好處就是，在存檔時它會幫你抓第一行看是什麼編碼，在存檔時就會幫你存成該種編碼，因此你只要加了這行執行起來應該就沒問題，如果你是使用記事本等編輯py檔，那就必需把該檔案設為正確的編碼。<br /><br />以下示範unicode的使用方式:</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# U的大小寫並不造成影響
+print U'中文字'
+
+# 終於不用再和許功蓋先生拼命了
+print u"和偉大的許功蓋先生說再見~"
+
+print u"""多行也一樣"""
+
+# 用跳脫字元來表示也可以
+print u'\u7528\u8df3\u812b\u5b57\u5143\u4f86\u8868\u793a\u4e5f\u53ef\u4ee5'
+
+# 日文也可以，不過在DOS下可能印不出來
+print u'涼宮ハルヒの憂鬱'
+</pre>
+<h2>字串的運算</h2>
+<p>字串也可以運算，你或許會覺得很奇怪，為什麼字串也需要運算，原因很簡單，當你想要把不同的字串合起來時，或是一個字串重覆個幾次，就需要字串的運算，而字串的運算有幾種，並不是像數字運算那樣每樣都有，而我們在這裡並沒有介紹所有的字串運算，先介紹最常用的幾種:</p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>字串運算<br /></th><th>說明<br /></th>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">ls + rs</span></span></span></td>
+<td>左右字串串接在一起變成"lsrs"的字串</td>
+</tr>
+<tr class="even">
+<td><span id="content0"><span id="content20"><span id="content21">n*s</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">字串乘上一個數字，或是數字乘上一個字串，表示重覆該字串n次</span></span></span></td>
+</tr>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">x in  s</span></span></span></td>
+<td>如果x出現在字串s中為真</td>
+</tr>
+<tr class="even">
+<td><span id="content0"><span id="content20"><span id="content21">x not in s</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">如果x不出現在字串s中為真</span></span></span></td>
+</tr>
+<tr>
+<td><span id="content0"><span id="content20"><span id="content21">len(s)</span></span></span></td>
+<td><span id="content0"><span id="content20"><span id="content21">len函數回傳s字串的長度</span></span></span><span id="content0"><span id="content20"><span id="content21"></span></span></span><span id="content0"><span id="content20"><span id="content21"></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<p><span id="content0"><span id="content20"><span id="content21">接下來示範字串運算的用法:</span></span></span></p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+firstName = "Victor"
+familyName = "Lin"
+
+# 在這裡我們用 + 將字串接起來
+print "My name is " + firstName + " " + familyName
+
+# 在這裡我們用 * 將同一字串重覆n次
+print u"一二三" * 3
+
+# 這裡我們用in來判斷字串裡是否有某段文字
+# 因為成立，所以回傳True
+print u'中文' in u'中文字藏在中文字裡'
+
+# 這裡我們用not in來判斷字串裡是否沒有某段文字
+# 因為不成立，所以回傳False
+print u'中文' not in u'中文字藏在中文字裡'
+
+# 我們用len函數計算"王小名"有幾個字
+print len(u'王小明')
+</pre>
+<p><span id="content0"><span id="content20"><span id="content21">以上運算的對象都有限定，例如你不能把字串和數字做相加<br /></span></span></span></p>
+<pre name="code" class="python:nogutter:nocontrols">'my age : ' + 3
+</pre>
+<span id="content0"><span id="content20"><span id="content21"></span></span></span>
+<p>像這樣是錯誤的，那應該怎麼辦呢? 我們下面介紹如何將其它物件轉為字串。</p>
+<h2><span id="content0"><span id="content20"><span id="content21">將物件轉換成字串</span></span></span></h2>
+<p><span id="content0"><span id="content20"><span id="content21">如我們上面所說的，你不能將字串和非字串做相加，但是卻又非這麼做不可，那該怎麼辦呢? 方法很簡單，就是先將該物件轉成字串，然後兩邊都是字串就可以相加了，以下是轉成字串的函數:</span></span></span></p>
+<p><span id="content0"><span id="content20"><span id="content21"></span></span></span></p>
+<table class="grid listing">
+<tbody>
+<tr>
+<th>Col 01</th><th>Col 11</th>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td>str(o)</td>
+<td>回傳o物件轉換成易讀的字串</td>
+</tr>
+<tr class="even">
+<td>unicode(o)</td>
+<td><span id="content0"><span id="content20"><span id="content21">回傳</span></span></span>o此物件轉換成易讀的unicode字串</td>
+</tr>
+<tr>
+<td>repr(o)</td>
+<td><span id="content0"><span id="content20"><span id="content21">回傳</span></span></span>o此物件轉換成以跳脫字元表達的字串</td>
+</tr>
+</tbody>
+</table>
+<span id="content0"><span id="content20"><span id="content21">str() 通常或是unicode()通常就是拿來將物件轉換成為字串用的，那你可能會問和repr()有什麼差別，差別在於，str()和unicode()轉換出來的字串是易讀的類形，而repr()轉換出來會把換行、unicode等字都換成跳脫字元表示的形式，且是以Python的字串方式表示，如果你正在寫程式的話，你可能會想把一個字串用repr()的形式轉換印出來看看，因為這樣可以確定字串的實際內容到底是什麼，或是字串的跳脫字元表示出來的形式是怎樣，這個字串是不是unicode，以下讓我們示範這幾種方式:</span></span></span>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+myAge = 3
+
+# 將myAge轉成字串，和前面的字結合印出"Hello, my age is 3"
+print 'Hello, my age is ' + str(myAge)
+
+# unicode的字串可以和非unicode的字串接合，但結果還是unicode
+print u'你好，我今年' + str(myAge) + u'歲'
+
+# 這會以跳脫字元的形式印出來，所以會是'c:\\windows\\system32'
+print repr('c:\\windows\\system32')
+
+# 一樣使用跳脫字元的形式印出來，結果會是'First line\nSecond line'
+print repr('First line\nSecond line')
+
+# 下面這行會印出u'\u4e2d\u6587\u5b57'
+# 也就是用Python字串表示的方式
+# 連前面的u一樣也會印出來
+# 我們可以知道這是一個unicode字串
+print repr(u'中文字')
+
+# 我們也可以將一個一般字串
+# 用unicode轉成unicode字串
+# 再用repr轉換，你會發現結果是u'hello'
+# 原本的'hello'變成了unicode的u'hello'字串了
+print repr(unicode('hello')
+</pre>
+<span id="content0"><span id="content17"><span id="content25">Python並沒有限定可以轉換成字串的物件，不只有數字可以轉換，而是每個物件都可以有一個轉換成字串的函數，也就是由該物件來決定自己轉換成字串後是什麼樣子，下面例子示範轉換其它種類的物件:<br /></span></span></span>
+<pre name="code" class="python:nogutter:nocontrols">
+# 引入sys這個module
+import sys
+
+# 將sys此module轉換成字串印出來
+# 結果會是&lt;module 'sys'="sys" (built-in)="(built-in)" /&gt;
+# 這也是module物件自己定的字串形式
+print str(sys)
+
+# 當然如我們所說的
+# 只要是物件都可以轉成字串
+# 因為str、unicode、repr都是函數物件
+# 我們轉換試試
+print str(str)
+print str(unicode)
+print str(repr
+</pre>
+<p><span id="content0"><span id="content20"><span id="content21"></span></span></span></p><more_text></more_text>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="163-2009-02-11-13-09-14.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/163-2009-02-11-13-09-14">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="165-2009-02-11-13-09-18.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/165-2009-02-11-13-09-18">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+<tr>
+	<td class="modifydate">
+		最近更新在 週三, 11 二月 2009 21:42	</td>
+</tr>
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

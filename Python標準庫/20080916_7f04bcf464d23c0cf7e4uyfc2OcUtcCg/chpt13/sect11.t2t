@@ -1,0 +1,24 @@
+﻿==compileall 模块==
+
+
+``compileall`` 模块用于将给定目录下(以及 Python path )的所有 Python 脚本编译为字节代码. 它也可以作为可执行脚本使用(在 Unix 系统下, Python 
+安装时会自动调用执行它). 用法参见 [Example 13-11 #eg-13-11] .
+
+====Example 13-11. 使用 compileall 模块编译目录中的所有脚本====[eg-13-11]
+
+```
+File: compileall-example-1.py
+
+import compileall
+
+print "This may take a while!"
+
+compileall.compile_dir(".", force=1)
+
+*B*This may take a while!
+Listing . ...
+Compiling .\SimpleAsyncHTTP.py ...
+Compiling .\aifc-example-1.py ...
+Compiling .\anydbm-example-1.py ...
+...*b*
+```

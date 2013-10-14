@@ -1,0 +1,31 @@
+﻿==dumbdbm 模块==
+
+
+``dumbdbm`` 模块是一个简单的数据库实现, 与 ``dbm`` 一类相似, 但使用纯 Python 实现. 
+它使用两个文件: 一个二进制文件 (//.dat//) 用于储存数据, 一个文本文件 (//.dir//) 用于数据描述. 
+
+====Example 10-7. 使用 dumbdbm 模块====[eg-10-7]
+
+```
+File: dumbdbm-example-1.py
+
+import dumbdbm
+
+db = dumbdbm.open("dumbdbm", "c")
+db["first"] = "fear"
+db["second"] = "surprise"
+db["third"] = "ruthless efficiency"
+db["fourth"] = "an almost fanatical devotion to the Pope"
+db["fifth"] = "nice red uniforms"
+db.close()
+
+db = dumbdbm.open("dumbdbm", "r")
+for key in db.keys():
+    print repr(key), repr(db[key])
+
+*B*'first' 'fear'
+'third' 'ruthless efficiency'
+'fifth' 'nice red uniforms'
+'second' 'surprise'
+'fourth' 'an almost fanatical devotion to the Pope'*b*
+```

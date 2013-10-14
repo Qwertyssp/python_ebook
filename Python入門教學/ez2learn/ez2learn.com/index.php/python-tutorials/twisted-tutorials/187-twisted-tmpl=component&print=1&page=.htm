@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/187-twisted" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="什麼是Twisted" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>什麼是Twisted</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					什麼是Twisted			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>什麼是Twisted</h2>
+
+<p>Twisted是一款Open source且基於Python的網路通訊引擎，快速開發有彈性、穩定、安全的伺服器的利器。</p>
+
+<h2>為什麼使用Twisted</h2>
+
+<h3>良好的架構</h3>
+
+它使用有名的<a class="external-link" href="javascript:if(confirm('http://en.wikipedia.org/wiki/Reactor_pattern  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://en.wikipedia.org/wiki/Reactor_pattern'" tppabs="http://en.wikipedia.org/wiki/Reactor_pattern">Reactor
+pattern</a>，非同步IO對它而言是相當容易處理的事情，加上它的Deferred物件，用來處理Callback的呼叫 
+
+<h3>極佳的彈性</h3>
+
+<p>它的Deferred物件，讓它在處理非同步事件，可以將責任分散並且封裝起來，可以有相當好的彈性</p>
+
+<h3>安全性</h3>
+
+以Python語言寫成，天生就沒有<a class="external-link" href="javascript:if(confirm('http://en.wikipedia.org/wiki/Buffer_overflow  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://en.wikipedia.org/wiki/Buffer_overflow'" tppabs="http://en.wikipedia.org/wiki/Buffer_overflow">buffer
+overflow</a>的問題 
+
+<h3>極度穩定</h3>
+
+<p>
+它非常的穩定，做為一個伺服器最重要的指標之一就是穩定性，根據官方網站的說法，他們的官方網站架構在Twisted上，不會當機，而且極少需要重開</p>
+
+<h3>快速開發</h3>
+
+<p>
+Python就是以快速開發著稱，任何修改都不需重新編譯可以直接看到結果，加上底層的東西都被架構良好地封裝起來，開發者所需要關心的就只有他們想要的功能，而不是處理底層的細節</p>
+
+<h3>跨平台</h3>
+
+<p>
+Python天生就是一款跨平台的語言，而Twisted對於各平台都有實作不同的Reactor，所以同樣的伺服器或客戶端不需要任何編譯都可以直接移植到你想要的平台上</p>
+
+<h3>容易除錯</h3>
+
+<p>
+伺服器需要長期執行，最難除錯的就是遇到偶爾才會出現的Bug，如果是編譯語言通常難以除錯，動態語言的特性之一就是可以動態取得堆疊，加上logging系統，可以記錄crash時的trace
+back，讓除錯的工作變得容易許多</p>
+
+<h3>內建常見的通訊協定</h3>
+
+<p>
+實作通訊協定的過程是痛苦且漫長的，更是開發者的生產力的殺手，在這裡它已經內建了HTTP、SSH、SMTP、DNS等通訊協定，可以直接使用更加速了開發的進度</p>
+
+<h3>良好的文件</h3>
+
+<p>它有良好的文件、以及範例說明如何使用，不會讓開發者盲目地猜測使用方式</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_next">
+					<a href="188-twisted--reactor.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/188-twisted--reactor">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

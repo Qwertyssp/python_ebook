@@ -1,0 +1,73 @@
+﻿==cgi 模块==
+
+
+``cgi`` 模块为 CGI 脚本提供了函数和类支持. 它还可以处理 CGI 表单数据.
+
+[Example 7-40 #eg-7-40] 展示了一个简单的 CGI 脚本, 它返回给定目录下的文件列表
+(相对于脚本中指定的根目录)
+
+====Example 7-40. 使用 cgi 模块====[eg-7-40]
+
+```
+File: cgi-example-1.py
+
+import cgi
+import os, urllib
+
+ROOT = "samples"
+
+# header
+print "text/html"
+print
+
+query = os.environ.get("QUERY_STRING")
+if not query:
+    query = "."
+
+script = os.environ.get("SCRIPT_NAME", "")
+if not script:
+    script = "cgi-example-1.py"
+
+print "<html>"
+print "<head>"
+print "<title>file listing</title>"
+print "</head>"
+print "</html>"
+
+print "<body>"
+
+try:
+    files = os.listdir(os.path.join(ROOT, query))
+except os.error:
+    files = []
+
+for file in files:
+    link = cgi.escape(file)
+    if os.path.isdir(os.path.join(ROOT, query, file)):
+        href = script + "?" + os.path.join(query, file)
+        print "<p><a href= '%s'>%s</a>" % (href, cgi.escape(link))
+    else:
+        print "<p>%s" % link
+
+print "</body>"
+print "</html>"
+
+*B*text/html
+
+<html>
+<head>
+<title>file listing</title>
+</head>
+</html>
+<body>
+<p>sample.gif
+<p>sample.gz
+<p>sample.netrc
+...
+<p>sample.txt
+<p>sample.xml
+<p>sample~
+<p><a href='cgi-example-1.py?web'>web</a>
+</body>
+</html>*b*
+```

@@ -1,0 +1,21 @@
+﻿==regsub 模块==
+
+
+(已废弃) ``regsub`` 模块提供了基于正则表达式的字符串替换操作. 用法如 [Example 14-33 #eg-14-33] 所示. 
+新代码请使用 ``re`` 模块中的 ``replace`` 函数代替.
+
+====Example 14-33. 使用 regsub 模块====[eg-14-33]
+
+```
+File: regsub-example-1.py
+
+import regsub
+
+text = "Well, there's spam, egg, sausage, and spam."
+
+print regsub.sub("spam", "ham", text) # just the first
+print regsub.gsub("spam", "bacon", text) # all of them
+
+*B*Well, there's ham, egg, sausage, and spam.
+Well, there's bacon, egg, sausage, and bacon.*b*
+```

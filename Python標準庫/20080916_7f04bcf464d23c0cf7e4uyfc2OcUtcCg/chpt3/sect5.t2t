@@ -1,0 +1,21 @@
+﻿==commands 模块==
+
+
+(只用于 Unix) ``commands`` 模块包含一些用于执行外部命令的函数. 
+[Example 3-7 #eg-3-7] 展示了这个模块.
+
+====Example 3-7. 使用 commands 模块====[eg-3-7]
+
+```
+File: commands-example-1.py
+
+import commands
+
+stat, output = commands.getstatusoutput("ls -lR")
+
+print "status", "=>", stat
+print "output", "=>", len(output), "bytes"
+
+*B*status => 0
+output => 171046 bytes*b*
+```

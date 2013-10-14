@@ -1,0 +1,41 @@
+﻿==packmail 模块==
+
+
+(已废弃) ``packmail`` 模块可以用来创建 Unix shell 档案. 如果安装了合适的工具, 
+那么你就可以直接通过运行来解开这样的档案. [Example 6-10 #eg-6-10] 展示了如何打包单个文件, 
+[Example 6-11 #eg-6-11] 则打包了整个目录树.
+
+====Example 6-10. 使用 packmail 打包单个文件====[eg-6-10]
+
+```
+File: packmail-example-1.py
+
+import packmail
+import sys
+
+packmail.pack(sys.stdout, "samples/sample.txt", "sample.txt")
+
+*B*echo sample.txt
+sed "s/^X//" >sample.txt <<"!"
+XWe will perhaps eventually be writing only small
+Xmodules, which are identified by name as they are
+Xused to build larger ones, so that devices like
+Xindentation, rather than delimiters, might become
+Xfeasible for expressing local structure in the
+Xsource language.
+X    -- Donald E. Knuth, December 1974
+!*b*
+```
+
+====Example 6-11. 使用 packmail 打包整个目录树===[eg-6-11]
+
+```
+File: packmail-example-2.py
+
+import packmail
+import sys
+
+packmail.packtree(sys.stdout, "samples")
+```
+
+注意, 这个模块不能处理二进制文件, 例如声音或者图像文件.

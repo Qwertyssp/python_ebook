@@ -1,0 +1,31 @@
+﻿==signal 模块==
+
+
+你可以使用 ``signal`` 模块配置你自己的信号处理器 (signal handler), 
+如 [Example 3-11 #eg-3-11] 所示. 当解释器收到某个信号时, 信号处理器会立即执行. 
+
+====Example 3-11. 使用 signal 模块====[eg-3-11]
+
+```
+File: signal-example-1.py
+
+import signal
+import time
+
+def handler(signo, frame):
+    print "got signal", signo
+
+signal.signal(signal.SIGALRM, handler)
+
+# wake me up in two seconds
+signal.alarm(2)
+
+now = time.time()
+
+time.sleep(200)
+
+print "slept for", time.time() - now, "seconds"
+
+*B*got signal 14
+slept for 1.99262607098 seconds*b*
+```

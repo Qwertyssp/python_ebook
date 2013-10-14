@@ -1,0 +1,39 @@
+﻿==nturl2path 模块==
+
+
+(功能实现模块) ``nturl2path`` 模块用于 URL 和 Windows 文件名的
+相互映射. 用法参见 [Example 13-15 #eg-13-15] .
+
+====Example 13-15. 使用 nturl2path 模块====[eg-13-15]
+
+```
+File: nturl2path-example-1.py
+
+import nturl2path
+
+file = r"c:\my\little\pony"
+
+print nturl2path.pathname2url(file)
+print nturl2path.url2pathname(nturl2path.pathname2url(file))
+
+*B*///C|/my/little/pony
+C:\my\little\pony*b*
+```
+
+同样地, 请通过 ``urllib`` 模块来访问这些函数, 如 [Example 13-16 #eg-13-16] 所示.
+
+====Example 13-16. 通过 urllib 调用 nturl2path 模块====[eg-13-16]
+
+```
+File: nturl2path-example-2.py
+
+import urllib
+
+file = r"c:\my\little\pony"
+
+print urllib.pathname2url(file)
+print urllib.url2pathname(urllib.pathname2url(file))
+
+*B*///C|/my/little/pony
+C:\my\little\pony*b*
+```

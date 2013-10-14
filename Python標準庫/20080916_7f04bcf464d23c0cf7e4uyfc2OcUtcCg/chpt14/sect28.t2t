@@ -1,0 +1,31 @@
+﻿==regex_syntax 模块==
+
+
+(已废弃) ``regex_syntax`` 模块用于改变正则表达式的模式, 如 [Example 14-35 #eg-14-35] 所示.
+
+====Example 14-35. 使用 regex_syntax 模块====[eg-14-35]
+
+```
+File: regex-syntax-example-1.py
+
+import regex_syntax
+import regex
+
+def compile(pattern, syntax):
+    syntax = regex.set_syntax(syntax)
+    try:
+        pattern = regex.compile(pattern)
+    finally:
+        # restore original syntax
+        regex.set_syntax(syntax)
+    return pattern
+
+def compile_awk(pattern):
+    return compile(pattern, regex_syntax.RE_SYNTAX_AWK)
+
+def compile_grep(pattern):
+    return compile(pattern, regex_syntax.RE_SYNTAX_GREP)
+
+def compile_emacs(pattern):
+    return compile(pattern, regex_syntax.RE_SYNTAX_EMACS)
+```

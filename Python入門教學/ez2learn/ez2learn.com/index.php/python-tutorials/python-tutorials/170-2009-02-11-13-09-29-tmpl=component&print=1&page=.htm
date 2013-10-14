@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/170-2009-02-11-13-09-29" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="字串格式運算" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>字串格式運算</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					字串格式運算			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>字串格式運算</h2>
+
+<p><span id="content0"><span id="content1"></span></span></p>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>我們先來看看我們對於字串的格式，有什麼樣的功能，是的，如果你沒忘記的話，我們有字串相加等等的運算，例如我們想印出"Number :
+數字"可以使用"Number :" + str(number)等方法，但是如果我們想要"特定格式"的字串輸出呢?例如我們想以16進制輸出?
+又或著想用科學表示法來表示數字呢? 我們得字己轉換?
+你可以這樣做，但是這麼常用的功能，Python並沒有忘記，如果你有學過C語言，你可能會懷念printf好用的格式化語法，事實上Python也承襲了這樣好用的語法，如果你已經學過C語言的printf，或其它語言的字串格式你會發現他們大多都大同小異，現在就讓我們來介紹Python的字串格式運算。</p>
+
+<p>Python的字串格式運算很簡單，總共有分兩種方式，第一種，使用元組來按順序填入格式，只要字串後面接著一個百分比符號 "%"
+然後再接一個元組:</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"欲格式化字串" % (物件1, 物件2, 物件3, ...)
+</pre>
+
+<div id="node2">
+<p>像這樣，另一種是使用Dictionary來進行格式化，有個好處就是不按照順序，只看鍵值</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"欲格式化字串" % {'鍵值1': 對應資料1, '鍵值2': 對應資料2, ....}
+</pre>
+
+<div id="node2">
+<p>而格式的語法有些不同，讓我們一一介紹這兩種方法。</p>
+
+<span id="content2"></span></div>
+
+<h2>使用元組格式</h2>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>
+基本上元組和C語言的printf語法很類似，幾乎可以說沒什麼差別，所以如果你學過其它類似的語法，也會覺得很親切，以下讓我們介紹元組的格式語法。</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]格式參數
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>一個%後面接著旗標，在這裡用[]括起來，不是屬於語法，而是指可以省略不寫，舉個例子</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %s" % 'Victor'
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>
+像這一行的%s，就是字串格式運算的語法，s代表將資料轉換成字串格式，而這裡的特例是，當元素只有一個就可以不用使用Tuple接在後面，如果一個元素你要接Tuple也是可以的</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %s" % ('Victor',)
+</pre>
+
+<div id="node2"><span id="content2"></span> 
+
+<p>只是結果還是一樣，這種語法的概念很簡單，簡單的來說，就是"<strong>一個蘿蔔一個坑</strong>"，什麼意思呢?
+請把左邊的%開頭的格式符號想成是坑，右邊的資料元組裡的元素是蘿蔔，按照順序，第一個蘿蔔塞進第一個坑，第二個塞進第二個坑，以此類推，換言之，就是左邊出現的第一個%格式符號，會由右邊的第一個元素來提供格式化用的資料，有一點值得注意的是，蘿蔔和坑的個數必須一樣，否則會出現錯誤，以下就讓我們用簡單的例子來說明使用方式。</p>
+</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-  
+
+# 建立名稱
+name = 'Victor Lin'
+
+# 建立天氣資料
+weatherData = (u'台中地區', u'多雲時晴', u'15~18', u'度C', u'0%')
+
+# 第一個%s以name當資料來格式化
+print 'Hello, %s' % name
+
+# 印出今日天氣概況
+print u"%s 的今天氣是 %s，氣溫是 %s度%s，降雨機率是 %s" % weatherData
+</pre>
+
+<span id="content0"></span> 
+
+<div id="node2">
+<h2><span id="content2"></span>使用字典格式</h2>
+
+字典的格式方式比較特別，它依據鍵來決定該位置要用哪筆資料來做格式化，以下讓我們介紹語法。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數](鍵值名稱)格式參數
+</pre>
+
+<div id="node2">比起元組的格式，多出了一個用()括起來的鍵值名稱，舉個例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"My name is %(name)s" % {'name': 'Victor'}
+</pre>
+
+<div id="node2">
+當它發現%(name)s時，就會在右邊的字典中找到name對應的資料，並且按照s，也就是字串的格式印出來，這樣有個好處，不用考慮順序，只要特定位置使用特定名稱就可以了，還有一點和元組不一樣的是，字典中元素的個數可以多出來，並沒有影響，但是出現在格式中的鍵值卻一個也不能少，否則一樣會出錯，舉個不會出錯，但元素多出來的例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+author = {'name': 'Victor', 'age': 19}
+print "My name is %(name)s" % author
+</pre>
+
+<div id="node2">
+我們可以在這個例子中發現author中多出了age這個鍵和對應值，但是在格式的字串中，只出現name此鍵值，因此沒有影響，但是如果格式字串中出現鍵，就一定得同樣出現在右邊的字典中，以下是一個會引發錯誤的例子</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print "My name is %(name)s" % {'age': 19}
+</pre>
+
+<div id="node2">因為找不到name鍵，上面的範例會產生錯誤。<br /><br />
+介紹完了字典的語法，以下讓我們簡單地示範如何使用字典的字串格式化運算。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-  
+
+# 建立作者資訊的Dictionary
+author = {'name': 'Victor Lin', 'age': 19, 'professional': 'student'}
+
+# 設定格式化後的字串給變數
+authorMessage = "Author of this article is %(name)s, his age is %(age)d." % author 
+
+# 印出authorMessage
+print authorMessage
+
+# 印出職業
+print "He is a %(professional)s." % author
+</pre>
+
+<h2>格式化參數與旗標</h2>
+
+<p>介紹完了字串格式運算的語法，接下來我們來介有哪些控制字串格式的旗標與參數。</p>
+
+<p>首先介紹的轉換的參數所代表的格式。</p>
+
+<table class="grid listing"><tr><th>格式參數</th>
+<th>說明</th>
+</tr><tbody><tr><td>d</td>
+<td>有號的十進制整數</td>
+</tr><tr class="even"><td>i</td>
+<td>有號的十進制整數，同上</td>
+</tr><tr><td>o</td>
+<td>無號的八進制整數</td>
+</tr><tr class="even"><td>u</td>
+<td>無號的十進制整數</td>
+</tr><tr><td>x</td>
+<td>無號的十六進制(小寫)</td>
+</tr><tr class="even"><td>X</td>
+<td>無號的十六進制(大寫)</td>
+</tr><tr><td>e</td>
+<td>指數表示法表示浮點數(小寫)</td>
+</tr><tr class="even"><td>E</td>
+<td>指數表示法表示浮點數(大寫)</td>
+</tr><tr><td>f</td>
+<td>十進制的浮點數</td>
+</tr><tr class="even"><td>F</td>
+<td>十進制的浮點數，同上</td>
+</tr><tr><td>g</td>
+<td>浮點數格式，如果指數大於-4使用指數表示法，否則使用一般十進制浮點數表示法(小寫)</td>
+</tr><tr class="even"><td>G</td>
+<td>浮點數格式，如果指數大於-4使用指數表示法，否則使用一般十進制浮點數表示法(大寫)</td>
+</tr><tr><td>c</td>
+<td>單一字元(接受整數，或是單一字元的字串)</td>
+</tr><tr class="even"><td>r</td>
+<td>字串，以repr()函數轉換資料成字串格式</td>
+</tr><tr><td>s</td>
+<td>字串，以str()函數轉換資料成字串格式</td>
+</tr><tr class="even"><td>%</td>
+<td>輸出單一字元"%"，並不讀取右邊的參數</td>
+</tr></tbody></table><p>
+轉換類形的大小寫是表示，其中的英文部份是以大寫或小寫輸出，例如十六進制的0xFFF，大寫就是0xFFF，小寫就是0xfff，就是這樣的差別而已，而比較特別的是%，在格式字串裡，你想要打%，可是可能會被誤以為是字串格式運算用的符號，因此你只要打兩個%，例如"今天的降雨機率是%d%%"
+% rate，這裡最後出現的%%會被變成一個%輸出，而且不會讀取右邊的任何資料，只是用來解決%無法輸出的問題。</p>
+
+<p>以下幾個例子讓我們來示範各種類形的格式。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*- 
+
+# 輸出數字類形
+print u'說好不提%d的' % 261
+
+# 輸出repr轉換後的字串
+print u'repr : %r' % u'許功蓋先生'
+
+# 輸出浮點數格式，指數大於-4，會以指數形態輸出
+print u'float: %G' % 0.00005
+
+# 輸出浮點數格式，指數小於-4，會以浮點形態輸出
+print u'float: %G' % 0.05
+
+# 輸出十六進制
+print u'Hex: %X' % 12345678
+
+# 輸出 %
+print u'今天的降雨機率是%d%%' % 12
+</pre>
+
+<h2>寬度與小數點位數<br /></h2>
+
+<p>如我們前面所提的格式</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]轉換類形
+</pre>
+
+<p>還有寬度和小數點位數兩個欄位，我們還沒說明，所謂的寬度就是指，格式化後佔多少個字元，不足的部份會以空白補足，舉個例子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print repr('%5s' % 'abc')
+</pre>
+
+<p>這句的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'  abc'
+</pre>
+
+<p>前面被兩個空白補足了，因為預設是靠右，所以補足前面的空白，總而言之它會補空白直到補滿"寬度"為止。<br />
+而小數點位是是指，對於浮點數你想要它顯示到小數點後面多少位數，例如</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print '%.3f' % (10/3.0)
+</pre>
+
+<p>的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+3.333
+</pre>
+
+<p>總共有三個位數，然而，因為小數點位數與寬度是不同欄位，所以你可以同時寫寬度和小數點位數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print repr('%7.3f' % (10/3.0))
+</pre>
+
+<p>的結果會是</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'  3.333'
+</pre>
+
+<p>前面被補足了兩個空白，因為寬度是7，而小數點位數是3，字串的長度是5，因此前面會補兩個空白。<br />
+以下我們示範寬度與小數點位數的應用。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 輸出寬度為10的字串
+print '&lt;p&gt;%10s&lt;/p&gt;' % 'hello'
+
+# 建立floatNumber為3.33333....
+floatNumber = 10/3.0
+
+# 輸出寬度為7，小數點位數到4的浮點數格式
+print '%7.4f' % floatNumber
+</pre>
+
+<h2>旗標</h2>
+
+<p>如果們前面格式所寫的，在最前面還可以加一個旗標</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+%[旗標][寬度][.小數點位數]轉換類形
+</pre>
+
+<p>
+因為和其它的寬度、小數點位數等是不同欄位，因此也可以和其它欄位同時存在，舉個例子，例如我們想讓輸出的數字不管正負號都把正負號給顯示出來，這時+這個旗標就可以加上去，可以這樣寫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+'%+.3f' % (10/3.0)
+</pre>
+
+<p>以下讓我們介紹旗標的種類。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>#</td>
+<td>在前面增加前綴，例如十六進制的前綴是0x，八進制的是0</td>
+</tr><tr class="even"><td>0</td>
+<td>0會補足剩餘的寬度</td>
+</tr><tr><td>-</td>
+<td>靠左對齊(預設是靠右邊)</td>
+</tr><tr class="even"><td>(空白)</td>
+<td>如果數值是正數，則在最前面補一個空白</td>
+</tr><tr><td>+</td>
+<td>在前面標明正負號(+ or -)</td>
+</tr></tbody></table><p>以下我們示範簡單的旗標使用方法。</p>
+
+<span id="content0"><span id="content19"><span id="content27"></span></span></span> 
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 輸出寬度為10的字串，並且讓它靠左對齊
+print '&lt;p&gt;%-10s&lt;/p&gt;' % 'hello'
+
+# 建立floatNumber為3.33333....
+floatNumber = 10/3.0
+
+# 輸出寬度為7，小數點位數到4的浮點數格式，並且顯示正負號
+print '%+7.4f' % floatNumber
+
+# 輸出寬度為10的字串，多出來的部份補0
+print '%010d' % 7788
+
+# 輸出正整數，如果正數左邊補空白
+print '% d' % 7788
+
+# 輸出負整數，如果正數左邊補空白
+print '% d' % -778
+</pre>
+
+<span id="content0"></span><more_text></more_text>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="169-tuple.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/169-tuple">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="171-if.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/171-if">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

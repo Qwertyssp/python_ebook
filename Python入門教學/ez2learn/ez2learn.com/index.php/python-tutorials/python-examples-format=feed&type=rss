@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<rss version="2.0">
+	<channel>
+		<title>Python程式範例</title>
+		<description>Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包</description>
+		<link>http://ez2learn.com/index.php/python-tutorials/python-examples</link>
+		<lastBuildDate>Thu, 11 Feb 2010 14:07:45 +0000</lastBuildDate>
+		<generator>Joomla! 1.5 - Open Source Content Management</generator>
+		<language>zh-tw</language>
+		<item>
+			<title>巴哈雙小提琴Python版</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-examples/177-python</link>
+			<description><![CDATA[<h2><span id="content0"><span id="content2"><span id="content4">巴哈雙小提琴Python版<br /></span></span></span></h2>
+
+<p><span id="content0"><span id="content2"><span id="content4">這個程式是改寫自"巴哈雙小提琴"的C語言版本，因為我發現Python有一個winsound的module，裡面也有Beep的功能，因此就改了一個Python的版本出來。</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+<span id="content0"><span id="content2"><span id="content4">"""
+@brief  Play Bach's concerto 
+@author Victor Lin 
+@author web-site : http://victorlin.serveftp.org/programming/
+
+"""
+import winsound
+import time
+
+# Base tune
+D_BASE = 264
+
+# How long a meter is
+METRE = 500
+
+DO = 0
+RE = 2
+MI = 4
+FA = 5
+SO = 7
+LA = 9
+SI = 11
+
+def Play(d, h, delay):
+    Tune = D_BASE * pow(pow(2, 1.0/12.0), d) * pow(2, h)
+    winsound.Beep(int(Tune), delay)
+
+def vibrato(d, h, delay, Times):
+    for i in range(Times):
+        Play(d    , h, METRE/(Times*2))
+        Play(d+1  , h, METRE/(Times*2))
+
+def Sleep(delay):
+    time.sleep(delay/1000.0)
+
+print "Concerto J.S. Bach (1685-1750) BWV 1043 Violin II"
+
+Play(RE    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+
+Play(LA    ,0,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(DO+1  ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(MI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA+1  ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(DO    ,1,int(METRE*1.50));
+
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(MI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(SI-1  ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(DO+1  ,0,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+
+Play(FA    ,0,METRE);
+
+vibrato(MI ,0,METRE,5);
+
+Play(RE    ,0,METRE/4);
+Play(DO+1  ,0,METRE/4);
+Play(RE    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(FA+1  ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE*2+METRE/4);
+
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE*2+METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/2);
+Play(LA    ,1,METRE);
+Play(SO+1  ,1,METRE/2);
+Play(LA    ,1,METRE/2);
+
+Play(LA    ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+
+Play(RE    ,1,METRE/2);
+Play(LA    ,1,METRE/2);
+
+Sleep(METRE/2);
+
+Play(FA    ,1,METRE/2);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE*2+METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE*2+METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(RE    ,0,METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+
+Play(FA    ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(LA    ,0,METRE + METRE/4);
+
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/2);
+Play(SO    ,1,METRE/2);
+Play(FA+1  ,1,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(SI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA    ,1,int(METRE*1.50));
+
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+
+Play(MI    ,1,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(MI-1  ,1,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA+1  ,0,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+
+Play(SI-1  ,0,METRE);
+Play(LA    ,0,METRE);
+Play(SO    ,0,METRE);
+
+Sleep(METRE/2);
+
+Play(MI    ,0,METRE/2);
+Play(LA    ,0,METRE*2 + METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+
+Play(RE    ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(FA+1  ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+
+Play(RE    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(RE    ,1,METRE + METRE/2);
+
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(SO    ,1,METRE/2 + METRE/4);
+
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(SO    ,1,METRE/4);
+Play(LA    ,1,METRE/2);
+Play(MI    ,1,METRE/2 + METRE/2);
+
+Play(RE    ,1,METRE);
+Play(DO+1  ,1,METRE/2);
+Play(RE    ,1,METRE);
+</span></span></span>
+</pre>]]></description>
+			<category>Python程式範例</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:41 +0000</pubDate>
+		</item>
+		<item>
+			<title>Yahoo!奇摩今日天氣截取</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo</link>
+			<description><![CDATA[<h2>Yahoo!奇摩今日天氣截取<br /></h2>
+
+<p>這個程式示範如何用Python從<a class="external-link" href="http://tw.weather.yahoo.com/today.html">Yahoo!奇摩的天氣</a>網頁裡抓出今日台中的天氣，你會發現居然是這麼的簡單，對於Python而言這算是家常便飯，Python光是內建的標準函式庫就能讓你做一堆常見的工作，抓網頁也包括在裡面，甚至網頁Parser光是標準的就有好幾種讓你選，當然受到廣範使用的正規表示法理所當然也有提供，但是因為即然Parser都幫你寫好了，所以就沒有使用正規表示法的必要。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import urllib
+
+# 抓取Yahoo!奇摩天氣的網頁內容放到WebContent
+weatherWeb = urllib.urlopen("http://tw.weather.yahoo.com/today.html")
+webContent = weatherWeb.read().decode('utf_8')
+weatherWeb.close()
+
+import HTMLParser
+
+# 用來解析台中地區天氣資訊的解析器，繼承自HTMLParser
+class WeaterHTMLParser(HTMLParser.HTMLParser):
+    
+    def handle_data(self, data):
+        """處理標籤以外的資料，也就是網頁中的文字"""
+
+        data = data.strip()
+
+        # 如果台中地區已出現過，就記錄天氣資訊
+        if hasattr(self, 'found') and data:
+            # 到了彰化地區，中止解析
+            if data == u'彰化地區':
+                self.stop = True
+                return
+            self.weather.append(data)
+
+        # 出現台中地區
+        # 設定旗標以通知後面幾次呼叫記下資訊
+        if data == u'台中地區':
+            self.found = True
+            self.weather = []
+            self.weather.append(data)
+
+    def unknown_decl(self, data):
+        """Override unknown handle method to avoid exception"""
+        pass
+
+Parser = WeaterHTMLParser()
+
+try:
+    # 將網頁內容拆成一行一行餵給Parser
+    for line in webContent.splitlines():
+        # 如果出現停止旗標，停止餵食資料，並且跳出迴圈
+        if hasattr(Parser, 'stop') and Parser.stop:
+            break
+        Parser.feed(line)
+except HTMLParser.HTMLParseError, data:
+    print "# Parser error : " + data.msg
+
+Parser.close()
+
+print u"%s 的今天氣是 %s，氣溫是 %s度%s，降雨機率是 %s" % tuple(Parser.weather)
+print "Press enter to continue."
+raw_input()
+</pre>
+
+<p>
+首先介紹urllib這個module，是的，一般抓取網頁的工作，對於urllib來說真的是再簡單也不過了，一個urlopen函數開啟某個網址，然後將傳回的物件呼叫它的read函數，取出所有網頁的內容，最後關閉，原本可能會很複雜的工作全部都已經被包好了，當然，你可能會覺得，這樣抓網頁的功能太過陽春，如果你想送表單、改變header怎麼辦?
+Python都幫你想好了，有urllib2，比urllib更強大的網頁抓取函式庫可以使用。</p>
+
+<p><br />
+接下來介紹HTMLParser，就如字面上的意思一樣，是HTML的解析器，不是嚴謹地去解析網頁，它可以處理像不對稱的HTML語法等等，對於網路上各種千奇百怪出錯的網頁來說，當然是選擇可以容錯的
+Parser比較好，如果是解析嚴謹的XML或XHTML就可以考慮用其它嚴謹的Parser，否則用這個就相當好用了。</p>
+
+<p><br />
+它的運作方式是這樣，使用者覆載(override)一系列的handle_xxx函數，例如handle_data就是負責處理非HTML標籤，也就是不在&lt;&gt;的那些字用的方法，當它分析到這樣的資料就會呼叫handle_data，所以覆載了這個函數就可以處理這些資料，如果你希望可以處理HTML標籤，你也可以覆載handle_startag等等方法，相當容易使用，在這個例子裡面我們只對天氣的資訊有興趣，因為天氣資訊不在標籤裡，而是在外面的字，所以我們只使用handle_data來抓資料。</p>
+
+<p><br />
+它的流程很簡單，就是發現台中地區的字樣之後，就物件自己本身一個found的屬性，然後設為True，讓接下來幾次遇到data被呼叫要處理時，就能知道台中地區已經出現過了，就可以開始記下天氣資訊，而彰化地區的判斷，是當遇到彰化地區就表示超過了我們想要的資訊範圍，為了省一點時間，就讓接下來的網頁不要再分析了，於是設定了stop的屬性，告訴外面的迴圈可以停止了。<br />
+就是這麼簡單，一個抓取天氣網頁的程式就完成了。</p>
+
+<p>為了讓大家了解HTMLParser的運作方式，我特意改了原本程式，用來示範HTMLParser的運作方式:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import urllib
+
+# 抓取Yahoo!奇摩天氣的網頁內容放到WebContent
+weatherWeb = urllib.urlopen("http://tw.weather.yahoo.com/today.html")
+webContent = weatherWeb.read().decode('utf_8')
+weatherWeb.close()
+
+import HTMLParser
+
+# 用來解析台中地區天氣資訊的解析器，繼承自HTMLParser
+class WeaterHTMLParser(HTMLParser.HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print u'標籤 %s %s 開始' % (tag, attrs)
+
+    def handle_startendtag(self, tag, attrs):
+        print u'空標籤 %s %s' % (tag, attrs)
+
+    def handle_endtag(self, tag):
+        print u'標籤 %s 結束' % tag
+
+    def handle_data(self, data):
+        print u'資料 "%s"' % data
+
+    def handle_comment(self, data):
+        print u'註解 "%s"' % data
+
+    def unknown_decl(self, data):
+        """Override unknown handle method to avoid exception"""
+        pass
+
+Parser = WeaterHTMLParser()
+
+try:
+    # 將網頁內容拆成一行一行餵給Parser
+    for line in webContent.splitlines():
+        # 如果出現停止旗標，停止餵食資料，並且跳出迴圈
+        if hasattr(Parser, 'stop') and Parser.stop:
+            break
+        Parser.feed(line)
+except HTMLParser.HTMLParseError, data:
+    print "# Parser error : " + data.msg
+
+Parser.close()
+
+print "Press enter to continue."
+raw_input()
+</pre>
+
+<p><span class="visualHighlight">注意事項 :
+此程式檔必須用utf-8儲存，如果是用Python內建的IDLE會自動判斷第一行，但是如果使用計事本等軟體儲存，就必須選擇utf-8</span></p>]]></description>
+			<category>Python程式範例</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:42 +0000</pubDate>
+		</item>
+		<item>
+			<title>跳板程式</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-examples/179-2009-02-11-13-09-43</link>
+			<description><![CDATA[<h2>跳板程式</h2>
+
+<p>
+這個程式示範如何將一個連線轉向另一個連線，也就是俗稱的跳板，或是代理伺服器，而這個跳板的原理很簡單，它只是接收你的連線，然後轉向特定的目標，兩邊連線都建立以後，哪一方有資料進來，就丟給另一方，就像這樣:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+客戶端(連線) -&gt; 跳板(連線) -&gt; 目標主機
+客戶端(傳送) -&gt; 跳板(傳送) -&gt; 目標主機
+目標主機(傳送) -&gt; 跳板(傳送) -&gt; 客戶端
+</pre>
+
+<p>
+相當簡單，但是卻很有用的程式。舉個例子，如果今天你在某家公司裡面工作，但是這公司鎖住了80以外的所有port，如果你想上PTT打一下BBS
+該怎麼辦? 一個解決方法就是，在你家裡架一台有實體IP的跳板，然後開Port
+80，轉到你想要的站去，你在公司裡就可以連到你家的IP，再透過這台跳板轉到PTT去:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+公司(無法連線Port 23) -&gt; PTT.CC
+公司(成功連線Port 80) -&gt; 家裡的跳板(連線 Port 23) -&gt; PTT.CC
+</pre>
+
+<p>上面是直接連PTT.CC的情況，因為其它Port被鎖了，所以無法直接連線，下面是透過跳板程式，因為Port
+80沒有鎖，因此可以連到家裡，再連到PTT，就是這樣的用途，當然還有其它很多的用途，甚至是惡意的用途，在這裡只做為示範，不鼓勵將此程式用在任何非法的用途。</p>
+
+<p>還有此程式只適用於TCP類形的連線。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import socket
+import asyncore
+
+# Agent service服務的port
+servicePort = 23
+
+# 目標主機的位置與Port
+serviceHostAddress = 'ptt.cc'
+serviceHostPort = 23
+
+class AgentClient(asyncore.dispatcher_with_send):
+    """服務host和client端的sokcet物件"""
+    
+    def __init__(self, otherSocket=None):
+        asyncore.dispatcher_with_send.__init__(self, otherSocket)
+
+        # 是否為client
+        self.client = False
+        # 是否已準備好傳送資料給對方
+        self.ready = False
+        # 另一端
+        self.other = None
+
+        if not otherSocket:
+            self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        else:
+            self.client = True
+
+    def handle_error(self):
+        """處理連線發生錯誤"""
+
+        print "Error"
+        self.handle_close()
+
+    def handle_read(self):
+        """讀取資料並傳送到另一端"""
+        
+        if self.other and self.other.ready:
+            data = self.recv(4096)
+            # 檢查是否有資料，沒資料可能表示已斷線，傳送會造成錯誤
+            if data:
+                self.other.send(data)
+
+    def handle_connect(self):
+        """連線成功，設定成ready狀態"""
+        
+        self.ready = True
+        self.other.ready = True
+
+    def handle_close(self):
+        """"連線被關閉，同時關閉另一端連線"""
+
+        if self.client:
+            print "Close connection from : " + self.socket.getpeername()[0]
+        
+        self.ready = False
+        self.close()
+        if self.other and self.other.ready:
+            self.other.handle_close()
+
+class AgentServer(asyncore.dispatcher):
+    """中繼服務Server的socket物件，負責接聽連線"""
+    
+    def __init__(self, port):
+        asyncore.dispatcher.__init__(self)
+
+        self.port = port
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.bind(('', self.port))
+        self.listen(5)
+    
+    def handle_accept(self):
+        """接收連線"""
+        
+        clientSocket, address = self.accept()
+        print 'New client from : ' + address[0]
+        
+        agentClient = AgentClient(clientSocket)
+        agentHost = AgentClient()
+
+        # 連線到另一端，可能會連線失敗
+        try:
+            agentHost.connect((serviceHostAddress, serviceHostPort))
+        except socket.error, (socketError, errorMessage):
+            print 'Failed to connect %s : %s' % (serviceHostAddress, errorMessage)
+            agentClient.handle_close()
+            return
+
+        agentHost.other = agentClient
+        agentClient.other = agentHost
+
+def cleanSocketMapUp():
+    """清除所有正在運作的Socket"""
+    
+    # 使用keys()傳回與map無關的keys來關閉socket以避免發生 : 
+    # RuntimeError: dictionary changed size during iteration
+    for fileno in asyncore.socket_map.keys():
+        asyncore.socket_map[fileno].close()
+
+agentServer = AgentServer(servicePort)
+print "Agent is serving at %d and target to %s:%d ..." % (servicePort, serviceHostAddress, serviceHostPort)
+print "Press Ctrl + C to stop service."
+    
+try:
+    asyncore.loop(1)
+except KeyboardInterrupt:
+    print "Stop agent service."
+finally:
+    agentServer.close()
+    cleanSocketMapUp()
+</pre>
+
+<p>
+這個程式分成兩大部份，第一個部份是AgentServer，繼承自Python標準函式庫裡的asyncore這個module裡的dispatcher
+類別，此物件的用意是在於接受連線，並且負責開另外一個連線，連到目標主機，而AgentClient是接受連線以後的物件，和連到目標主機的物件，因為兩個都做一樣的工作，就是把來的資料丟給對方，斷線就和另一端同歸於盡，所以就只寫在一個類別裡，其實也可以分開寫，但為求精簡所以合在一起寫，最後就是
+asyncore.loop(0)這個函數，用來進行輪詢的函數，這個程式雖然看起來有點複雜，但是其實很簡單，就只有這樣而已。</p>
+
+<p>以下就是這個程式執行的成果，我們在PCMan上連到127.0.0.1，但是卻被重新導向了PTT。</p>
+
+<img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/examples/0.jpg" alt="跳板程式 - 示範畫面" />]]></description>
+			<category>Python程式範例</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:43 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

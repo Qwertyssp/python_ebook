@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" >
+<head>
+  <xbasehref="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/174-cpython" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Python, ç¨‹å¼è¨­è¨ˆ, æ•™å­¸, ç¨‹å¼è¨­è¨ˆæ•™å­¸, cèªè¨€, C++, c++èªè¨€, TurboGears, Twisted" />
+  <meta name="title" content="ä½¿ç”¨C++æ“´å……Python" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victorçš„ æ˜“è¨˜å­¸ ç¨‹å¼è¨­è¨ˆæ•™å­¸ï¼ŒåŒ…å«Pythonã€C/C++èªè¨€ã€TurboGearsç­‰æ•™å­¸ï¼Œä»¥åŠä»¥æ‰¿æ¥Pythonç‚ºä¸»çš„ç¨‹å¼è¨­è¨ˆå¤–åŒ…" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>ä½¿ç”¨C++æ“´å……Python</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushCpp.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushCpp.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+<link rel="stylesheet" href="../../../templates/system/css/system.css" tppabs="http://ez2learn.com/templates/system/css/system.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/system/css/general.css" tppabs="http://ez2learn.com/templates/system/css/general.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/green.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/green.css" type="text/css" />
+<!--[if lte IE 6]>
+<link href="../../../templates/themza_j15_11/css/ieonly.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/ieonly.css"  rel="stylesheet" type="text/css" />
+<![endif]-->
+</head>
+<body id="page_bg">
+<a name="up" id="up"></a>
+<div id="main_bg" class="main_bg_center">
+	<div id="logo_bg"><img src="../../../templates/themza_j15_11/images/green/logo.png" tppabs="http://ez2learn.com/templates/themza_j15_11/images/green/logo.png" alt="logo" align="left" hspace="5" />        <a href="javascript:if(confirm('http://ez2learn.com/index.php  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php'" tppabs="http://ez2learn.com/index.php" class="logo">Victor æ˜“è¨˜å­¸ ç¨‹å¼è¨­è¨ˆæ•™å­¸</a>
+        <div id="user4"><form action="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/index.php" method="post">
+	<div class="search">
+		<input name="searchword" id="mod_search_searchword" maxlength="20" alt="æœå°‹" class="inputbox" type="text" size="20" value="æœå°‹..."  onblur="if(this.value=='') this.value='æœå°‹...';" onfocus="if(this.value=='æœå°‹...') this.value='';" />	</div>
+	<input type="hidden" name="task"   value="search" />
+	<input type="hidden" name="option" value="com_search" />
+</form></div>
+        <br clear="all" />
+    </div>
+    <div id="user3"><div id="pillmenu"><ul id="mainlevel-nav"><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/home  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/home'" tppabs="http://ez2learn.com/index.php/home" class="mainlevel-nav" >é¦–é </a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/news  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/news'" tppabs="http://ez2learn.com/index.php/news" class="mainlevel-nav" >æœ€æ–°æ¶ˆæ¯</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/faqs  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/faqs'" tppabs="http://ez2learn.com/index.php/faqs" class="mainlevel-nav" >å¸¸è¦‹å•é¡Œ</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/resources  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/resources'" tppabs="http://ez2learn.com/index.php/resources" class="mainlevel-nav" >å¥½ç«™é€£çµ</a></li><li><a href="javascript:if(confirm('http://phorum.study-area.org/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://phorum.study-area.org/'" tppabs="http://phorum.study-area.org/" class="mainlevel-nav" >é…·å­¸åœ’è¨è«–å€</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/contact-us  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/contact-us'" tppabs="http://ez2learn.com/index.php/contact-us" class="mainlevel-nav" >è¯çµ¡æˆ‘å€‘</a></li></ul></div><div id="date">Thursday 11th of February 2010</div></div>
+		<div id="leftcolumn">
+            		<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>ç¨‹å¼è¨­è¨ˆæ•™å­¸</h3>
+											<ul class="menu"><li class="parent active item56"><a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials"><span>Pythonæ•™å­¸</span></a><ul><li class="item62"><a href="../python-basic-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials"><span>PythonåŸºç¤æ•™å­¸</span></a></li><li class="item63"><a href="../python-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials"><span>Pythonå…¥é–€æ•™å­¸</span></a></li><li id="current" class="active item64"><a href="../advance-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials"><span>Pythoné€²éšæ•™å­¸</span></a></li><li class="item65"><a href="../python-examples.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples"><span>Pythonç¨‹å¼ç¯„ä¾‹</span></a></li><li class="item67"><a href="../twisted-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials"><span>Twistedæ•™å­¸</span></a></li><li class="item66"><a href="../turbogears-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials"><span>TurboGearsæ•™å­¸</span></a></li><li class="item68"><a href="../eclipse-pydev-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials"><span>Eclipse çš„ Pydev IDEæ•™å­¸</span></a></li></ul></li><li class="parent item58"><a href="javascript:if(confirm('http://ez2learn.com/index.php/c-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/c-tutorials'" tppabs="http://ez2learn.com/index.php/c-tutorials"><span>Cèªè¨€æ•™å­¸</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>ç›¸é—œç¶²ç«™</h3>
+											<ul class="menu"><li class="item54"><a href="javascript:if(confirm('http://blog.ez2learn.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://blog.ez2learn.com/'" tppabs="http://blog.ez2learn.com/"><span>Victor's ç¨‹å¼è¨­è¨ˆé‡ä¸Šå°æç´ å€‹äººéƒ¨è½æ ¼</span></a></li><li class="item76"><a href="javascript:if(confirm('http://walele.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://walele.com/'" tppabs="http://walele.com/"><span>Waleleå‰µæ„æŠ•ç¥¨ç³»çµ±</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_text">
+			<div>
+				<div>
+					<div>
+													<h3>å»£å‘Š</h3>
+											<div class="bannergroup_text">
+
+	<div class="bannerheader">å»£å‘Šè´ŠåŠ©å•†</div>
+
+	<div class="bannerfooter_text">
+		 <script type="text/javascript"><!--
+google_ad_client = "pub-2676784508728825";
+/* 120x600, å·²å»ºç«‹ 2008/9/11 */
+google_ad_slot = "8822539468";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="../../../../pagead2.googlesyndication.com/pagead/show_ads.js" tppabs="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>	</div>
+</div>					</div>
+				</div>
+			</div>
+		</div>
+	
+        <br />
+        <div align="center"></div>
+    </div>
+    	<div id="maincolumn_middle" class="maincolumn_white">
+    	<div class="path"><span class="breadcrumbs pathway">
+<a href="javascript:if(confirm('http://ez2learn.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/'" tppabs="http://ez2learn.com/" class="pathway">é¦–é </a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials" class="pathway">Pythonæ•™å­¸</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="../advance-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials" class="pathway">Pythoné€²éšæ•™å­¸</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> ä½¿ç”¨C++æ“´å……Python</span>
+</div>
+    	<div class="nopad"><table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					ä½¿ç”¨C++æ“´å……Python			</td>
+						<td align="right" width="100%" class="buttonheading">
+		<a href="174-cpython-format=pdf.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/174-cpython?format=pdf" title="PDF" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/pdf_button.png" tppabs="http://ez2learn.com/images/M_images/pdf_button.png" alt="PDF"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="174-cpython-tmpl=component&print=1&page=.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/174-cpython?tmpl=component&print=1&page=" title="åˆ—å°" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="åˆ—å°"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="javascript:if(confirm('http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9hZHZhbmNlLXR1dG9yaWFscy8xNzQtY3B5dGhvbg%3D%3D  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9hZHZhbmNlLXR1dG9yaWFscy8xNzQtY3B5dGhvbg%3D%3D'" tppabs="http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9hZHZhbmNlLXR1dG9yaWFscy8xNzQtY3B5dGhvbg%3D%3D" title="E-mail" onclick="window.open(this.href,'win2','width=400,height=350,menubar=yes,resizable=yes'); return false;"><img src="../../../images/M_images/emailButton.png" tppabs="http://ez2learn.com/images/M_images/emailButton.png" alt="E-mail"  /></a>		</td>
+					</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			ä½œè€…æ˜¯ Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		é€±ä¸‰, 11 äºŒæœˆ 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h1 class="documentFirstHeading"><span id="parent-fieldname-title"> ä½¿ç”¨C++æ“´å……Python </span></h1>
+<p class="documentDescription"><span id="parent-fieldname-description"> ä½¿ç”¨C++çš„Boost.Pythonæ‹¬å……ä¸€å€‹Pythonçš„æ¨¡çµ„æ•™å­¸ </span></p>
+<div id="parent-fieldname-text">
+<h2>ç‚ºä»€éº¼è¦æ“´å……Python?</h2>
+<p>æ™‚å¸¸æœ‰äººå•Pythonåˆ°åº•èƒ½åšä»€éº¼ï¼Œæˆ‘çš„å›ç­”æ˜¯ï¼Œçœ‹ä½ è¦æ‹¿Pythonä¾†åšä»€éº¼ï¼Œå› ç‚ºPythonå¯ä»¥ç”¨Cèªè¨€æ“´å……ï¼Œé€™è¡¨ç¤ºCèªè¨€èƒ½åšåˆ°çš„äº‹éƒ½å¯ä»¥ç”± Pythonï¼Œç¾æœ‰çš„å‡½å¼åº«å¦‚æœè¾¦ä¸åˆ°ï¼Œå¤§ä¸äº†ä½ è‡ªå·±å¯«ä¸€å€‹ï¼Œé€™ä¸åƒ…åƒ…æ˜¯åªæœ‰é€™æ¨£çš„å¥½è™•è€Œå·²ï¼Œå¾ˆå¤šæ™‚å€™æˆ‘å€‘å¸Œæœ›èƒ½æœ‰Pythonçš„å½ˆæ€§ã€å¯è®€æ€§ç­‰å„ç¨®å¥½ è™•ï¼Œä½†åˆæœ‰Cèªè¨€çš„é«˜æ•ˆç‡ï¼Œå°±å¯ä»¥å°‡æ•´å€‹ç¨‹å¼ä¸­è¼ƒåƒé‡çš„å·¥ä½œç”¨Cèªè¨€å¯«æˆmoduleä¾›Pythonä½¿ç”¨ï¼ŒåŒæ™‚å…¼ä¿±å½ˆæ€§èˆ‡æ•ˆç‡</p>
+<h2>ä½¿ç”¨çš„å·¥å…·</h2>
+<p>æˆ‘å€‘è¦ä½¿ç”¨çš„æ˜¯C++çš„Boostå‡½å¼åº«è£¡çš„Pythonæ¨¡çµ„ï¼Œå®ƒæ˜¯ç”¨ä¾†åŒ…è£C++ä¾›Pythonä½¿ç”¨çš„å‡½å¼åº«ï¼Œä¸ä½¿ç”¨é€™å€‹å‡½å¼åº«çš„è©±ï¼Œä½ å¿…é ˆä½¿ç”¨Pythonæä¾›çš„Cèªè¨€APIè‡ªè¡ŒåŒ…è£ï¼Œåœ¨é€™è£¡æˆ‘å€‘ç¤ºç¯„å¦‚ä½•ä½¿ç”¨Boost.Pythonä¾†åŒ…è£æˆæ¨¡çµ„è®“Pythonä½¿ç”¨</p>
+<p>åœ¨é–‹å§‹ä¹‹å‰ï¼Œä½ å¿…é ˆç¢ºå®šä½ æœ‰å®‰è£Boostçš„å‡½å¼åº«ï¼Œå¦‚æœæ²’æœ‰çš„è©±ï¼Œè«‹åˆ°<a class="external-link" href="javascript:if(confirm('http://www.boost.org/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.boost.org/'" tppabs="http://www.boost.org/">Boostçš„å®˜æ–¹ç¶²ç«™</a>è‡ªè¡Œä¸‹è¼‰ä¸¦ç·¨è­¯æˆ–å®‰è£ï¼Œå¦‚æœä¸çŸ¥é“æ€éº¼ç·¨è­¯å¯ä»¥è€ƒæ…®ä¸‹è¼‰<a class="external-link" href="javascript:if(confirm('http://www.boostpro.com/products/free  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.boostpro.com/products/free'" tppabs="http://www.boostpro.com/products/free">äº‹å…ˆç·¨è­¯å®Œæˆçš„ç‰ˆæœ¬</a></p>
+<h2>ç¬¬ä¸€å€‹ç°¡å–®çš„ä¾‹å­</h2>
+æˆ‘å€‘åƒè€ƒBoostå®˜æ–¹ç¶²ç«™çš„<a class="external-link" href="javascript:if(confirm('http://www.boost.org/doc/libs/1_36_0/libs/python/doc/tutorial/doc/html/index.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.boost.org/doc/libs/1_36_0/libs/python/doc/tutorial/doc/html/index.html'" tppabs="http://www.boost.org/doc/libs/1_36_0/libs/python/doc/tutorial/doc/html/index.html"> æ–‡ä»¶</a>ï¼Œä¸€å€‹ç°¡å–®çš„æ¨¡çµ„
+<p>hello.cpp</p>
+<pre name="code" class="c:nogutter:nocontrols">char const* greet()
+{
+   return "hello, world";
+}
+
+#include 
+
+BOOST_PYTHON_MODULE(hello_ext)
+{
+    using namespace boost::python;
+    def("greet", greet);
+}
+</pre>
+<p>æœ‰äº†Boost.Pythonçš„å¹«å¿™ï¼Œç”¨C++æ“´å……Pythonæœƒæ˜¯ä¸€ä»¶è¶…ç´šç°¡å–®çš„äº‹ï¼Œç›¸è¼ƒæ–¼é€™å€‹ä¾‹å­ï¼Œç·¨è­¯çœ‹èµ·ä¾†å°±éº»ç…©å¾—å¤šäº†</p>
+<h2>é€²è¡Œç·¨è­¯</h2>
+Boost.Pythonçš„æ¨¡çµ„é€šå¸¸éƒ½ä½¿ç”¨bjamä¾†ç·¨è­¯ï¼Œä»€éº¼æ˜¯bjamå‘¢? å®ƒæ˜¯boostçš„ä¸€å¥—ç·¨è­¯ç³»çµ±ï¼Œä½ å¯ä»¥ä¸‹è¼‰åŸå§‹ç¢¼è‡ªè¡Œç·¨è­¯ï¼ŒåŒæ¨£çš„å¦‚æœä½ ä¸çŸ¥é“å¦‚ä½•è‡ªè¡Œç·¨è­¯çš„è©±ï¼Œå¯ä»¥<a class="external-link" href="javascript:if(confirm('http://sourceforge.net/project/showfiles.php?group_id=7586&package_id=72941  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://sourceforge.net/project/showfiles.php?group_id=7586&package_id=72941'" tppabs="http://sourceforge.net/project/showfiles.php?group_id=7586&package_id=72941"> ä¸‹è¼‰äº‹å…ˆç·¨è­¯çš„ç‰ˆæœ¬</a>ï¼Œåœ¨é€™è£¡æˆ‘å€‘é€šå¸¸é¸ntx86ï¼Œå¦‚æœä½ ç”¨çš„æ˜¯PCçš„è©±ï¼Œç„¶å¾Œç¢ºå®šä½ çš„bjam.exeçš„ç›®éŒ„åœ¨PATHçš„ç’°å¢ƒè®Šæ•¸ä¸­ï¼Œæˆ–è‘—ä½ å¯ä»¥ç›´æ¥æŠŠbjam.exeæ”¾åœ¨my_module.cppçš„åŒä¸€å€‹è³‡æ–™å¤¾ä¸‹
+<p>Â </p>
+<p>æ¥è‘—æˆ‘å€‘å¿…é ˆå»ºç«‹bjamçš„ç·¨è­¯æª”æ¡ˆï¼Œä½ å¯ä»¥åœ¨boostçš„ç›®éŒ„"\libs\python\example\quickstart"ä¸‹é¢æ‰¾åˆ°å®ƒå€‘ï¼Œè¤‡è£½åˆ°ä½ çš„æ¨¡çµ„åŒæ¨£çš„è³‡æ–™å¤¾ä¸‹ä¸¦ä¿®æ”¹ï¼Œåˆ†åˆ¥æ˜¯</p>
+<p>boost-build.jam</p>
+<pre name="code" class="python:nogutter:nocontrols"># Copyright David Abrahams 2006. Distributed under the Boost
+# Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# Edit this path to point at the tools/build/v2 subdirectory of your
+# Boost installation.  Absolute paths work, too.
+boost-build ../../../../tools/build/v2 ;
+</pre>
+<p>Jamroot</p>
+<pre name="code" class="python:nogutter:nocontrols"># Copyright David Abrahams 2006. Distributed under the Boost
+# Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# Specify the path to the Boost project.  If you move this project,
+# adjust the path to refer to the Boost root directory.
+use-project boost 
+  : ../../../.. ;
+
+# Set up the project-wide requirements that everything uses the
+# boost_python library defined in the project whose global ID is
+# /boost/python.
+project boost-python-quickstart
+  : requirements &lt;library&gt;/boost/python//boost_python 
+    ;
+
+# Make the definition of the python-extension rule available
+import python ;
+
+# Declare a Python extension called hello.
+python-extension extending : extending.cpp ;
+
+# Declare an executable called embedding that embeds Python
+exe embedding : embedding.cpp /python//python ;
+
+import testing ;
+
+# Declare a test of the extension module
+testing.make-test run-pyd : extending test_extending.py : : test_ext ;
+
+# Declare a test of the embedding application
+testing.run embedding 
+  :              # any ordinary arguments
+  : script.py    # any arguments that should be treated as relative paths
+  :              # requirements
+  : test_embed ; # name of test
+
+# Create a "test" target that runs all the tests
+alias test : test_ext test_embed ;
+
+# make sure the tests don't run by default
+explicit test_ext test_embed test ;
+;
+
+</pre>
+<p>å…©å€‹æª”æ¡ˆï¼Œä½†æ˜¯å› ç‚ºé€™äº›æª”æ¡ˆçš„å…§å®¹ä¸¦ä¸èƒ½ç›´æ¥ä½¿ç”¨ï¼Œéœ€è¦åšä¸€é»ä¿®æ”¹ï¼Œä»¥ä¸‹æ˜¯æˆ‘å€‘ä¿®æ”¹çš„ç‰ˆæœ¬</p>
+<p>boost-build.jam</p>
+<pre name="code" class="python:nogutter:nocontrols"># Copyright David Abrahams 2006. Distributed under the Boost
+# Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# Edit this path to point at the tools/build/v2 subdirectory of your
+# Boost installation.  Absolute paths work, too.
+boost-build C:/boost/boost_1_35_0/tools/build/v2 ;
+
+</pre>
+<p>é€™å€‹æª”æ¡ˆæˆ‘å€‘ä¿®æ”¹äº†boost-buildï¼Œè¨­ç‚ºçµ•å°çš„è·¯å¾‘ï¼Œä½ æ‡‰è©²ä¿®æ”¹å®ƒæˆä½ å®‰è£boostçš„ä½ç½®</p>
+<p>Jamroot</p>
+<pre name="code" class="python:nogutter:nocontrols"># Copyright David Abrahams 2006. Distributed under the Boost
+# Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+# Specify the path to the Boost project.  If you move this project,
+# adjust the path to refer to the Boost root directory.
+use-project boost 
+  : I:/boost/boost_1_36_0 ;
+
+# Set up the project-wide requirements that everything uses the
+# boost_python library defined in the project whose global ID is
+# /boost/python.
+project boost-python-quickstart
+  : requirements &lt;library&gt;/boost/python//boost_python 
+  &lt;threading&gt;multi
+;
+
+# Make the definition of the python-extension rule available
+import python ;
+
+# Declare a Python extension called hello.
+python-extension hello_ext : hello.cpp
+
+
+</pre>
+<p>æˆ‘å€‘ä¿®æ”¹äº†use-project boostçš„å°ˆæ¡ˆç›®éŒ„ä½ç½®ï¼Œæ”¹æˆä½ æ”¾ç½®my_module.cppçš„åœ°æ–¹ï¼Œç„¶å¾Œé‚„æœ‰python-extensionæ”¹æˆæˆ‘å€‘çš„æ¨¡çµ„åç¨±å’Œ.cppæª”ä½ ç½®ï¼Œé™¤æ­¤ä¹‹å¤–æˆ‘å€‘é‚„åˆªé™¤äº†å»ºç½®æ¸¬è©¦ç”¨çš„éƒ¨ä»½ï¼Œä»¥ä¸Šå…©å€‹æª”æ¡ˆéƒ½æ‡‰æ”¾åœ¨å’Œmy_module.cppåŒä¸€å€‹ç›®éŒ„ä¸‹ï¼Œæº–å‚™å®Œæˆå°±å¯ä»¥é–‹å§‹é€²è¡Œç·¨è­¯ï¼Œé€²å…¥cmdï¼Œ åˆ‡æ›ç›®éŒ„ï¼ŒåŸ·è¡Œbjam</p>
+<pre name="code" class="python:nogutter:nocontrols">cd c:\python_tutorial bjam
+</pre>
+<p>å¦‚æœæ²’æœ‰éŒ¯èª¤ï¼Œæ‡‰è©²è©²æœƒç”¢ç”Ÿä¸€å€‹hello_ext.pydçš„æª”æ¡ˆï¼Œé€™æ™‚åªè¦å°‡å®ƒcopyåˆ°Pythonçš„libraryç›®éŒ„ï¼Œæˆ–æ˜¯ä½ Pythonæ¨¡çµ„åŸ·è¡Œçš„ç›®éŒ„ï¼Œé™¤æ­¤ä¹‹å¤–é‚„æœ‰boostç›¸å°æ‡‰çš„pythonçš„DLLæª”ï¼Œå°±å¯ä»¥ç›´æ¥ä½¿ç”¨</p>
+<pre name="code" class="python:nogutter:nocontrols">import hello_ext
+print hello_ext.greet()
+</pre>
+<p>åƒé€™æ¨£å°±æœƒå°å‡ºhello, worldçš„å­—æ¨£ï¼Œå¦‚æœä½ ä¸æƒ³ä½¿ç”¨sharedçš„æ–¹å¼linkåˆ°Boost.Pythonä»¥åŠä¸æƒ³ç”¢ç”Ÿdebugè³‡è¨Šï¼Œä½ å¯ä»¥é¸æ“‡ä½¿ç”¨ä¸‹åˆ—æŒ‡ä»¤</p>
+<pre name="code" class="python:nogutter:nocontrols">bjam release link=static</pre>
+<p>æ›´å¤šçš„åƒæ•¸æŒ‡ä»¤å¯ä»¥åœ¨é€™è£¡è¢«æ‰¾åˆ°</p>
+<p><a class="external-link" href="javascript:if(confirm('http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/invocation.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/invocation.html'" tppabs="http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/invocation.html">http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/invocation.html</a></p>
+<p>å¦‚æœä½ æœ‰éœ€è¦å¢åŠ includeçš„ç›®éŒ„æˆ–æ˜¯è¦linkçš„libï¼Œå¯ä»¥å°‡project çš„ requirementséƒ¨ä»½æ”¹å¯«</p>
+<pre>project boost-python-quickstart
+  : requirements &lt;library&gt;/boost/python//boost_python
+  &lt;threading&gt;multi
+  &lt;library&gt;test.lib
+  &lt;include&gt;header/util
+;
+</pre>
+<p>è©³ç´°åƒæ•¸è«‹åƒè€ƒ</p>
+<p><a class="external-link" href="javascript:if(confirm('http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/builtins/features.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/builtins/features.html'" tppabs="http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/builtins/features.html">http://www.boost.org/doc/tools/build/doc/html/bbv2/advanced/builtins/features.html</a></p>
+<h2>å¸¸è¦‹éŒ¯èª¤<br /></h2>
+<p>å¦‚æœä½ åœ¨importæ™‚é‡åˆ°ä¸‹åˆ—éŒ¯èª¤</p>
+<pre name="code" class="python:nogutter:nocontrols">ImportError: dynamic module does not define init function (inithello)</pre>
+<p>é‚£é€šå¸¸æ˜¯ä½ åœ¨BOOST_PYTHON_MODULEå®šç¾©çš„åç¨±å’Œåœ¨Jamrootå®šç¾©çš„ä¸åŒæ‰€å¼•èµ·çš„</p>
+</div><more_text></more_text>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_next">
+					<a href="175-easyinstall.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials/175-easyinstall">ä¸‹ä¸€å€‹ &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+<tr>
+	<td class="modifydate">
+		æœ€è¿‘æ›´æ–°åœ¨ é€±å››, 12 äºŒæœˆ 2009 01:38	</td>
+</tr>
+</table>
+<span class="article_separator">&nbsp;</span>
+</div>
+    </div>
+	<div id="rightcolumn">
+        </div>
+
+		
+    <br clear="all" />
+
+
+<p id="power_by" align="center">
+	æ ¸å¿ƒæ˜¯ <a href="javascript:if(confirm('http://www.joomla.org/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.joomla.org/'" tppabs="http://www.joomla.org/">Joomla!</a>.
+    Designed by: <a href="javascript:if(confirm('http://www.themza.com/joomla1.5/computer-society-template.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.themza.com/joomla1.5/computer-society-template.html'" tppabs="http://www.themza.com/joomla1.5/computer-society-template.html" target="_blank" title="Computer Society template">Free Joomla Theme</a>, <a href="javascript:if(confirm('http://www.ntchosting.com/domains/whois-id-protection.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.ntchosting.com/domains/whois-id-protection.html'" tppabs="http://www.ntchosting.com/domains/whois-id-protection.html" target="_blank" title="protect the whois information of your domains">whois protect</a>.&nbsp;Valid <a href="javascript:if(confirm('http://validator.w3.org/check/referer  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://validator.w3.org/check/referer'" tppabs="http://validator.w3.org/check/referer">XHTML</a> and <a href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>.
+</p>
+
+
+
+</div>
+
+<!-- Google Analysis begin -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www./");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-390311-6");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- Google Analysis end -->
+
+</body>
+</html>

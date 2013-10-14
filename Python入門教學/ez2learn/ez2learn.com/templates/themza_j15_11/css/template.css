@@ -1,0 +1,484 @@
+/*****************************/
+/*** Core html setup stuff ***/
+/*****************************/
+
+html {
+  height: 100%;
+  margin-bottom: 1px;
+}
+
+form {
+  display:inline;
+}
+
+body {
+	margin: 0px 0px 0px 0px;
+}
+
+body, td{
+	font-family: "Trebuchet MS";
+	font-size: 13px;
+	color: #333;
+	line-height: 1.3em;
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	font-weight: normal;
+}
+
+a:hover {
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+input.button { cursor: pointer; }
+
+p { margin-top: 0; margin-bottom: 5px; }
+
+img { border: 0 none; }
+
+/*****************************************/
+/*** Template specific layout elements ***/
+/*****************************************/
+#page_bg {
+	padding: 0px;
+	margin-bottom: 1px;
+}
+
+
+div.main_bg_center{
+	margin:0px auto;
+}
+div.main_bg_left{
+	float:left;
+}
+div.main_bg_right{
+	float:right;
+}
+
+div#main_bg{
+	width: 988px;
+	text-align:left;
+}
+
+
+
+div#logo_bg{
+	height:85px;
+	margin-left: 4px;
+	margin-right: 4px;
+	width:auto;
+}
+
+.logo{
+	display: block;
+	float:left;
+	padding-top:15px;
+}
+a.logo,a.logo:link,a.logo:hover, a.logo:visited{
+	font-size:26px;
+	line-height: 28px;
+	color:#000000;
+	text-decoration:none;
+	font-weight:bold;
+	font-family:"Trebuchet MS",Arial;
+}
+
+div#user4{
+	float:right;
+	width:229px;
+	text-align:left;
+}
+
+.search {
+	text-align:left;
+	height:45px;
+	padding:10px 0px 0px 10px;
+}
+.search .inputbox {
+	background:#FFFFFF;
+	width: 156px;
+	height: 17px;
+	font-size: 11px;
+	color: #454545;
+	padding:5px 2px 2px 2px;
+	border: 1px solid #D3D3D3;
+}
+
+
+#user3{
+	margin-left: 4px;
+	margin-right: 4px;
+	width:auto;
+	border:0px;
+	height:44px;
+}
+#pillmenu {
+	text-align:left;
+	margin: 0;
+}
+#pillmenu ul {
+	margin: 0;
+	padding: 0 0 0 8px;
+	list-style: none;
+}
+#pillmenu li {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+#pillmenu li a,#pillmenu li a:hover {
+	font-family:"Trebuchet MS",Tahoma;
+	font-size: 13px;
+	float: left;
+	display: block;
+	line-height: 44px;
+	padding: 0 17px 0 17px;
+	color: #FFFFFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+#date{
+	text-align:right;
+	margin-right: 10px;
+	float:right;
+	line-height: 40px;
+	color: #FFFFFF;
+	font-family:Georgia,Tahoma;
+	font-size: 11px;
+}
+
+#banner{
+	margin-left: 4px;
+	margin-right: 4px;
+	width: 980px;
+	height: 190px;
+}
+#banner table.contentpaneopen{
+	margin-top:15px;
+	margin-bottom:15px;
+	margin-left:10px;
+	width:650px;
+	float:left;
+	text-align:left;
+}
+#banner table.contentpaneopen td{
+	color:#FFFFFF;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:12px;
+	line-height: 17px;
+}
+
+
+
+#leftcolumn{
+	margin: 0px;
+	padding: 0px;
+	width: 206px;
+	float:left;
+}
+#rightcolumn{
+	margin: 0px;
+	padding: 0px;
+	width: 206px;
+	float:right;
+}
+
+#maincolumn{
+	width: 555px;
+	float:left;
+	margin:0px 10px 0px 10px;
+	padding:0px;
+}
+#maincolumn_middle{
+	width: 761px;
+	float:left;
+	margin:0px 10px 0px 10px;
+	padding:0px;
+}
+#maincolumn_big{
+	width: 967px;
+	float:left;
+	margin:0px 10px 0px 10px;
+	padding:0px;
+}
+.maincolumn_white{
+        /* remove the background image */
+	/*background: #FFFFFF url(../images/maincolumn_bg.png) top repeat-x;*/
+}
+
+div.path{
+	margin:10px 0 0 0px;
+	padding: 5px;
+	background-color:#FFFFFF;
+	border: 1px solid #F3F3F3;
+}
+
+/* XXX add width setting */
+div.nopad {
+	float:left;
+	padding:0 0px 15px 0px;
+        width: 100%;
+}
+
+div.nopad ul {
+	clear: both;
+}
+.article_separator {
+	height:35px;
+	line-height:35px;
+}
+form#form-login fieldset { 
+	border: none;
+	margin: 0;
+	margin-left:10px;
+}
+form#form-login ul li{ 
+	padding: 0; 
+}
+
+form#form-login ul li a {
+	text-align: left;
+	padding: 0px;
+	font-size: 10px;
+	color: #858585;
+}
+
+#leftcolumn div.module_menu, #leftcolumn div.module{
+	margin: 10px 0px 0px 0px;
+	padding:0px;
+	width: 206px;
+}
+.article_column {
+	padding-right:10px;
+}
+#rightcolumn div.moduletable_menu, #rightcolumn div.moduletable, #rightcolumn div.moduletable_text{
+	margin: 10px 0px 0px 0px;
+	padding: 0px;
+	width: 206px;
+}
+div.bannergroup_text {
+	margin:10px 13px 10px 13px;
+}
+.bannerheader {
+	font-weight:bold;
+	margin-bottom:10px;
+}
+.banneritem_text {
+	margin-bottom:10px;
+}
+.bannerfooter_text {
+	margin-bottom:10px;
+}
+#leftcolumn div.module_menu  div div div, #leftcolumn div.module div div div,
+#rightcolumn div.moduletable_menu, #rightcolumn div.moduletable, #rightcolumn div.moduletable_text{
+	background: url("../images/rub_bottom.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/rub_bottom.png*/) left top no-repeat;
+	background-position: 0px 46px;
+	
+}
+#leftcolumn div.module_menu  div div div, #leftcolumn div.module div div{
+	margin: 0px;
+	padding: 0px;
+	padding-bottom:5px;
+	width: 206px;
+	height:auto;
+}
+
+#leftcolumn div.module_menu div div div div, #leftcolumn div.module div div div div{
+	background: none;
+	padding:4px 8px;
+}
+#leftcolumn h3,
+#rightcolumn h3{
+	text-align: left;
+	padding-left:15px;
+	height: 46px;
+	width: 191px;
+	line-height: 45px;
+	color:#363636;
+	font-size:19px;
+	margin:0px;
+	font-weight:normal;
+}
+table.poll thead td {
+	text-align: left;
+	padding-left:10px;
+}
+table.poll td {
+	text-align: left;
+}
+#leftcolumn ul.menu li ul{
+	list-style: none;
+}
+.pollstableborder {
+	margin: 5px 0px 10px 0px;
+}
+.poll td div{
+	display:inline;
+}
+
+/* forms */
+
+#leftcolumn .moduletable ul,
+#rightcolumn .moduletable ul {
+	margin: 6px 0;
+	padding: 0;
+	list-style: none;
+}
+
+#leftcolumn .moduletable ul li,
+#rightcolumn .moduletable ul li {
+	margin: 0;
+	padding: 0 2px;
+}
+.moduletable ul {
+	padding:10px 0px 10px 0px;
+	margin:0px;
+}
+
+.moduletable ul li {
+	padding:0px 0px 0px 20px;
+	margin:0px;
+	line-height:18px;
+}
+#leftcolumn ul.menu li#current ul li,
+#rightcolumn ul.menu li#current ul li {
+	margin: 0px;
+	padding: 0px;
+}
+ul.menu {
+	padding:10px 10px 10px 15px;
+	margin:0px;
+}
+ul.menu li{
+	padding:7px 0px 7px 5px;
+	margin:0px;
+	border-bottom: 1px dotted #9F9F9F;
+}
+ul.menu li#current {
+	background:#F7F7F7;
+}
+ul.menu li#current a{
+	text-decoration:none;
+	color:#363636;
+	background:#F7F7F7;
+}
+ul.menu li ul {
+	padding:0px 0px 5px 0px;
+	margin:0px;
+}
+ul.menu li ul li{
+	padding:0px 0px 0px 15px;
+	border:none;
+}
+ul.menu li#current ul li a{
+	margin-left:15px;
+	text-decoration:none;
+}
+ul.mostread {
+	padding:10px 0px 10px 0px;
+	margin:0px;
+}
+ul.mostread li{
+	padding:0px 0px 0px 20px;
+	margin:0px;
+	line-height:18px;
+}
+ul.latestnews {
+	padding:10px 0px 10px 0px;
+	margin:0px;
+}
+ul.latestnews li{
+	padding:0px 0px 0px 20px;
+	margin:0px;
+	line-height:18px;
+}
+div.componentheading{
+	font-weight:bold;
+	font-size:16px;
+	margin:7px auto;
+}
+td.contentheading{
+	font-weight:normal;
+	vertical-align:top;
+	font-size:19px;
+	height:40px;
+	color:#363636;
+	background: url("../images/contentheading_ico.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/contentheading_ico.png*/) left top no-repeat;
+}
+table.contentpaneopen td.contentheading{
+	padding-left:34px;
+}
+table.contentpaneopen{
+	border-collapse: collapse;
+	margin-left:5px;
+}
+td.buttonheading{
+	padding:0px 2px 0px 2px;
+}
+table.contentpaneopen td{
+	padding:0px;
+}
+.contentpaneopen p{
+	line-height:22px;
+}
+span.small, td.createdate, td.modifydate{
+	font-size:11px;
+	color:#999999;
+}
+span.pagination span, span.pagination a{
+	padding:5px;
+}
+
+
+div#f_area{
+	margin:8px auto;
+	width: 988px;
+	text-align:left;
+}
+
+#f_area div.moduletable, #f_area div.moduletable_menu{
+	float: left;
+	margin:0px 10px 10px 20px;
+	width: 215px;
+}
+
+#f_area h3, #f_area h3{
+	text-align: left;
+	margin:0px;
+	height: 44px;
+	width: 208px;
+	line-height: 44px;
+	color:#000000;
+	font-size:19px;	
+	font-family:"Trebuchet MS", Tahoma, Verdana;
+	font-weight:normal;
+}
+
+
+/* System Standard Messages */
+#system-message { margin-bottom: 20px; }
+
+#system-message dd.message ul { background: #C3D2E5 url("../../system/images/notice-info.png"/*tpa=http://ez2learn.com/templates/system/images/notice-info.png*/) 4px center no-repeat;}
+
+/* System Error Messages */
+#system-message dd.error ul { color: #c00; background: #E6C0C0 url("../../system/images/notice-alert.png"/*tpa=http://ez2learn.com/templates/system/images/notice-alert.png*/) 4px center no-repeat; border-top: 3px solid #DE7A7B; border-bottom: 3px solid #DE7A7B; margin:0px; padding-left: 40px; text-indent:0px;}
+
+/* System Notice Messages */
+#system-message dd.notice ul { color: #c00; background: #EFE7B8 url("../../system/images/notice-note.png"/*tpa=http://ez2learn.com/templates/system/images/notice-note.png*/) 4px center no-repeat; border-top: 3px solid #F0DC7E; border-bottom: 3px solid #F0DC7E;}
+
+#syndicate{
+	float:left;
+	padding-left: 25px;
+}
+
+/* XXX add padding to sectiontableentry1 and sectiontableentry2 */
+
+.sectiontableentry1 {
+
+}
+
+.sectiontableentry2 {
+
+}

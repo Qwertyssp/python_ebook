@@ -1,0 +1,231 @@
+﻿==socket 模块==
+
+
+``socket`` 模块实现了到 socket 通讯层的接口. 你可以使用该模块创建
+客户端或是服务器的 socket .
+
+我们首先以一个客户端为例, [Example 7-1 #eg-7-1] 中的客户端连接到一个时间协议服务器, 
+读取 4 字节的返回数据, 并把它转换为一个时间值.
+
+====Example 7-1. 使用 socket 模块实现一个时间客户端====[eg-7-1]
+
+```
+File: socket-example-1.py
+
+import socket
+import struct, time
+
+# server
+HOST = "www.python.org"
+PORT = 37
+
+# reference time (in seconds since 1900-01-01 00:00:00)
+TIME1970 = 2208988800L # 1970-01-01 00:00:00
+
+# connect to server
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+# read 4 bytes, and convert to time value
+t = s.recv(4)
+t = struct.unpack("!I", t)[0]
+t = int(t - TIME1970)
+
+s.close()
+
+# print results
+print "server time is", time.ctime(t)
+print "local clock is", int(time.time()) - t, "seconds off"
+
+*B*server time is Sat Oct 09 16:42:36 1999
+local clock is 8 seconds off*b*
+```
+
+``socket`` 工厂函数( factory function )根据给定类型(该例子中为 
+Internet stream socket , 即就是 TCP socket )创建一个新的 socket . 
+``connect`` 方法尝试将这个 socket 连接到指定服务器上. 成功后, 
+就可以使用 ``recv`` 方法读取数据.
+
+创建一个服务器 socket 使用的是相同的方法, 不过这里不是连接到服务器, 
+而是将 socket ``bind`` (绑定)到本机的一个端口上, 告诉它去监听连接请求, 
+然后尽快处理每个到达的请求.
+
+[Example 7-2 #eg-7-2] 创建了一个时间服务器, 绑定到本机的 8037 端口( 1024 前的所有端口
+是为系统服务保留的, Unix 系统下访问它们你必须要有 root 权限).
+
+====Example 7-2. 使用 socket 模块实现一个时间服务器====[eg-7-2]
+
+```
+File: socket-example-2.py
+
+import socket
+import struct, time
+
+# user-accessible port
+PORT = 8037
+
+# reference time
+TIME1970 = 2208988800L
+
+# establish server
+service = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+service.bind(("", PORT))
+service.listen(1)
+
+print "listening on port", PORT
+
+while 1:
+    # serve forever
+    channel, info = service.accept()
+    print "connection from", info
+    t = int(time.time()) + TIME1970
+    t = struct.pack("!I", t)
+    channel.send(t) # send timestamp
+    channel.close() # disconnect
+
+*B*listening on port 8037
+connection from ('127.0.0.1', 1469)
+connection from ('127.0.0.1', 1470)
+...*b*
+```
+
+``listen`` 函数的调用告诉 socket 我们期望接受连接. 参数代表连接
+的队列(用于在程序没有处理前保持连接)大小. 最后 ``accept`` 循环将当前时间返回
+给每个连接的客户端.
+
+注意这里的 ``accept`` 函数返回一个新的 socket 对象, 这个对象是直接连接到客户端
+的. 而原 socket 只是用来保持连接; 所有后来的数据传输操作都使用新的 socket .
+
+我们可以使用 [Example 7-3 #eg-7-3] , ( [Example 7-1 #eg-7-1] 
+的通用化版本)来测试这个服务器, .
+
+====Example 7-3. 一个时间协议客户端====[eg-7-3]
+
+```
+File: timeclient.py
+
+import socket
+import struct, sys, time
+
+# default server
+host = "localhost"
+port = 8037
+
+# reference time (in seconds since 1900-01-01 00:00:00)
+TIME1970 = 2208988800L # 1970-01-01 00:00:00
+
+def gettime(host, port):
+    # fetch time buffer from stream server
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((host, port))
+    t = s.recv(4)
+    s.close()
+    t = struct.unpack("!I", t)[0]
+    return int(t - TIME1970)
+
+if _ _name_ _ == "_ _main_ _":
+    # command-line utility
+    if sys.argv[1:]:
+        host = sys.argv[1]
+        if sys.argv[2:]:
+            port = int(sys.argv[2])
+        else:
+            port = 37 # default for public servers
+
+    t = gettime(host, port)
+    print "server time is", time.ctime(t)
+    print "local clock is", int(time.time()) - t, "seconds off"
+
+*B*server time is Sat Oct 09 16:58:50 1999
+local clock is 0 seconds off*b*
+```
+
+[Example 7-3 #eg-7-3] 所示的脚本也可以作为模块使用; 你只需要导入 ``timeclient`` 模块, 
+然后调用它的 ``gettime`` 函数.
+
+目前为止, 我们已经使用了流( TCP ) socket . 时间协议还提到了
+ UDP sockets (报文). 流 socket 的工作模式和电话线类似; 你会知道在远端
+是否有人拿起接听器, 在对方挂断的时候你也会注意到. 相比之下, 发送报文更像
+是在一间黑屋子里大声喊. 可能某人会在那里, 但你只有在他回复的时候才会知道.
+
+如 [Example 7-4 #eg-7-4] 所示, 你不需要在通过报文 socket 发送数据时连接远程机器. 
+只需使用 ``sendto`` 方法, 它接受数据和接收者地址作为参数. 
+读取报文的时候使用 ``recvfrom`` 方法.
+
+====Example 7-4. 使用 socket 模块实现一个报文时间客户端====[eg-7-4]
+
+```
+File: socket-example-4.py
+
+import socket
+import struct, time
+
+# server
+HOST = "localhost"
+PORT = 8037
+
+# reference time (in seconds since 1900-01-01 00:00:00)
+TIME1970 = 2208988800L # 1970-01-01 00:00:00
+
+# connect to server
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# send empty packet
+s.sendto("", (HOST, PORT))
+
+# read 4 bytes from server, and convert to time value
+t, server = s.recvfrom(4)
+t = struct.unpack("!I", t)[0]
+t = int(t - TIME1970)
+
+s.close()
+
+print "server time is", time.ctime(t)
+print "local clock is", int(time.time()) - t, "seconds off"
+
+*B*server time is Sat Oct 09 16:42:36 1999
+local clock is 8 seconds off*b*
+```
+
+这里的 ``recvfrom`` 返回两个值: 数据和发送者的地址. 
+后者用于发送回复数据.
+
+Example 7-5 展示了对应的服务器代码.
+
+Example 7-5. 使用 socket 模块实现一个报文时间服务器
+
+```
+File: socket-example-5.py
+
+import socket
+import struct, time
+
+# user-accessible port
+PORT = 8037
+
+# reference time
+TIME1970 = 2208988800L
+
+# establish server
+service = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+service.bind(("", PORT))
+
+print "listening on port", PORT
+
+while 1:
+    # serve forever
+    data, client = service.recvfrom(0)
+    print "connection from", client
+    t = int(time.time()) + TIME1970
+    t = struct.pack("!I", t)
+    service.sendto(t, client) # send timestamp
+
+*B*listening on port 8037
+connection from ('127.0.0.1', 1469)
+connection from ('127.0.0.1', 1470)
+...*b*
+```
+
+最主要的不同在于服务器使用 ``bind`` 来分配一个已知端口给 socket , 
+根据 ``recvfrom`` 函数返回的地址向客户端发送数据.
+

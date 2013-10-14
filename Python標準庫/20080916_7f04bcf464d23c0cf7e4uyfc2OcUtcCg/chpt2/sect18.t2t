@@ -1,0 +1,51 @@
+﻿==whrandom 模块==
+
+
+*Alert*这个模块早在 2.1 就被声明不赞成, 早废了. 请使用 ``random`` 代替. @@ - Feather*alert*     
+
+[Example 2-33 #eg-2-33] 展示了 ``whrandom`` , 它提供了一个伪随机数生成器. 
+(基于 Wichmann 和 Hill, 1982 的数学运算理论). 除非你需要不共享状态的多个生成器(如多线程程序), 
+请使用 ``random`` 模块代替.
+
+====Example 2-33. 使用 whrandom 模块====[eg-2-33]
+
+```
+File: whrandom-example-1.py
+
+import whrandom
+
+# same as random
+print whrandom.random()
+print whrandom.choice([1, 2, 3, 5, 9])
+print whrandom.uniform(10, 20)
+print whrandom.randint(100, 1000)
+
+*B*0.113412062346
+1
+16.8778954689
+799*b*
+```
+
+[Example 2-34 #eg-2-34] 展示了如何使用 //whrandom// 类实例创建多个生成器.
+
+====Example 2-34. 使用 whrandom 模块创建多个随机生成器====[eg-2-34]
+
+```
+File: whrandom-example-2.py
+
+import whrandom
+
+# initialize all generators with the same seed
+rand1 = whrandom.whrandom(4,7,11)
+rand2 = whrandom.whrandom(4,7,11)
+rand3 = whrandom.whrandom(4,7,11)
+
+for i in range(5):
+    print rand1.random(), rand2.random(), rand3.random()
+
+*B*0.123993532536 0.123993532536 0.123993532536
+0.180951499518 0.180951499518 0.180951499518
+0.291924111809 0.291924111809 0.291924111809
+0.952048889363 0.952048889363 0.952048889363
+0.969794283643 0.969794283643 0.969794283643*b*
+```

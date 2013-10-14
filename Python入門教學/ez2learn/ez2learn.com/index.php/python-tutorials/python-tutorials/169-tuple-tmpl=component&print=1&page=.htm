@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/169-tuple" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="元組(Tuple)" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>元組(Tuple)</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					元組(Tuple)			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>什麼是元組(Tuple)</h2>
+
+<p>
+簡單的來說，就是不可改變的序列，也就是元素的組合，和串列很像，只差在它不可改變和語法，你可能會覺得很疑惑，都已經有了串列為何還需要元組，答案就是因為有時我們希望一個序列創造出來不能被改變，一個最好的例子就是字典的鍵值，還記得我們提過，字典的鍵必須滿足"不可改變"的條件，因此用串列就無法當做鍵，而用元組就可以，以下讓我們來介紹元組。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(物件1, 物件2, 物件3, ....)
+</pre>
+
+<p>語法和串列幾乎一樣，只是[]改成用()，還有一點需要注意的是，當元素的元素只有一個，像這樣</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(元素)
+</pre>
+
+<p>這樣寫並不會被當成Tuple，為什麼?
+因為這樣和運算優先的括號是一樣的，Python並沒有辦法分別它們之間的差別，因此當元組的元素只有一個時，必須這樣寫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+(元素, )
+</pre>
+
+<p>多一個多餘的逗號，讓Python的直譯器就能知道這是一個元組而不是指運算優先的括號。</p>
+
+<h2>序列的操作</h2>
+
+<p>像之前說過的，由於元組是"不可改變"的物件，因此元組的操作只有讀取之類的操作，而其它操作像 a + b
+這類的操作，其實都是創立一個新的元組出來，而沒有造成任何改變，字串也是這樣的物件。<br /><br />
+而我們現在要介紹的操作方式，是針對序列(Sequence)的操作，也就是說，只要是"序列"，這些操作基本上都適用，而目前學過的序列有哪些呢?
+第一個是字串，接著是串列，再來就是元組，換言之，以下介紹的操作，都可以應用在這三種，或是其它實作序列方法的物件上面。<br /><br />
+我們之前就有在字串的"字串運算"中介紹了大致上的操作方式，其實那些運算是因為字串也是序列，所以也一樣可以使用，以下我們完整地介紹序列的操作方式。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>x in  s</td>
+<td>如果x出現在序列s中為真</td>
+</tr><tr class="even"><td>x not in s</td>
+<td>如果x不出現在序列s中為真</td>
+</tr><tr><td>s + t</td>
+<td>兩個序列s和t連接在一起成為一個新的序列</td>
+</tr><tr class="even"><td>n*s 或 s*n</td>
+<td>序列s的內容重覆n次</td>
+</tr><tr><td>s[i]</td>
+<td>取得第i個元素</td>
+</tr><tr class="even"><td>s[i:j]</td>
+<td>取得從i開始，到j前一個元素的切片</td>
+</tr><tr><td>s[i:j:k]</td>
+<td>取得i到j的切片，且每k個元素取一個</td>
+</tr><tr class="even"><td>len(s)</td>
+<td>len函數回傳s序列的元素個數</td>
+</tr><tr><td>min(s)</td>
+<td>回傳序列中最小的元素</td>
+</tr><tr class="even"><td>max(s)</td>
+<td>回傳序列中最大的元素</td>
+</tr></tbody></table><p><span id="content0"><span id="content5"><span id="content8">雖然字串和List都也一樣可以使用以上的操作方式，但是這次是在說明Tuple，因此只以Tuple做示範，以下是程式範例。</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols"># 建立一個Tuple
+tupleA = (1, 2, 3)
+
+# 建立另一個Tuple
+tupleB = (7, 7, 8, 8)
+
+# 印出兩個Tuple連接後的結果
+print tupleA + tupleB
+
+# 印出tupleA重覆3次的結果
+print tupleA * 3
+
+# 印出3是否在tupleA裡
+print 3 in tupleA
+
+# 印出tupleB的元素個數
+print len(tupleB)
+
+# 印出從1開始的切片
+print tupleA[1:]
+
+# 印出tupleB中最大的元素
+print max(tupleB)
+
+# 建立一個Dictionary
+tupleMap = {}
+
+# 如同我們前面說的
+# 因為Tuple是"不可改變"的物件
+# 因此可以當成Dictionary的鍵值
+tupleMap[tupleA] = 'hello'
+
+# 印出(1, 2, 3)的對應值
+print tupleMap[(1, 2, 3)]
+
+</pre>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="168-dictionary.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/168-dictionary">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="170-2009-02-11-13-09-29.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/170-2009-02-11-13-09-29">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+<tr>
+	<td class="modifydate">
+		最近更新在 週三, 11 二月 2009 21:47	</td>
+</tr>
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

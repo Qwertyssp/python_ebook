@@ -1,0 +1,121 @@
+﻿==array 模块==
+
+
+``array`` 模块实现了一个有效的阵列储存类型. 阵列和列表类似, 但其中所有的项目必须为相同的
+类型. 该类型在阵列创建时指定.
+
+
+Examples 4-1 到 4-5 都是很简单的范例. [Example 4-1 #eg-4-1] 创建了一个 //array// 对象, 
+然后使用 ``tostring`` 方法将内部缓冲区( internal buffer )复制到字符串.
+
+====Example 4-1. 使用 array 模块将数列转换为字符串====[eg-4-1]
+
+```
+File: array-example-1.py
+
+import array
+
+a = array.array("B", range(16)) # unsigned char
+b = array.array("h", range(16)) # signed short
+
+print a
+print repr(a.tostring())
+
+print b
+print repr(b.tostring())
+
+*B*array('B', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+'\000\001\002\003\004\005\006\007\010\011\012\013\014\015\016\017'
+
+array('h', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15])
+'\000\000\001\000\002\000\003\000\004\000\005\000\006\000\007\000
+\010\000\011\000\012\000\013\000\014\000\015\000\016\000\017\000'*b*
+```
+
+//array// 对象可以作为一个普通列表对待, 如 [Example 4-2 #eg-4-2] 所示. 不过, 
+你不能连接两个不同类型的阵列.
+
+====Example 4-2. 作为普通序列操作阵列====[eg-4-2]
+
+```
+File: array-example-2.py
+
+import array
+
+a = array.array("B", [1, 2, 3])
+
+a.append(4)
+
+a = a + a
+
+a = a[2:-2]
+
+print a
+print repr(a.tostring())
+for i in a:
+    print i,
+
+*B*array('B', [3, 4, 1, 2])
+'\003\004\001\002'
+3 4 1 2*b*
+```
+
+该模块还提供了用于转换原始二进制数据到整数序列(或浮点数数列, 具体情况决定)的方法, 
+如  [Example 4-3 #eg-4-3] 所示.
+
+====Example 4-3. 使用阵列将字符串转换为整数列表====[eg-4-3]
+
+```
+File: array-example-3.py
+
+import array
+
+a = array.array("i", "fish license") # signed integer
+
+print a
+print repr(a.tostring())
+print a.tolist()
+
+*B*array('i', [1752394086, 1667853344, 1702063717])
+'fish license'
+[1752394086, 1667853344, 1702063717]*b*
+```
+
+最后, [Example 4-4 #eg-4-4] 展示了如何使用该模块判断当前平台的字节序( endianess ) .
+
+====Example 4-4. 使用 array 模块判断平台字节序====[eg-4-4]
+
+```
+File: array-example-4.py
+
+import array
+
+def little_endian():
+    return ord(array.array("i",[1]).tostring()[0])
+
+if little_endian():
+    print "little-endian platform (intel, alpha)"
+else:
+    print "big-endian platform (motorola, sparc)"
+
+*B*big-endian platform (motorola, sparc)*b*
+```
+
+Python 2.0 以及以后版本提供了 ``sys.byteorder`` 属性, 可以更简单地判断字节序
+(属性值为 "``little``" 或 "``big``" ), 如 Example 4-5 所示.
+
+====Example 4-5. 使用 sys.byteorder 属性判断平台字节序( Python 2.0 及以后)====[eg-4-5]
+
+```
+File: sys-byteorder-example-1.py
+
+import sys
+
+# 2.0 and later
+if sys.byteorder == "little":
+    print "little-endian platform (intel, alpha)"
+else:
+    print "big-endian platform (motorola, sparc)"
+
+*B*big-endian platform (motorola, sparc)*b*
+```

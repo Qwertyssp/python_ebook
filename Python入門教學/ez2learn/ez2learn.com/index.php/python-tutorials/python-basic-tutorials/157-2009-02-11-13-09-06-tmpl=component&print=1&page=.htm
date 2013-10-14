@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/157-2009-02-11-13-09-06" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="交談式介面" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>交談式介面</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					交談式介面			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>交談式的介面<br /></h2>
+
+<p>當你安裝好了Python，你就可以執行Python程式集裡的IDLE (Python
+GUI)，這是Python內建的一套非常陽春的IDE，而Python有個比較特別的介面，也就是交談式的介面，有別於一般程式，整個步驟和流程都寫好後再執行的，交談式的執行方式，是你下一個指令，它做一個動作，你來我往像交談一樣，所以叫做交談式的介面，<br /><br />
+如下面範例所示，第一個指令我們下</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print 'Hello baby!'
+</pre>
+
+<p>意思是印出Hello baby!的字樣，接著我們下了</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+a = 3
+</pre>
+
+<p>建立一個a的變數，它的值指定為3，接著</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+b = 4
+</pre>
+
+<p>也就是把b這個變數指定為4，然後</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+a * b
+</pre>
+
+<p>也就是印出3*4的結果，答案是12，你可能覺得很奇怪，為什麼a *
+b這段指令應該是讓它計算a*b，但是沒要它印出a*b，為什麼會印出a*b的結果來?
+原因出在於，基本上Python的交談式介面，會把下的指令的結果或回傳值印出來，雖然我們只下a *
+b這樣的指令，但是它的結果因為這樣就會被印出來。</p>
+
+<dl class="image-inline captioned image-inline"><dt><img src="../../../images/stories/python-tutorial/basic-tutorial/0.jpg" tppabs="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/0.jpg" alt="交談式介面" title="交談式介面" height="458" width="596" /></dt>
+ <dd class="image-caption" style="width:596px">交談式介面截圖</dd>
+</dl><p><br />
+這個介面主要的好處就是，你隨時可以馬上試你所想要的程式，不必特地寫一個Python程式檔再去執行它，當然這只是其中的一個介面，畢竟我們一般在寫程式還是執行整個程式檔，而不是每次都一個指令一個指令的下，所以我們還是需要一個Python的編輯器，下一篇就讓我們介紹Python的編輯器。</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="156-python.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/156-python">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="158-python.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/158-python">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

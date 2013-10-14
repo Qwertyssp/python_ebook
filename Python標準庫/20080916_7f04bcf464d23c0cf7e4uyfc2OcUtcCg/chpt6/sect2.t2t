@@ -1,0 +1,71 @@
+﻿==rfc822 模块==
+
+
+``rfc822`` 模块包括了一个邮件和新闻组的解析器 (也可用于其它符合 RFC 822 标准的消息, 比如 HTTP 头).
+
+通常, RFC 822 格式的消息包含一些标头字段, 后面至少有一个空行, 然后是信息主体.
+
+For example, here's a short mail message. The first five lines make up the message header, and the actual message (a single line, in this case) follows after an empty line:
+
+例如这里的邮件信息. 前五行组成了消息标头, 隔一个空行后是消息主体.
+
+```
+Message-Id: <20001114144603.00abb310@oreilly.com>
+Date: Tue, 14 Nov 2000 14:55:07 -0500
+To: "Fredrik Lundh" <fredrik@effbot.org>
+From: Frank
+Subject: Re: python library book!
+
+Where is it?
+```
+
+消息解析器读取标头字段后会返回一个以消息标头为键的类字典对象, 如 [Example 6-1 #eg-6-1] 所示.
+
+====Example 6-1. 使用 rfc822 模块====[eg-6-1]
+
+```
+File: rfc822-example-1.py
+
+import rfc822
+
+file = open("samples/sample.eml")
+
+message = rfc822.Message(file)
+
+for k, v in message.items():
+    print k, "=", v
+
+print len(file.read()), "bytes in body"
+
+*B*subject = Re: python library book!
+from = "Frank" <your@editor>
+message-id = <20001114144603.00abb310@oreilly.com>
+to = "Fredrik Lundh" <fredrik@effbot.org>
+date = Tue, 14 Nov 2000 14:55:07 -0500
+25 bytes in body*b*
+```
+
+消息对象( message object )还提供了一些用于解析地址字段和数据的, 如 [Example 6-2 #eg-6-2] 所示.
+
+====Example 6-2. 使用 rfc822 模块解析标头字段====[eg-6-2]
+
+```
+File: rfc822-example-2.py
+
+import rfc822
+
+file = open("samples/sample.eml")
+
+message = rfc822.Message(file)
+
+print message.getdate("date")
+print message.getaddr("from")
+print message.getaddrlist("to")
+
+*B*(2000, 11, 14, 14, 55, 7, 0, 0, 0)
+('Frank', 'your@editor')
+[('Fredrik Lundh', 'fredrik@effbot.org')]*b*
+```
+
+地址字段被解析为 (实际名称, 邮件地址) 这样的元组. 数据字段被解析为 9 元时间元组, 
+可以使用 ``time`` 模块处理.

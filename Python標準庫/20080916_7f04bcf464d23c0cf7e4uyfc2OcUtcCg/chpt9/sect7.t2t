@@ -1,0 +1,19 @@
+﻿==sunaudio 模块==
+
+
+``sunaudio`` 模块用于识别 Sun AU 音频文件, 并提取其基本信息. 
+``sunau`` 模块为 Sun AU 文件提供了更完成的支持. 如 Example 9-6 所示
+
+====Example 9-6. 使用 sunaudio 模块====[eg-9-6]
+
+```
+File: sunaudio-example-1.py
+
+import sunaudio
+
+file = "samples/sample.au"
+
+print sunaudio.gethdr(open(file, "rb"))
+
+*B*(6761, 1, 8012, 1, 'sample.au')*b*
+```

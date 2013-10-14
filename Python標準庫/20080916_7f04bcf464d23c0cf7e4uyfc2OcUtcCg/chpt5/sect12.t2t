@@ -1,0 +1,70 @@
+﻿==gzip 模块==
+
+
+``gzip`` 模块用来读写 gzip 格式的压缩文件, 如 [Example 5-24 #eg-5-24] 所示.
+
+====Example 5-24. 使用 gzip 模块读取压缩文件====[eg-5-24]
+
+```
+File: gzip-example-1.py
+
+import gzip
+
+file = gzip.GzipFile("samples/sample.gz")
+
+print file.read()
+
+*B*Well it certainly looks as though we're in for
+a splendid afternoon's sport in this the 127th
+Upperclass Twit of the Year Show.*b*
+```
+
+标准的实现并不支持 ``seek`` 和 ``tell`` 方法. 不过 [Example 5-25 #eg-5-25] 可以解决这个问题.
+
+====Example 5-25. 给 gzip 模块添加 seek/tell 支持====[eg-5-25]
+
+```
+File: gzip-example-2.py
+
+import gzip
+
+class gzipFile(gzip.GzipFile):
+    # adds seek/tell support to GzipFile
+
+    offset = 0
+
+    def read(self, size=None):
+        data = gzip.GzipFile.read(self, size)
+        self.offset = self.offset + len(data)
+        return data
+
+    def seek(self, offset, whence=0):
+        # figure out new position (we can only seek forwards)
+        if whence == 0:
+            position = offset
+        elif whence == 1:
+            position = self.offset + offset
+        else:
+            raise IOError, "Illegal argument"
+        if position < self.offset:
+            raise IOError, "Cannot seek backwards"
+
+        # skip forward, in 16k blocks
+        while position > self.offset:
+            if not self.read(min(position - self.offset, 16384)):
+                break
+
+    def tell(self):
+        return self.offset
+
+#
+# try it
+
+file = gzipFile("samples/sample.gz")
+file.seek(80)
+
+print file.read()
+
+*B*this the 127th
+Upperclass Twit of the Year Show.*b*
+```

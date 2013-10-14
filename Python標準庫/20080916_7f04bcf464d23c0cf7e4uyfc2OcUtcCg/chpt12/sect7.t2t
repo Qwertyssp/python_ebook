@@ -1,0 +1,40 @@
+﻿==termios 模块==
+
+
+(只用于 Unix , 可选) ``termios`` 为 Unix 的终端控制设备提供了一个接口. 
+它可用于控制终端通讯端口的大多方面. 
+
+[Example 12-8 #eg-12-8] 中, 该模块临时关闭了键盘回显(由第三个标志域的 ECHO 标志控制).
+
+====Example 12-8. 使用 termios 模块====[eg-12-8]
+
+```
+File: termios-example-1.py
+
+import termios, TERMIOS
+import sys
+
+fileno = sys.stdin.fileno()
+
+attr = termios.tcgetattr(fileno)
+orig = attr[:]
+
+print "attr =>", attr[:4] # flags
+
+# disable echo flag
+attr[3] = attr[3] & ~TERMIOS.ECHO
+
+try:
+    termios.tcsetattr(fileno, TERMIOS.TCSADRAIN, attr)
+    message = raw_input("enter secret message: ")
+    print
+finally:
+    # restore terminal settings
+    termios.tcsetattr(fileno, TERMIOS.TCSADRAIN, orig)
+
+print "secret =>", repr(message)
+
+*B*attr => [1280, 5, 189, 35387]
+enter secret message:
+secret => 'and now for something completely different'*b*
+```

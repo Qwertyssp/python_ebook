@@ -1,0 +1,146 @@
+﻿==nntplib 模块==
+
+
+``nntplib`` 模块提供了一个网络新闻传输协议( Network News Transfer Protocol, 
+NNTP )客户端的实现.
+
+===列出消息===
+
+从新闻服务器上读取消息之前, 你必须连接这个服务器并选择一个新闻组. 
+[Example 7-32 #eg-7-32] 中的脚本会从服务器下载一个完成的消息列表, 
+然后根据列表做简单的统计.
+
+====Example 7-32. 使用 nntplib 模块列出消息====[eg-7-32]
+
+```
+File: nntplib-example-1.py
+
+import nntplib
+import string
+
+SERVER = "news.spam.egg"
+GROUP  = "comp.lang.python" 
+AUTHOR = "fredrik@pythonware.com" # eff-bots human alias
+
+# connect to server
+server = nntplib.NNTP(SERVER)
+
+# choose a newsgroup
+resp, count, first, last, name = server.group(GROUP)
+print "count", "=>", count
+print "range", "=>", first, last
+
+# list all items on the server
+resp, items = server.xover(first, last)
+
+# extract some statistics
+authors = {}
+subjects = {}
+for id, subject, author, date, message_id, references, size, lines in items:
+    authors[author] = None
+    if subject[:4] == "Re: ":
+        subject = subject[4:]
+    subjects[subject] = None
+    if string.find(author, AUTHOR) >= 0:
+        print id, subject
+    
+print "authors", "=>", len(authors)
+print "subjects", "=>", len(subjects)
+
+*B*count => 607
+range => 57179 57971
+57474 Three decades of Python!
+...
+57477 More Python books coming...
+authors => 257
+subjects => 200*b*
+```
+
+===下载消息===
+
+下载消息是很简单的, 只需要调用 ``article``方法, 如 [Example 7-33 #eg-7-33] 所示.
+
+====Example 7-33. 使用 nntplib 模块下载消息====[eg-7-33]
+
+```
+File: nntplib-example-2.py
+
+import nntplib
+import string
+
+SERVER = "news.spam.egg"
+GROUP  = "comp.lang.python" 
+KEYWORD = "tkinter"
+
+# connect to server
+server = nntplib.NNTP(SERVER)
+
+resp, count, first, last, name = server.group(GROUP)
+resp, items = server.xover(first, last)
+for id, subject, author, date, message_id, references, size, lines in items:
+    if string.find(string.lower(subject), KEYWORD) >= 0:
+        resp, id, message_id, text = server.article(id)
+        print author
+        print subject
+        print len(text), "lines in article"
+
+*B*"Fredrik Lundh" <fredrik@pythonware.com>
+Re: Programming Tkinter (In Python)
+110 lines in article
+...*b*
+```
+
+[Example 7-34 #eg-7-34] 展示了如何进一步处理这些消息, 你可以把它封装到一个 
+//Message// 对象中(使用 ``rfc822`` 模块).
+
+====Example 7-34. 使用 nntplib 和 rfc822 模块处理消息====[eg-7-34]
+
+```
+File: nntplib-example-3.py
+
+import nntplib
+import string, random
+import StringIO, rfc822
+
+SERVER = "news.spam.egg"
+GROUP  = "comp.lang.python"
+
+# connect to server
+server = nntplib.NNTP(SERVER)
+
+resp, count, first, last, name = server.group(GROUP)
+for i in range(10):
+    try:
+        id = random.randint(int(first), int(last))
+        resp, id, message_id, text = server.article(str(id))
+    except (nntplib.error_temp, nntplib.error_perm):
+        pass # no such message (maybe it was deleted?)
+    else:
+        break # found a message!
+else:
+    raise SystemExit
+
+text = string.join(text, "\n")
+file = StringIO.StringIO(text)
+
+message = rfc822.Message(file)
+
+for k, v in message.items():
+    print k, "=", v
+
+print message.fp.read()
+
+*B*mime-version = 1.0
+content-type = text/plain; charset="iso-8859-1"
+message-id = <008501bf1417$1cf90b70$f29b12c2@sausage.spam.egg>
+lines = 22
+...
+from = "Fredrik Lundh" <fredrik@pythonware.com>
+nntp-posting-host = parrot.python.org
+subject = ANN: (the eff-bot guide to) The Standard Python Library
+...
+</F>*b*
+```
+
+到这一步后, 你可以使用 ``htmllib`` , ``uu`` , 以及 ``base64`` 
+继续处理这些消息.

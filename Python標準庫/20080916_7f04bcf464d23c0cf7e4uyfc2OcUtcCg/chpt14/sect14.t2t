@@ -1,0 +1,39 @@
+﻿==dircache 模块==
+
+
+(已经废弃) 与 ``statcache`` 类似, 该模块是 ``os.listdir`` 函数的一个扩展, 提供了缓存支持, 
+可能因为同样的原因被废弃吧~ MUHAHAHAHAHA~~~~ . 请使用 ``os.listdir`` 代替.
+如 [Example 14-17 #eg-14-17] 所示.
+
+====Example 14-17. 使用 dircache 模块====[eg-14-17]
+
+```
+File: dircache-example-1.py
+
+import dircache
+
+import os, time
+
+# 
+# test cached version
+
+t0 = time.clock()
+
+for i in range(100):
+    dircache.listdir(os.sep)
+
+print "cached", time.clock() - t0
+
+# 
+# test standard version
+
+t0 = time.clock()
+
+for i in range(100):
+    os.listdir(os.sep)
+
+print "standard", time.clock() - t0
+
+*B*cached 0.0664509964968
+standard 0.5560845807*b*
+```

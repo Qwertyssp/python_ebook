@@ -1,0 +1,81 @@
+﻿==pickle 模块==
+
+
+``pickle`` 模块同 ``marshal`` 模块相同, 将数据连续化, 便于保存传输. 它比 ``marshal`` 要慢一些, 
+但它可以处理类实例, 共享的元素, 以及递归数据结构等.
+
+====Example 4-11. 使用 pickle 模块====[eg-4-11]
+
+```
+File: pickle-example-1.py
+
+import pickle
+
+value = (
+    "this is a string",
+    [1, 2, 3, 4],
+    ("more tuples", 1.0, 2.3, 4.5),
+    "this is yet another string"
+    )
+
+data = pickle.dumps(value)
+
+# intermediate format
+print type(data), len(data)
+
+print "-"*50
+print data
+print "-"*50
+
+print pickle.loads(data)
+
+*B*<type 'string'> 121
+--------------------------------------------------
+(S'this is a string'
+p0
+(lp1
+I1
+aI2
+aI3
+aI4
+a(S'more tuples'
+p2
+F1.0
+F2.3
+F4.5
+tp3
+S'this is yet another string'
+p4
+tp5
+.
+--------------------------------------------------
+('this is a string', [1, 2, 3, 4], ('more tuples',
+1.0, 2.3, 4.5), 'this is yet another string')*b*
+```
+
+不过另一方面, ``pickle`` 不能处理 code 对象(可以参阅 ``copy_reg`` 模块来完成这个).
+
+默认情况下, pickle 使用急于文本的格式. 你也可以使用二进制格式, 这样数字和二进制
+字符串就会以紧密的格式储存, 这样文件就会更小点. 如 [Example 4-12 #eg-4-12] 所示.
+
+====Example 4-12. 使用 pickle 模块的二进制模式====[eg-4-12]
+
+```
+File: pickle-example-2.py
+
+import pickle
+import math
+
+value = (
+    "this is a long string" * 100,
+    [1.2345678, 2.3456789, 3.4567890] * 100
+    )
+
+# text mode
+data = pickle.dumps(value)
+print type(data), len(data), pickle.loads(data) == value
+
+# binary mode
+data = pickle.dumps(value, 1)
+print type(data), len(data), pickle.loads(data) == value
+```

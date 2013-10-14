@@ -1,0 +1,40 @@
+﻿==util 模块==
+
+
+(已废弃, 只用于 1.5.2) ``util`` 模块提供了常见操作的封装函数. 
+新代码可以使用如 Examples 14-21 到 14-23 的实现方法.
+
+[Example 14-21 #eg-14-21] 展示了 ``remove(sequence, item)`` 函数.
+
+====Example 14-21. 实现 util 模块的 remove 函数====[eg-14-21]
+
+```
+File: util-example-1.py
+
+def remove(sequence, item):
+    if item in sequence:
+        sequence.remove(item)
+```
+
+[Example 14-22 #eg-14-22] 展示了 ``readfile(filename) => string`` 函数.
+
+====Example 14-22. 实现 util 模块的 readfile 函数====[eg-14-22]
+
+```
+File: util-example-2.py
+
+def readfile(filename):
+    file = open(filename, "r")
+    return file.read()
+```
+
+[Example 14-23 #eg-14-23] 展示了 ```readopenfile(file) => string`` 函数.
+
+====Example 14-23. 实现 util 模块的 readopenfile 函数====[eg-14-23]
+
+```
+File: util-example-3.py
+
+def readopenfile(file):
+    return file.read()
+```

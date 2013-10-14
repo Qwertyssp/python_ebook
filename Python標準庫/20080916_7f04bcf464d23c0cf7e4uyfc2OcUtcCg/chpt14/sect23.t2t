@@ -1,0 +1,20 @@
+﻿==knee 模块==
+
+
+``knee`` 模块用于 Python 1.5 中导入包( package import )的实现. 
+当然 Python 解释器已经支持了这个, 所以这个模块几乎没有什么作用, 
+不过你可以看看它的代码, 明白这一切是怎么完成的. 
+
+代码请参见 Python-X.tgz\Python-2.4.4\Demo\imputil\knee.py 
+
+当然, 你可以导入该模块,如 [Example 14-30 #eg-14-30] 所示.
+
+====Example 14-30. 使用 knee 模块====[eg-14-30]
+
+```
+File: knee-example-1.py
+
+import knee
+
+# that's all, folks!
+```

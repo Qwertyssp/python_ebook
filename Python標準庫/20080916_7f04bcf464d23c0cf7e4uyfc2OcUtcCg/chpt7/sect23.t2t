@@ -1,0 +1,28 @@
+﻿==webbrowser 模块==
+
+
+(2.0 中新增) ``webbrowser`` 模块提供了一个到系统标准 web 浏览器的接口. 
+它提供了一个 ``open`` 函数, 接受文件名或 URL 作为参数, 然后在浏览器中打开它. 
+如果你又一次调用 ``open`` 函数, 那么它会尝试在相同的窗口打开新页面. 
+如 [Example 7-41 #eg-7-41] 所示.
+
+====Example 7-41. 使用 webbrowser 模块====[eg-7-41]
+
+```
+File: webbrowser-example-1.py
+
+import webbrowser
+import time
+
+webbrowser.open("http://www.pythonware.com")
+
+# wait a while, and then go to another page
+time.sleep(5)
+webbrowser.open(
+    "http://www.pythonware.com/people/fredrik/librarybook.htm"
+    )
+```
+
+在 Unix 下, 该模块支持 lynx , Netscape , Mosaic , Konquerer , 和 Grail . 
+在 Windows 和 Macintosh 下, 它会调用标准浏览器
+(在注册表或是 Internet 选项面板中定义).

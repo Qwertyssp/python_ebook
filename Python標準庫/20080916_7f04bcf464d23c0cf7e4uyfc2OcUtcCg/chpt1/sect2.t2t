@@ -1,0 +1,772 @@
+﻿== _ _builtin_ _ 模块 ==
+
+
+这个模块包含 Python 中使用的内建函数. 一般不用手动导入这个模块; Python会帮你做好一切. 
+
+=== 使用元组或字典中的参数调用函数 ===
+
+Python允许你实时地创建函数参数列表. 只要把所有的参数放入一个元组中，
+然后通过内建的 ``apply`` 函数调用函数. 如 [Example 1-1 #eg-1-1]. 
+
+====Example 1-1. 使用 apply 函数====[eg-1-1]
+
+```
+File: builtin-apply-example-1.py
+
+def function(a, b):
+    print a, b
+
+apply(function, ("whither", "canada?"))
+apply(function, (1, 2 + 3))
+
+*B*whither canada?
+1 5*b*
+```
+
+要想把关键字参数传递给一个函数, 你可以将一个字典作为 ``apply`` 函数的第 3 个参数, 
+参考 [Example 1-2 #eg-1-2]. 
+
+====Example 1-2. 使用 apply 函数传递关键字参数====[eg-1-2]
+
+```
+File: builtin-apply-example-2.py
+
+def function(a, b):
+    print a, b
+
+apply(function, ("crunchy", "frog"))
+apply(function, ("crunchy",), {"b": "frog"})
+apply(function, (), {"a": "crunchy", "b": "frog"})
+
+*B*crunchy frog
+crunchy frog
+crunchy frog*b*
+```
+
+``apply`` 函数的一个常见用法是把构造函数参数从子类传递到基类, 
+尤其是构造函数需要接受很多参数的时候. 如 [Example 1-3 #eg-1-3] 所示. 
+
+====Example 1-3. 使用 apply 函数调用基类的构造函数====[eg-1-3]
+
+```
+File: builtin-apply-example-3.py
+
+class Rectangle:
+    def _ _init_ _(self, color="white", width=10, height=10):
+        print "create a", color, self, "sized", width, "x", height
+
+class RoundedRectangle(Rectangle):
+    def _ _init_ _(self, **kw):
+        apply(Rectangle._ _init_ _, (self,), kw)
+
+rect = Rectangle(color="green", height=100, width=100)
+rect = RoundedRectangle(color="blue", height=20)
+
+*B*create a green <Rectangle instance at 8c8260> sized 100 x 100
+create a blue <RoundedRectangle instance at 8c84c0> sized 10 x 20*b*
+```
+
+Python 2.0 提供了另个方法来做相同的事. 你只需要使用一个传统的函数调用 , 
+使用 ``*`` 来标记元组, ``**`` 来标记字典. 
+
+下面两个语句是等价的:
+
+``` 
+result = function(*args, **kwargs)
+result = apply(function, args, kwargs)
+```
+
+===加载和重载模块===
+
+如果你写过较庞大的 Python 程序, 那么你就应该知道 ``import`` 语句是用来导入外部模块的 
+(当然也可以使用 ``from-import`` 版本). 不过你可能不知道 ``import`` 其实是靠调用内建
+函数 ``_ _import_ _`` 来工作的. 
+
+通过这个戏法你可以动态地调用函数. 当你只知道模块名称(字符串)的时候, 这将很方便. 
+[Example 1-4 #eg-1-4] 展示了这种用法, 动态地导入所有以 "``-plugin``" 结尾的模块. 
+
+====Example 1-4. 使用 _ _import_ _ 函数加载模块====[eg-1-4]
+
+```
+File: builtin-import-example-1.py
+
+import glob, os
+
+modules = []
+
+for module_file in glob.glob("*-plugin.py"):
+    try:
+        module_name, ext = os.path.splitext(os.path.basename(module_file))
+        module = _ _import_ _(module_name)
+        modules.append(module)
+    except ImportError:
+        pass # ignore broken modules
+
+# say hello to all modules
+for module in modules:
+    module.hello()
+
+*B*example-plugin says hello*b*
+```
+
+注意这个 plug-in 模块文件名中有个 "-" (hyphens). 这意味着你不能使用普通的 ``import`` 命令, 因为 Python 的辨识符不允许有 "-" .
+
+[Example 1-5 #eg-1-5] 展示了 [Example 1-4 #eg-1-4] 中使用的 plug-in .
+
+====Example 1-5. Plug-in 例子====[eg-1-5]
+
+```
+File: example-plugin.py
+
+def hello():
+    print "example-plugin says hello"
+```
+
+[Example 1-6 #eg-1-6] 展示了如何根据给定模块名和函数名获得想要的函数对象.
+
+====Example 1-6. 使用 _ _import_ _ 函数获得特定函数====[eg-1-6]
+
+```
+File: builtin-import-example-2.py
+
+def getfunctionbyname(module_name, function_name):
+    module = _ _import_ _(module_name)
+    return getattr(module, function_name)
+
+print repr(getfunctionbyname("dumbdbm", "open"))
+
+*B*<function open at 794fa0>*b*
+```
+
+你也可以使用这个函数实现延迟化的模块导入 (lazy module loading). 例如在 [Example 1-7 #eg-1-7] 中
+的 ``string`` 模块只在第一次使用的时候导入.
+
+====Example 1-7. 使用 _ _import_ _ 函数实现 延迟导入====[eg-1-7]
+
+```
+File: builtin-import-example-3.py
+
+class LazyImport:
+    def _ _init_ _(self, module_name):
+        self.module_name = module_name
+        self.module = None
+    def _ _getattr_ _(self, name):
+        if self.module is None:
+            self.module = _ _import_ _(self.module_name)
+        return getattr(self.module, name)
+
+string = LazyImport("string")
+
+print string.lowercase
+
+*B*abcdefghijklmnopqrstuvwxyz*b*
+```
+
+Python 也提供了重新加载已加载模块的基本支持. [Example 1-8 #eg-1-8 会加载 3 次 //hello.py// 文件.
+
+====Example 1-8. 使用 reload 函数====[eg-1-8]
+```
+File: builtin-reload-example-1.py
+
+import hello
+reload(hello)
+reload(hello)
+
+*B*hello again, and welcome to the show
+hello again, and welcome to the show
+hello again, and welcome to the show*b*
+```
+
+reload 直接接受模块作为参数.
+
+``` [!Feather 注:  ^ 原句无法理解, 稍后讨论.]
+
+注意，当你重加载模块时, 它会被重新编译, 新的模块会代替模块字典里的老模块. 但是, 已经用原模块里的类建立的实例仍然使用的是老模块(不会被更新). 
+
+同样地, 使用 ``from-import`` 直接创建的到模块内容的引用也是不会被更新的.
+
+=== 关于名称空间 ===
+
+``dir`` 返回由给定模块, 类, 实例, 或其他类型的所有成员组成的列表. 这可能在交互式 Python 解释器下很有用, 也可以用在其他地方. [Example 1-9 #eg-1-9]展示了 ``dir`` 函数的用法. 
+
+====Example 1-9. 使用 dir 函数====[eg-1-9]
+
+```
+File: builtin-dir-example-1.py
+
+def dump(value):
+    print value, "=>", dir(value)
+
+import sys
+
+dump(0)
+dump(1.0)
+dump(0.0j) # complex number
+dump([]) # list
+dump({}) # dictionary
+dump("string")
+dump(len) # function
+dump(sys) # module
+
+*B*0 => []
+1.0 => []
+0j => ['conjugate', 'imag', 'real']
+[] => ['append', 'count', 'extend', 'index', 'insert',
+    'pop', 'remove', 'reverse', 'sort']
+{} => ['clear', 'copy', 'get', 'has_key', 'items',
+    'keys', 'update', 'values']
+string => []
+<built-in function len> => ['_ _doc_ _', '_ _name_ _', '_ _self_ _']
+<module 'sys' (built-in)> => ['_ _doc_ _', '_ _name_ _',
+    '_ _stderr_ _', '_ _stdin_ _', '_ _stdout_ _', 'argv',
+    'builtin_module_names', 'copyright', 'dllhandle',
+    'exc_info', 'exc_type', 'exec_prefix', 'executable',
+...*b*
+```
+
+在例子 [Example 1-10 #eg-1-10]中定义的 ``getmember`` 函数返回给定类定义的所有类级别的属性和方法.
+
+====Example 1-10. 使用 dir 函数查找类的所有成员====[eg-1-10]
+
+```
+File: builtin-dir-example-2.py
+
+class A:
+    def a(self):
+        pass
+    def b(self):
+        pass
+
+class B(A):
+    def c(self):
+        pass
+    def d(self):
+        pass
+
+def getmembers(klass, members=None):
+    # get a list of all class members, ordered by class
+    if members is None:
+        members = []
+    for k in klass._ _bases_ _:
+        getmembers(k, members)
+    for m in dir(klass):
+        if m not in members:
+            members.append(m)
+    return members
+
+print getmembers(A)
+print getmembers(B)
+print getmembers(IOError)
+
+*B*['_ _doc_ _', '_ _module_ _', 'a', 'b']
+['_ _doc_ _', '_ _module_ _', 'a', 'b', 'c', 'd']
+['_ _doc_ _', '_ _getitem_ _', '_ _init_ _', '_ _module_ _', '_ _str_ _']*b*
+```
+
+``getmembers`` 函数返回了一个有序列表. 成员在列表中名称出现的越早, 
+它所处的类层次就越高. 如果无所谓顺序的话, 你可以使用字典代替列表. 
+
+``` [!Feather 注: 字典是无序的, 而列表和元组是有序的, 网上有关于有序字典的讨论]
+
+``vars`` 函数与此相似, 它返回的是包含每个成员当前值的字典. 如果你使用不带参数的 ``vars`` , 它将返回当前局部名称空间的可见元素(同 ``locals()`` 函数 ). 如 [Example 1-11 #eg-1-11]所表示. 
+
+====Example 1-11. 使用 vars 函数====[eg-1-11]
+
+```
+File: builtin-vars-example-1.py
+
+book = "library2"
+pages = 250
+scripts = 350
+
+
+print "the %(book)s book contains more than %(scripts)s scripts" % vars()
+
+*B*the library book contains more than 350 scripts*b*
+```
+
+=== 检查对象类型===
+
+Python 是一种动态类型语言, 这意味着给一个定变量名可以在不同的场合绑定到不同的类型上. 在接下面例子中, 同样的函数分别被整数, 浮点数, 以及一个字符串调用: 
+
+```
+def function(value):
+    print value
+function(1)
+function(1.0)
+function("one")
+```
+``type`` 函数 (如 [Example 1-12 #eg-1-12] 所示) 允许你检查一个变量的类型. 这个函数会返回一个 
+//type descriptor (类型描述符)//, 它对于 Python 解释器提供的每个类型都是不同的. 
+
+====Example 1-12. 使用 type 函数====[eg-1-12]
+
+```
+File: builtin-type-example-1.py
+
+def dump(value):
+    print type(value), value
+
+dump(1)
+dump(1.0)
+dump("one")
+
+*B*<type 'int'> 1
+<type 'float'> 1.0
+<type 'string'> one*b*
+```
+
+每个类型都有一个对应的类型对象, 所以你可以使用 ``is`` 操作符 (对象身份?) 来
+检查类型. (如 [Example 1-13 #eg-1-13]所示).
+
+====Example 1-13. 对文件名和文件对象使用 type 函数====[eg-1-13]
+
+```
+File: builtin-type-example-2.py
+
+def load(file):
+    if isinstance(file, type("")):
+        file = open(file, "rb")
+    return file.read()
+
+print len(load("samples/sample.jpg")), "bytes"
+print len(load(open("samples/sample.jpg", "rb"))), "bytes"
+
+
+*B*4672 bytes
+4672 bytes*b*
+```
+
+``callable`` 函数, 如 [Example 1-14 #eg-1-14] 所示, 可以检查一个对象是否是可调用的 
+(无论是直接调用或是通过 ``apply``). 对于函数, 方法, ``lambda`` 函式, 类, 
+以及实现了 ``_ _call_ _`` 方法的类实例, 它都返回 True. 
+
+====Example 1-14. 使用 callable 函数====[eg-1-14]
+
+```
+File: builtin-callable-example-1.py
+
+def dump(function):
+    if callable(function):
+        print function, "is callable"
+    else:
+        print function, "is *not* callable"
+
+class A:
+    def method(self, value):
+        return value
+
+class B(A):
+    def _ _call_ _(self, value):
+        return value
+
+a = A()
+b = B()
+
+dump(0) # simple objects
+dump("string")
+dump(callable)
+dump(dump) # function
+
+dump(A) # classes
+dump(B)
+dump(B.method)
+
+dump(a) # instances
+dump(b)
+dump(b.method)
+
+*B*0 is *not* callable
+string is *not* callable
+<built-in function callable> is callable
+<function dump at 8ca320> is callable
+A is callable
+B is callable
+<unbound method A.method> is callable
+<A instance at 8caa10> is *not* callable
+<B instance at 8cab00> is callable
+<method A.method of B instance at 8cab00> is callable*b*
+```
+
+注意类对象 (A 和 B) 都是可调用的; 如果调用它们, 就产生新的对象(类实例). 但是 A 类的实例不可调用, 因为它的类没有实现 ``_ _call_ _`` 方法.
+
+你可以在 ``operator`` 模块中找到检查对象是否为某一内建类型(数字, 序列, 或者字典等)
+的函数. 但是, 因为创建一个类很简单(比如实现基本序列方法的类), 所以对这些
+类型使用显式的类型判断并不是好主意. 
+
+在处理类和实例的时候会复杂些. Python 不会把类作为本质上的类型对待; 相反地, 所有的类都属于一个特殊的类类型(special class type), 所有的类实例属于一个特殊的实例类型(special instance type). 
+
+这意味着你不能使用 ``type`` 函数来测试一个实例是否属于一个给定的类; 所有的实例都是同样
+的类型! 为了解决这个问题, 你可以使用 ``isinstance`` 函数,它会检查一个对象是
+不是给定类(或其子类)的实例. [Example 1-15 #eg-1-15] 展示了 ``isinstance`` 函数的使用.
+
+====Example 1-15. 使用 isinstance 函数====[eg-1-15]
+
+```
+File: builtin-isinstance-example-1.py
+
+class A:
+    pass
+
+class B:
+    pass
+
+class C(A):
+    pass
+
+class D(A, B):
+    pass
+
+def dump(object):
+    print object, "=>",
+    if isinstance(object, A):
+        print "A",
+    if isinstance(object, B):
+        print "B",
+    if isinstance(object, C):
+        print "C",
+    if isinstance(object, D):
+        print "D",
+    print
+
+a = A()
+b = B()
+c = C()
+d = D()
+
+dump(a)
+dump(b)
+dump(c)
+dump(d)
+dump(0)
+dump("string")
+
+*B*<A instance at 8ca6d0> => A
+<B instance at 8ca750> => B
+<C instance at 8ca780> => A C
+<D instance at 8ca7b0> => A B D
+0 =>
+string =>*b*
+```
+
+``issubclass`` 函数与此相似, 它用于检查一个类对象是否与给定类相同, 
+或者是给定类的子类. 如 [Example 1-16 #eg-1-16] 所示. 
+
+注意, ``isinstance`` 可以接受任何对象作为参数, 而 ``issubclass`` 函数在接受非类对象参
+数时会引发 //TypeError// 异常. 
+
+====Example 1-16. 使用 issubclass 函数====[eg-1-16]
+
+```
+File: builtin-issubclass-example-1.py
+
+class A:
+    pass
+
+class B:
+    pass
+
+class C(A):
+    pass
+
+class D(A, B):
+    pass
+
+def dump(object):
+    print object, "=>",
+    if issubclass(object, A):
+        print "A",
+    if issubclass(object, B):
+        print "B",
+    if issubclass(object, C):
+        print "C",
+    if issubclass(object, D):
+        print "D",
+    print
+
+dump(A)
+dump(B)
+dump(C)
+dump(D)
+dump(0)
+dump("string")
+
+*B*A => A
+B => B
+C => A C
+D => A B D
+0 =>
+Traceback (innermost last):
+  File "builtin-issubclass-example-1.py", line 29, in ?
+  File "builtin-issubclass-example-1.py", line 15, in dump
+TypeError: arguments must be classes*b*
+```
+
+===计算 Python 表达式===
+
+Python 提供了在程序中与解释器交互的多种方法. 例如 ``eval`` 函数将一个字符串
+作为 Python 表达式求值. 你可以传递一串文本, 简单的表达式, 或者使用
+内建 Python 函数. 如 [Example 1-17 #eg-1-17] 所示. 
+
+====Example 1-17. 使用 eval 函数====[eg-1-17]
+
+```
+File: builtin-eval-example-1.py
+
+def dump(expression):
+    result = eval(expression)
+    print expression, "=>", result, type(result)
+
+dump("1")
+dump("1.0")
+dump("'string'")
+dump("1.0 + 2.0")
+dump("'*' * 10")
+dump("len('world')")
+
+*B*1 => 1 <type 'int'>
+1.0 => 1.0 <type 'float'>
+'string' => string <type 'string'>
+1.0 + 2.0 => 3.0 <type 'float'>
+'*' * 10 => ********** <type 'string'>
+len('world') => 5 <type 'int'>*b*
+```
+
+如果你不确定字符串来源的安全性, 那么你在使用 ``eval`` 的时候会遇到些麻烦. 例如, 
+某个用户可能会使用 ``_ _import_ _`` 函数加载 ``os`` 模块, 然后从硬盘删除文件 
+(如 [Example 1-18 #eg-1-18] 所示). 
+
+====Example 1-18. 使用 eval 函数执行任意命令====[eg-1-18]
+
+```
+File: builtin-eval-example-2.py
+
+print eval("_ _import_ _('os').getcwd()")
+print eval("_ _import_ _('os').remove('file')")
+
+*B*/home/fredrik/librarybook
+Traceback (innermost last):
+ File "builtin-eval-example-2", line 2, in ?
+ File "<string>", line 0, in ?
+os.error: (2, 'No such file or directory')*b*
+```
+
+这里我们得到了一个 //os.error// 异常, 这说明 //Python 事实上在尝试删除文件!//
+
+幸运地是, 这个问题很容易解决. 你可以给 ``eval`` 函数传递第 2 
+个参数, 一个定义了该表达式求值时名称空间的字典. 
+我们测试下, 给函数传递个空字典:
+
+```
+>>> print eval("_ _import_ _('os').remove('file')", {})
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+  File "<string>", line 0, in ?
+os.error: (2, 'No such file or directory')
+```
+
+呃.... 我们还是得到了个 //os.error// 异常.
+
+这是因为 Python 在求值前会检查这个字典, 如果没有发现名称为 ``_ _builtins_ _`` 
+的变量(复数形式), 它就会添加一个:
+
+```
+>>> namespace = {}
+>>> print eval("_ _import_ _('os').remove('file')", namespace)
+Traceback (innermost last):
+  File "<stdin>", line 1, in ?
+  File "<string>", line 0, in ?
+os.error: (2, 'No such file or directory')
+>>> namespace.keys()
+['_ _builtins_ _']
+```
+
+如果你打印这个 namespace 的内容, 你会发现里边有所有的内建函数.
+
+``` [!Feather 注: 如果我RP不错的话, 添加的这个_ _builtins_ _就是当前的_ _builtins_ _]
+
+我们注意到了如果这个变量存在, Python 就不会去添加默认的, 那么我们的解决方法也来了, 
+为传递的字典参数加入一个 ``_ _builtins_ _`` 项即可. 如 [Example 1-19 #eg-1-19] 所示.
+
+====Example 1-19. 安全地使用 eval 函数求值====[eg-1-19]
+
+```
+File: builtin-eval-example-3.py
+
+print eval("_ _import_ _('os').getcwd()", {})
+print eval("_ _import_ _('os').remove('file')", {"_ _builtins_ _": {}})
+
+*B*/home/fredrik/librarybook
+Traceback (innermost last):
+  File "builtin-eval-example-3.py", line 2, in ?
+  File "<string>", line 0, in ?
+NameError: _ _import_ _*b*
+```
+
+即使这样, 你仍然无法避免针对 CPU 和内存资源的攻击. (比如, 形如 
+``eval("'*'*1000000*2*2*2*2*2*2*2*2*2")`` 的语句在执行后会使你的程序耗尽系统资源). 
+
+=== 编译和执行代码===
+``eval`` 函数只针对简单的表达式. 如果要处理大块的代码, 你应该使用 ``compile`` 和 ``exec`` 函数 
+(如 [Example 1-20 #eg-1-20] 所示). 
+
+====Example 1-20. 使用 compile 函数检查语法====[eg-1-20]
+
+```
+File: builtin-compile-example-1.py
+
+NAME = "script.py"
+
+BODY = """
+prnt 'owl-stretching time'
+"""
+
+try:
+    compile(BODY, NAME, "exec")
+except SyntaxError, v:
+    print "syntax error:", v, "in", NAME
+
+# syntax error: invalid syntax in script.py
+```
+
+成功执行后, ``compile`` 函数会返回一个代码对象, 你可以使用 ``exec`` 语句执行它, 
+参见 [Example 1-21 #eg-1-21] .
+
+====Example 1-21. 执行已编译的代码====[eg-1-21]
+
+```
+File: builtin-compile-example-2.py
+
+BODY = """
+print 'the ant, an introduction'
+"""
+
+code = compile(BODY, "<script>", "exec")
+
+print code
+
+exec code
+
+*B*<code object ? at 8c6be0, file "<script>", line 0>
+the ant, an introduction*b*
+```
+
+使用 [Example 1-22 #eg-1-22] 中的类可以在程序执行时实时地生成代码. ``write`` 方法用于添加代码, 
+``indent`` 和 ``dedent`` 方法用于控制缩进结构. 其他部分交给类来处理. 
+
+====Example 1-22. 简单的代码生成工具====[eg-1-22]
+
+```
+File: builtin-compile-example-3.py
+
+import sys, string
+
+class CodeGeneratorBackend:
+    "Simple code generator for Python"
+
+    def begin(self, tab="\t"):
+        self.code = []
+        self.tab = tab
+        self.level = 0
+
+    def end(self):
+        self.code.append("") # make sure there's a newline at the end 
+        return compile(string.join(self.code, "\n"), "<code>", "exec")
+
+    def write(self, string):
+        self.code.append(self.tab * self.level + string)
+
+    def indent(self):
+        self.level = self.level + 1
+        # in 2.0 and later, this can be written as: self.level += 1
+
+    def dedent(self):
+        if self.level == 0:
+            raise SyntaxError, "internal error in code generator"
+        self.level = self.level - 1
+        # or: self.level -= 1
+
+#
+# try it out!
+
+c = CodeGeneratorBackend()
+c.begin()
+c.write("for i in range(5):")
+c.indent()
+c.write("print 'code generation made easy!'")
+c.dedent()
+exec c.end()
+
+*B*code generation made easy!
+code generation made easy!
+code generation made easy!
+code generation made easy!
+code generation made easy!*b*
+```
+
+Python 还提供了 ``execfile`` 函数, 一个从文件加载代码, 编译代码, 执行代码的快捷方式. 
+[Example 1-23 #eg-1-23] 简单地展示了如何使用这个函数. 
+
+====Example 1-23. 使用 execfile 函数====[eg-1-23]
+
+```
+File: builtin-execfile-example-1.py
+
+execfile("hello.py")
+
+def EXECFILE(filename, locals=None, globals=None):
+    exec compile(open(filename).read(), filename, "exec") in locals, globals
+
+EXECFILE("hello.py")
+
+*B*hello again, and welcome to the show
+hello again, and welcome to the show*b*
+```
+
+[Example 1-24 #eg-1-24] 中的代码是 [Example 1-23 #eg-1-23] 中使用的 hello.py 文件. 
+
+====Example 1-24. hello.py 脚本====[eg-1-24]
+
+```
+File: hello.py
+
+print "hello again, and welcome to the show"
+```
+
+=== 从 _ _builtin_ _ 模块重载函数===
+
+因为 Python 在检查局部名称空间和模块名称空间前不会检查内建函数, 所以有时候你可能要显式地引用 
+``_ _builtin_ _`` 模块. 例如 [Example 1-25 #eg-1-25] 重载了内建的 ``open`` 函数. 
+这时候要想使用原来的 ``open`` 函数, 就需要脚本显式地指明模块名称. 
+
+====Example 1-25. 显式地访问 _ _builtin_ _ 模块中的函数====[eg-1-25]
+
+```
+File: builtin-open-example-1.py
+
+def open(filename, mode="rb"):
+    import _ _builtin_ _
+    file = _ _builtin_ _.open(filename, mode)
+    if file.read(5) not in("GIF87", "GIF89"):
+        raise IOError, "not a GIF file"
+    file.seek(0)
+    return file
+
+fp = open("samples/sample.gif")
+print len(fp.read()), "bytes"
+
+fp = open("samples/sample.jpg")
+print len(fp.read()), "bytes"
+
+*B*3565 bytes
+Traceback (innermost last):
+  File "builtin-open-example-1.py", line 12, in ?
+  File "builtin-open-example-1.py", line 5, in open
+IOError: not a GIF file*b*
+```
+
+```
+[!Feather 注: 明白这个open()函数是干什么的么? 检查一个文件是否是 GIF 文件, 
+一般如这类的图片格式都在文件开头有默认的格式. 
+另外打开文件推荐使用file()而不是open() , 虽然暂时没有区别]
+```

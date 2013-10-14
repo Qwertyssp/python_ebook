@@ -1,0 +1,21 @@
+﻿==nt 模块==
+
+
+(非直接使用模块, 只用于 Windows ) ``nt`` 模块是 ``os`` 模块在 Windows 平台下调用的执行模块. 
+几乎没有任何原因直接使用这个模块, 请使用 ``os`` 模块替代. [Example 12-16 #eg-12-16] 展示了它的使用.
+
+====Example 12-16. 使用 nt 模块====[eg-12-16]
+
+```
+File: nt-example-1.py
+
+import nt
+
+# in real life, use os.listdir and os.stat instead!
+for file in nt.listdir("."):
+    print file, nt.stat(file)[6]
+
+*B*aifc-example-1.py 314
+anydbm-example-1.py 259
+array-example-1.py 48*b*
+```

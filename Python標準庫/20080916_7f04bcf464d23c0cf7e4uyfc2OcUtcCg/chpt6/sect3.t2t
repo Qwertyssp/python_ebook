@@ -1,0 +1,42 @@
+﻿==mimetools 模块==
+
+
+多用途因特网邮件扩展 ( Multipurpose Internet Mail Extensions, MIME ) 
+标准定义了如何在 RFC 822 格式的消息中储存非 ASCII 文本, 图像以及其它数据.
+
+``mimetools`` 模块包含一些读写 MIME 信息的工具. 它还提供了一个类似 ``rfc822`` 模块中 //Message// 的类, 
+用于处理 MIME 编码的信息. 如 [Example 6-3 #eg-6-3] 所示.
+
+====Example 6-3. 使用 mimetools 模块====[eg-6-3]
+
+```
+File: mimetools-example-1.py
+
+import mimetools
+
+file = open("samples/sample.msg")
+
+msg = mimetools.Message(file)
+
+print "type", "=>", msg.gettype()
+print "encoding", "=>", msg.getencoding()
+print "plist", "=>", msg.getplist()
+
+print "header", "=>"
+for k, v in msg.items():
+    print "  ", k, "=", v
+
+*B*type => text/plain
+encoding => 7bit
+plist => ['charset="iso-8859-1"']
+header =>
+   mime-version = 1.0
+   content-type = text/plain;
+ charset="iso-8859-1"
+   to = effbot@spam.egg
+   date = Fri, 15 Oct 1999 03:21:15 -0400
+   content-transfer-encoding = 7bit
+   from = "Fredrik Lundh" <fredrik@pythonware.com>
+   subject = By the way...
+...*b*
+```

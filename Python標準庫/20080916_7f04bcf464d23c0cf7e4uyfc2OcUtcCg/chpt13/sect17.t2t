@@ -1,0 +1,29 @@
+﻿==keyword 模块==
+
+
+``keyword`` 模块(参见 [Example 13-18 #eg-13-18] )有一个包含当前 Python 版本所使用的关键字的列表. 
+它还提供了一个字典, 以关键字作为 key , 以一个描述性函数作为 value , 它可用于检查
+给定单词是否是 Python 关键字.
+
+====Example 13-18. 使用 keyword 模块====[eg-13-18]
+
+```
+File: keyword-example-1.py
+
+import keyword
+
+name = raw_input("Enter module name: ")
+
+if keyword.iskeyword(name):
+    print name, "is a reserved word."
+    print "here's a complete list of reserved words:"
+    print keyword.kwlist
+
+*B*Enter module name: assert
+assert is a reserved word.
+here's a complete list of reserved words:
+['and', 'assert', 'break', 'class', 'continue', 'def', 'del',
+'elif', 'else', 'except', 'exec', 'finally', 'for', 'from',
+'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or',
+'pass', 'print', 'raise', 'return', 'try', 'while']*b*
+```

@@ -1,0 +1,24 @@
+﻿==dircmp 模块==
+
+
+(已废弃, 只用于 1.5.2) ``dircmp`` 模块用于比较两个目录的内容, 
+如 [Example 14-18 #eg-14-18] 所示.
+
+====Example 14-18. 使用 dircmp 模块====[eg-14-18]
+
+```
+File: dircmp-example-1.py
+
+import dircmp
+
+d = dircmp.dircmp()
+d.new("samples", "oldsamples")
+d.run()
+d.report()
+
+*B*diff samples oldsamples
+Only in samples : ['sample.aiff', 'sample.au', 'sample.wav']
+Identical files : ['sample.gif', 'sample.gz', 'sample.jpg', ...]*b*
+```
+
+Python 2.0 后, 该模块被 ``filecmp`` 替换.

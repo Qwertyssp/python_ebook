@@ -1,0 +1,95 @@
+﻿==pyclbr 模块==
+
+
+``pyclbr`` 模块包含一个基本的 Python 类解析器, 如 [Example 14-1 #eg-14-1] 所示.
+
+版本 1.5.2 中, 改模块只包含一个 ``readmodule`` 函数, 解析给定模块, 返回一个模块所有顶层类组成的列表.
+
+====Example 14-1. 使用 pyclbr 模块====[eg-14-1]
+
+```
+File: pyclbr-example-1.py
+
+import pyclbr
+
+mod = pyclbr.readmodule("cgi")
+
+for k, v in mod.items():
+    print k, v
+
+*B*MiniFieldStorage <pyclbr.Class instance at 7873b0>
+InterpFormContentDict <pyclbr.Class instance at 79bd00>
+FieldStorage <pyclbr.Class instance at 790e20>
+SvFormContentDict <pyclbr.Class instance at 79b5e0>
+StringIO <pyclbr.Class instance at 77dd90>
+FormContent <pyclbr.Class instance at 79bd60>
+FormContentDict <pyclbr.Class instance at 79a9c0>*b*
+```
+
+2.0 及以后版本中, 添加了另个接口 ``readmodule_ex`` , 它还会读取全局函数. 如 [Example 14-2 #eg-14-2] 所示.
+
+====Example 14-2. 使用 pyclbr 模块读取类和函数====[eg-14-2]
+
+```
+File: pyclbr-example-3.py
+
+import pyclbr
+
+# 2.0 and later
+mod = pyclbr.readmodule_ex("cgi")
+
+for k, v in mod.items():
+    print k, v
+
+*B*MiniFieldStorage <pyclbr.Class instance at 00905D2C>
+parse_header <pyclbr.Function instance at 00905BD4>
+test <pyclbr.Function instance at 00906FBC>
+print_environ_usage <pyclbr.Function instance at 00907C94>
+parse_multipart <pyclbr.Function instance at 00905294>
+FormContentDict <pyclbr.Class instance at 008D3494>
+initlog <pyclbr.Function instance at 00904AAC>
+parse <pyclbr.Function instance at 00904EFC>
+StringIO <pyclbr.Class instance at 00903EAC>
+SvFormContentDict <pyclbr.Class instance at 00906824>
+...*b*
+```
+
+访问类实例的属性可以获得关于类的更多信息, 如 [Example 14-3 #eg-14-3] 所示.
+
+====Example 14-3. 使用 pyclbr 模块====[eg-14-3]
+
+```
+File: pyclbr-example-2.py
+
+import pyclbr
+import string
+
+mod = pyclbr.readmodule("cgi")
+
+def dump(c):
+    # print class header
+    s = "class " + c.name
+    if c.super:
+        s = s +  "(" + string.join(map(lambda v: v.name, c.super), ", ") + ")"
+    print s + ":"
+    # print method names, sorted by line number
+    methods = c.methods.items()
+    methods.sort(lambda a, b: cmp(a[1], b[1]))
+    for method, lineno in methods:
+        print "  def " + method
+    print
+
+for k, v in mod.items():
+    dump(v)
+
+*B*class MiniFieldStorage:
+  def _ _init_ _
+  def _ _repr_ _
+
+class InterpFormContentDict(SvFormContentDict):
+  def _ _getitem_ _
+  def values
+  def items
+
+...*b*
+```

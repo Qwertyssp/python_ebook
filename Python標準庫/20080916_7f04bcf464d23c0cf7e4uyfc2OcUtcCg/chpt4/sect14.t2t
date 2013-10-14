@@ -1,0 +1,75 @@
+﻿==uu 模块==
+
+
+``uu`` 编码体系用于将任意二进制数据转换为普通文本格式. 
+该格式在新闻组中很流行, 但逐渐被 ``base64`` 编码取代.
+
+``uu`` 编码将每个 3 字节( 24 位)的数据组转换为 4 个可打印字符(每个字符 6 位), 使用从 chr(32) (空格) 
+到 chr(95) 的字符. uu 编码通常会使数据大小增加 40% .
+
+一个编码后的数据流以一个新行开始, 它包含文件的权限( Unix 格式)和文件名, 
+以 end 行结尾:
+
+```
+begin 666 sample.jpg
+M_]C_X  02D9)1@ ! 0   0 !  #_VP!#  @&!@<&!0@'!P<)'0@*#!0-# L+
+...more lines like this...
+end
+```
+
+``uu`` 模块提供了两个函数: ``encode`` 和 ``decode`` .
+
+``encode(infile, outfile, filename)`` 函数从编码输入文件中的数据, 然后写入到输出文件中. 如 
+[Example 4-24 #eg-4-24] 所示. infile 和 outfile 可以是文件名或文件对象. 
+filename 参数作为起始域的文件名写入.
+
+====Example 4-24. 使用 uu 模块编码二进制文件====[eg-4-24]
+
+```
+File: uu-example-1.py
+
+import uu
+import os, sys
+
+infile = "samples/sample.jpg"
+
+uu.encode(infile, sys.stdout, os.path.basename(infile))
+
+*B*begin 666 sample.jpg
+M_]C_X  02D9)1@ ! 0   0 !  #_VP!#  @&!@<&!0@'!P<)"0@*#!0-# L+
+M#!D2$P\4'1H?'AT:'!P@)"XG("(L(QP<*#<I+# Q-#0T'R<Y/3@R/"XS-#+_
+MVP!# 0D)"0P+#!@-#1@R(1PA,C(R,C(R,C(R,C(R,C(R,C(R,C(R,C(R,C(R
+M,C(R,C(R,C(R,C(R,C(R,C(R,C(R,C+_P  1" "  ( # 2(  A$! Q$!_\0 
+M'P   04! 0$! 0$           $" P0%!@<("0H+_\0 M1   @$# P($ P4%*b*
+```
+
+``decode(infile, outfile)`` 函数用来解码 uu 编码的数据. 同样地, 参数可以是文件名也可以是文件对象. 
+如 [Example 4-25 #eg-4-25] 所示.
+
+====Example 4-25. 使用 uu 模块解码 uu 格式的文件====[eg-4-25]
+
+```
+File: uu-example-2.py
+
+import uu
+import StringIO
+
+infile = "samples/sample.uue"
+outfile = "samples/sample.jpg"
+
+#
+# decode
+
+fi = open(infile)
+fo = StringIO.StringIO()
+
+uu.decode(fi, fo)
+
+#
+# compare with original data file
+
+data = open(outfile, "rb").read()
+
+if fo.getvalue() == data:
+    print len(data), "bytes ok"
+```

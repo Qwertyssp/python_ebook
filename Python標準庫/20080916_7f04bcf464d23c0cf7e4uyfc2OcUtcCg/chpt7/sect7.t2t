@@ -1,0 +1,83 @@
+﻿==urlparse 模块==
+
+
+``urlparse`` 模块包含用于处理 URL 的函数, 可以在 URL 和平台特定的文件名间相互转换. 
+如 [Example 7-16 #eg-7-16] 所示.
+
+====Example 7-16. 使用 urlparse 模块====[eg-7-16]
+
+```
+File: urlparse-example-1.py
+
+import urlparse
+
+print urlparse.urlparse("http://host/path;params?query#fragment")
+
+('http', 'host', '/path', 'params', 'query', 'fragment')
+```
+
+一个常见用途就是把 HTTP URL 分割为主机名和路径组件(一个 HTTP 请求会涉及到
+主机名以及请求路径), 如 [Example 7-17 #eg-7-17] 所示.
+
+====Example 7-17. 使用 urlparse 模块处理 HTTP 定位器( HTTP Locators )====[eg-7-17]
+
+```
+File: urlparse-example-2.py
+
+import urlparse
+
+scheme, host, path, params, query, fragment =\
+        urlparse.urlparse("http://host/path;params?query#fragment")
+
+if scheme == "http":
+    print "host", "=>", host
+    if params:
+        path = path + ";" + params
+    if query:
+        path = path + "?" + query
+    print "path", "=>", path
+
+*B*host => host
+path => /path;params?query*b*
+```
+
+[Example 7-18 #eg-7-18] 展示了如何使用 ``urlunparse`` 函数将各组成部分合并回一个 URL .
+
+====Example 7-18. 使用 urlparse 模块处理 HTTP 定位器( HTTP Locators )====[eg-7-18]
+
+```
+File: urlparse-example-3.py
+
+import urlparse
+
+scheme, host, path, params, query, fragment =\
+        urlparse.urlparse("http://host/path;params?query#fragment")
+
+if scheme == "http":
+    print "host", "=>", host
+    print "path", "=>", urlparse.urlunparse(
+    (None, None, path, params, query, None)
+    )
+
+*B*host => host
+path => /path;params?query*b*
+```
+
+[Example 7-19 #eg-7-19] 使用 ``urljoin`` 函数将绝对路径和相对路径组合起来. 
+
+====Example 7-19. 使用 urlparse 模块组合相对定位器====[eg-7-19]
+
+```
+File: urlparse-example-4.py
+
+import urlparse
+
+base = "http://spam.egg/my/little/pony"
+
+for path in "/index", "goldfish", "../black/cat":
+    print path, "=>", urlparse.urljoin(base, path)
+
+*B*/index => http://spam.egg/index
+goldfish => http://spam.egg/my/little/goldfish
+../black/cat => http://spam.egg/my/black/cat*b*
+```

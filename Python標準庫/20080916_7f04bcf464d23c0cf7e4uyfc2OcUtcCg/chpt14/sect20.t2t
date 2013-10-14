@@ -1,0 +1,61 @@
+﻿==timing 模块==
+
+
+(已废弃, 只用于 Unix ) ``timing`` 用于监控 Python 程序的执行时间. 如 [Example 14-25 #eg-14-25] 所示.
+
+====Example 14-25. 使用 timing 模块====[eg-14-25]
+
+```
+File: timing-example-1.py
+
+import timing
+import time
+
+def procedure():
+    time.sleep(1.234)
+
+timing.start()
+procedure()
+timing.finish()
+
+print "seconds:", timing.seconds()
+print "milliseconds:", timing.milli()
+print "microseconds:", timing.micro()
+
+*B*seconds: 1
+milliseconds: 1239
+microseconds: 1239999*b*
+```
+
+你可以按照 [Example 14-26 #eg-14-26] 中的方法用 ``time`` 模块实现 ``timing`` 模块的功能.
+
+====Example 14-26. 模拟 timing 模块====[eg-14-26]
+
+```
+File: timing-example-2.py
+
+import time
+
+t0 = t1 = 0
+
+def start():
+    global t0
+    t0 = time.time()
+
+
+def finish():
+    global t1
+    t1 = time.time()
+
+def seconds():
+    return int(t1 - t0)
+
+def milli():
+    return int((t1 - t0) * 1000)
+
+def micro():
+    return int((t1 - t0) * 1000000)
+```
+
+``time.clock()`` 可以替换 ``time.time()`` 获得 CPU 时间.
+

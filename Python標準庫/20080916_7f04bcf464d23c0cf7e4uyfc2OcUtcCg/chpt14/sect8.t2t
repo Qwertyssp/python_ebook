@@ -1,0 +1,43 @@
+﻿==rlcompleter 模块==
+
+
+(可选, 只用于 Unix ) ``rlcompleter`` 模块为 readline 模块提供了单词自动完成功能.
+
+导入该模块就可以启动自动完成功能. 默认情况下完成函数被绑定在了 Esc 键上. 
+按两次 Esc 键就可以自动完成当前单词. 你可以使用下面的代码修改所绑定的键:
+
+```
+import readline
+readline.parse_and_bind("tab: complete")
+```
+
+[Example 14-10 #eg-14-10] 展示了如何在程序中使用自动完成函数.
+
+====Example 14-10. 使用 rlcompleter 模块展开名字====[eg-14-10]
+
+```
+File: rlcompleter-example-1.py
+
+import rlcompleter
+import sys
+
+completer = rlcompleter.Completer()
+
+for phrase in "co", "sys.p", "is":
+    print phrase, "=>",
+    # emulate readline completion handler
+    try:
+        for index in xrange(sys.maxint):
+            term = completer.complete(phrase, index)
+            if term is None:
+                break
+            print term,
+    except:
+        pass
+    print
+
+co => continue compile complex coerce completer
+sys.p => sys.path sys.platform sys.prefix
+is => is isinstance issubclass
+```
+

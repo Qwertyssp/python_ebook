@@ -1,0 +1,63 @@
+﻿==SimpleHTTPServer 模块==
+
+
+``SimpleHTTPServer`` 模块是一个简单的 HTTP 服务器, 它提供了标准的 
+GET 和 HEAD 请求处理器. 客户端请求的路径名称会被翻译为一个相对文件名
+(相对于服务器启动时的当前路径). [Example 7-37 #eg-7-37] 展示了该模块的使用.
+
+====Example 7-37. 使用 SimpleHTTPServer 模块====[eg-7-37]
+
+```
+File: simplehttpserver-example-1.py
+
+import SimpleHTTPServer
+import SocketServer
+
+# minimal web server.  serves files relative to the
+# current directory.
+
+PORT = 8000
+
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+
+httpd = SocketServer.TCPServer(("", PORT), Handler)
+
+print "serving at port", PORT
+httpd.serve_forever()
+
+*B*serving at port 8000
+localhost - - [11/Oct/1999 15:07:44] code 403, message Directory listing not sup
+ported
+localhost - - [11/Oct/1999 15:07:44] "GET / HTTP/1.1" 403 -
+localhost - - [11/Oct/1999 15:07:56] "GET /samples/sample.htm HTTP/1.1" 200 -
+*b*
+```
+
+这个服务器会忽略驱动器符号和相对路径名(例如 `..`). 
+但它并没有任何访问验证处理, 所以请小心使用.
+
+[Example 7-38 #eg-7-38] 实现了个迷你的 web 代理. 发送给代理的 HTTP 
+请求必须包含目标服务器的完整 URI . 代理服务器使用 ``urllib`` 
+来获取目标服务器的数据.
+
+====Example 7-38. 使用 SimpleHTTPServer 模块实现代理====[eg-7-38]
+
+```
+File: simplehttpserver-example-2.py
+
+# a truly minimal HTTP proxy
+
+import SocketServer
+import SimpleHTTPServer
+import urllib
+
+PORT = 1234
+
+class Proxy(SimpleHTTPServer.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        self.copyfile(urllib.urlopen(self.path), self.wfile)
+
+httpd = SocketServer.ForkingTCPServer(('', PORT), Proxy)
+print "serving at port", PORT
+httpd.serve_forever()
+```

@@ -1,0 +1,71 @@
+﻿==StringIO 模块==
+
+
+[Example 2-8 #eg-2-8] 展示了 ``StringIO`` 模块的使用. 它实现了一个工作在内存的文件对象
+(内存文件). 在大多需要标准文件对象的地方都可以使用它来替换.
+
+====Example 2-8. 使用 StringIO 模块从内存文件读入内容====[eg-2-8]
+
+```
+File: stringio-example-1.py
+
+import StringIO
+
+MESSAGE = "That man is depriving a village somewhere of a computer scientist."
+
+file = StringIO.StringIO(MESSAGE)
+
+print file.read()
+
+*B*That man is depriving a village somewhere of a computer scientist.*b*
+```
+
+``StringIO`` 类实现了内建文件对象的所有方法, 此外还有 ``getvalue`` 方法用来返回它内部的字符串值. 
+[Example 2-9 #eg-2-9] 展示了这个方法.
+
+====Example 2-9. 使用 StringIO 模块向内存文件写入内容====[eg-2-9]
+
+```
+File: stringio-example-2.py
+
+import StringIO
+
+file = StringIO.StringIO()
+file.write("This man is no ordinary man. ")
+file.write("This is Mr. F. G. Superman.")
+
+print file.getvalue()
+
+*B*This man is no ordinary man. This is Mr. F. G. Superman.*b*
+```
+
+``StringIO`` 可以用于重新定向 Python 解释器的输出, 如 [Example 2-10 #eg-2-10] 所示.
+
+====Example 2-10. 使用 StringIO 模块捕获输出====[eg-2-10]
+
+```
+File: stringio-example-3.py
+
+import StringIO
+import string, sys
+
+stdout = sys.stdout
+
+sys.stdout = file = StringIO.StringIO()
+
+print """
+According to Gbaya folktales, trickery and guile
+are the best ways to defeat the python, king of
+snakes, which was hatched from a dragon at the
+world's start. -- National Geographic, May 1997
+"""
+
+sys.stdout = stdout
+
+print string.upper(file.getvalue())
+
+*B*ACCORDING TO GBAYA FOLKTALES, TRICKERY AND GUILE
+ARE THE BEST WAYS TO DEFEAT THE PYTHON, KING OF
+SNAKES, WHICH WAS HATCHED FROM A DRAGON AT THE
+WORLD'S START. -- NATIONAL GEOGRAPHIC, MAY 1997*b*
+```

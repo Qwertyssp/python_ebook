@@ -1,0 +1,19 @@
+﻿==linecache 模块==
+
+
+``linecache`` 模块用于从模块源文件中读取代码. 它会缓存最近访问的模块
+(整个源文件). 如 [Example 13-13 #eg-13-13] .
+
+====Example 13-13. 使用 linecache 模块====[eg-13-13]
+
+```
+File: linecache-example-1.py
+
+import linecache
+
+print linecache.getline("linecache-example-1.py", 5)
+
+*B*print linecache.getline("linecache-example-1.py", 5)*b*
+```
+
+``traceback`` 模块使用这个模块实现了对导入操作的跟踪.

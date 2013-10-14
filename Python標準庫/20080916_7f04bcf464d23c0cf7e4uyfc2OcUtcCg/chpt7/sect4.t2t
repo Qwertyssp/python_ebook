@@ -1,0 +1,380 @@
+﻿==asyncore 模块==
+
+
+``asyncore`` 模块提供了一个 "反馈性的( reactive )" socket 实现. 
+该模块允许你定义特定过程完成后所执行的代码, 而不是创建 socket 对象, 
+调用它们的方法. 你只需要继承 //dispatcher// 类, 然后重载如下方法
+(可以选择重载某一个或多个)就可以实现异步的 socket 处理器.
+
+ - ``handle_connect`` : 一个连接成功建立后被调用.
+
+ - ``handle_expt`` : 连接失败后被调用. 
+
+ - ``handle_accept`` : 连接请求建立到一个监听 socket 上时被调用. 回调时( callback )应该使用 ``accept`` 方法来获得客户端 socket .
+
+ - ``handle_read`` : 有来自 socket 的数据等待读取时被调用. 回调时应该使用 ``recv`` 方法来获得数据.
+
+ - ``handle_write`` : socket 可以写入数据的时候被调用. 使用 ``send`` 方法写入数据.
+
+ - ``handle_close`` : 当 socket 被关闭或复位时被调用.
+
+ - ``handle_error(type, value, traceback)`` 在任何一个回调函数发生 Python 错误时被调用. 默认的实现会打印跟踪返回消息到 ``sys.stdout`` .
+
+
+
+[Example 7-7 #eg-7-7] 展示了一个时间客户端, 和 ``socket`` 模块中的那个类似.
+
+====Example 7-7. 使用 asyncore 模块从时间服务器获得时间====[eg-7-7]
+
+```
+File: asyncore-example-1.py
+
+import asyncore
+import socket, time
+
+# reference time (in seconds since 1900-01-01 00:00:00)
+TIME1970 = 2208988800L # 1970-01-01 00:00:00
+
+class TimeRequest(asyncore.dispatcher):
+    # time requestor (as defined in RFC 868)
+
+    def _ _init_ _(self, host, port=37):
+        asyncore.dispatcher._ _init_ _(self)
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connect((host, port))
+
+    def writable(self):
+        return 0 # don't have anything to write
+
+    def handle_connect(self):
+        pass # connection succeeded
+
+    def handle_expt(self):
+        self.close() # connection failed, shutdown
+
+    def handle_read(self):
+        # get local time
+        here = int(time.time()) + TIME1970
+
+        # get and unpack server time
+        s = self.recv(4)
+        there = ord(s[3]) + (ord(s[2])<<8) + (ord(s[1])<<16) + (ord(s[0])<<24L)
+
+        self.adjust_time(int(here - there))
+
+        self.handle_close() # we don't expect more data
+
+    def handle_close(self):
+        self.close()
+
+    def adjust_time(self, delta):
+        # override this method!
+        print "time difference is", delta
+
+#
+# try it out
+
+request = TimeRequest("www.python.org")
+
+asyncore.loop()
+
+*B*log: adding channel <TimeRequest  at 8cbe90>
+time difference is 28
+log: closing channel 192:<TimeRequest connected at 8cbe90>*b*
+```
+
+如果你不想记录任何信息, 那么你可以在你的 //dispatcher// 类里重载 ``log`` 方法.
+
+[Example 7-8 #eg-7-8] 展示了对应的时间服务器. 注意这里它使用了两个 //dispatcher// 
+子类, 一个用于监听 socket , 另个用于与客户端通讯.
+
+====Example 7-8. 使用 asyncore 模块实现时间服务器====[eg-7-8]
+
+```
+File: asyncore-example-2.py
+
+import asyncore
+import socket, time
+
+# reference time
+TIME1970 = 2208988800L
+
+class TimeChannel(asyncore.dispatcher):
+
+    def handle_write(self):
+        t = int(time.time()) + TIME1970
+        t = chr(t>>24&255) + chr(t>>16&255) + chr(t>>8&255) + chr(t&255)
+        self.send(t)
+        self.close()
+
+class TimeServer(asyncore.dispatcher):
+
+    def _ _init_ _(self, port=37):
+        self.port = port
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.bind(("", port))
+        self.listen(5)
+        print "listening on port", self.port
+
+    def handle_accept(self):
+        channel, addr = self.accept()
+        TimeChannel(channel)
+
+server = TimeServer(8037)
+asyncore.loop()
+
+*B*log: adding channel <TimeServer  at 8cb940>
+listening on port 8037
+log: adding channel <TimeChannel  at 8b2fd0>
+log: closing channel 52:<TimeChannel connected at 8b2fd0>*b*
+```
+
+除了 //dispatcher// 外, 这个模块还包含一个 //dispatcher_with_send// 类. 
+你可以使用这个类发送大量的数据而不会阻塞网络通讯缓冲区. 
+
+[Example 7-9 #eg-7-9] 中的模块通过继承 //dispatcher_with_send// 类定义了一个 
+//AsyncHTTP// 类. 当你创建一个它的实例后, 它会发出一个 HTTP GET 请求并把
+接受到的数据发送到一个 "consumer" 目标对象
+
+====Example 7-9. 使用 asyncore 模块发送 HTTP 请求====[eg-7-9]
+
+```
+File: SimpleAsyncHTTP.py
+
+import asyncore
+import string, socket
+import StringIO
+import mimetools, urlparse
+
+class AsyncHTTP(asyncore.dispatcher_with_send):
+    # HTTP requester
+
+    def _ _init_ _(self, uri, consumer):
+        asyncore.dispatcher_with_send._ _init_ _(self)
+
+        self.uri = uri
+        self.consumer = consumer
+
+        # turn the uri into a valid request
+        scheme, host, path, params, query, fragment = urlparse.urlparse(uri)
+        assert scheme == "http", "only supports HTTP requests"
+        try:
+            host, port = string.split(host, ":", 1)
+            port = int(port)
+        except (TypeError, ValueError):
+            port = 80 # default port
+        if not path:
+            path = "/"
+        if params:
+            path = path + ";" + params
+        if query:
+            path = path + "?" + query
+
+        self.request = "GET %s HTTP/1.0\r\nHost: %s\r\n\r\n" % (path, host)
+
+        self.host = host
+        self.port = port
+
+        self.status = None
+        self.header = None
+
+        self.data = ""
+
+        # get things going!
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connect((host, port))
+
+    def handle_connect(self):
+        # connection succeeded
+        self.send(self.request)
+
+    def handle_expt(self):
+        # connection failed; notify consumer (status is None)
+        self.close()
+        try:
+            http_header = self.consumer.http_header
+        except AttributeError:
+            pass
+        else:
+            http_header(self)
+
+    def handle_read(self):
+        data = self.recv(2048)
+        if not self.header:
+            self.data = self.data + data
+            try:
+                i = string.index(self.data, "\r\n\r\n")
+            except ValueError:
+                return # continue
+            else:
+                # parse header
+                fp = StringIO.StringIO(self.data[:i+4])
+                # status line is "HTTP/version status message"
+                status = fp.readline()
+                self.status = string.split(status, " ", 2)
+                # followed by a rfc822-style message header
+                self.header = mimetools.Message(fp)
+                # followed by a newline, and the payload (if any)
+                data = self.data[i+4:]
+                self.data = ""
+                # notify consumer (status is non-zero)
+                try:
+                    http_header = self.consumer.http_header
+                except AttributeError:
+                    pass
+                else:
+                    http_header(self)
+                if not self.connected:
+                    return # channel was closed by consumer
+
+        self.consumer.feed(data)
+
+    def handle_close(self):
+        self.consumer.close()
+        self.close()
+```
+
+[Example 7-10 #eg-7-10] 中的小脚本展示了如何使用这个类.
+
+====Example 7-10. 使用 SimpleAsyncHTTP 类====[eg-7-10]
+
+```
+File: asyncore-example-3.py
+
+import SimpleAsyncHTTP
+import asyncore
+
+class DummyConsumer:
+    size = 0
+
+    def http_header(self, request):
+        # handle header
+        if request.status is None:
+            print "connection failed"
+        else:
+            print "status", "=>", request.status
+            for key, value in request.header.items():
+                print key, "=", value
+
+    def feed(self, data):
+        # handle incoming data
+        self.size = self.size + len(data)
+
+    def close(self):
+        # end of data
+        print self.size, "bytes in body"
+
+#
+# try it out
+
+consumer = DummyConsumer()
+
+request = SimpleAsyncHTTP.AsyncHTTP(
+    "http://www.pythonware.com",
+    consumer
+    )
+
+asyncore.loop()
+
+*B*log: adding channel <AsyncHTTP  at 8e2850>
+status => ['HTTP/1.1', '200', 'OK\015\012']
+server = Apache/Unix (Unix)
+content-type = text/html
+content-length = 3730
+...
+3730 bytes in body
+log: closing channel 156:<AsyncHTTP connected at 8e2850>*b*
+```
+
+这里的 consumer 接口设计时是为了与 ``htmllib`` 和 ``xmllib`` 分析器兼容的, 
+这样你就可以直接方便地解析 HTML 或是 XML 数据. ``http_header`` 方法是可选的; 
+如果没有定义它, 那么它将被忽略.
+
+[Example 7-10 #eg-7-10] 的一个问题是它不能很好地处理重定向资源. [Example 7-11 #eg-7-11] 
+加入了一个额外的 consumer 层, 它可以很好地处理重定向.
+
+====Example 7-11. 使用 SimpleAsyncHTTP 类处理重定向====[eg-7-11]
+
+```
+File: asyncore-example-4.py
+
+import SimpleAsyncHTTP
+import asyncore
+
+class DummyConsumer:
+    size = 0
+
+    def http_header(self, request):
+        # handle header
+        if request.status is None:
+            print "connection failed"
+        else:
+            print "status", "=>", request.status
+            for key, value in request.header.items():
+                print key, "=", value
+
+    def feed(self, data):
+        # handle incoming data
+        self.size = self.size + len(data)
+
+    def close(self):
+        # end of data
+        print self.size, "bytes in body"
+
+class RedirectingConsumer:
+
+    def _ _init_ _(self, consumer):
+        self.consumer = consumer
+
+    def http_header(self, request):
+        # handle header
+        if request.status is None or\
+           request.status[1] not in ("301", "302"):
+            try:
+                http_header = self.consumer.http_header
+            except AttributeError:
+                pass
+            else:
+                return http_header(request)
+        else:
+            # redirect!
+            uri = request.header["location"]
+            print "redirecting to", uri, "..."
+            request.close()
+            SimpleAsyncHTTP.AsyncHTTP(uri, self)
+
+    def feed(self, data):
+        self.consumer.feed(data)
+
+    def close(self):
+        self.consumer.close()
+
+#
+# try it out
+
+consumer = RedirectingConsumer(DummyConsumer())
+
+request = SimpleAsyncHTTP.AsyncHTTP(
+    "http://www.pythonware.com/library",
+    consumer
+    )
+
+asyncore.loop()
+
+*B*log: adding channel <AsyncHTTP  at 8e64b0>
+redirecting to http://www.pythonware.com/library/ ...
+log: closing channel 48:<AsyncHTTP connected at 8e64b0>
+log: adding channel <AsyncHTTP  at 8ea790>
+status => ['HTTP/1.1', '200', 'OK\015\012']
+server = Apache/Unix (Unix)
+content-type = text/html
+content-length = 387
+...
+387 bytes in body
+log: closing channel 236:<AsyncHTTP connected at 8ea790>*b*
+```
+
+如果服务器返回状态 301 (永久重定向) 或者是 302 (临时重定向), 重定向的 consumer 
+会关闭当前请求并向新地址发出新请求. 所有对 consumer 
+的其他调用传递给原来的 consumer .
+

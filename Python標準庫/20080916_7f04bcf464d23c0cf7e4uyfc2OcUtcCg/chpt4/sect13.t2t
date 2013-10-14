@@ -1,0 +1,51 @@
+﻿==quopri 模块==
+
+
+``quopri`` 模块基于 MIME 标准实现了引用的可打印编码( quoted printable encoding ).
+
+这样的编码可以将不包含或只包含一部分U.S. ASCII 文本的信息, 例如大多欧洲语言, 
+中文, 转换为只包含 U.S. ASCII 的信息. 在一些老式的 mail 代理中你会发现这很有用, 
+因为它们一般不支持特殊. 如 [Example 4-23 #eg-4-23] 所示.
+
+====Example 4-23. 使用 quopri 模块====[eg-4-23]
+
+```
+File: quopri-example-1.py
+
+import quopri
+import StringIO
+
+# helpers (the quopri module only supports file-to-file conversion)
+
+def encodestring(instring, tabs=0):
+    outfile = StringIO.StringIO()
+    quopri.encode(StringIO.StringIO(instring), outfile, tabs)
+    return outfile.getvalue()
+
+def decodestring(instring):
+    outfile = StringIO.StringIO()
+    quopri.decode(StringIO.StringIO(instring), outfile)
+    return outfile.getvalue()
+
+#
+# try it out
+
+MESSAGE = "å i åa ä e ö!"
+
+encoded_message = encodestring(MESSAGE)
+decoded_message = decodestring(encoded_message)
+
+print "original:", MESSAGE
+print "encoded message:", repr(encoded_message)
+print "decoded message:", decoded_message
+
+*B*original: å i åa ä e ö!
+encoded message: '=E5 i =E5a =E4 e =F6!\012'
+decoded message: å i åa ä e ö!*b*
+```
+
+如 [Example 4-23 #eg-4-23] 所示, 非 U.S. 字符通过等号 (``=``) 附加两个十六进制字符来表示. 
+这里需要注意等号也是使用这样的方式( "``=3D``" )来表示的, 以及换行符( "``=20``" ). 
+其他字符不会被改变. 所以如果你没有用太多的怪异字符的话, 编码后字符串依然可读性很好.
+
+(Europeans generally hate this encoding and strongly believe that certain U.S. programmers deserve to be slapped in the head with a huge great fish to the jolly music of Edward German....)

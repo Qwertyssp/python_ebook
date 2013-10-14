@@ -1,0 +1,7 @@
+﻿=数据储存=
+
+
+	"Unlike mainstream component programming, scripts usually do not introduce new components but simply 'wire' existing ones. Scripts can be seen as introducing behavior but no new state ... Of course, there is nothing to stop a 'scripting' language from introducing persistent state — it then simply turns into a normal programming language."
+
+	- Clemens Szyperski, in Component Software
+

@@ -1,0 +1,21 @@
+﻿==whatsound 模块==
+
+
+(已废弃) ``whatsound`` 是 ``sndhdr`` 模块的一个别名. 如 [Example 9-3 #eg-9-3] 所示.
+
+====Example 9-3. 使用 whatsound 模块====[eg-9-3]
+
+```
+File: whatsound-example-1.py
+
+import whatsound # same as sndhdr
+
+result = whatsound.what("samples/sample.wav")
+
+if result:
+    print "file format:", result
+else:
+    print "cannot identify file"
+
+*B*file format: ('wav', 44100, 1, -1, 16)*b*
+```

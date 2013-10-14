@@ -1,0 +1,19 @@
+﻿==pre 模块==
+
+
+(已废弃) ``pre`` 模块是 1.5.2 中 ``re`` 模块调用的实现功能模块. 
+在当前版本中已废弃.  [Example 13-8 #eg-13-8] 展示了它的使用. 
+
+====Example 13-8. 使用 pre 模块====[eg-13-8]
+
+```
+File: pre-example-1.py
+
+import pre
+
+p = pre.compile("[Python]+")
+
+print p.findall("Python is not that bad")
+
+*B*['Python', 'not', 'th', 't']*b*
+```

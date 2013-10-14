@@ -1,0 +1,20 @@
+﻿==cmath 模块==
+
+
+[Example 1-61 #eg-1-61] 所展示的 ``cmath`` 模块包含了一些用于复数运算的函数.
+
+====Example 1-61. 使用 cmath 模块====[eg-1-61]
+
+```
+File: cmath-example-1.py
+
+import cmath
+
+print "pi", "=>", cmath.pi
+print "sqrt(-1)", "=>", cmath.sqrt(-1)
+
+pi => 3.14159265359
+sqrt(-1) => 1j
+```
+
+完整函数列表请参阅 //Python Library Reference// .

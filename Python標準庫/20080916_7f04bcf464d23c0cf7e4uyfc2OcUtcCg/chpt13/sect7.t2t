@@ -1,0 +1,48 @@
+﻿==new 模块==
+
+
+``new`` 模块是一个底层的模块, 你可以使用它来创建不同的内建对象, 
+例如类对象, 函数对象, 以及其他由 Python 运行时系统创建的类型. [Example 13-7 #eg-13-7] 
+展示了该模块的使用.
+
+如果你使用的是 1.5.2 版本 , 那么你有可能需要重新编译 Python 
+来使用这个模块, 在默认情况下并不是所有平台都有这个模块. 在 2.0 
+及以后版本中, 不需要这么做.
+
+====Example 13-7. 使用 new 模块====[eg-13-7]
+
+```
+File: new-example-1.py
+
+import new
+
+class Sample:
+
+    a = "default"
+
+    def _ _init_ _(self):
+        self.a = "initialised"
+
+    def _ _repr_ _(self):
+        return self.a
+
+#
+# create instances
+
+a = Sample()
+print "normal", "=>", a
+
+b = new.instance(Sample, {})
+print "new.instance", "=>", b
+
+b._ _init_ _()
+print "after _ _init_ _", "=>", b
+
+c = new.instance(Sample, {"a": "assigned"})
+print "new.instance w. dictionary", "=>", c
+
+*B*normal => initialised
+new.instance => default
+after _ _init_ _ => initialised
+new.instance w. dictionary => assigned*b*
+```

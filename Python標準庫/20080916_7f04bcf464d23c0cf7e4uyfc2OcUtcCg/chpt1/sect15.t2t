@@ -1,0 +1,307 @@
+﻿==time 模块==
+
+
+``time`` 模块提供了一些处理日期和一天内时间的函数. 它是建立在 C 运行时库的简单封装. 
+
+给定的日期和时间可以被表示为浮点型(从参考时间, 通常是 1970.1.1 到现在经过的秒数. 
+即 Unix 格式), 或者一个表示时间的 struct (类元组). 
+
+=== 获得当前时间===
+
+[Example 1-79 #eg-1-79] 展示了如何使用 ``time`` 模块获取当前时间.
+
+====Example 1-79. 使用 time 模块获取当前时间====[eg-1-79]
+
+```
+File: time-example-1.py
+
+import time
+
+now = time.time()
+
+print now, "seconds since", time.gmtime(0)[:6]
+print
+print "or in other words:"
+print "- local time:", time.localtime(now)
+print "- utc:", time.gmtime(now)
+
+*B*937758359.77 seconds since (1970, 1, 1, 0, 0, 0)
+
+or in other words:
+- local time: (1999, 9, 19, 18, 25, 59, 6, 262, 1)
+- utc: (1999, 9, 19, 16, 25, 59, 6, 262, 0)*b*
+```
+
+``localtime`` 和 ``gmtime`` 返回的类元组包括年, 月, 日, 时, 分, 秒, 星期, 一年的第几天, 日光标志. 
+其中年是一个四位数(在有千年虫问题的平台上另有规定, 但还是四位数), 星期从星期一(数字 0 代表)开始, 
+1月1日是一年的第一天. 
+
+=== 将时间值转换为字符串===
+
+你可以使用标准的格式化字符串把时间对象转换为字符串, 不过 ``time`` 模块已经提供了许多标准转换函数, 
+如 [Example 1-80 #eg-1-80] 所示. 
+
+====Example 1-80. 使用 time 模块格式化时间输出====[eg-1-80]
+
+```
+File: time-example-2.py
+
+import time
+
+now = time.localtime(time.time())
+
+print time.asctime(now)
+print time.strftime("%y/%m/%d %H:%M", now)
+print time.strftime("%a %b %d", now)
+print time.strftime("%c", now)
+print time.strftime("%I %p", now)
+print time.strftime("%Y-%m-%d %H:%M:%S %Z", now)
+
+# do it by hand...
+year, month, day, hour, minute, second, weekday, yearday, daylight = now
+print "%04d-%02d-%02d" % (year, month, day)
+print "%02d:%02d:%02d" % (hour, minute, second)
+print ("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN")[weekday], yearday
+
+*B*Sun Oct 10 21:39:24 1999
+99/10/10 21:39
+Sun Oct 10
+Sun Oct 10 21:39:24 1999
+09 PM
+1999-10-10 21:39:24 CEST
+1999-10-10
+21:39:24
+SUN 283*b*
+```
+
+===将字符串转换为时间对象===
+
+在一些平台上, ``time`` 模块包含了 ``strptime`` 函数, 它的作用与 ``strftime`` 相反. 
+给定一个字符串和模式, 它返回相应的时间对象, 如 [Example 1-81 #eg-1-81] 所示. 
+
+====Example 1-81. 使用 time.strptime 函数解析时间====[eg-1-81]
+
+```
+File: time-example-6.py
+
+import time
+
+# make sure we have a strptime function!
+# 确认有函数 strptime
+try:
+    strptime = time.strptime
+except AttributeError:
+    from strptime import strptime
+
+print strptime("31 Nov 00", "%d %b %y")
+print strptime("1 Jan 70 1:30pm", "%d %b %y %I:%M%p")
+```
+
+只有在系统的 C 库提供了相应的函数的时候, ``time.strptime`` 函数才可以使用. 
+对于没有提供标准实现的平台, [Example 1-82 #eg-1-82] 提供了一个不完全的实现. 
+
+====Example 1-82. strptime 实现====[eg-1-82]
+
+```
+File: strptime.py
+
+import re
+import string
+
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
+          "Sep", "Oct", "Nov", "Dec"]
+
+SPEC = {
+    # map formatting code to a regular expression fragment
+    "%a": "(?P<weekday>[a-z]+)",
+    "%A": "(?P<weekday>[a-z]+)",
+    "%b": "(?P<month>[a-z]+)",
+    "%B": "(?P<month>[a-z]+)",
+    "%C": "(?P<century>\d\d?)",
+    "%d": "(?P<day>\d\d?)",
+    "%D": "(?P<month>\d\d?)/(?P<day>\d\d?)/(?P<year>\d\d)",
+    "%e": "(?P<day>\d\d?)",
+    "%h": "(?P<month>[a-z]+)",
+    "%H": "(?P<hour>\d\d?)",
+    "%I": "(?P<hour12>\d\d?)",
+    "%j": "(?P<yearday>\d\d?\d?)",
+    "%m": "(?P<month>\d\d?)",
+    "%M": "(?P<minute>\d\d?)",
+    "%p": "(?P<ampm12>am|pm)",
+    "%R": "(?P<hour>\d\d?):(?P<minute>\d\d?)",
+    "%S": "(?P<second>\d\d?)",
+    "%T": "(?P<hour>\d\d?):(?P<minute>\d\d?):(?P<second>\d\d?)",
+    "%U": "(?P<week>\d\d)",
+    "%w": "(?P<weekday>\d)",
+    "%W": "(?P<weekday>\d\d)",
+    "%y": "(?P<year>\d\d)",
+    "%Y": "(?P<year>\d\d\d\d)",
+    "%%": "%"
+}
+
+class TimeParser:
+    def _ _init_ _(self, format):
+        # convert strptime format string to regular expression
+        format = string.join(re.split("(?:\s|%t|%n)+", format))
+        pattern = []
+        try:
+            for spec in re.findall("%\w|%%|.", format):
+                if spec[0] == "%":
+                    spec = SPEC[spec]
+                pattern.append(spec)
+        except KeyError:
+            raise ValueError, "unknown specificer: %s" % spec
+        self.pattern = re.compile("(?i)" + string.join(pattern, ""))
+    def match(self, daytime):
+        # match time string
+        match = self.pattern.match(daytime)
+        if not match:
+            raise ValueError, "format mismatch"
+        get = match.groupdict().get
+        tm = [0] * 9
+        # extract date elements
+        y = get("year")
+        if y:
+            y = int(y)
+            if y < 68:
+                y = 2000 + y
+            elif y < 100:
+                y = 1900 + y
+            tm[0] = y
+        m = get("month")
+        if m:
+            if m in MONTHS:
+                m = MONTHS.index(m) + 1
+            tm[1] = int(m)
+        d = get("day")
+        if d: tm[2] = int(d)
+        # extract time elements
+        h = get("hour")
+        if h:
+            tm[3] = int(h)
+        else:
+            h = get("hour12")
+            if h:
+                h = int(h)
+                if string.lower(get("ampm12", "")) == "pm":
+                    h = h + 12
+                tm[3] = h
+        m = get("minute")
+        if m: tm[4] = int(m)
+        s = get("second")
+        if s: tm[5] = int(s)
+        # ignore weekday/yearday for now
+        return tuple(tm)
+
+def strptime(string, format="%a %b %d %H:%M:%S %Y"):
+    return TimeParser(format).match(string)
+
+if _ _name_ _ == "_ _main_ _":
+    # try it out
+    import time
+    print strptime("2000-12-20 01:02:03", "%Y-%m-%d %H:%M:%S")
+    print strptime(time.ctime(time.time()))
+
+*B*(2000, 12, 20, 1, 2, 3, 0, 0, 0)
+(2000, 11, 15, 12, 30, 45, 0, 0, 0)*b*
+```
+
+=== 转换时间值===
+
+将时间元组转换回时间值非常简单, 至少我们谈论的当地时间 (local time) 如此. 
+只要把时间元组传递给 ``mktime`` 函数, 如 [Example 1-83 #eg-1-83] 所示. 
+
+====Example 1-83. 使用 time 模块将本地时间元组转换为时间值(整数)====[eg-1-83]
+
+```
+File: time-example-3.py
+
+import time
+
+t0 = time.time()
+tm = time.localtime(t0)
+
+print tm
+
+print t0
+print time.mktime(tm)
+
+*B*(1999, 9, 9, 0, 11, 8, 3, 252, 1)
+936828668.16
+936828668.0*b*
+```
+
+但是, 1.5.2 版本的标准库没有提供能将 UTC 时间
+(Universal Time, Coordinated: 特林威治标准时间)转换为时间值的函数 
+( Python 和对应底层 C 库都没有提供). [Example 1-84 #eg-1-84] 提供了该函数的一个 
+Python 实现, 称为 ``timegm`` . 
+
+====Example 1-84. 将 UTC 时间元组转换为时间值(整数)====[eg-1-84]
+
+```
+File: time-example-4.py
+
+import time
+
+def _d(y, m, d, days=(0,31,59,90,120,151,181,212,243,273,304,334,365)):
+    # map a date to the number of days from a reference point
+    return (((y - 1901)*1461)/4 + days[m-1] + d +
+        ((m > 2 and not y % 4 and (y % 100 or not y % 400)) and 1))
+
+def timegm(tm, epoch=_d(1970,1,1)):
+    year, month, day, h, m, s = tm[:6]
+    assert year >= 1970
+    assert 1 <= month <= 12
+    return (_d(year, month, day) - epoch)*86400 + h*3600 + m*60 + s
+
+t0 = time.time()
+tm = time.gmtime(t0)
+
+print tm
+
+print t0
+print timegm(tm)
+
+*B*(1999, 9, 8, 22, 12, 12, 2, 251, 0)
+936828732.48
+936828732*b*
+```
+
+从 1.6 版本开始, ``calendar`` 模块提供了一个类似的函数 ``calendar.timegm`` . 
+
+=== Timing 相关===
+
+``time`` 模块可以计算 Python 程序的执行时间, 如 [Example 1-85 #eg-1-85] 所示. 
+你可以测量 "wall time" (real world time), 或是"进程时间" (消耗的 CPU 时间). 
+
+====Example 1-85. 使用 time 模块评价算法====[eg-1-85]
+
+```
+File: time-example-5.py
+
+import time
+
+def procedure():
+    time.sleep(2.5)
+
+# measure process time
+t0 = time.clock()
+procedure()
+print time.clock() - t0, "seconds process time"
+
+# measure wall time
+t0 = time.time()
+procedure()
+print time.time() - t0, "seconds wall time"
+
+*B*0.0 seconds process time
+2.50903499126 seconds wall time*b*
+```
+
+并不是所有的系统都能测量真实的进程时间. 一些系统中(包括 Windows ), 
+``clock`` 函数通常测量从程序启动到测量时的 wall time. 
+
+进程时间的精度受限制. 在一些系统中, 它超过 30 分钟后进程会被清理.
+(原文: On many systems, it wraps around after just over 30 minutes.) 
+
+另参见 ``timing`` 模块( Windows 下的朋友不用忙活了,没有地~), 它可以测量两个事件之间的 wall time. 

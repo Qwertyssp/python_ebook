@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/168-dictionary" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="字典(Dictionary)" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>字典(Dictionary)</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					字典(Dictionary)			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<p>什麼是字典(Dictionary)</p>
+
+<p><span id="content0"><span id="content2"><span id="content3">在Python中，什麼是字典? 它是Python的映射物件，而什麼是映射(Mapping)呢?
+簡單的來說，就是<strong>鍵(Key)</strong>與<strong>值(Value)</strong>的關係，想像一下你身為班長，你手中有張點名表，我們就可以把它想做是映射，以人名當鍵，學號當值，我們可以有下列的關係</span></span></span></p>
+
+<pre>
+張三 -> D9512345
+李四 -> D9556678
+王五 -> D9677880
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3">所以當我查詢王五，我得到的是D9512345的值，這樣的概念就是映射，而Python的字典就是實作這樣概念的容器，以下我們介紹此物件的用法</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d = {鍵: 值, 鍵: 值, ....}
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>
+由鍵值物件來對應到資料物件，既然是物件，只要是物件，符合一定條件就能夠當做"鍵值物件"，<strong>只有"不可改變"物件可以當鍵值</strong>，例如字
+串、整數等等因為是"不可改變"，所以可以當鍵值，而不可當鍵值的，有串列、字典等等，因為這些是"可改變"的物件。</p>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>而如上面所說的，字典可以改變，也就是說創造Dictionary之後還可以改變物件的資料，以下是新增鍵值和資料的方式:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d[鍵] = 值
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>取得資料的方式也是一樣</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+d[鍵]
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+
+<p>現在就讓我們來示範如何使用字典。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 建立一個Dictionary
+friendMap = {'John': 'My classmate', 'Tom': 'Who he is?', '1900': 'A great pianist'}
+
+# 印出John對應的資料
+print friendMap['John']
+
+# 改變Tom對應的值
+friendMap['Tom'] = "John's brother"
+
+# 印出Tom對應的資料
+print friendMap['Tom']
+
+# 新增Victor對應到資料
+friendMap['Victor'] = "Owner of this site"
+
+# 印出friendMap
+print friendMap
+
+</pre>
+
+<span id="content0"><span id="content2"><span id="content3"></span></span></span> 
+
+<h2>映射物件的操作</h2>
+
+<p>
+在介紹操作之前，有一點值得注意的是，<strong>字典不是有序的序列</strong>，你新增任一個鍵值對應到資料，不一定會出哪一個特定的位置，因此不是有序的，相同地，只要符合"映射"
+(Mapping)的物件，都可以用同樣的方法操作，只要該物件有實作這些功能，現在就讓我們來介紹"映射物件"的操作。</p>
+
+<table class="grid listing"><tr><th>Col 01</th>
+<th>Col 11</th>
+</tr><tbody><tr><td>len(a)</td>
+<td>回傳a的元素個數</td>
+</tr><tr class="even"><td>a[k]</td>
+<td>取得鍵k的對應值</td>
+</tr><tr><td>a[k] = v</td>
+<td>設定鍵k的對應值</td>
+</tr><tr class="even"><td>del a[k]</td>
+<td>從映設物件中刪除鍵k的元素</td>
+</tr><tr><td>a.clear()</td>
+<td>刪除所有元素</td>
+</tr><tr class="even"><td>a.copy()</td>
+<td>複製一份映射物件(shallow copy)</td>
+</tr><tr><td>k in a<br /></td>
+<td>k鍵值是否存在於a</td>
+</tr><tr class="even"><td>k not in a</td>
+<td>k鍵值是否不存在於a</td>
+</tr><tr><td>a.has_key(k)</td>
+<td>效果和k in a一樣，鍵值是否存在於a</td>
+</tr><tr class="even"><td>a.items()</td>
+<td>傳以(鍵, 對應值)為元素的List</td>
+</tr><tr><td>a.keys()</td>
+<td>回傳以鍵為元素的串列</td>
+</tr><tr class="even"><td>a.update([b])</td>
+<td>以b此映射物件更新a映射物件，也就是同鍵值會被覆蓋，新鍵值會被建立</td>
+</tr><tr><td>a.fromkeys(seq[, value])</td>
+<td>建立一個新的字典以seq此序列的元素為鍵，而對應值全設為value</td>
+</tr><tr class="even"><td>a.values()</td>
+<td>回傳以資料值為元素的串列</td>
+</tr><tr><td>a.get(k[, x])</td>
+<td>取得鍵k的對應值，如果不存在則回傳x</td>
+</tr><tr class="even"><td>a.setdefault(k[, x])<br /></td>
+<td>如果鍵k存在，則回傳k的對應值，否則不存在的話設定a[k] = x，且回傳x</td>
+</tr><tr><td>a.pop(k[, x])</td>
+<td>刪除鍵為k的元素並回傳，如果不存在則回傳x</td>
+</tr><tr class="even"><td>a.popitem()</td>
+<td>以(鍵值, 對應值)回傳任意一個元素</td>
+</tr><tr><td>a.iteritems()</td>
+<td>回傳一個(鍵值, 對應值)的iterator</td>
+</tr><tr class="even"><td>a.iterkeys()</td>
+<td>回傳一個指的iterator</td>
+</tr><tr><td>a.itervalues()</td>
+<td>回傳一個對應值的iterator</td>
+</tr></tbody></table><p>以下讓我們示範如何操作Dictionary:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 建立Dictionary
+a = {'a': 123, 'b': 456}
+
+# 回傳a是否有'b'此鍵值
+print 'b' in a
+
+# 設定'abc'鍵值的對應值為7788
+a['abc'] = 7788
+
+# 印出鍵值List
+print a.keys()
+
+# 印出對應值List
+print a.values()
+
+# 印出(鍵值, 對應值)的List
+print a.items()
+
+# 取得鍵值'x'的對應值，如果不存在回傳
+# 'Nothing, but ghost and shallow'
+print a.get('x', 'Nothing, but ghost and shallow')
+
+# 如果'x'鍵值存在，則回傳對應值
+# 否則設定'x'對應'Nothing, but ghost and shallow'
+# 並且回傳對應值
+print a.setdefault('x', 'Nothing, but ghost and shallow')
+
+# 印出a
+print a
+
+# 鍵立一個新的Dictionary
+b = {'abc': 'Suck', 'hello': 'world'}
+
+# 以b來更新a
+# 舊的abc會被覆蓋
+# 並且建立'hello'對應'world'
+a.update(b)
+
+# 印出a
+print a
+</pre>
+
+<p><span id="content0"><span id="content2"><span id="content3"></span></span></span></p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="167-slice.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/167-slice">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="169-tuple.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/169-tuple">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+<tr>
+	<td class="modifydate">
+		最近更新在 週三, 11 二月 2009 21:46	</td>
+</tr>
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

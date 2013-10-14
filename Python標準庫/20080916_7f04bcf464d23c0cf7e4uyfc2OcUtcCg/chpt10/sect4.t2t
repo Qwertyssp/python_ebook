@@ -1,0 +1,43 @@
+﻿==shelve 模块==
+
+
+``shelve`` 模块使用数据库驱动实现了字典对象的持久保存. ``shelve`` 对象使用字符串作为键, 但值可以是任意类型, 
+所有可以被 pickle 模块处理的对象都可以作为它的值. 如 [Example 10-3 #eg-10-3] 所示.
+
+====Example 10-3. 使用 shelve 模块====[eg-10-3]
+
+```
+File: shelve-example-1.py
+
+import shelve
+
+db = shelve.open("database", "c")
+db["one"] = 1
+db["two"] = 2
+db["three"] = 3
+db.close()
+
+db = shelve.open("database", "r")
+for key in db.keys():
+    print repr(key), repr(db[key])
+
+*B*'one' 1
+'three' 3
+'two' 2*b*
+```
+
+[Example 10-4 #eg-10-4] 展示了如何使用 shelve 处理给定的数据库驱动.
+
+====Example 10-4. 使用 shelve 模块处理给定数据库====[eg-10-4]
+
+```
+File: shelve-example-3.py
+
+import shelve
+import gdbm
+
+def gdbm_shelve(filename, flag="c"):
+    return shelve.Shelf(gdbm.open(filename, flag))
+
+db = gdbm_shelve("dbfile")
+```

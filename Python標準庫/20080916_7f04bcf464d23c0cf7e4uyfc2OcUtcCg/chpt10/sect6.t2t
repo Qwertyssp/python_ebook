@@ -1,0 +1,32 @@
+﻿==dbm 模块==
+
+
+(可选) ``dbm`` 模块提供了一个到 ``dbm`` 数据库驱动的接口(在许多 Unix 平台上都可用). 
+如 [Example 10-6 #eg-10-6] 所示.
+
+====Example 10-6. 使用 dbm 模块====[eg-10-6]
+
+```
+File: dbm-example-1.py
+
+import dbm
+
+db = dbm.open("dbm", "c")
+db["first"] = "bruce"
+db["second"] = "bruce"
+db["third"] = "bruce"
+db["fourth"] = "bruce"
+db["fifth"] = "michael"
+db["fifth"] = "bruce" # overwrite
+db.close()
+
+db = dbm.open("dbm", "r")
+for key in db.keys():
+    print repr(key), repr(db[key])
+
+*B*'first' 'bruce'
+'second' 'bruce'
+'fourth' 'bruce'
+'third' 'bruce'
+'fifth' 'bruce'*b*
+```

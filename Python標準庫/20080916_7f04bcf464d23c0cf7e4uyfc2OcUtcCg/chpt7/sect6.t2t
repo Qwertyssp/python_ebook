@@ -1,0 +1,78 @@
+﻿==urllib 模块==
+
+
+``urlib`` 模块为 HTTP , FTP , 以及 gopher 提供了一个统一的客户端接口. 它会自动地根据 URL 
+选择合适的协议处理器.
+
+从 URL 获取数据是非常简单的. 只需要调用 ``urlopen`` 方法, 然后从返回的流对象中读取数据即可, 
+如 [Example 7-14 #eg-7-14] 所示.
+
+====Example 7-14. 使用 urllib 模块获取远程资源====[eg-7-14]
+
+```
+File: urllib-example-1.py
+
+import urllib
+
+fp = urllib.urlopen("http://www.python.org")
+
+op = open("out.html", "wb")
+
+n = 0
+
+while 1:
+    s = fp.read(8192)
+    if not s:
+        break
+    op.write(s)
+    n = n + len(s)
+
+fp.close()
+op.close()
+
+for k, v in fp.headers.items():
+    print k, "=", v
+
+print "copied", n, "bytes from", fp.url
+
+*B*server = Apache/1.3.6 (Unix)
+content-type = text/html
+accept-ranges = bytes
+date = Mon, 11 Oct 1999 20:11:40 GMT
+connection = close
+etag = "741e9-7870-37f356bf"
+content-length = 30832
+last-modified = Thu, 30 Sep 1999 12:25:35 GMT
+copied 30832 bytes from http://www.python.org*b*
+```
+ 
+这个流对象提供了一些非标准的属性. ``headers`` 是一个 //Message// 对象(在 ``mimetools`` 
+模块中定义), ``url`` 是实际的 URL . 后者会根据服务器的重定向而更新.
+
+``urlopen`` 函数实际上是一个辅助函数, 它会创建一个 //FancyURLopener// 类的实例并调用它的 
+``open`` 方法. 你也可以继承这个类来完成特殊的行为. 例如 [Example 7-15 #eg-7-15] 中的类会自动地
+在必要时登陆服务器.
+
+====Example 7-15. 用 urllib 模块实现自动身份验证====[eg-7-15]
+
+```
+File: urllib-example-3.py
+
+import urllib
+
+class myURLOpener(urllib.FancyURLopener):
+    # read an URL, with automatic HTTP authentication
+
+    def setpasswd(self, user, passwd):
+        self._ _user = user
+        self._ _passwd = passwd
+
+    def prompt_user_passwd(self, host, realm):
+        return self._ _user, self._ _passwd
+
+urlopener = myURLOpener()
+urlopener.setpasswd("mulder", "trustno1")
+
+fp = urlopener.open("http://www.secretlabs.com")
+print fp.read()
+```

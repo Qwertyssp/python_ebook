@@ -1,0 +1,29 @@
+﻿==soundex 模块==
+
+
+(已废弃, 只用于 1.5.2) ``soundex`` 实现了一个简单的 hash 算法, 
+基于英文发音将单词转换为 6 个字符的字符串.
+
+版本 2.0 后, 该模块已从标准库中删除.
+
+``get_soundex(word)`` 返回给定单词的 soundex 字符串. 
+``sound_similar(word1, word2)`` 判断两个单词的 soundex 是否相同. 
+一般说来发音相似的单词有相同的 soundex . 如 [Example 14-24 #eg-14-24] 所示.
+
+====Example 14-24. 使用 soundex 模块====[eg-14-24]
+
+```
+File: soundex-example-1.py
+
+import soundex
+
+a = "fredrik"
+b = "friedrich"
+
+print soundex.get_soundex(a), soundex.get_soundex(b)
+
+print soundex.sound_similar(a, b)
+
+*B*F63620 F63620
+1*b*
+```

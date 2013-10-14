@@ -1,0 +1,41 @@
+﻿==cookie 模块==
+
+
+(2.0 中新增) 该模块为 HTTP 客户端和服务器提供了基本的 cookie 支持. [Example 7-20 #eg-7-20] 
+展示了它的使用.
+
+====Example 7-20. 使用 cookie 模块====[eg-7-20]
+
+```
+File: cookie-example-1.py
+
+import Cookie
+import os, time
+
+cookie = Cookie.SimpleCookie()
+cookie["user"] = "Mimi"
+cookie["timestamp"] = time.time()
+
+print cookie
+
+# simulate CGI roundtrip
+os.environ["HTTP_COOKIE"] = str(cookie)
+
+print
+
+cookie = Cookie.SmartCookie()
+cookie.load(os.environ["HTTP_COOKIE"])
+
+for key, item in cookie.items():
+    # dictionary items are "Morsel" instances
+    # use value attribute to get actual value
+    print key, repr(item.value)
+
+
+*B*Set-Cookie: timestamp=736513200;
+Set-Cookie: user=Mimi;
+
+user 'Mimi'
+timestamp '736513200'*b*
+```
+

@@ -1,0 +1,37 @@
+﻿==imp 模块==
+
+
+``imp`` 模块包含的函数可以用于实现自定义的 import 行为. [Example 13-6 #eg-13-6] 重载了 
+``import`` 语句, 实现了对模块来源的记录功能.
+
+====Example 13-6. 使用 imp 模块====[eg-13-6]
+
+```
+File: imp-example-1.py
+
+import imp
+import sys
+
+def my_import(name, globals=None, locals=None, fromlist=None):
+    try:
+        module = sys.modules[name] # already imported?
+    except KeyError:
+        file, pathname, description = imp.find_module(name)
+        print "import", name, "from", pathname, description
+        module = imp.load_module(name, file, pathname, description)
+    return module
+
+import _ _builtin_ _
+_ _builtin_ _._ _import_ _ = my_import
+
+*B*import xmllib
+
+import xmllib from /python/lib/xmllib.py ('.py', 'r', 1)
+import re from /python/lib/re.py ('.py', 'r', 1)
+
+import sre from /python/lib/sre.py ('.py', 'r', 1)
+import sre_compile from /python/lib/sre_compile.py ('.py', 'r', 1)
+import _sre from /python/_sre.pyd ('.pyd', 'rb', 3)*b*
+```
+
+注意这里的导入功能不支持包. 具体实现请参阅 ``knee`` 模块的源代码.

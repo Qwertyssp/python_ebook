@@ -1,0 +1,84 @@
+﻿==marshal 模块==
+
+
+``marshal`` 模块可以把不连续的数据组合起来 - 与字符串相互转化, 
+这样它们就可以写入文件或是在网络中传输. 如 [Example 4-9 #eg-4-9] 所示.
+
+``marshal`` 模块使用了简单的自描述格式. 对于每个数据项目, 格式化后的字符串都包含一个类型代码, 
+然后是一个或多个类型标识区域. 整数使用小字节序( little-endian order )储存, 
+字符串储存时和它自身内容长度相同(可能包含空字节), 元组由组成它的对象组合表示.
+
+====Example 4-9. 使用 marshal 模块组合不连续数据====[eg-4-9]
+
+```
+File: marshal-example-1.py
+
+import marshal
+
+value = (
+    "this is a string",
+    [1, 2, 3, 4],
+    ("more tuples", 1.0, 2.3, 4.5),
+    "this is yet another string"
+    )
+
+data = marshal.dumps(value)
+
+# intermediate format
+print type(data), len(data)
+
+print "-"*50
+print repr(data)
+print "-"*50
+
+print marshal.loads(data)
+
+*B*<type 'string'> 118
+--------------------------------------------------
+'(\004\000\000\000s\020\000\000\000this is a string
+[\004\000\000\000i\001\000\000\000i\002\000\000\000
+i\003\000\000\000i\004\000\000\000(\004\000\000\000
+s\013\000\000\000more tuplesf\0031.0f\0032.3f\0034.
+5s\032\000\000\000this is yet another string'
+--------------------------------------------------
+('this is a string', [1, 2, 3, 4], ('more tuples',
+1.0, 2.3, 4.5), 'this is yet another string')*b*
+```
+
+``marshal`` 模块还可以处理 code 对象(它用于储存预编译的 Python 模块). 
+如 [Example 4-10 #eg-4-10] 所示.
+
+====Example 4-10. 使用 marshal 模块处理代码====[eg-4-10]
+
+```
+File: marshal-example-2.py
+
+import marshal
+
+script = """
+print 'hello'
+"""
+
+code = compile(script, "<script>", "exec")
+
+data = marshal.dumps(code)
+
+# intermediate format
+print type(data), len(data)
+
+print "-"*50
+print repr(data)
+print "-"*50
+
+exec marshal.loads(data)
+
+*B*<type 'string'> 81
+--------------------------------------------------
+'c\000\000\000\000\001\000\000\000s\017\000\000\00
+0\177\000\000\177\002\000d\000\000GHd\001\000S(\00
+2\000\000\000s\005\000\000\000helloN(\000\000\000\
+000(\000\000\000\000s\010\000\000\000<script>s\001
+\000\000\000?\002\000s\000\000\000\000'
+--------------------------------------------------
+hello*b*
+```

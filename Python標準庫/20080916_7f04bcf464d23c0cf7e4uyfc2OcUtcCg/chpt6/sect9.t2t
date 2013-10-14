@@ -1,0 +1,94 @@
+﻿==mimify 模块==
+
+
+``mimify`` 模块用于在 MIME 编码的文本信息和普通文本信息(例如 ISO Latin 1 文本)间相互转换. 它可以用作命令行工具, 或是特定邮件代理的转换过滤器:
+
+```
+$ mimify.py -e raw-message mime-message
+$ mimify.py -d mime-message raw-message
+```
+
+作为模块使用, 如 [Example 6-12 #eg-6-12] 所示.
+
+====Example 6-12. 使用 mimify 模块解码信息====[eg-6-12]
+
+```
+File: mimify-example-1.py
+
+import mimify
+import sys
+
+mimify.unmimify("samples/sample.msg", sys.stdout, 1)
+```
+
+这里是一个包含两部分的 MIME 信息, 一个是引用的可打印信息, 另个是 base64 编码信息. 
+unmimify 的第三个参数决定是否自动解码 base64 编码的部分:
+
+```
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary='boundary'
+
+this is a multipart sample file.  the two
+parts both contain ISO Latin 1 text, with
+different encoding techniques.
+
+--boundary
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+sillmj=F6lke! blindstyre! medisterkorv!
+
+--boundary
+Content-Type: text/plain
+Content-Transfer-Encoding: base64
+
+a29tIG5lciBiYXJhLCBvbSBkdSB09nJzIQ==
+
+--boundary--
+```
+
+解码结果如下 (可读性相对来说更好些):
+
+```
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary= 'boundary'
+
+this is a multipart sample file.  the two
+parts both contain ISO Latin 1 text, with
+different encoding techniques.
+
+--boundary
+Content-Type: text/plain
+
+sillmjölke! blindstyre! medisterkorv!
+
+--boundary
+Content-Type: text/plain
+
+kom ner bara, om du törs!
+```
+
+[Example 6-13 #eg-6-13] 展示了如何编码信息.
+
+====Example 6-13. 使用 mimify 模块编码信息====[eg-6-13]
+
+```
+File: mimify-example-2.py
+
+import mimify
+import StringIO, sys
+
+#
+# decode message into a string buffer
+
+file = StringIO.StringIO()
+
+mimify.unmimify("samples/sample.msg", file, 1)
+
+#
+# encode message from string buffer
+
+file.seek(0) # rewind
+
+mimify.mimify(file, sys.stdout)
+```

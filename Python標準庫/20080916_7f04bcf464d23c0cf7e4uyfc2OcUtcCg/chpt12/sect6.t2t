@@ -1,0 +1,48 @@
+==curses 模块==
+
+
+(只用于 Unix 可选) ``curses`` 模块提供了对文本字符终端窗口的控制, 它使用了一种独立于终端的方法. 
+如 [Example 12-7 #eg-12-7] 所示.
+
+====Example 12-7. 使用 curses 模块====[eg-12-7]
+
+```
+File: curses-example-1.py
+
+import curses
+
+text = [
+    "a very simple curses demo",
+    "",
+    "(press any key to exit)"
+]
+
+# connect to the screen
+# 连接到屏幕
+screen = curses.initscr()
+
+# setup keyboard
+# 设置键盘
+curses.noecho() # no keyboard echo
+curses.cbreak() # don't wait for newline
+
+# screen size
+# 屏幕尺寸
+rows, columns = screen.getmaxyx()
+
+# draw a border around the screen
+# 画一个边框
+screen.border()
+
+# display centered text
+# 显示文字
+y = (rows - len(text)) / 2
+
+for line in text:
+    screen.addstr(y, (columns-len(line))/2, line)
+    y = y + 1
+
+screen.getch()
+
+curses.endwin()
+```

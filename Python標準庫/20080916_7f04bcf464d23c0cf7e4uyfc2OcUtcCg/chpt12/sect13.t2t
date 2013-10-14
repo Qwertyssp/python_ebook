@@ -1,0 +1,41 @@
+﻿== _winreg 模块==
+
+
+(只用于 Windows , 2.0 中新增) ``_winreg`` 模块提供了访问 Windows 注册表数据库的一个基本接口. 
+ [Example 12-17 #eg-12-17] 展示了它的使用.
+
+====Example 12-17. 使用 _winreg 模块====[eg-12-17]
+
+```
+File: winreg-example-1.py
+
+import _winreg
+
+explorer = _winreg.OpenKey(
+    _winreg.HKEY_CURRENT_USER,
+    "Software\\Microsoft\\Windows\CurrentVersion\\Explorer"
+    )
+
+# list values owned by this registry key 
+# 列出该注册表键下的所有值
+try:
+    i = 0
+    while 1:
+      name, value, type= _winreg.EnumValue(explorer, i)
+      print repr(name),
+      i += 1
+except WindowsError:
+    print
+
+value, type = _winreg.QueryValueEx(explorer, "Logon User Name")
+
+print
+print "user is", repr(value)
+
+
+*B*'Logon User Name' 'CleanShutdown' 'ShellState' 'Shutdown Setting'
+'Reason Setting' 'FaultCount' 'FaultTime' 'IconUnderline'...
+
+user is u'Effbot'*b*
+```
+

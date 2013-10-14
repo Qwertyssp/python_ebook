@@ -1,0 +1,25 @@
+﻿==cmpcache 模块==
+
+
+(已废弃, 只用于 1.5.2) ``cmpcache`` 模块用于比较两个文件. 它是 cmp 模块的扩展, 
+提供了缓存支持. 如 [Example 14-20 #eg-14-20] 所示.
+
+====Example 14-20. 使用 cmpcache 模块====[eg-14-20]
+
+```
+File: cmpcache-example-1.py
+
+import cmpcache
+
+if cmpcache.cmp("samples/sample.au", "samples/sample.wav"):
+    print "files are identical"
+else:
+    print "files differ!"
+
+*B*files differ!*b*
+```
+
+Python 2.0 后, 该模块被 ``filecmp`` 替换.
+
+但 ``filecmp`` 已经不提供缓存支持.
+

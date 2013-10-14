@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/161-2009-02-11-13-09-11" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="註解" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>註解</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					註解			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>Python的註解</h2>
+<p>在讀這篇教學之前，如果你對程式語言還沒有任何概念，可以參考C語言教學的前幾篇 : 程式語言的需求、程式語言的執行、註解 等概念，有了基本的概念後就可以開始學習Python。<br /><br /> 一如往常，我們還是先教註解，因為有了註解之後我們就可以解釋程式碼的運作，所有程式語言幾乎都有註解，至少目前為止我學過的語言裡還沒看過有沒有註解的，而註解是寫給人看的，程式在執行時遇到註解都會當作沒看到，並不會去理會它，現在就直接介紹註解的語法。</p>
+<h2>註解的語法</h2>
+<p><span id="content0"><span id="content4"></span></span></p>
+<div id="node6"><span id="content6"></span>
+<p>Python的註解嚴格說起來只有一種，但是另一種，也就是字串也被拿來當註解用，為了先會使用就好，我們還是先講語法就好。</p>
+<p>第一種註解，由<strong>#</strong>開頭，從井字號後面都屬於註解 :</p>
+<pre name="code" class="python:nogutter:nocontrols">
+# 這行的意思是印出 Hello baby!的字樣
+print 'Hello baby!'
+
+a = 2 ** 10 # 這一行計算2的10次方，並指定給a這個變數
+
+# 把a的值印出來
+print a
+</pre>
+另一種是字串，也可以當成註解使用，通常都使用多行字串來當作註解，語法是以"""開頭，同樣以"""結束:</div>
+<pre name="code" class="python:nogutter:nocontrols">""" 這個程式說明多行註解如何使用
+多行註解可以跨很多行寫
+這就是多行註解的好處
+
+"""
+
+""" print的功能就是印出想要印出的字
+在下面這一行我們印出hello的字樣
+
+"""
+print 'hello'
+
+# 由於它本身就是字串，只是被拿來當成註解使用
+# 因此它不能接在指令的後面
+# 只能單獨存在
+# 以下這行示範它是字串的事實
+print """ 字串 """
+</pre>
+<p>值得注意的是，""" """ 的格式本身就是字串，拿來當註解只能單獨存在幾行裡面，不能接在其它語句後面，例如 :</p>
+<pre name="code" class="python:nogutter:nocontrols">print 'hello' """這句印出hello字樣""
+</pre>
+<p>這樣是錯誤的。</p>
+<p><span id="content0"><span id="content4"></span></span></p>
+<p><span id="content0"><span id="content4"></span></span></p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_next">
+					<a href="162-2009-02-11-13-09-12.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/162-2009-02-11-13-09-12">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+<tr>
+	<td class="modifydate">
+		最近更新在 週三, 11 二月 2009 21:31	</td>
+</tr>
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

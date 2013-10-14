@@ -1,0 +1,379 @@
+﻿==sys 模块==
+
+
+``sys`` 模块提供了许多函数和变量来处理 Python 运行时环境的不同部分.
+
+=== 处理命令行参数===
+
+在解释器启动后, ``argv`` 列表包含了传递给脚本的所有参数, 如 [Example 1-66 #eg-1-66] 所示. 
+列表的第一个元素为脚本自身的名称.
+
+====Example 1-66. 使用sys模块获得脚本的参数====[eg-1-66]
+
+```
+File: sys-argv-example-1.py
+
+import sys
+
+print "script name is", sys.argv[0]
+
+if len(sys.argv) > 1:
+    print "there are", len(sys.argv)-1, "arguments:"
+    for arg in sys.argv[1:]:
+        print arg
+else:
+    print "there are no arguments!"
+
+*B*script name is sys-argv-example-1.py
+there are no arguments!*b*
+```
+
+如果是从标准输入读入脚本 (比如 "``python < sys-argv-example-1.py``"), 
+脚本的名称将被设置为空串. 如果把脚本作为字符串传递给python (使用 ``-c`` 选项), 
+脚本名会被设置为 "-c".
+
+=== 处理模块 ===
+
+``path`` 列表是一个由目录名构成的列表, Python 从中查找扩展模块( Python 源模块, 编译模块,或者二进制扩展). 
+启动 Python 时,这个列表从根据内建规则, PYTHONPATH 环境变量的内容, 以及注册表( Windows 系统)等进行初始化. 
+由于它只是一个普通的列表, 你可以在程序中对它进行操作, 如 [Example 1-67 #eg-1-67] 所示.
+
+====Example 1-67. 使用sys模块操作模块搜索路径====[eg-1-67]
+
+```
+File: sys-path-example-1.py
+
+import sys
+
+print "path has", len(sys.path), "members"
+
+# add the sample directory to the path
+sys.path.insert(0, "samples")
+import sample
+
+# nuke the path
+sys.path = []
+import random # oops!
+
+*B*path has 7 members
+this is the sample module!
+Traceback (innermost last):
+  File "sys-path-example-1.py", line 11, in ?
+    import random # oops!
+ImportError: No module named random*b*
+```
+
+``builtin_module_names`` 列表包含 Python 解释器中所有内建模块的名称, [Example 1-68 #eg-1-68] 
+ 给出了它的样例代码.
+
+====Example 1-68. 使用sys模块查找内建模块====[eg-1-68]
+
+```
+File: sys-builtin-module-names-example-1.py
+
+import sys
+
+def dump(module):
+    print module, "=>",
+    if module in sys.builtin_module_names:
+        print "<BUILTIN>"
+    else:
+        module = _ _import_ _(module)
+        print module._ _file_ _
+
+dump("os")
+dump("sys")
+dump("string")
+dump("strop")
+dump("zlib")
+
+*B*os => C:\python\lib\os.pyc
+sys => <BUILTIN>
+string => C:\python\lib\string.pyc
+strop => <BUILTIN>
+zlib => C:\python\zlib.pyd*b*
+```
+
+``modules`` 字典包含所有加载的模块. ``import`` 语句在从磁盘导入内容之前会先检查这个字典.
+
+正如你在 [Example 1-69 #eg-1-69] 中所见到的, Python 在处理你的脚本之前就已经导入了很多模块.
+
+====Example 1-69. 使用sys模块查找已导入的模块====[eg-1-69]
+
+```
+File: sys-modules-example-1.py
+
+import sys
+
+print sys.modules.keys()
+
+*B*['os.path', 'os', 'exceptions', '_ _main_ _', 'ntpath', 'strop', 'nt',
+'sys', '_ _builtin_ _', 'site', 'signal', 'UserDict', 'string', 'stat']*b*
+```
+
+=== 处理引用记数===
+
+``getrefcount`` 函数 (如 [Example 1-70 #eg-1-70] 所示) 返回给定对象的引用记数 - 
+也就是这个对象使用次数. Python 会跟踪这个值, 当它减少为0的时候, 就销毁这个对象.
+
+====Example 1-70. 使用sys模块获得引用记数====[eg-1-70]
+
+```
+File: sys-getrefcount-example-1.py
+
+import sys
+
+variable = 1234
+
+print sys.getrefcount(0)
+print sys.getrefcount(variable)
+print sys.getrefcount(None)
+
+*B*50
+3
+192*b*
+```
+
+注意这个值总是比实际的数量大, 因为该函数本身在确定这个值的时候依赖这个对象.
+
+== 检查主机平台===
+
+[Example 1-71 #eg-1-71] 展示了 ``platform`` 变量, 它包含主机平台的名称.
+
+====Example 1-71. 使用sys模块获得当前平台====[eg-1-71]
+
+```
+File: sys-platform-example-1.py
+
+import sys
+
+#
+# emulate "import os.path" (sort of)...
+
+if sys.platform == "win32":
+    import ntpath
+    pathmodule = ntpath
+elif sys.platform == "mac":
+    import macpath
+    pathmodule = macpath
+else:
+    # assume it's a posix platform
+    import posixpath
+    pathmodule = posixpath
+
+print pathmodule
+```
+
+典型的平台有Windows 9X/NT(显示为 ``win32`` ), 以及 Macintosh(显示为 ``mac`` ) . 
+对于 Unix 系统而言, platform 通常来自 "``uname -r``" 命令的输出, 例如 ``irix6`` , ``linux2`` , 
+或者 ``sunos5`` (Solaris).
+
+=== 跟踪程序===
+
+``setprofiler`` 函数允许你配置一个分析函数(profiling function). 
+这个函数会在每次调用某个函数或方法时被调用(明确或隐含的), 
+或是遇到异常的时候被调用. 让我们看看 [Example 1-72 #eg-1-72] 的代码.
+
+====Example 1-72. 使用sys模块配置分析函数====[eg-1-72]
+
+```
+File: sys-setprofiler-example-1.py
+
+import sys
+
+def test(n):
+    j = 0
+    for i in range(n):
+        j = j + i
+    return n
+
+def profiler(frame, event, arg):
+    print event, frame.f_code.co_name, frame.f_lineno, "->", arg
+
+# profiler is activated on the next call, return, or exception
+# 分析函数将在下次函数调用, 返回, 或异常时激活
+sys.setprofile(profiler)
+
+# profile this function call
+# 分析这次函数调用
+test(1)
+
+# disable profiler
+# 禁用分析函数
+sys.setprofile(None)
+
+# don't profile this call
+# 不会分析这次函数调用
+test(2)
+
+*B*call test 3 -> None
+return test 7 -> 1*b*
+```
+
+基于该函数, ``profile`` 模块提供了一个完整的分析器框架. 
+
+[Example 1-73 #eg-1-73] 中的 ``settrace`` 函数与此类似, 
+但是 ``trace`` 函数会在解释器每执行到新的一行时被调用.
+
+====Example 1-73. 使用sys模块配置单步跟踪函数====[eg-1-73]
+
+```
+File: sys-settrace-example-1.py
+
+import sys
+
+def test(n):
+    j = 0
+    for i in range(n):
+        j = j + i
+    return n
+
+def tracer(frame, event, arg):
+    print event, frame.f_code.co_name, frame.f_lineno, "->", arg
+    return tracer
+
+# tracer is activated on the next call, return, or exception
+# 跟踪器将在下次函数调用, 返回, 或异常时激活
+sys.settrace(tracer)
+
+# trace this function call
+# 跟踪这次函数调用
+test(1)
+
+# disable tracing
+# 禁用跟踪器
+sys.settrace(None)
+
+# don't trace this call
+# 不会跟踪这次函数调用
+test(2)
+
+*B*call test 3 -> None
+line test 3 -> None
+line test 4 -> None
+line test 5 -> None
+line test 5 -> None
+line test 6 -> None
+line test 5 -> None
+line test 7 -> None
+return test 7 -> 1*b*
+```
+
+基于该函数提供的跟踪功能, ``pdb`` 模块提供了完整的调试( debug )框架. 
+
+=== 处理标准输出/输入 ===
+
+``stdin`` , ``stdout`` , 以及 ``stderr`` 变量包含与标准 I/O 流对应的流对象. 
+如果需要更好地控制输出,而 ``print`` 不能满足你的要求, 它们就是你所需要的. 
+你也可以 //替换// 它们, 这时候你就可以重定向输出和输入到其它设备( device ), 
+或者以非标准的方式处理它们. 如 [Example 1-74 #eg-1-74] 所示.
+
+====Example 1-74. 使用sys重定向输出====[eg-1-74]
+
+```
+File: sys-stdout-example-1.py
+
+import sys
+import string
+
+class Redirect:
+
+    def _ _init_ _(self, stdout):
+        self.stdout = stdout
+
+    def write(self, s):
+        self.stdout.write(string.lower(s))
+
+# redirect standard output (including the print statement)
+# 重定向标准输出(包括print语句)
+old_stdout = sys.stdout
+sys.stdout = Redirect(sys.stdout)
+
+print "HEJA SVERIGE",
+print "FRISKT HUM\303\226R"
+
+# restore standard output
+# 恢复标准输出
+sys.stdout = old_stdout
+
+print "M\303\205\303\205\303\205\303\205L!"
+
+*B*heja sverige friskt hum\303\266r
+M\303\205\303\205\303\205\303\205L!*b*
+```
+
+要重定向输出只要创建一个对象, 并实现它的 ``write`` 方法.
+
+(除非 C 类型的实例外：Python 使用一个叫做 ``softspace`` 的整数属性来控制输出中的空白. 
+如果没有这个属性, Python 将把这个属性附加到这个对象上. 你不需要在使用 Python 对象时担心, 
+但是在重定向到一个 C 类型时, 你应该确保该类型支持 ``softspace`` 属性.)
+
+=== 退出程序===
+
+执行至主程序的末尾时,解释器会自动退出. 但是如果需要中途退出程序, 你可以调用 ``sys.exit`` 函数, 
+它带有一个可选的整数参数返回给调用它的程序. [Example 1-75 #eg-1-75] 给出了范例.
+
+====Example 1-75. 使用sys模块退出程序====[eg-1-75]
+
+```
+File: sys-exit-example-1.py
+
+import sys
+
+print "hello"
+
+sys.exit(1)
+
+print "there"
+
+*B*hello*b*
+```
+
+注意 ``sys.exit`` 并不是立即退出. 而是引发一个 //SystemExit// 异常. 
+这意味着你可以在主程序中捕获对 ``sys.exit`` 的调用, 如 [Example 1-76 #eg-1-76] 所示.
+
+====Example 1-76. 捕获sys.exit调用====[eg-1-76]
+
+```
+File: sys-exit-example-2.py
+
+import sys
+
+print "hello"
+
+try:
+    sys.exit(1)
+except SystemExit:
+    pass
+
+print "there"
+
+*B*hello
+there*b*
+```
+
+如果准备在退出前自己清理一些东西(比如删除临时文件), 你可以配置一个 
+"退出处理函数"(exit handler), 它将在程序退出的时候自动被调用. 如 [Example 1-77 #eg-1-77] 所示.
+
+====Example 1-77. 另一种捕获sys.exit调用的方法====[eg-1-77]
+
+```
+File: sys-exitfunc-example-1.py
+
+import sys
+
+def exitfunc():
+    print "world"
+
+sys.exitfunc = exitfunc
+
+print "hello"
+sys.exit(1)
+print "there" # never printed # 不会被 print
+
+*B*hello
+world*b*
+```
+
+在 Python 2.0 以后, 你可以使用 ``atexit`` 模块来注册多个退出处理函数.
+

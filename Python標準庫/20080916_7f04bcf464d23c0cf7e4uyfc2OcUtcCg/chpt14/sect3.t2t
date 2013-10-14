@@ -1,0 +1,21 @@
+﻿==filecmp 模块==
+
+
+( 2.0 新增) ``filecmp`` 模块用于比较文件和目录, 如 [Example 14-4 #eg-14-4] 所示.
+
+====Example 14-4. 使用 filecmp 模块====[eg-14-4]
+
+```
+File: filecmp-example-1.py
+
+import filecmp
+
+if filecmp.cmp("samples/sample.au", "samples/sample.wav"):
+    print "files are identical"
+else:
+    print "files differ!"
+
+# files differ!
+```
+
+1.5.2 以及先前版本中, 你可以使用 ``cmp`` 和 ``dircmp`` 模块代替.

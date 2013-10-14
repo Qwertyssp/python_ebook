@@ -1,0 +1,29 @@
+﻿==gdbm 模块==
+
+
+(可选) ``gdbm`` 模块提供了到 GNU dbm 数据驱动的接口, 如 [Example 10-8 #eg-10-8] 所示.
+
+====Example 10-8. 使用 gdbm 模块====[eg-10-8]
+
+```
+File: gdbm-example-1.py
+
+import gdbm
+
+db = gdbm.open("gdbm", "c")
+db["1"] = "call"
+db["2"] = "the"
+db["3"] = "next"
+db["4"] = "defendant"
+db.close()
+
+
+db = gdbm.open("gdbm", "r")
+
+keys = db.keys()
+keys.sort()
+for key in keys:
+    print db[key],
+
+*B*call the next defendant*b*
+```

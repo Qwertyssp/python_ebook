@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/163-2009-02-11-13-09-14" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="輸入與輸出" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>輸入與輸出</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					輸入與輸出			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>輸出<br /></h2>
+
+<p>
+任何程式語言，輸入輸出都算是最基本的功能之一，當然Python也不例外，我們在這裡就介紹Python的基本輸入與輸出的功能，首先介紹輸出。Python的輸出比較特別，它是"語法"，而不是函數呼叫，它的語法是這樣，print加一個空白，再接要輸出的資料，可以用逗號分好幾個</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print 第一個物件, 第二個物件, 第三個物件...
+</pre>
+
+<p>
+基本上，丟給print的物件都會被自動轉成字串，只要該物件有轉成字串的功能，因此不管是數字，字串，還是什麼物件，只要能轉成字串的物件都可以直接由print輸出，下面示範print的用法。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+number = 100
+
+# 印出變數指向的數字
+print number
+
+# 印出數字
+print 100
+
+# 印出文字
+print "hello"
+
+# 用逗號分割
+print "money", 1000
+</pre>
+
+<h2>輸入<br /></h2>
+
+<p>接著就是輸入的功能，也就是從鍵盤輸入資料，這次就是函數呼叫，而不是"語法"，這個函數叫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input()
+</pre>
+
+<p>使用上很簡單，它會回傳使用者輸入的資料，以下是使用的範例:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 詢問使用者姓名
+print "Hello! What's your name?"
+
+# 讀入使用者姓名
+name = raw_input()
+
+# 向使用者打招呼
+print "Bonjour!", name
+</pre>
+
+<p>其實raw_input()有一個參數可以使用，它是選擇性的</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input([輸入提示])
+</pre>
+
+<p>在這裡用中括號括起來表示可以省略的意思，不管在官方的文件、或是這教學中，都還會看到，以下是使用輸入提示的範例</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+raw_input('How much:')
+</pre>
+
+<p>以這個例子而言，輸出會像這樣子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+How much:
+</pre>
+
+<p>游標會停在提示字串的後面</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="162-2009-02-11-13-09-12.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/162-2009-02-11-13-09-12">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="164-2009-02-11-13-09-16.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/164-2009-02-11-13-09-16">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

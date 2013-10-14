@@ -1,0 +1,102 @@
+﻿==ConfigParser 模块==
+
+
+``ConfigParser`` 模块用于读取配置文件.
+
+配置文件的格式与 Windows INI 文件类似, 可以包含一个或多个区域( section ), 
+每个区域可以有多个配置条目.
+
+这里有个样例配置文件, 在 [Example 5-16 #eg-5-16] 用到了这个文件:
+
+```
+[book]
+title: The Python Standard Library
+author: Fredrik Lundh
+email: fredrik@pythonware.com
+version: 2.0-001115
+
+[ematter]
+pages: 250
+
+[hardcopy]
+pages: 350
+```
+
+[Example 5-16 #eg-5-16] 使用 ``ConfigParser`` 模块读取这个配制文件.
+
+====Example 5-16. 使用 ConfigParser 模块====[eg-5-16]
+
+```
+File: configparser-example-1.py
+
+import ConfigParser
+import string
+
+config = ConfigParser.ConfigParser()
+
+config.read("samples/sample.ini")
+
+# print summary
+print
+print string.upper(config.get("book", "title"))
+print "by", config.get("book", "author"),
+print  "(" + config.get("book", "email") + ")"
+print
+print config.get("ematter", "pages"), "pages"
+print
+
+# dump entire config file
+for section in config.sections():
+    print section
+    for option in config.options(section):
+        print " ", option, "=", config.get(section, option)
+
+*B*THE PYTHON STANDARD LIBRARY
+by Fredrik Lundh (fredrik@pythonware.com)
+
+250 pages
+
+book
+  title = The Python Standard Library
+  email = fredrik@pythonware.com
+  author = Fredrik Lundh
+  version = 2.0-001115
+  _ _name_ _ = book
+ematter
+  _ _name_ _ = ematter
+  pages = 250
+hardcopy
+  _ _name_ _ = hardcopy
+  pages = 350*b*
+```
+
+Python 2.0 以后, ``ConfigParser`` 模块也可以将配置数据写入文件, 如 [Example 5-17 #eg-5-17] 所示.
+
+====Example 5-17. 使用 ConfigParser 模块写入配置数据====[eg-5-17]
+
+```
+File: configparser-example-2.py
+
+import ConfigParser
+import sys
+
+config = ConfigParser.ConfigParser()
+
+# set a number of parameters
+config.add_section("book")
+config.set("book", "title", "the python standard library")
+config.set("book", "author", "fredrik lundh")
+
+config.add_section("ematter")
+config.set("ematter", "pages", 250)
+
+# write to screen
+config.write(sys.stdout)
+
+*B*[book]
+title = the python standard library
+author = fredrik lundh
+
+[ematter]
+pages = 250*b*
+```

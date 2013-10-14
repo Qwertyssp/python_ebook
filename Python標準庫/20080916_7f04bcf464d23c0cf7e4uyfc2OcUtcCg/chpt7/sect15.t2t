@@ -1,0 +1,45 @@
+﻿==smtplib 模块==
+
+
+``smtplib`` 模块提供了一个 Simple Mail Transfer Protocol ( SMTP 
+, 简单邮件传输协议) 客户端实现. 该协议用于通过 Unix 邮件服务器发送邮件, 
+如 [Example 7-30 #eg-7-30] 所示.
+
+读取邮件请使用 ``poplib`` 或 ``imaplib`` 模块.
+
+====Example 7-30. 使用 smtplib 模块====[eg-7-30]
+
+```
+File: smtplib-example-1.py
+
+import smtplib
+import string, sys
+
+HOST = "localhost"
+
+FROM = "effbot@spam.egg"
+TO = "fredrik@spam.egg"
+
+SUBJECT = "for your information!"
+
+BODY = "next week: how to fling an otter"
+
+body = string.join((
+    "From: %s" % FROM,
+    "To: %s" % TO,
+    "Subject: %s" % SUBJECT,
+    "",
+    BODY), "\r\n")
+
+print body
+
+server = smtplib.SMTP(HOST)
+server.sendmail(FROM, [TO], body)
+server.quit()
+
+*B*From: effbot@spam.egg
+To: fredrik@spam.egg
+Subject: for your information!
+
+next week: how to fling an otter*b*
+```

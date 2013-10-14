@@ -1,0 +1,41 @@
+﻿==telnetlib 模块==
+
+
+``telnetlib`` 模块提供了一个 telnet 客户端实现.
+
+[Example 7-31 #eg-7-31] 连接到一台 Unix 计算机, 登陆, 然后请求一个目录的列表.
+
+====Example 7-31. 使用 telnetlib 模块登陆到远程服务器====[eg-7-31]
+
+```
+File: telnetlib-example-1.py
+
+import telnetlib
+import sys
+
+HOST = "spam.egg"
+
+USER = "mulder"
+PASSWORD = "trustno1"
+
+telnet = telnetlib.Telnet(HOST)
+
+telnet.read_until("login: ")
+telnet.write(USER + "\n")
+
+telnet.read_until("Password: ")
+telnet.write(PASSWORD + "\n")
+
+telnet.write("ls librarybook\n")
+telnet.write("exit\n")
+
+print telnet.read_all()
+
+*B*[spam.egg mulder]$ ls
+README                                 os-path-isabs-example-1.py
+SimpleAsyncHTTP.py                     os-path-isdir-example-1.py
+aifc-example-1.py                      os-path-isfile-example-1.py
+anydbm-example-1.py                    os-path-islink-example-1.py
+array-example-1.py                     os-path-ismount-example-1.py
+...*b*
+```

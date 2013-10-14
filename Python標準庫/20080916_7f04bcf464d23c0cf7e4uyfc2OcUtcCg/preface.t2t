@@ -1,0 +1,97 @@
+﻿== 序言 ==
+
+
+	"We'd like to pretend that 'Fredrik' is a role, but even hundreds of volunteers 
+	couldn't possibly keep up. No, 'Fredrik' is the result of crossing an http server 
+	with a spam filter with an emacs whatsit and some other stuff besides."
+
+	-Gordon McMillan, June 1998
+
+Python 2.0发布附带了一个包含200个以上模块的可扩展的标准库. 
+本书简要地介绍每个模块并提供至少一个例子来说明如何使用它. 
+本书一共包含360个例子.
+
+ 
+
+== 关于本书 ==
+
+
+	"Those people who have nothing better to do than post on the Internet 
+	all day long are rarely the ones who have the most insights."
+
+	- Jakob Nielsen, December 1998
+
+五年前我偶然遇到了 Python, 开始了我的 Python 之旅, 我花费了大量的时间
+在 ``comp.lang.python`` 新闻组里回答问题. 也许某个人发现一个模块正是他想要的, 
+但是却不知道如何使用它. 也许某个人为他的任务挑选的不合适的模块. 也许某个人已经厌
+倦了发明新轮子. 大多时候, 一个简短的例子要比一份手册文档更有帮助.
+
+本书是超过3,000个新闻组讨论的精华部分, 当然也有很多的新脚本, 为了涵盖标准库的每个角落.
+
+我尽力使得每个脚本都易于理解, 易于重用代码. 我有意缩短注释的长度, 如果你想更深入地
+了解背景, 那么你可以参阅每个 Python 发布中的参考手册. 本书的重要之处在于范例代码.
+
+我们欢迎任何评论, 建议, 以及 bug 报告, 请将它们发送到 fredrik@pythonware.com. 我将阅读尽我所能阅读所有的邮件, 但可能回复不是那么及时.
+
+本书的相关更新内容以及其他信息请访问 http://www.pythonware.com/people/fredrik/librarybook.htm
+
+**为什么没有Tkinter?**
+
+本书涵盖了整个标准库, 除了(可选的)Tkinter ui(user-interface : 用户界面) 库. 有很多原因, 
+更多是因为时间, 本书的空间, 以及我正在写另一本关于 Tkinter 的书.
+
+关于这些书的信息, 请访问 http://www.pythonware.com/people/fredrik/tkinterbook.htm. (不用看了,又一404)
+
+**产品细节**
+
+本书使用DocBook SGML编写, 我使用了一系列的工具, 包括Secret Labs' PythonWorks, 
+Excosoft Documentor, James Clark's Jade DSSSL processor, Norm Walsh's DocBook stylesheets, 
+当然,还有一些 Python 脚本.
+
+感谢帮忙校对的人们: Tim Peters, Guido van Rossum, David Ascher, Mark Lutz, 和 Rael Dornfest, 
+以及 PythonWare 成员: Matthew Ellis, Håkan Karlsson, 和 Rune Uhlin.
+
+感谢 Lenny Muellner, 他帮助我把SGML文件转变为你们现在所看到的这本书, 以及Christien Shangraw, 
+他将那些代码文件集合起来做成了随书CD (可以在 http://examples.oreilly.com/pythonsl 找到, 
+竟然没有404, 奇迹).
+
+== 代码约定 ==
+
+
+本书使用以下习惯用法:
+
+//斜体//
+
+	用于文件名和命令. 还用于定义术语.
+
+``等宽字体 e.g. Python``
+
+	用于代码以及方法,模块,操作符,函数,语句,属性等的名称. 
+
+**``等宽粗体``**
+
+	用于代码执行结果.
+    
+
+
+== 关于例子 ==
+
+
+除非提到,所有例子都可以在 Python 1.5.2 和 Python 2.0 下运行. 能不能在 Python 2.4/2.5 下执行.....看参与翻译各位的了.
+
+除了一些平台相关模块的脚本, 所有例子都可以在 Windows, Solaris, 以及 Linux 下正常执行. 
+
+所有代码都是有版权的. 当然,你可以自由地使用这些这些模块,别忘记你是从哪得到(?学会)这些的.
+
+大多例子的文件名都包含它所使用的模块名称,后边是 "``-example-``" 以及一个唯一的"序号".
+ 注意有些例子并不是按顺序出现的, 这是为了匹配本书的较早版本 - 
+//(the eff-bot guide to) The Standard Python Library//.
+
+你可以在网上找到本书附带CD的内容 (参阅 http://examples.oreilly.com/pythonsl). 更多信息以及更新内容参阅 http://www.pythonware.com/people/fredrik/librarybook.htm. (ft, 又一404. 大家一定不要看~)
+
+== 如何联系我们 ==
+
+
+Python 江湖 QQ 群: 43680167
+
+Feather (校对) QQ: 85660100

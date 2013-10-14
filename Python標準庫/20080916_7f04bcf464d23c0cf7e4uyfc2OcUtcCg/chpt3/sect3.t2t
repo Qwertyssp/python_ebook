@@ -1,0 +1,217 @@
+﻿==Queue 模块==
+
+
+``Queue`` 模块提供了一个线程安全的队列 (queue) 实现, 如 [Example 3-2 #eg-3-2] 所示. 
+你可以通过它在多个线程里安全访问同个对象.
+
+====Example 3-2. 使用 Queue 模块====[eg-3-2]
+
+```
+File: queue-example-1.py
+
+import threading
+import Queue
+import time, random
+
+WORKERS = 2
+
+class Worker(threading.Thread):
+
+    def _ _init_ _(self, queue):
+        self._ _queue = queue
+        threading.Thread._ _init_ _(self)
+
+    def run(self):
+        while 1:
+            item = self._ _queue.get()
+            if item is None:
+                break # reached end of queue
+
+            # pretend we're doing something that takes 10�00 ms
+            time.sleep(random.randint(10, 100) / 1000.0)
+
+            print "task", item, "finished"
+
+#
+# try it
+
+queue = Queue.Queue(0)
+
+for i in range(WORKERS):
+    Worker(queue).start() # start a worker
+
+for i in range(10):
+    queue.put(i)
+
+for i in range(WORKERS):
+    queue.put(None) # add end-of-queue markers
+
+*B*task 1 finished
+task 0 finished
+task 3 finished
+task 2 finished
+task 4 finished
+task 5 finished
+task 7 finished
+task 6 finished
+task 9 finished
+task 8 finished*b*
+```
+
+[Example 3-3 #eg-3-3] 展示了如何限制队列的大小. 如果队列满了, 
+那么控制主线程 (producer threads) 被阻塞, 等待项目被弹出 (pop off). 
+
+====Example 3-3. 使用限制大小的 Queue 模块====[eg-3-3]
+
+```
+File: queue-example-2.py
+
+import threading
+import Queue
+
+import time, random
+
+WORKERS = 2
+
+class Worker(threading.Thread):
+
+    def _ _init_ _(self, queue):
+        self._ _queue = queue
+        threading.Thread._ _init_ _(self)
+
+    def run(self):
+        while 1:
+            item = self._ _queue.get()
+            if item is None:
+                break # reached end of queue
+
+            # pretend we're doing something that takes 10�00 ms
+            time.sleep(random.randint(10, 100) / 1000.0)
+
+            print "task", item, "finished"
+
+#
+# run with limited queue
+
+queue = Queue.Queue(3)
+
+for i in range(WORKERS):
+    Worker(queue).start() # start a worker
+
+for item in range(10):
+    print "push", item
+    queue.put(item)
+
+for i in range(WORKERS):
+    queue.put(None) # add end-of-queue markers
+
+*B*push 0
+push 1
+push 2
+push 3
+push 4
+push 5
+task 0 finished
+push 6
+task 1 finished
+push 7
+task 2 finished
+push 8
+task 3 finished
+push 9
+task 4 finished
+task 6 finished
+task 5 finished
+task 7 finished
+task 9 finished
+task 8 finished*b*
+```
+
+你可以通过继承 //Queue// 类来修改它的行为. [Example 3-4 #eg-3-4] 
+为我们展示了一个简单的具有优先级的队列. 它接受一个元组作为参数, 
+元组的第一个成员表示优先级(数值越小优先级越高). 
+
+====Example 3-4. 使用 Queue 模块实现优先级队列====[eg-3-4]
+
+```
+File: queue-example-3.py
+
+import Queue
+import bisect
+
+Empty = Queue.Empty
+
+class PriorityQueue(Queue.Queue):
+    "Thread-safe priority queue"
+
+    def _put(self, item):
+        # insert in order
+        bisect.insort(self.queue, item)
+
+#
+# try it
+
+queue = PriorityQueue(0)
+
+# add items out of order
+queue.put((20, "second"))
+queue.put((10, "first"))
+queue.put((30, "third"))
+
+# print queue contents
+try:
+    while 1:
+        print queue.get_nowait()
+except Empty:
+    pass
+
+*B*third
+second
+first*b*
+```
+
+[Example 3-5 #eg-3-5] 展示了一个简单的堆栈 (stack) 实现 
+(末尾添加, 头部弹出, 而非头部添加, 头部弹出).
+
+====Example 3-5. 使用 Queue 模块实现一个堆栈====[eg-3-5]
+
+```
+File: queue-example-4.py
+
+import Queue
+
+Empty = Queue.Empty
+
+class Stack(Queue.Queue):
+    "Thread-safe stack"
+    
+    def _put(self, item):
+        # insert at the beginning of queue, not at the end
+        self.queue.insert(0, item)
+
+    # method aliases
+    push = Queue.Queue.put
+    pop = Queue.Queue.get
+    pop_nowait = Queue.Queue.get_nowait
+
+#
+# try it
+
+stack = Stack(0)
+
+# push items on stack
+stack.push("first")
+stack.push("second")
+stack.push("third")
+
+# print stack contents
+try:
+    while 1:
+        print stack.pop_nowait()
+except Empty:
+    pass
+
+*B*third
+second
+first*b*
+```

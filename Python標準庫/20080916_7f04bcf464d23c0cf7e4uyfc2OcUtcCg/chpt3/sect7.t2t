@@ -1,0 +1,74 @@
+﻿==popen2 模块==
+
+
+``popen2`` 模块允许你执行外部命令, 并通过流来分别访问它的 ``stdin`` 和 ``stdout`` ( 可能还有 ``stderr`` ). 
+
+在 python 1.5.2 以及之前版本, 该模块只存在于 Unix 平台上. 2.0 后, Windows 下也实现了该函数. 
+[Example 3-9 #eg-3-9] 展示了如何使用该模块来给字符串排序. 
+
+====Example 3-9. 使用 popen2 模块对字符串排序Module to Sort Strings====[eg-3-9]
+
+```
+File: popen2-example-1.py
+
+import popen2, string
+
+fin, fout = popen2.popen2("sort")
+
+fout.write("foo\n")
+fout.write("bar\n")
+fout.close()
+
+print fin.readline(),
+print fin.readline(),
+fin.close()
+
+*B*bar
+foo*b*
+```
+
+[Example 3-10 #eg-3-10] 展示了如何使用该模块控制应用程序 .
+
+====Example 3-10. 使用 popen2 模块控制 gnuchess====[eg-3-10]
+
+```
+File: popen2-example-2.py
+
+import popen2
+import string
+
+class Chess:
+    "Interface class for chesstool-compatible programs"
+
+    def _ _init_ _(self, engine = "gnuchessc"):
+        self.fin, self.fout = popen2.popen2(engine)
+        s = self.fin.readline()
+        if s != "Chess\n":
+            raise IOError, "incompatible chess program"
+
+    def move(self, move):
+        self.fout.write(move + "\n")
+        self.fout.flush()
+        my = self.fin.readline()
+        if my == "Illegal move":
+            raise ValueError, "illegal move"
+        his = self.fin.readline()
+        return string.split(his)[2]
+
+    def quit(self):
+        self.fout.write("quit\n")
+        self.fout.flush()
+
+#
+# play a few moves
+
+g = Chess()
+
+print g.move("a2a4")
+print g.move("b2b3")
+
+g.quit()
+
+*B*b8c6
+e7e5*b*
+```

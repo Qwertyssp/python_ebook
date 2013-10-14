@@ -1,0 +1,23 @@
+﻿==ucnhash  模块==
+
+
+(仅适用于 2.0 ) ``ucnhash`` 模块为一些 Unicode 字符代码提供了特定的命名. 
+你可以直接使用  ``\N{}`` 转义符将 Unicode 字符名称映射到字符代码上. 如 [Example 8-4 #eg-8-4] 所示.
+
+====Example 8-4. 使用 ucnhash 模块====[eg-8-4]
+
+```
+File: ucnhash-example-1.py
+
+# Python imports this module automatically, when it sees
+# the first \N{} escape
+# import ucnhash
+
+print repr(u"\N{FROWN}")
+print repr(u"\N{SMILE}")
+print repr(u"\N{SKULL AND CROSSBONES}")
+
+*B*u'\u2322'
+u'\u2323'
+u'\u2620'*b*
+```

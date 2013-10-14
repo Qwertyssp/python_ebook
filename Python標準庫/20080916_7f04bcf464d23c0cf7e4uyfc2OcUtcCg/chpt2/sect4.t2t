@@ -1,0 +1,51 @@
+﻿==tempfile 模块==
+
+
+[Example 2-6 #eg-2-6] 中展示的 ``tempfile`` 模块允许你快速地创建名称唯一的临时文件供使用.
+
+====Example 2-6. 使用 tempfile 模块创建临时文件====[eg-2-6]
+
+```
+File: tempfile-example-1.py
+
+import tempfile
+import os
+
+tempfile = tempfile.mktemp()
+
+print "tempfile", "=>", tempfile
+
+file = open(tempfile, "w+b")
+file.write("*" * 1000)
+file.seek(0)
+print len(file.read()), "bytes"
+file.close()
+
+try:
+    # must remove file when done
+    os.remove(tempfile)
+except OSError:
+    pass
+
+tempfile => C:\TEMP\~160-1
+1000 bytes
+```
+
+``TemporaryFile`` 函数会自动挑选合适的文件名, 并打开文件, 如 [Example 2-7 #eg-2-7] 所示. 
+而且它会确保该文件在关闭的时候会被删除. (在 Unix 下, 你可以删除一个已打开的文件, 这
+时文件关闭时它会被自动删除. 在其他平台上, 这通过一个特殊的封装类实现.) 
+
+====Example 2-7. 使用 tempfile 模块打开临时文件====[eg-2-7]
+
+```
+File: tempfile-example-2.py
+
+import tempfile
+
+file = tempfile.TemporaryFile()
+
+for i in range(100):
+    file.write("*" * 100)
+
+file.close() # removes the file!
+```

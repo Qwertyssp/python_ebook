@@ -1,0 +1,20 @@
+==nis 模块==
+
+
+(只用于 Unix , 可选) nis 模块提供了 NIS ( Network Information Services , 
+网络信息服务 ,黄页) 服务的接口, 如 [Example 12-6 #eg-12-6] 所示. 它用于从可用的 NIS 数据库中获得数据.
+
+====Example 12-6. 使用 nis 模块====[eg-12-6]
+
+```
+File: nis-example-1.py
+
+import nis
+import string
+
+print nis.cat("ypservers")
+print string.split(nis.match("bacon", "hosts.byname"))
+
+*B*{'bacon.spam.egg': 'bacon.spam.egg'}
+['194.18.155.250', 'bacon.spam.egg', 'bacon', 'spam-010']*b*
+```

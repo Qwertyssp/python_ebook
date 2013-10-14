@@ -1,0 +1,35 @@
+﻿==shlex 模块==
+
+
+``shlex`` 模块为基于 Unix shell 语法的语言提供了一个简单的 lexer (也就是 tokenizer). 
+如 [Example 5-19 #eg-5-19] 所示.
+
+====Example 5-19. 使用 shlex 模块====[eg-5-19]
+
+```
+File: shlex-example-1.py
+
+import shlex
+
+lexer = shlex.shlex(open("samples/sample.netrc", "r"))
+lexer.wordchars = lexer.wordchars + "._"
+
+while 1:
+    token = lexer.get_token()
+    if not token:
+        break
+    print repr(token)
+
+*B*'machine'
+'secret.fbi'
+'login'
+'mulder'
+'password'
+'trustno1'
+'machine'
+'non.secret.fbi'
+'login'
+'scully'
+'password'
+'noway'*b*
+```

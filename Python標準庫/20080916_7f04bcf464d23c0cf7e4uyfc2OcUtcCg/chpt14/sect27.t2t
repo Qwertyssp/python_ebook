@@ -1,0 +1,20 @@
+﻿==reconvert 模块==
+
+
+(已废弃) ``reconvert`` 提供了旧样式正则表达式( ``regex`` 模块中使用)到新样式( ``re`` 模块)的转换工具. 
+如 [Example 14-34 #eg-14-34] 所示. 它也可以作为一个命令行工具.
+
+====Example 14-34. 使用 reconvert 模块====[eg-14-34]
+
+```
+File: reconvert-example-1.py
+
+import reconvert
+
+for pattern in "abcd", "a\(b*c\)d", "\<\w+\>":
+    print pattern, "=>", reconvert.convert(pattern)
+
+*B*abcd => abcd
+a\(b*c\)d => a(b*c)d
+\<\w+\> => \b\w+\b*b*
+```

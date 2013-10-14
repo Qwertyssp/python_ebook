@@ -1,0 +1,59 @@
+﻿==cmd 模块==
+
+
+``cmd`` 模块为命令行接口( command-line interfaces , CLI )提供了一个简单的框架. 
+它被用在 ``pdb`` 模块中, 当然你也可以在自己的程序中使用它, 如 [Example 14-5 #eg-14-5] 所示. 
+
+你只需要继承 //Cmd// 类, 定义 ``do`` 和 ``help`` 方法. 基类会自动地将这些方法转换为对应命令.
+
+====Example 14-5. 使用 cmd 模块====[eg-14-5]
+
+```
+File: cmd-example-1.py
+
+import cmd
+import string, sys
+
+class CLI(cmd.Cmd):
+
+    def _ _init_ _(self):
+        cmd.Cmd._ _init_ _(self)
+        self.prompt = '> '
+
+    def do_hello(self, arg):
+        print "hello again", arg, "!"
+
+    def help_hello(self):
+        print "syntax: hello [message]",
+        print "-- prints a hello message"
+
+    def do_quit(self, arg):
+        sys.exit(1)
+
+    def help_quit(self):
+        print "syntax: quit",
+        print "-- terminates the application"
+
+    # shortcuts
+    do_q = do_quit
+
+#
+# try it out
+
+cli = CLI()
+cli.cmdloop()
+
+*B*> help
+
+Documented commands (type help <topic>):
+========================================
+hello           quit
+
+Undocumented commands:
+======================
+help            q
+
+> hello world
+hello again world !
+> q*b*
+```

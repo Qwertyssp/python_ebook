@@ -1,0 +1,33 @@
+﻿==struct 模块==
+
+
+``struct`` 模块用于转换二进制字符串和 Python 元组. ``pack`` 函数接受格式字符串以及额外参数, 
+根据指定格式将额外参数转换为二进制字符串. ``upack`` 函数接受一个字符串作为参数, 
+返回一个元组. 如 [Example 4-6 #eg-4-6] 所示.
+
+====Example 4-6. 使用 struct 模块====[eg-4-6]
+
+```
+File: struct-example-1.py
+
+import struct
+
+# native byteorder
+buffer = struct.pack("ihb", 1, 2, 3)
+print repr(buffer)
+print struct.unpack("ihb", buffer)
+
+# data from a sequence, network byteorder
+data = [1, 2, 3]
+buffer = apply(struct.pack, ("!ihb",) + tuple(data))
+print repr(buffer)
+print struct.unpack("!ihb", buffer)
+
+# in 2.0, the apply statement can also be written as:
+# buffer = struct.pack("!ihb", *data)
+
+*B*'\001\000\000\000\002\000\003'
+(1, 2, 3)
+'\000\000\000\001\000\002\003'
+(1, 2, 3)*b*
+```

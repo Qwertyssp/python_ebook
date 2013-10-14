@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials/185-turbogears" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="安裝TurboGears" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>安裝TurboGears</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					安裝TurboGears			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>設定Python路徑</h2>
+
+<p>
+如果你已經安裝完Python，接著要安裝TurboGears就非常的簡單，首先要做的是設定Python的路徑，在"我的電腦"上點右鍵，選擇"內容"，找到"進階"的選項，切換到該頁面後，往下找有一個"環境變數"。<br />
+進到環境變數之後，在下面的"系統變數"的欄位裡，找Path這一欄，選擇後按編輯。<br />
+接著在"變數值"的欄位，將游標移到最後面，貼上後按確定</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+;C:\Python25;C:\Python25\Scripts
+</pre>
+
+<p><span class="visualHighlight">請注意不要改到原本前面有的其它值，可能會造成其它程式出問題，找不到程式檔等</span><br />
+如果你的Python安裝在其它地方，請修改前面的C:\Python25的值成你安裝Python的位置<br />
+當完成以上步驟後，安裝TurboGears最麻煩的步驟都已經完成了。</p>
+
+<h2>安裝TurboGears</h2>
+
+<p>安裝TurboGears極度地簡單，首先到<a class="external-link" href="javascript:if(confirm('http://turbogears.org/  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://turbogears.org/'" tppabs="http://turbogears.org/">TurboGears的官方網站</a>下載TurboGears的自動安裝檔</p>
+
+<p><br /><a class="external-link" href="javascript:if(confirm('http://docs.turbogears.org/1.0/Install  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://docs.turbogears.org/1.0/Install'" tppabs="http://docs.turbogears.org/1.0/Install">http://docs.turbogears.org/1.0/Install</a></p>
+
+<p><br />
+找到 tgsetup.py 這個檔案後下載</p>
+
+<p><br /><a class="external-link" href="javascript:if(confirm('http://www.turbogears.org/download/tgsetup.py  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://www.turbogears.org/download/tgsetup.py'" tppabs="http://www.turbogears.org/download/tgsetup.py">http://www.turbogears.org/download/tgsetup.py</a></p>
+
+<p><br />
+接著打開Windows的命令提示字元，切換到放tgsetup.py這個檔案的目錄，然後打下面這行後按enter</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+python tgsetup.py
+</pre>
+
+<p>或是直接點該檔案兩下，它就會開始執行。<br />
+需要一小段時間自動上網去抓最新的版本並且安裝，跑完就是安裝完成。</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="184-turbogears.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials/184-turbogears">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="186-turbogears.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials/186-turbogears">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+﻿==symbol 模块==
+
+
+``symbol`` 模块包含 Python 语法中的非终止符号. 可能只有你涉及 ``parser`` 
+模块的时候用到它. 用法参见 [Example 13-20 #eg-13-20] .
+
+====Example 13-20. 使用 symbol 模块====[eg-13-20]
+
+```
+File: symbol-example-1.py
+
+import symbol
+
+print "print", symbol.print_stmt
+print "return", symbol.return_stmt
+
+*B*print 268
+return 274*b*
+```

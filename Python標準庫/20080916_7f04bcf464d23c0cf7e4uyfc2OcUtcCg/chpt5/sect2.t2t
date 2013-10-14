@@ -1,0 +1,150 @@
+﻿==xmllib 模块==
+
+
+``xmllib`` 已在当前版本中申明不支持.
+
+``xmlib`` 模块提供了一个简单的 XML 语法分析器, 使用正则表达式将 XML 数据分离, 
+如 [Example 5-1 #eg-5-1] 所示. 语法分析器只对文档做基本的检查, 
+例如是否只有一个顶层元素, 所有的标签是否匹配.
+
+XML 数据一块一块地发送给 xmllib 分析器(例如在网路中传输的数据). 分析器在遇到起始标签, 
+数据区域, 结束标签, 和实体的时候调用不同的方法.
+
+如果你只是对某些标签感兴趣, 你可以定义特殊的 ``start_tag`` 和 
+``end_tag`` 方法, 这里 ``tag`` 是标签名称. 这些 ``start`` 
+函数使用它们对应标签的属性作为参数调用(传递时为一个字典).
+
+====Example 5-1. 使用 xmllib 模块获取元素的信息====[eg-5-1]
+
+```
+File: xmllib-example-1.py
+
+import xmllib
+
+class Parser(xmllib.XMLParser):
+    # get quotation number
+
+    def _ _init_ _(self, file=None):
+        xmllib.XMLParser._ _init_ _(self)
+        if file:
+            self.load(file)
+
+    def load(self, file):
+        while 1:
+            s = file.read(512)
+            if not s:
+                break
+            self.feed(s)
+        self.close()
+
+    def start_quotation(self, attrs):
+        print "id =>", attrs.get("id")
+        raise EOFError
+
+try:
+    c = Parser()
+    c.load(open("samples/sample.xml"))
+except EOFError:
+    pass
+
+*B*id => 031*b*
+```
+
+[Example 5-2 #eg-5-2] 展示了一个简单(不完整)的内容输出引擎( rendering engine ). 
+分析器有一个元素堆栈( ``_ _tags`` ), 它连同文本片断传递给输出生成器. 
+生成器会在 style 字典中查询当前标签的层次, 如果不存在, 它将根据样式表创建一个新的样式描述.
+
+====Example 5-2. 使用 xmllib 模块====[eg-5-2]
+
+```
+File: xmllib-example-2.py
+
+import xmllib
+import string, sys
+
+STYLESHEET = {
+    # each element can contribute one or more style elements
+    "quotation": {"style": "italic"},
+    "lang": {"weight": "bold"},
+    "name": {"weight": "medium"},
+}
+
+class Parser(xmllib.XMLParser):
+    # a simple styling engine
+
+    def _ _init_ _(self, renderer):
+        xmllib.XMLParser._ _init_ _(self)
+        self._ _data = []
+        self._ _tags = []
+        self._ _renderer = renderer
+
+    def load(self, file):
+        while 1:
+            s = file.read(8192)
+            if not s:
+                break
+            self.feed(s)
+        self.close()
+
+    def handle_data(self, data):
+        self._ _data.append(data)
+
+    def unknown_starttag(self, tag, attrs):
+        if self._ _data:
+            text = string.join(self._ _data, "")
+            self._ _renderer.text(self._ _tags, text)
+        self._ _tags.append(tag)
+        self._ _data = []
+
+    def unknown_endtag(self, tag):
+        self._ _tags.pop()
+        if self._ _data:
+            text = string.join(self._ _data, "")
+            self._ _renderer.text(self._ _tags, text)
+        self._ _data = []
+
+class DumbRenderer:
+
+    def _ _init_ _(self):
+        self.cache = {}
+
+    def text(self, tags, text):
+        # render text in the style given by the tag stack
+        tags = tuple(tags)
+        style = self.cache.get(tags)
+        if style is None:
+            # figure out a combined style
+            style = {}
+            for tag in tags:
+                s = STYLESHEET.get(tag)
+                if s:
+                    style.update(s)
+            self.cache[tags] = style # update cache
+        # write to standard output
+        sys.stdout.write("%s =>\n" % style)
+        sys.stdout.write("  " + repr(text) + "\n")
+
+#
+# try it out
+
+r = DumbRenderer()
+c = Parser(r)
+c.load(open("samples/sample.xml"))
+
+*B*{'style': 'italic'} =>
+  'I\'ve had a lot of developers come up to me and\012say,
+  "I haven\'t had this much fun in a long time. It sure
+  beats\012writing '
+{'style': 'italic', 'weight': 'bold'} =>
+  'Cobol'
+{'style': 'italic'} =>
+  '" -- '
+{'style': 'italic', 'weight': 'medium'} =>
+  'James Gosling'
+{'style': 'italic'} =>
+  ', on\012'
+{'weight': 'bold'} =>
+  'Java'
+{'style': 'italic'} =>
+  '.'*b*
+```

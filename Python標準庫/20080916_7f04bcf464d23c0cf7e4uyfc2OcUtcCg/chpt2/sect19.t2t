@@ -1,0 +1,189 @@
+﻿==md5 模块==
+
+
+``md5`` (Message-Digest Algorithm 5)模块用于计算信息密文(信息摘要).
+
+``md5`` 算法计算一个强壮的128位密文. 这意味着如果两个字符串是不同的, 
+那么有极高可能它们的 ``md5`` 也不同. 也就是说, 给定一个 ``md5`` 密文, 
+那么几乎没有可能再找到另个字符串的密文与此相同. [Example 2-35 #eg-2-35] 
+展示了如何使用 ``md5`` 模块.
+
+====Example 2-35. 使用 md5 模块====[eg-2-35]
+
+```
+File: md5-example-1.py
+
+import md5
+
+hash = md5.new()
+hash.update("spam, spam, and eggs")
+
+print repr(hash.digest())
+
+*B* 'L\005J\243\266\355\243u`\305r\203\267\020F\303'*b*
+```
+
+注意这里的校验和是一个二进制字符串. [Example 2-36 #eg-2-36] 展示了如何获得一个十六进制或 
+base64 编码的字符串.
+
+====Example 2-36. 使用 md5 模块获得十六进制或 base64 编码的 md5 值====[eg-2-36]
+
+```
+File: md5-example-2.py
+
+import md5
+import string
+import base64
+
+hash = md5.new()
+hash.update("spam, spam, and eggs")
+
+value = hash.digest()
+print hash.hexdigest()
+# before 2.0, the above can be written as
+# 在 2.0 前, 以上应该写做:
+# print string.join(map(lambda v: "%02x" % ord(v), value), "")
+
+print base64.encodestring(value)
+
+*B*4c054aa3b6eda37560c57283b71046c3
+TAVKo7bto3VgxXKDtxBGww==*b*
+```
+
+[Example 2-37 #eg-2-37] 展示了如何使用 ``md5`` 
+校验和来处理口令的发送与应答的验证(不过我们将稍候讨论这里使用随机数字所带来的问题).
+
+====Example 2-37. 使用 md5 模块来处理口令的发送与应答的验证====[eg-2-37]
+
+```
+File: md5-example-3.py
+
+import md5
+import string, random
+
+def getchallenge():
+    # generate a 16-byte long random string.  (note that the built-
+    # in pseudo-random generator uses a 24-bit seed, so this is not
+    # as good as it may seem...)
+    # 生成一个 16 字节长的随机字符串. 注意内建的伪随机生成器
+    # 使用的是 24 位的种子(seed), 所以这里这样用并不好..
+    challenge = map(lambda i: chr(random.randint(0, 255)), range(16))
+    return string.join(challenge, "")
+
+def getresponse(password, challenge):
+    # calculate combined digest for password and challenge
+    # 计算密码和质询(challenge)的联合密文
+    m = md5.new()
+    m.update(password)
+    m.update(challenge)
+    return m.digest()
+
+#
+# server/client communication
+# 服务器/客户端通讯
+
+# 1. client connects.  server issues challenge.
+# 1. 客户端连接, 服务器发布质询(challenge)
+
+print "client:", "connect"
+
+challenge = getchallenge()
+
+print "server:", repr(challenge)
+
+# 2. client combines password and challenge, and calculates
+# the response.
+# 2. 客户端计算密码和质询(challenge)的组合后的密文
+
+client_response = getresponse("trustno1", challenge)
+
+print "client:", repr(client_response)
+
+# 3. server does the same, and compares the result with the
+# client response.  the result is a safe login in which the
+# password is never sent across the communication channel.
+# 3. 服务器做同样的事, 然后比较结果与客户端的返回, 
+# 判断是否允许用户登陆. 这样做密码没有在通讯中明文传输.
+
+server_response = getresponse("trustno1", challenge)
+
+if server_response == client_response:
+    print "server:", "login ok"
+
+*B*client: connect
+server: '\334\352\227Z#\272\273\212KG\330\265\032>\311o'
+client: "l'\305\240-x\245\237\035\225A\254\233\337\225\001"
+server: login ok*b*
+```
+
+[Example 2-38 #eg-2-38] 提供了 ``md5`` 
+的一个变种, 你可以通过标记信息来判断它是否在网络传输过程中被修改(丢失).
+
+====Example 2-38. 使用 md5 模块检查数据完整性====[eg-2-38]
+
+```
+File: md5-example-4.py
+
+import md5
+import array
+
+class HMAC_MD5:
+    # keyed md5 message authentication
+
+    def _ _init_ _(self, key):
+        if len(key) > 64:
+            key = md5.new(key).digest()
+        ipad = array.array("B", [0x36] * 64)
+        opad = array.array("B", [0x5C] * 64)
+        for i in range(len(key)):
+            ipad[i] = ipad[i] ^ ord(key[i])
+            opad[i] = opad[i] ^ ord(key[i])
+        self.ipad = md5.md5(ipad.tostring())
+        self.opad = md5.md5(opad.tostring())
+
+    def digest(self, data):
+        ipad = self.ipad.copy()
+        opad = self.opad.copy()
+        ipad.update(data)
+        opad.update(ipad.digest())
+        return opad.digest()
+
+#
+# simulate server end
+# 模拟服务器端
+
+key = "this should be a well-kept secret"
+message = open("samples/sample.txt").read()
+
+signature = HMAC_MD5(key).digest(message)
+
+# (send message and signature across a public network)
+# (经过由网络发送信息和签名)
+
+#
+# simulate client end
+#模拟客户端
+
+key = "this should be a well-kept secret"
+
+client_signature = HMAC_MD5(key).digest(message)
+
+if client_signature == signature:
+    print "this is the original message:"
+    print
+    print message
+else:
+    print "someone has modified the message!!!"
+```
+
+``copy`` 方法会对这个内部对象状态做一个快照( snapshot ). 
+这允许你预先计算部分密文摘要(例如 [Example 2-38 #eg-2-38] 中的 padded key).
+
+该算法的细节请参阅 
+//HMAC-MD5:Keyed-MD5 for Message Authentication// 
+( http://www.research.ibm.com/security/draft-ietf-ipsec-hmac-md5-00.txt ) by Krawczyk, 或其他.
+
+	*Note*千万别忘记内建的伪随机生成器对于加密操作而言并不合适. 千万小心. *note*
+ 
+ 
+

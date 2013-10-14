@@ -1,0 +1,203 @@
+﻿== re 模块==
+
+
+	"Some people, when confronted with a problem, think 'I know, I'll use regular expressions.' Now they have two problems."
+
+	- Jamie Zawinski, on comp.lang.emacs
+
+``re`` 模块提供了一系列功能强大的正则表达式 (regular expression) 工具, 
+它们允许你快速检查给定字符串是否与给定的模式匹配 (使用 ``match`` 函数), 
+或者包含这个模式 (使用 ``search`` 函数). 正则表达式是以紧凑(也很神秘)的语法写出的字符串模式. 
+
+``match`` 尝试从字符串的起始匹配一个模式, 如 [Example 1-54 #eg-1-54] 所示. 
+如果模式匹配了某些内容 (包括空字符串, 如果模式允许的话) , 
+它将返回一个匹配对象. 使用它的 ``group`` 方法可以找出匹配的内容. 
+
+====Example 1-54. 使用 re 模块来匹配字符串====[eg-1-54]
+
+```
+File: re-example-1.py
+
+import re
+
+text = "The Attila the Hun Show"
+
+# a single character 单个字符
+m = re.match(".", text)
+if m: print repr("."), "=>", repr(m.group(0))
+
+# any string of characters 任何字符串
+m = re.match(".*", text)
+if m: print repr(".*"), "=>", repr(m.group(0))
+
+# a string of letters (at least one) 只包含字母的字符串(至少一个)
+m = re.match("\w+", text)
+if m: print repr("\w+"), "=>", repr(m.group(0))
+
+# a string of digits 只包含数字的字符串
+m = re.match("\d+", text)
+if m: print repr("\d+"), "=>", repr(m.group(0))
+
+*B* '.' => 'T'
+'.*' => 'The Attila the Hun Show'
+'\\w+' => 'The'*b*
+```
+
+可以使用圆括号在模式中标记区域. 找到匹配后, ``group`` 方法可以抽取这些区域的内容，
+如 [Example 1-55 #eg-1-55] 所示. ``group(1)`` 会返回第一组的内容, ``group(2)`` 
+返回第二组的内容, 这样... 如果你传递多个组数给 ``group`` 函数, 它会返回一个元组. 
+
+====Example 1-55. 使用 re 模块抽出匹配的子字符串====[eg-1-55]
+
+```
+File: re-example-2.py
+
+import re
+
+text ="10/15/99"
+
+m = re.match("(\d{2})/(\d{2})/(\d{2,4})", text)
+if m:
+    print m.group(1, 2, 3)
+
+*B*('10', '15', '99')*b*
+```
+
+``search`` 函数会在字符串内查找模式匹配, 如 [Example 1-56 #eg-1-56] 所示. 
+它在所有可能的字符位置尝试匹配模式, 从最左边开始, 一旦找到匹配就返回一个匹配对象. 
+如果没有找到相应的匹配, 就返回 //None// . 
+
+====Example 1-56. 使用 re 模块搜索子字符串====[eg-1-56]
+
+```
+File: re-example-3.py
+
+import re
+
+text = "Example 3: There is 1 date 10/25/95 in here!"
+
+m = re.search("(\d{1,2})/(\d{1,2})/(\d{2,4})", text)
+
+print m.group(1), m.group(2), m.group(3)
+
+month, day, year = m.group(1, 2, 3)
+print month, day, year
+
+date = m.group(0)
+print date
+
+*B*10 25 95
+10 25 95
+10/25/95*b*
+```
+
+[Example 1-57 #eg-1-57] 中展示了 ``sub`` 函数, 它可以使用另个字符串替代匹配模式.
+
+====Example 1-57. 使用 re 模块替换子字符串====[eg-1-57]
+
+```
+File: re-example-4.py
+
+import re
+
+text = "you're no fun anymore..."
+
+# literal replace (string.replace is faster)
+# 文字替换 (string.replace 速度更快)
+print re.sub("fun", "entertaining", text)
+
+# collapse all non-letter sequences to a single dash 
+# 将所有非字母序列转换为一个"-"(dansh,破折号)
+print re.sub("[^\w]+", "-", text)
+
+# convert all words to beeps 
+# 将所有单词替换为 BEEP
+print re.sub("\S+", "-BEEP-", text)
+
+*B*you're no entertaining anymore...
+you-re-no-fun-anymore-
+-BEEP- -BEEP- -BEEP- -BEEP-*b*
+```
+
+你也可以通过回调 (callback) 函数使用 ``sub`` 来替换指定模式. 
+[Example 1-58 #eg-1-58] 展示了如何预编译模式. 
+
+====Example 1-58. 使用 re 模块替换字符串(通过回调函数)====[eg-1-58]
+
+```
+File: re-example-5.py
+
+import re
+import string
+
+text = "a line of text\\012another line of text\\012etc..."
+
+def octal(match):
+    # replace octal code with corresponding ASCII character
+    # 使用对应 ASCII 字符替换八进制代码
+    return chr(string.atoi(match.group(1), 8))
+
+octal_pattern = re.compile(r"\\(\d\d\d)")
+
+print text
+print octal_pattern.sub(octal, text)
+
+*B*a line of text\012another line of text\012etc...
+a line of text
+another line of text
+etc...*b*
+```
+
+如果你不编译, ``re`` 模块会为你缓存一个编译后版本, 所有的小脚本中, 
+通常不需要编译正则表达式. Python1.5.2 中, 缓存中可以容纳 20 个匹配模式, 而在 2.0 中, 
+缓存则可以容纳 100 个匹配模式. 
+
+最后, [Example 1-59 #eg-1-59] 用一个模式列表匹配一个字符串. 这些模式将会组合为一个模式, 并预编译以节省时间. 
+
+====Example 1-59. 使用 re 模块匹配多个模式中的一个====[eg-1-59]
+
+```
+File: re-example-6.py
+
+import re, string
+
+def combined_pattern(patterns):
+    p = re.compile(
+        string.join(map(lambda x: "("+x+")", patterns), "|")
+        )
+    def fixup(v, m=p.match, r=range(0,len(patterns))):
+        try:
+            regs = m(v).regs
+        except AttributeError:
+            return None # no match, so m.regs will fail
+        else:
+            for i in r:
+                if regs[i+1] != (-1, -1):
+                    return i
+    return fixup
+
+#
+# try it out!
+
+patterns = [
+    r"\d+",
+    r"abc\d{2,4}",
+    r"p\w+"
+]
+
+p = combined_pattern(patterns)
+
+print p("129391")
+print p("abc800")
+print p("abc1600")
+print p("python")
+print p("perl")
+print p("tcl")
+
+*B*0
+1
+1
+2
+2
+None*b*
+```

@@ -1,0 +1,32 @@
+﻿==imghdr 模块==
+
+
+``imghdr`` 模块可识别不同格式的图片文件. 当前版本可以识别 ``bmp`` , ``gif`` , 
+``jpeg`` , ``pbm`` , ``pgm`` , ``png`` , ``ppm`` , 
+``rast`` (Sun raster), ``rgb`` (SGI), ``tiff`` , 以及 ``xbm`` 图像. 
+如 [Example 9-1 #eg-9-1] 所示.
+
+====Example 9-1. 使用 imghdr 模块====[eg-9-1]
+
+```
+File: imghdr-example-1.py
+
+import imghdr
+
+result = imghdr.what("samples/sample.jpg")
+
+if result:
+    print "file format:", result
+else:
+    print "cannot identify file"
+
+*B*file format: jpeg*b*
+```
+
+```
+# 使用 PIL 
+import Image
+
+im = Image.open("samples/sample.jpg")
+print im.format, im.mode, im.size
+```

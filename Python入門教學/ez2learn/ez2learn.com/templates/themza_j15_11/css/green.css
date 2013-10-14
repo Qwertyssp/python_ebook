@@ -1,0 +1,90 @@
+@charset "utf-8";
+/*** green ***/
+a:link, a:visited {
+	color: #239011;
+	text-decoration:underline;
+}
+
+a:hover {
+	color: #239011;
+	text-decoration:none;
+}
+
+#page_bg {
+	background: #FFFFFF url("../images/green/bg_page.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/bg_page.png*/) top repeat-x;
+}
+
+.search{
+	background: url("../images/green/search_ico.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/search_ico.png*/) right top no-repeat;
+}
+#pillmenu li a:hover, #active_menu-nav {
+	background: url("../images/green/menu_hover.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/menu_hover.png*/) top repeat-x;
+}
+#banner{
+	background: #FFFFFF url("../images/green/banner.jpg"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/banner.jpg*/) center top no-repeat;
+}
+
+div.module_menu h3, div.module h3, #rightcolumn h3{
+	background:  url("../images/green/bg_h3.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/bg_h3.png*/) top left no-repeat;
+}
+
+#f_area{
+	background: #EAEAEA;
+	border-top: 3px solid #B9B9B9;
+}
+
+a.readon, a.readon:hover, a.readon:visited{
+	display:block;
+	height:23px;
+	width:109px;
+	color:#FFFFFF;
+	text-decoration:underline;
+	padding-left: 23px;
+	line-height:23px;
+	background:  url("../images/green/bg_read_more.png"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/bg_read_more.png*/) top left no-repeat;
+	margin:10px 0px 0px 0px;
+}
+
+#power_by, #power_by a, #power_by a:visited{
+	color:#B9B9B9;
+	text-decoration:none;
+	font-size:11px;
+}
+ul.menu li{
+	list-style:none;
+	/*background:url(../images/green/menu_arrow.gif) top left no-repeat;*/
+}
+/*#f_area ul.menu li{
+	list-style:none;
+	background:url(../images/green/menu_arrow.gif) top left no-repeat;
+}*/
+ul.mostread li{
+	list-style:none;
+	background:url("../images/green/menu_arrow.gif"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/menu_arrow.gif*/) top left no-repeat;
+}
+ul.latestnews li{
+	list-style:none;
+	background:url("../images/green/menu_arrow.gif"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/menu_arrow.gif*/) top left no-repeat;
+}
+.moduletable ul li {
+	list-style:none;
+	background:url("../images/green/menu_arrow.gif"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/menu_arrow.gif*/) top left no-repeat;
+}
+#f_area div.moduletable_menu ul.menu {
+	padding:10px 0px 10px 0px;
+	margin:0px;
+	background:none;
+}
+
+#f_area div.moduletable_menu ul.menu li {
+	padding:0px 0px 0px 20px;
+	margin:0px;	
+	line-height:18px;
+	background:url("../images/green/menu_arrow.gif"/*tpa=http://ez2learn.com/templates/themza_j15_11/images/green/menu_arrow.gif*/) top left no-repeat;
+	border-bottom:none;
+}
+div.componentheading{
+	color:#218A10;
+	font-size:17px;
+	font-weight:normal;
+}

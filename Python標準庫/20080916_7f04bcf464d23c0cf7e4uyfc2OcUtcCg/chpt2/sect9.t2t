@@ -1,0 +1,31 @@
+﻿==UserList 模块==
+
+
+``UserList`` 模块包含了一个可继承的列表类 (事实上是对内建列表类型的 Python 封装).
+
+在 [Example 2-16 #eg-2-16] 中, //AutoList// 实例类似一个普通的列表对象, 但它允许你通过赋值为列表添加项目.
+
+====Example 2-16. 使用 UserList 模块====[eg-2-16]
+
+```
+File: userlist-example-1.py
+
+import UserList
+
+class AutoList(UserList.UserList):
+
+    def _ _setitem_ _(self, i, item):
+        if i == len(self.data):
+            self.data.append(item)
+        else:
+            self.data[i] = item
+
+list = AutoList()
+
+for i in range(10):
+    list[i] = i
+
+print list
+
+*B*[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]*b*
+```

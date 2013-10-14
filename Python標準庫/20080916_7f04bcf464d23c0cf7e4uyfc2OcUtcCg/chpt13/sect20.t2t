@@ -1,0 +1,20 @@
+﻿==token 模块==
+
+
+``token`` 模块包含标准 Python tokenizer 所使用的 token 标记. 如 [Example 13-21 #eg-13-21] 所示.
+
+====Example 13-21. 使用 token 模块====[eg-13-21]
+
+```
+File: token-example-1.py
+
+import token
+
+print "NUMBER", token.NUMBER
+print "PLUS", token.STAR
+print "STRING", token.STRING
+
+*B*NUMBER 2
+PLUS 16
+STRING 3*b*
+```

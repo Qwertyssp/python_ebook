@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/190-deferred--retry" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="Deferred應用的實例 : retry" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Deferred應用的實例 : retry</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					Deferred應用的實例 : retry			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>為什麼需要Retry</h2>
+
+<p>
+因為網路連線並不是百分之一百一定成功的，很多時候都會遇到斷線、伺服器忙錄中等等狀況，當我在寫截取網頁資料時就遇到這樣的問題，這個時候就需要有重試的機制，最簡單的方法就是，替每個可能出錯的網路連線的非同步函數都寫一個可重試的版本，那會是一場惡夢，我為了解決這樣的問題，就考慮到Deferred本身的特性，讓它可以套用在任何其它回傳Deferred物件的函數身上，封裝其它函數時可以增加你需要的功能進去，但是又保持對外界的一致性</p>
+
+<h2>程式碼</h2>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import logging
+
+from twisted.internet import defer
+
+log = logging.getLogger('retry')
+
+def retry(times, func, *args, **kwargs):
+    """retry a defer function
+    
+    @param times: how many times to retry
+    @param func: defer function
+    """
+    errorList = []
+    deferred = defer.Deferred()
+    def run():
+        log.info('Try %s(*%s, **%s)', func.__name__, args, kwargs)
+        d = func(*args, **kwargs)
+        d.addCallbacks(deferred.callback, error)
+    def error(error):
+        errorList.append(error)
+        # Retry
+        if len(errorList) &lt; times:
+            log.info('Failed to try %s(*%s, **%s) %d times, retry...', func.__name__, args, kwargs, len(errorList))
+            run()
+        # Fail
+        else:
+            log.info('Failed to try %s(*%s, **%s) over %d times, stop', func.__name__, args, kwargs, len(errorList))
+            deferred.errback(errorList)
+    run()
+    return deferred
+</pre>
+
+<p>有了這樣的機制，我們可以輕鬆地將它與任何defer函數串在一起，以下是和getPage一起使用的範例</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def output(data):
+    print 'output', data
+    
+def error(error):
+    print 'finall error', error
+
+d = retry(3, getPage, 'http://www.google2.com')
+d.addCallbacks(output, error)
+
+d = retry(3, getPage, 'http://www.google.com')
+d.addCallbacks(output, error)
+
+reactor.run()
+</pre>
+
+<p>你不必更改你現有的任何程式碼，只要將這個函數套用在你想retry的函數上，它就會自行重試，就就是Deferred機制帶來的彈性</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="189-twistedcallback--deferred.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/189-twistedcallback--deferred">&lt; 前一個</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿==string 模块==
+
+
+``string`` 模块提供了一些用于处理字符串类型的函数, 
+如 [Example 1-51 #eg-1-51] 所示.
+
+====Example 1-51. 使用 string 模块====[eg-1-51]
+
+```
+File: string-example-1.py
+
+import string
+
+text = "Monty Python's Flying Circus"
+
+print "upper", "=>", string.upper(text)
+print "lower", "=>", string.lower(text)
+print "split", "=>", string.split(text)
+print "join", "=>", string.join(string.split(text), "+")
+print "replace", "=>", string.replace(text, "Python", "Java")
+print "find", "=>", string.find(text, "Python"), string.find(text, "Java")
+print "count", "=>", string.count(text, "n")
+
+*B*upper => MONTY PYTHON'S FLYING CIRCUS
+lower => monty python's flying circus
+split => ['Monty', "Python's", 'Flying', 'Circus']
+join => Monty+Python's+Flying+Circus
+replace => Monty Java's Flying Circus
+find => 6 -1
+count => 3*b*
+```
+
+在 Python 1.5.2 以及更早版本中, ``string`` 使用 ``strop`` 中的函数来实现模块功能. 
+
+在 Python1.6 和后继版本，更多的字符串操作都可以作为字符串方法来访问, 
+如 [Example 1-52 #eg-1-52] 所示, ``string`` 模块中的许多函数只是对相对应字符串方法的封装.
+
+====Example 1-52. 使用字符串方法替代 string 模块函数====[eg-1-52]
+
+```
+File: string-example-2.py
+
+text = "Monty Python's Flying Circus"
+
+print "upper", "=>", text.upper()
+print "lower", "=>", text.lower()
+print "split", "=>", text.split()
+print "join", "=>", "+".join(text.split())
+print "replace", "=>", text.replace("Python", "Perl")
+print "find", "=>", text.find("Python"), text.find("Perl")
+print "count", "=>", text.count("n")
+
+*B*upper => MONTY PYTHON'S FLYING CIRCUS
+lower => monty python's flying circus
+split => ['Monty', "Python's", 'Flying', 'Circus']
+join => Monty+Python's+Flying+Circus
+replace => Monty Perl's Flying Circus
+find => 6 -1
+count => 3*b*
+```
+
+为了增强模块对字符的处理能力, 除了字符串方法, ``string`` 
+模块还包含了类型转换函数用于把字符串转换为其他类型, (如 [Example 1-53 #eg-1-53] 所示).
+
+====Example 1-53. 使用 string 模块将字符串转为数字====[eg-1-53]
+
+```
+File: string-example-3.py
+
+import string
+
+print int("4711"),
+print string.atoi("4711"),
+print string.atoi("11147", 8), # octal 八进制
+print string.atoi("1267", 16), # hexadecimal 十六进制
+print string.atoi("3mv", 36) # whatever...
+
+print string.atoi("4711", 0),
+print string.atoi("04711", 0),
+print string.atoi("0x4711", 0)
+
+print float("4711"),
+print string.atof("1"),
+print string.atof("1.23e5")
+
+*B*4711 4711 4711 4711 4711
+4711 2505 18193
+4711.0 1.0 123000.0*b*
+```
+
+大多数情况下 (特别是当你使用的是1.6及更高版本时) ，你可以使用 ``int`` 和 ``float`` 
+函数代替 ``string`` 模块中对应的函数。 
+
+``atoi`` 函数可以接受可选的第二个参数, 指定数基(number base). 
+如果数基为 0, 那么函数将检查字符串的前几个字符来决定使用的数基: 
+如果为 "0x," 数基将为 16 (十六进制), 如果为 "0," 则数基为 8 (八进制). 
+默认数基值为 10 (十进制), 当你未传递参数时就使用这个值.
+
+在 1.6 及以后版本中, ``int`` 函数和 ``atoi`` 一样可以接受第二个参数. 
+与字符串版本函数不一样的是 , ``int`` 和 ``float`` 可以接受 Unicode 字符串对象.
+

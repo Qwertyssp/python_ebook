@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/162-2009-02-11-13-09-12" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="變數" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>變數</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					變數			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>Python的變數</h2>
+
+<p>
+對於程式而言，如果沒有辦法記住事情，就好像一個沒有記憶的人，你只能告訴他一件事，要他去做，但是他馬上會忘記自己做過什麼，程式也一樣，沒有辦法記住資料，就沒辦法自行做好一些事情，這就是變數的目的。</p>
+
+<p><span id="content3"></span><span id="content0"><span id="content2"></span></span></p>
+
+<div id="node3"><span id="content3"></span> 
+
+<p>
+而變數就是在電腦裡一塊用來裝資料的空間，而我們在使用它時都把它當做"變數"，而不是空間來看，但是它的本質就是空間，變數就是對應到空間的一個
+名稱，例如我們有一個變數叫做number，寫number =
+10，事實上就是把10這樣的資料放到number所對應的空間裡，而那個空間在哪裡、有多大，這點我們在Python裡不用費心，它會幫我們處理。</p>
+
+<p>對於Python而言，變數的建立是在於第一次設定它的值，例如money =
+1000，之前都沒有建立過money這個變數，這行指令就是建立money這個變數，並且指定它的值為1000，從此money的值就是1000，可以
+加以應用，但是，相反地，如果一個變數還沒建立，就被使用，會引發錯誤，這點要注意。</p>
+
+<p>接下來就讓我們用範例來介紹變數的用法。<span id="content3"></span></p>
+</div>
+
+<h2>變數的用法<span id="content3"></span></h2>
+
+<span id="content0"><span id="content2"></span></span> 
+
+<div id="node3">
+<pre name="code" class="python:nogutter:nocontrols">
+""" 這個程式用來介紹Python變數的使用，
+借由各種使用變數的方式來說明變數的用法
+"""
+
+# number是第一次出現被指定值，因此可以視為建立變數
+number = 10
+
+# 我們在這裡建立一個名為result的變數，把它的值設為number * 5
+# 因為先前number的值是10，所以其實是 10 * 5
+# 也就是 50
+# 所以經過這行之後，result的值就是50了
+result = number * 5
+
+# 這行把result這個變數印出來看看是不是50
+print result
+
+# 當然，變數的值不是生下來就永遠不會改變
+# 我們一樣可以改變變數的值
+result = 123
+
+# 這行把result這個變數印出來看看是不是123
+print result
+
+# 變數也可以被指定給其它變數
+# 也就是把值複製一份給它變數
+result = number
+
+# 這行把result這個變數印出來看看是不是和number一樣
+print result
+
+# 印出number
+print number
+</pre>
+
+如這個範例所示的，要設定變數就使用 變數名稱 = 值
+這樣的語法來設定就可以了，這個部份新手可能很容易和數學裡的等號想在一起，其實是不一樣的東西，程式語言裡的等號，通常都是指把右邊的東西存放到左邊，這裡也是這樣，只要搞清礎了其實非常的簡單。</div>
+
+<h2>變數的命名</h2>
+
+<div id="node3">變數可以命名最好是有意義的，但是變數有一定的限制，以下是命名限制 :<br /><br /><ol><li>不能以數字開頭，只能以大小寫的英文字母或底線開頭，例如12day就是錯誤的變數名稱</li>
+
+<li>不能使用保留字，例如if, for, while, print等等...<br /></li>
+</ol><br />
+除此之外，還有一點值得注意的是，Python的變數大小寫是有區別的，也就是說，兩個名稱，只要有英文字母大小寫不一樣，就會被認為是不同的變數，例如
+Abc、ABC、abc分別會被當成三個不同的變數看待。<br />
+還有，還沒有建立的變數，不能使用，否則會引發錯誤，以下我們示範一些錯誤的變數使用方法。</div>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 錯誤，以數字開頭命名
+5day = 5
+
+# 錯誤，以保留字命名
+print = 'my name'
+
+# 錯誤，john_name尚未被建立就被使用
+name = john_name
+
+Abc = 123
+
+# 錯誤，雖然上面有Abc，但是與abc被視為不同變數，因此abc未被建立
+result = abc
+</pre>
+
+<p>
+最後，還有一點，就是命名的原則，雖然Python沒有規定一定要你這樣做，但是為了程式好讀易懂，所以建議變數的命名，盡量以該變數的用途做為命名，例如studentName就比abc這種意義不明的名稱來得好多了。</p>
+
+<div id="node3"><span id="content3"></span><span id="content3"></span><span id="content3"></span></div><more_text></more_text>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="161-2009-02-11-13-09-11.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/161-2009-02-11-13-09-11">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="163-2009-02-11-13-09-14.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/163-2009-02-11-13-09-14">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

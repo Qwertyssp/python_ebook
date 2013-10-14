@@ -1,0 +1,38 @@
+﻿==regex 模块==
+
+
+(已废弃) ``regex`` 模块是旧版本的(1.5 前)正则表达式模块, 用法如 [Example 14-32 #eg-14-32] 所示. 
+新代码请使用 ``re`` 模块实现. 
+
+
+注意在 Python 1.5.2 中 ``regex`` 比 ``re`` 模块要快. 
+但在新版本中 ``re`` 模块更快. 
+
+====Example 14-32. 使用 regex 模块====[eg-14-32]
+
+```
+File: regex-example-1.py
+
+import regex
+
+text = "Man's crisis of identity in the latter half of the 20th century"
+
+p = regex.compile("latter") # literal
+print p.match(text)
+print p.search(text), repr(p.group(0))
+
+p = regex.compile("[0-9]+") # number
+print p.search(text), repr(p.group(0))
+
+p = regex.compile("\<\w\w\>") # two-letter word
+print p.search(text), repr(p.group(0))
+
+p = regex.compile("\w+$") # word at the end
+print p.search(text), repr(p.group(0))
+
+*B*-1
+32 'latter'
+51 '20'
+13 'of'
+56 'century'*b*
+```

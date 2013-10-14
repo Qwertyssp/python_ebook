@@ -1,0 +1,107 @@
+﻿==msvcrt 模块==
+
+
+(只用于 Windows/DOS ) ``msvcrt`` 模块用于访问 Microsoft Visual C/C++ Runtime Library (MSVCRT) 中函数的方法.
+
+[Example 12-13 #eg-12-13] 展示了 ``getch`` 函数, 它用于从命令行读取一次按键操作. 
+
+====Example 12-13. 使用 msvcrt 模块获得按键值====[eg-12-13]
+
+```
+File: msvcrt-example-1.py
+
+import msvcrt
+
+print "press 'escape' to quit..."
+
+while 1:
+    char = msvcrt.getch()
+    if char == chr(27):
+        break
+    print char,
+    if char == chr(13):
+        print
+
+*B*press 'escape' to quit...
+h e l l o*b*
+```
+
+``kbhit`` 函数在按键时返回(这样的捕获操作不会让 ``getch`` 阻塞), 如 [Example 12-14 #eg-12-14] 所示.
+
+====Example 12-14. 使用 msvcrt 模块接受键盘输入====[eg-12-14]
+
+```
+File: msvcrt-example-2.py
+
+import msvcrt
+import time
+
+print "press SPACE to enter the serial number"
+
+while not msvcrt.kbhit() or msvcrt.getch() != " ":
+    # do something else
+    print ".",
+    time.sleep(0.1)
+
+print
+
+# clear the keyboard buffer
+# 清除键盘缓冲区
+while msvcrt.kbhit():
+    msvcrt.getch()
+
+serial = raw_input("enter your serial number: ")
+
+print "serial number is", serial
+
+*B*press SPACE to enter the serial number
+. . . . . . . . . . . . . . . . . . . . . . . .
+enter your serial number: 10
+serial number is 10*b*
+```
+
+	译注: 某翻译在这里评注道: 我能在 cmd 下运行. 用别的 IDLE 要不然卡住, 要不然接受不了键盘输入. 原因未知. 
+	这是因为 IDLE 启动两个 python 线程, 使用 socket 发送数据, 获得程序返回的.
+
+
+``locking`` 函数实现了 Windows 下的跨进程文件锁定, 如 [Example 12-15 #eg-12-15] 所示.
+
+====Example 12-15. 使用 msvcrt 模块锁定文件====[eg-12-15]
+
+```
+File: msvcrt-example-3.py
+
+import msvcrt
+import os
+
+LK_UNLCK = 0 # unlock the file region 解锁区域
+LK_LOCK = 1 # lock the file region 锁定文件区域
+LK_NBLCK = 2 # non-blocking lock 非阻塞文件锁
+LK_RLCK = 3 # lock for writing 为写入文件提供锁定
+LK_NBRLCK = 4 # non-blocking lock for writing 为写入文件提供的非阻塞锁定
+
+FILE = "counter.txt"
+
+if not os.path.exists(FILE):
+    file = open(FILE, "w")
+    file.write("0")
+    file.close()
+
+for i in range(20):
+    file = open(FILE, "r+")
+    # look from current position (0) to end of file
+    msvcrt.locking(file.fileno(), LK_LOCK, os.path.getsize(FILE))
+    counter = int(file.readline()) + 1
+    file.seek(0)
+    file.write(str(counter))
+    file.close() # unlocks the file
+    print os.getpid(), "=>", counter
+    time.sleep(0.1)
+
+*B*208 => 21
+208 => 22
+208 => 23
+208 => 24
+208 => 25
+208 => 26*b*
+```

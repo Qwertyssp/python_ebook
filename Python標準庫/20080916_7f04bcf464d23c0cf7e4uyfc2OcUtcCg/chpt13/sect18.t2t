@@ -1,0 +1,52 @@
+﻿==parser 模块==
+
+
+(可选) ``parser`` 模块提供了一个到 Python 内建语法分析器和编译器的接口.
+
+[Example 13-19 #eg-13-19] 将一个简单的表达式编译为一个抽象语法树( abstract syntax tree , AST ), 
+然后将 AST 转换为一个嵌套列表, 转储树
+( 其中每个节点包含一个语法符号或者是一个 token )中的内容, 将所有数字加上 1 , 
+最后将列表转回一个代码对象. 至少我认为它是这么做的. 
+
+====Example 13-19. 使用 parser 模块====[eg-13-19]
+
+```
+File: parser-example-1.py
+
+import parser
+import symbol, token
+
+def dump_and_modify(node):
+    name = symbol.sym_name.get(node[0])
+    if name is None:
+        name = token.tok_name.get(node[0])
+    print name,
+    for i in range(1, len(node)):
+        item = node[i]
+        if type(item) is type([]):
+            dump_and_modify(item)
+        else:
+            print repr(item)
+            if name == "NUMBER":
+                # increment all numbers!
+                node[i] = repr(int(item)+1)
+
+ast = parser.expr("1 + 3")
+
+list = ast.tolist()
+
+dump_and_modify(list)
+
+ast = parser.sequence2ast(list)
+
+print eval(parser.compileast(ast))
+
+*B*eval_input testlist test and_test not_test comparison
+expr xor_expr and_expr shift_expr arith_expr term factor
+power atom NUMBER '1'
+PLUS '+'
+term factor power atom NUMBER '3'
+NEWLINE ''
+ENDMARKER ''
+6*b*
+```

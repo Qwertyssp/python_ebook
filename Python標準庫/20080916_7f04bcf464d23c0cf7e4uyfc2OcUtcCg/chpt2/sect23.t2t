@@ -1,0 +1,183 @@
+﻿==zlib 模块==
+
+
+(可选) ``zlib`` 模块为 "zlib" 压缩提供支持. (这种压缩方法是 "deflate".) 
+
+[Example 2-43 #eg-2-43] 展示了如何使用 ``compress`` 和 ``decompress`` 函数接受字符串参数.
+
+====Example 2-43. 使用 zlib 模块压缩字符串====[eg-2-43]
+
+```
+File: zlib-example-1.py
+
+import zlib
+
+MESSAGE = "life of brian"
+
+compressed_message = zlib.compress(MESSAGE)
+decompressed_message = zlib.decompress(compressed_message)
+
+print "original:", repr(MESSAGE)
+print "compressed message:", repr(compressed_message)
+print "decompressed message:", repr(decompressed_message)
+
+*B*original: 'life of brian'
+compressed message: 'x\234\313\311LKU\310OSH*\312L\314\003\000!\010\004\302'
+decompressed message: 'life of brian'*b*
+```
+
+文件的内容决定了压缩比率, [Example 2-44 #eg-2-44] 说明了这点.
+
+====Example 2-44. 使用 zlib 模块压缩多个不同类型文件====[eg-2-44]
+
+```
+File: zlib-example-2.py
+
+import zlib
+import glob
+
+for file in glob.glob("samples/*"):
+
+    indata = open(file, "rb").read()
+    outdata = zlib.compress(indata, zlib.Z_BEST_COMPRESSION)
+
+    print file, len(indata), "=>", len(outdata),
+    print "%d%%" % (len(outdata) * 100 / len(indata))
+
+*B*samples\sample.au 1676 => 1109 66%
+samples\sample.gz 42 => 51 121%
+samples\sample.htm 186 => 135 72%
+samples\sample.ini 246 => 190 77%
+samples\sample.jpg 4762 => 4632 97%
+samples\sample.msg 450 => 275 61%
+samples\sample.sgm 430 => 321 74%
+samples\sample.tar 10240 => 125 1%
+samples\sample.tgz 155 => 159 102%
+samples\sample.txt 302 => 220 72%
+samples\sample.wav 13260 => 10992 82%*b*
+```
+
+你也可以实时地压缩或解压缩数据, 如 [Example 2-45 #eg-2-45] 所示.
+
+====Example 2-45. 使用 zlib 模块解压缩流====[eg-2-45]
+
+```
+File: zlib-example-3.py
+
+import zlib
+
+encoder = zlib.compressobj()
+
+data = encoder.compress("life")
+data = data + encoder.compress(" of ")
+data = data + encoder.compress("brian")
+data = data + encoder.flush()
+
+print repr(data)
+print repr(zlib.decompress(data))
+
+*B*'x\234\313\311LKU\310OSH*\312L\314\003\000!\010\004\302'
+'life of brian'*b*
+```
+
+[Example 2-46 #eg-2-46] 把解码对象封装到了一个类似文件对象的类中, 
+实现了一些文件对象的方法, 这样使得读取压缩文件更方便.
+
+====Example 2-46. 压缩流的仿文件访问方式====[eg-2-46]
+
+```
+File: zlib-example-4.py
+
+import zlib
+import string, StringIO
+
+class ZipInputStream:
+
+    def _ _init_ _(self, file):
+        self.file = file
+        self._ _rewind()
+
+    def _ _rewind(self):
+        self.zip = zlib.decompressobj()
+        self.pos = 0 # position in zipped stream
+        self.offset = 0 # position in unzipped stream
+        self.data = ""
+
+    def _ _fill(self, bytes):
+        if self.zip:
+            # read until we have enough bytes in the buffer
+            while not bytes or len(self.data) < bytes:
+                self.file.seek(self.pos)
+                data = self.file.read(16384)
+                if not data:
+                    self.data = self.data + self.zip.flush()
+                    self.zip = None # no more data
+                    break
+                self.pos = self.pos + len(data)
+                self.data = self.data + self.zip.decompress(data)
+
+    def seek(self, offset, whence=0):
+        if whence == 0:
+            position = offset
+        elif whence == 1:
+            position = self.offset + offset
+        else:
+            raise IOError, "Illegal argument"
+        if position < self.offset:
+            raise IOError, "Cannot seek backwards"
+
+        # skip forward, in 16k blocks
+        while position > self.offset:
+            if not self.read(min(position - self.offset, 16384)):
+                break
+
+    def tell(self):
+        return self.offset
+
+    def read(self, bytes = 0):
+        self._ _fill(bytes)
+        if bytes:
+            data = self.data[:bytes]
+            self.data = self.data[bytes:]
+        else:
+            data = self.data
+            self.data = ""
+        self.offset = self.offset + len(data)
+        return data
+
+    def readline(self):
+        # make sure we have an entire line
+        while self.zip and "\n" not in self.data:
+            self._ _fill(len(self.data) + 512)
+        i = string.find(self.data, "\n") + 1
+        if i <= 0:
+            return self.read()
+        return self.read(i)
+
+    def readlines(self):
+        lines = []
+        while 1:
+            s = self.readline()
+            if not s:
+                break
+            lines.append(s)
+        return lines
+
+#
+# try it out
+
+data = open("samples/sample.txt").read()
+data = zlib.compress(data)
+
+file = ZipInputStream(StringIO.StringIO(data))
+for line in file.readlines():
+    print line[:-1]
+
+*B*We will perhaps eventually be writing only small
+modules which are identified by name as they are
+used to build larger ones, so that devices like
+indentation, rather than delimiters, might become
+feasible for expressing local structure in the
+source language.
+    -- Donald E. Knuth, December 1974*b*
+```

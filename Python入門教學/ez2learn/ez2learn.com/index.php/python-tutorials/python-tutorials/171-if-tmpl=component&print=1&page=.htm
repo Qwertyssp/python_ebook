@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/171-if" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="if判斷句" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>if判斷句</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					if判斷句			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>程式的判斷</h2>
+<p>
+為了讓程式能夠在執行時有不同的選擇，因此程式語言通常都有判斷句的語法，讓程式在執行時可以依照給的條件不一樣，來決定到底要做哪件事情，如果用我們上次的程式執行的例子來看，判斷句以人類的語言來看就像這種句子:</p>
+<ol><li>吃早餐</li>
+
+<li><strong>如果</strong>今天下雨就帶傘並穿雨鞋</li>
+
+<li><strong>如果</strong>今天沒下雨就穿球鞋</li>
+
+<li>出門</li>
+
+<li>工作 </li>
+
+<li>回家</li>
+
+<li>睡覺<br /></li></ol><p>對於今天下雨到底要不要帶傘，就是一種判斷句，由條件來決定要做什麼事情，就是這麼簡單而已。接下來我們就來介紹Python的判斷句。</p>
+<h2>if判斷句</h2>
+<p>if在英文裡的意思是"如果"，所以其實可以很直覺的就直接想成中文裡的"如果"，Python的判斷句長得像這樣</p>
+<pre name="code" class="python:nogutter:nocontrols">if 條件:
+    成立的話要做的事情
+</pre>
+<p>它是由if開頭，隔一個以上的空白，然後接條件，再接一個冒號，然後斷行後要有固定的縮排，把要做的事情的區塊擠出來</p>
+<p>把它想成中文就變成，如果條件成立的話，就做要做的事情，就是這麼簡單，</p>
+<h2>縮排與程式區塊</h2>
+<p>大括號呢? end if呢? 你可能覺得很奇怪，如果你有學過其它語言的話，你會發現他們的if判斷句可能這這樣子:</p>
+<pre name="code" class="python:nogutter:nocontrols">if 條件 then
+    要做的事情
+end if
+</pre>
+<p>以上這個是VB的語法</p>
+<pre name="code" class="python:nogutter:nocontrols">if(條件) {
+    要做的事
+}
+</pre>
+<p>以上是C語言的語法</p>
+<p>但是Python沒有end if或end還有大括號這種東西，它是靠什麼來知道你要做的事情是哪些?</p>
+<p>
+答案就是靠縮排，這是少數靠縮排來區分"區塊"的語法，這麼做有個好處就是強迫你要縮排，程式才容易看得懂，對於已經學過其它語言的人可能會不太習慣，至於什麼是縮排，我們來介紹一下。</p>
+<p>
+所謂的縮排，就是指用一定數量的空白，將程式碼往右擠，形成整齊的巢狀結構，此一來很容易看得懂程式碼，但是在Python縮排被拿來當程判斷區塊的規則，所以你在Python不得不縮排。</p>
+<p>以下範例示範如何縮排</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# 如果1+1等於2的話
+if 1+1 == 2:
+    print u"如你所見，1+1等於2"
+    print u"在同一縮排裡"
+    print u"都被視為同樣的區塊"
+    print u"也就是條件成立時會執行的程式碼區塊"
+
+a = 10
+
+# Python沒有規定要縮排幾個空白
+# 但是一個區塊裡的縮排
+# 空白個數都要一樣
+# 以下用2個空白做縮排
+if a == 10:
+  print u"a等於10"
+  print u"在區塊裡都要一樣的縮排長度"
+
+  # 如果在區塊裡還有區塊
+  # 一樣是往右再加縮排
+  if a % 2 == 0:
+    print u"a是2的倍數"
+    print u"這一行一樣是同一個區塊"
+</pre>
+<p>
+如你範例所示，Python用縮排來區分程式的區塊，雖然Python沒有規定縮排要幾個空白，但是最好<strong>一整個檔案裡的縮排都用一定的個數，避免突然用4個，另一個地方用2個，這樣會造成混亂，這個範例是為了示範錯誤的方式所以才這樣做</strong>，否則一般都是照這樣的慣例來做。</p>
+<h2>邏輯運算</h2>
+<p>有了判斷句之後，還有一個重要的地方，就是條件，我們該怎樣表示我們想要判斷的條件?
+這時候就用上邏輯運算了，邏輯運算有好幾種，像我們剛剛在上面例子裡看到的"=="就是邏輯運算式的一種，它是用來判斷左右兩邊相不相等用的，請誤與變數的指派，也就是一個等號"="搞混了，一個等號是指把右邊的東西指定給左邊，而兩個等號是判斷左右是否相等，<strong>
+學過其它語言的人可能知道，有時可能會把兩個等號誤植為一個等號，程式不會錯誤但是跑出來的結果不對，在Python裡不允許你將一個等號放在條件判斷式裡面</strong>，因此就不會出現這種錯誤。<br /><br />
+現在介紹邏輯運算式:</p>
+<table class="grid listing"><tr><th>運算<br /></th>
+<th>說明<br /></th>
+</tr><tbody><tr><td>==</td>
+<td>相等，兩邊相等時為真</td>
+</tr><tr class="even"><td>!=</td>
+<td>不相等，兩邊不相等時為真</td>
+</tr><tr><td>&lt;</td>
+<td>小於，左邊小於右邊時為真</td>
+</tr><tr class="even"><td>
+<p>&gt;</p>
+</td>
+<td>
+<p>大於，左邊大於右邊時為真</p>
+</td>
+</tr><tr><td>&lt;=</td>
+<td>小於等於，左邊小於等於右邊時為真</td>
+</tr><tr class="even"><td>&gt;=</td>
+<td>大於等於，右邊大於等於右邊時為真</td>
+</tr><tr><td>or</td>
+<td>或，左右兩邊只要有一個為真時為真</td>
+</tr><tr class="even"><td>and</td>
+<td>且，左右兩邊都要為真時為真</td>
+</tr><tr><td>not</td>
+<td>否定，右邊為真時為假，為假時為真</td>
+</tr></tbody></table><p>
+所謂的真就是指成立的意思，假也就是不成立的意思，如果你有學過離散數學或邏輯等等，這會顯得非常簡單，而Python裡面有兩個字用來表示真和假，分別為True和False，要注意的是大小寫都要一樣。<br />
+以下我們示範用這些邏輯運算來判斷我們想的條件:</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# 我們想判斷10是否為2和5的倍數
+if 10 % 2 == 0 and 10 % 5 == 0:
+    print u"10是2和5的倍數"
+
+# 我們想判斷10是否不是2和5的倍數
+if not 10 % 2 == 0 and 10 % 5 == 0:
+    # 因為上面的式子不會成立，所以這行不會被執行
+    print u"10不是2和5的倍數"
+
+a = 10
+b = 20
+# 我們想判斷a是否小於b
+if a &lt; b:
+    print u"a小於b"
+</pre>
+<h2>else語法</h2>
+<p>
+有時候，我們除了會講，"如果怎樣怎樣"，有時候我們也會反過來想，"那沒有的話怎麼辦?"，在程式語言裡就是else，上面的例子來看，我們判斷10是否為2和
+5的倍數，同時判斷10是否不是2和5的倍數，這樣寫不是很麻煩嗎?因為如果10是2和5的倍數這句話不成立，就等於是下面那句話10不是2和5的倍數成立了，我們只要這樣想"如果
+10是2和5的倍數的話，就.....否則就..."，else就是這句話裡面的否則，不成立時程式就會跳到else的區塊裡去執行，現在讓我們改寫一下上面的範例:</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# 我們想判斷10是否為2和5的倍數
+if 10 % 2 == 0 and 10 % 2 == 0:
+    print u"10是2和5的倍數"
+else:
+    # 因為上面那句成立了，所以這句不會被執行
+    print u"10不是2和5的倍數"
+
+a = 10
+b = 20
+# 我們想判斷a是否大於b
+if a &gt; b:
+    print u"a大於b"
+# else 可以被想成中文裡的"否則"
+else:
+    # 上面不成立，因此會執行這個區塊
+    print u"a小於或等於b"
+</pre>
+<h2>elif語法</h2>
+<p>
+有些時候，我們會針對一件事情想很多對策，如果前面的不行，那就換下一條，這樣一直下去，elif在程式語言裡就是這樣的角色，在其它語言裡通常是
+else if，在Python被縮寫成elif</p>
+<p>如果 下雨 就帶雨傘</p>
+<p>不然如果 下雪 就帶雪衣</p>
+<p>再不然，如果出太陽 就戴太陽眼鏡</p>
+<p>如果都不是的話 就躲在家裡</p>
+<p>像這樣的中文用Python改寫就變成</p>
+<pre name="code" class="python:nogutter:nocontrols">if 下雨:
+    帶傘
+elif 下雪:
+    帶雪衣
+elif 出太陽:
+    戴太陽眼鏡
+else:
+    躲在家裡
+</pre>
+<p>就是這樣簡單易懂，那你可能會想，如果下雨和出太陽同時成立怎麼辦?
+答案很簡單，因為這樣的判斷，或是以人的思考角度來看，都是先從上面考慮下來的，所以上面的會優先考慮，不成立時才往下考慮，因此當上面有任何一條成立時，這一整串判斷句就不會再往下看了，它做完它該做的工作時就跳到else的區塊外面繼續往下做了，總而言之，就是從上往下判斷，一成立就執行，然後跳出去，當上面全部都沒有一個成立時才會走到else。</p>
+<p>以下範例示範else if語句:</p>
+<pre name="code" class="python:nogutter:nocontrols"># -*- coding: utf-8 -*-
+
+# 今天的溫度
+t = 4
+
+# 溫度是否小於4度
+if t &lt; 4:
+    print u"冷死了，不想出門"
+    print u"寧願躲在家裡"
+
+# 溫度是否大於4且小於15
+elif t &gt; 4 and t &lt; 15:
+    print u"有點冷"
+
+# 溫度是否等於4
+elif t == 4:
+    print u"夭壽喔，四度出去一定死的"
+
+# 其它情況
+else:
+    print u"今天溫度還算好"
+</pre>
+<p><span id="content0"><span id="content22"><span id="content25">你可以試著改變t，觀查這個判斷句每次印出來的東西。</span></span></span></p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="170-2009-02-11-13-09-29.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/170-2009-02-11-13-09-29">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="172-for.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/172-for">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

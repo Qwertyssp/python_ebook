@@ -1,0 +1,17 @@
+﻿==cPickle 模块==
+
+
+(可选, 注意大小写) cPickle 模块是针对 pickle 模块的一个更快的实现. 
+如 [Example 4-13 #eg-4-13] 所示.
+
+====Example 4-13. 使用 cPickle 模块====[eg-4-13]
+
+```
+File: cpickle-example-1.py
+
+try:
+    import cPickle
+    pickle = cPickle
+except ImportError:
+    import pickle
+```

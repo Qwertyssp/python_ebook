@@ -1,0 +1,51 @@
+﻿==grp 模块==
+
+
+(只用于 Unix) ``grp`` 模块提供了一个到 Unix 用户组/group ( /etc/group )数据库的接口. 
+``getgrgid`` 函数返回给定用户组 id 的相关数据(参见 [Example 12-4 #eg-12-4] ), 
+``getgrnam`` 返回给定用户组名称的相关数据.
+
+====Example 12-4. 使用 grp 模块====[eg-12-4]
+
+```
+File: grp-example-1.py
+
+import grp
+import os
+
+print grp.getgrgid(os.getgid())
+print grp.getgrnam("wheel")
+
+*B*('effbot', '', 4711, ['effbot'])
+('wheel', '', 10, ['root', 'effbot', 'gorbot', 'timbot'])*b*
+```
+
+``getgrall`` 函数返回包含所有可用用户组数据库入口的列表.
+
+如果需要执行很多用户组查询, 你可以使用 ``getgrall`` 来把当前所有的用户组复制到一个字典里, 
+这可以节省一些时间. [Example 12-5 #eg-12-5] 中的 ``groupinfo`` 函数返回一个用户组 id ( int )或是
+一个用户组名称( str )的信息.
+
+====Example 12-5. 使用 grp 模块缓存用户组信息====[eg-12-5]
+
+```
+File: grp-example-2.py
+
+import grp
+import os
+
+# preload password dictionary
+_grp = {}
+for info in grp.getgrall():
+    _grp[info[0]] = _grp[info[2]] = info
+
+def groupinfo(gid):
+    # name or gid integer
+    return _grp[gid]
+
+print groupinfo(os.getgid())
+print groupinfo("wheel")
+
+*B*('effbot', '', 4711, ['effbot'])
+('wheel', '', 10, ['root', 'effbot', 'gorbot', 'timbot'])*b*
+```

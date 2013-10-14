@@ -1,0 +1,52 @@
+﻿==locale 模块==
+
+
+``locale`` 模块提供了 C 本地化( localization )函数的接口, 如 [Example 8-1 #eg-8-1] 所示. 
+同时提供相关函数, 实现基于当前 locale 设置的数字, 字符串转换. (而 ``int`` , ``float`` , 以及 ``string`` 
+模块中的相关转换函数不受 locale 设置的影响.)
+
+====Example 8-1. 使用 locale 模块格式化数据=====[eg-8-1]
+
+```
+File: locale-example-1.py
+
+import locale
+
+print "locale", "=>", locale.setlocale(locale.LC_ALL, "")
+
+# integer formatting
+value = 4711
+print locale.format("%d", value, 1), "==",
+print locale.atoi(locale.format("%d", value, 1))
+
+# floating point
+value = 47.11
+print locale.format("%f", value, 1), "==",
+print locale.atof(locale.format("%f", value, 1))
+
+info = locale.localeconv()
+print info["int_curr_symbol"]
+
+*B*locale => Swedish_Sweden.1252
+4,711 == 4711
+47,110000 == 47.11
+SEK*b*
+```
+
+[Example 8-2 #eg-8-2] 展示了如何使用 ``locale`` 模块获得当前平台 locale 设置.
+
+====Example 8-2. 使用 locale 模块获得当前平台 locale 设置====[eg-8-2]
+
+```
+File: locale-example-2.py
+
+import locale
+
+language, encoding = locale.getdefaultlocale()
+
+print "language", language
+print "encoding", encoding
+
+*B*language sv_SE
+encoding cp1252*b*
+```

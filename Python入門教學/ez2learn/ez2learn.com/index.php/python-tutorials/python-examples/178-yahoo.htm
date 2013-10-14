@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" >
+<head>
+  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="Python, ç¨‹å¼è¨­è¨ˆ, æ•™å­¸, ç¨‹å¼è¨­è¨ˆæ•™å­¸, cèªè¨€, C++, c++èªè¨€, TurboGears, Twisted" />
+  <meta name="title" content="Yahoo!å¥‡æ‘©ä»Šæ—¥å¤©æ°£æˆªå–" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victorçš„ æ˜“è¨˜å­¸ ç¨‹å¼è¨­è¨ˆæ•™å­¸ï¼ŒåŒ…å«Pythonã€C/C++èªè¨€ã€TurboGearsç­‰æ•™å­¸ï¼Œä»¥åŠä»¥æ‰¿æ¥Pythonç‚ºä¸»çš„ç¨‹å¼è¨­è¨ˆå¤–åŒ…" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Yahoo!å¥‡æ‘©ä»Šæ—¥å¤©æ°£æˆªå–</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+<link rel="stylesheet" href="../../../templates/system/css/system.css" tppabs="http://ez2learn.com/templates/system/css/system.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/system/css/general.css" tppabs="http://ez2learn.com/templates/system/css/general.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+<link rel="stylesheet" href="../../../templates/themza_j15_11/css/green.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/green.css" type="text/css" />
+<!--[if lte IE 6]>
+<link href="../../../templates/themza_j15_11/css/ieonly.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/ieonly.css"  rel="stylesheet" type="text/css" />
+<![endif]-->
+</head>
+<body id="page_bg">
+<a name="up" id="up"></a>
+<div id="main_bg" class="main_bg_center">
+	<div id="logo_bg"><img src="../../../templates/themza_j15_11/images/green/logo.png" tppabs="http://ez2learn.com/templates/themza_j15_11/images/green/logo.png" alt="logo" align="left" hspace="5" />        <a href="javascript:if(confirm('http://ez2learn.com/index.php  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php'" tppabs="http://ez2learn.com/index.php" class="logo">Victor æ˜“è¨˜å­¸ ç¨‹å¼è¨­è¨ˆæ•™å­¸</a>
+        <div id="user4"><form action="http://ez2learn.com/index.php/python-tutorials/python-examples/index.php" method="post">
+	<div class="search">
+		<input name="searchword" id="mod_search_searchword" maxlength="20" alt="æœå°‹" class="inputbox" type="text" size="20" value="æœå°‹..."  onblur="if(this.value=='') this.value='æœå°‹...';" onfocus="if(this.value=='æœå°‹...') this.value='';" />	</div>
+	<input type="hidden" name="task"   value="search" />
+	<input type="hidden" name="option" value="com_search" />
+</form></div>
+        <br clear="all" />
+    </div>
+    <div id="user3"><div id="pillmenu"><ul id="mainlevel-nav"><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/home  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/home'" tppabs="http://ez2learn.com/index.php/home" class="mainlevel-nav" >é¦–é </a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/news  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/news'" tppabs="http://ez2learn.com/index.php/news" class="mainlevel-nav" >æœ€æ–°æ¶ˆæ¯</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/faqs  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/faqs'" tppabs="http://ez2learn.com/index.php/faqs" class="mainlevel-nav" >å¸¸è¦‹å•é¡Œ</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/resources  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/resources'" tppabs="http://ez2learn.com/index.php/resources" class="mainlevel-nav" >å¥½ç«™é€£çµ</a></li><li><a href="javascript:if(confirm('http://phorum.study-area.org/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://phorum.study-area.org/'" tppabs="http://phorum.study-area.org/" class="mainlevel-nav" >é…·å­¸åœ’è¨è«–å€</a></li><li><a href="javascript:if(confirm('http://ez2learn.com/index.php/contact-us  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/contact-us'" tppabs="http://ez2learn.com/index.php/contact-us" class="mainlevel-nav" >è¯çµ¡æˆ‘å€‘</a></li></ul></div><div id="date">Thursday 11th of February 2010</div></div>
+		<div id="leftcolumn">
+            		<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>ç¨‹å¼è¨­è¨ˆæ•™å­¸</h3>
+											<ul class="menu"><li class="parent active item56"><a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials"><span>Pythonæ•™å­¸</span></a><ul><li class="item62"><a href="../python-basic-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials"><span>PythonåŸºç¤æ•™å­¸</span></a></li><li class="item63"><a href="../python-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials"><span>Pythonå…¥é–€æ•™å­¸</span></a></li><li class="item64"><a href="../advance-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/advance-tutorials"><span>Pythoné€²éšæ•™å­¸</span></a></li><li id="current" class="active item65"><a href="../python-examples.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples"><span>Pythonç¨‹å¼ç¯„ä¾‹</span></a></li><li class="item67"><a href="../twisted-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials"><span>Twistedæ•™å­¸</span></a></li><li class="item66"><a href="../turbogears-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/turbogears-tutorials"><span>TurboGearsæ•™å­¸</span></a></li><li class="item68"><a href="../eclipse-pydev-tutorials.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/eclipse-pydev-tutorials"><span>Eclipse çš„ Pydev IDEæ•™å­¸</span></a></li></ul></li><li class="parent item58"><a href="javascript:if(confirm('http://ez2learn.com/index.php/c-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/c-tutorials'" tppabs="http://ez2learn.com/index.php/c-tutorials"><span>Cèªè¨€æ•™å­¸</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_menu">
+			<div>
+				<div>
+					<div>
+													<h3>ç›¸é—œç¶²ç«™</h3>
+											<ul class="menu"><li class="item54"><a href="javascript:if(confirm('http://blog.ez2learn.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://blog.ez2learn.com/'" tppabs="http://blog.ez2learn.com/"><span>Victor's ç¨‹å¼è¨­è¨ˆé‡ä¸Šå°æç´ å€‹äººéƒ¨è½æ ¼</span></a></li><li class="item76"><a href="javascript:if(confirm('http://walele.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://walele.com/'" tppabs="http://walele.com/"><span>Waleleå‰µæ„æŠ•ç¥¨ç³»çµ±</span></a></li></ul>					</div>
+				</div>
+			</div>
+		</div>
+			<div class="module_text">
+			<div>
+				<div>
+					<div>
+													<h3>å»£å‘Š</h3>
+											<div class="bannergroup_text">
+
+	<div class="bannerheader">å»£å‘Šè´ŠåŠ©å•†</div>
+
+	<div class="bannerfooter_text">
+		 <script type="text/javascript"><!--
+google_ad_client = "pub-2676784508728825";
+/* 120x600, å·²å»ºç«‹ 2008/9/11 */
+google_ad_slot = "8822539468";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="../../../../pagead2.googlesyndication.com/pagead/show_ads.js" tppabs="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>	</div>
+</div>					</div>
+				</div>
+			</div>
+		</div>
+	
+        <br />
+        <div align="center"></div>
+    </div>
+    	<div id="maincolumn_middle" class="maincolumn_white">
+    	<div class="path"><span class="breadcrumbs pathway">
+<a href="javascript:if(confirm('http://ez2learn.com/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/'" tppabs="http://ez2learn.com/" class="pathway">é¦–é </a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="javascript:if(confirm('http://ez2learn.com/index.php/python-tutorials  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/python-tutorials'" tppabs="http://ez2learn.com/index.php/python-tutorials" class="pathway">Pythonæ•™å­¸</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> <a href="../python-examples.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples" class="pathway">Pythonç¨‹å¼ç¯„ä¾‹</a> <img src="../../../images/M_images/arrow.png" tppabs="http://ez2learn.com/images/M_images/arrow.png" alt=""  /> Yahoo!å¥‡æ‘©ä»Šæ—¥å¤©æ°£æˆªå–</span>
+</div>
+    	<div class="nopad"><table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					Yahoo!å¥‡æ‘©ä»Šæ—¥å¤©æ°£æˆªå–			</td>
+						<td align="right" width="100%" class="buttonheading">
+		<a href="178-yahoo-format=pdf.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo?format=pdf" title="PDF" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/pdf_button.png" tppabs="http://ez2learn.com/images/M_images/pdf_button.png" alt="PDF"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="178-yahoo-tmpl=component&print=1&page=.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo?tmpl=component&print=1&page=" title="åˆ—å°" onclick="window.open(this.href,'win2','status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=no'); return false;" rel="nofollow"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="åˆ—å°"  /></a>		</td>
+		
+				<td align="right" width="100%" class="buttonheading">
+		<a href="javascript:if(confirm('http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tZXhhbXBsZXMvMTc4LXlhaG9v  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tZXhhbXBsZXMvMTc4LXlhaG9v'" tppabs="http://ez2learn.com/index.php/component/mailto/?tmpl=component&link=aHR0cDovL2V6MmxlYXJuLmNvbS9pbmRleC5waHAvcHl0aG9uLXR1dG9yaWFscy9weXRob24tZXhhbXBsZXMvMTc4LXlhaG9v" title="E-mail" onclick="window.open(this.href,'win2','width=400,height=350,menubar=yes,resizable=yes'); return false;"><img src="../../../images/M_images/emailButton.png" tppabs="http://ez2learn.com/images/M_images/emailButton.png" alt="E-mail"  /></a>		</td>
+					</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			ä½œè€…æ˜¯ Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		é€±ä¸‰, 11 äºŒæœˆ 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>Yahoo!å¥‡æ‘©ä»Šæ—¥å¤©æ°£æˆªå–<br /></h2>
+
+<p>é€™å€‹ç¨‹å¼ç¤ºç¯„å¦‚ä½•ç”¨Pythonå¾<a class="external-link" href="javascript:if(confirm('http://tw.weather.yahoo.com/today.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://tw.weather.yahoo.com/today.html'" tppabs="http://tw.weather.yahoo.com/today.html">Yahoo!å¥‡æ‘©çš„å¤©æ°£</a>ç¶²é è£¡æŠ“å‡ºä»Šæ—¥å°ä¸­çš„å¤©æ°£ï¼Œä½ æœƒç™¼ç¾å±…ç„¶æ˜¯é€™éº¼çš„ç°¡å–®ï¼Œå°æ–¼Pythonè€Œè¨€é€™ç®—æ˜¯å®¶å¸¸ä¾¿é£¯ï¼ŒPythonå…‰æ˜¯å…§å»ºçš„æ¨™æº–å‡½å¼åº«å°±èƒ½è®“ä½ åšä¸€å †å¸¸è¦‹çš„å·¥ä½œï¼ŒæŠ“ç¶²é ä¹ŸåŒ…æ‹¬åœ¨è£¡é¢ï¼Œç”šè‡³ç¶²é Parserå…‰æ˜¯æ¨™æº–çš„å°±æœ‰å¥½å¹¾ç¨®è®“ä½ é¸ï¼Œç•¶ç„¶å—åˆ°å»£ç¯„ä½¿ç”¨çš„æ­£è¦è¡¨ç¤ºæ³•ç†æ‰€ç•¶ç„¶ä¹Ÿæœ‰æä¾›ï¼Œä½†æ˜¯å› ç‚ºå³ç„¶Parseréƒ½å¹«ä½ å¯«å¥½äº†ï¼Œæ‰€ä»¥å°±æ²’æœ‰ä½¿ç”¨æ­£è¦è¡¨ç¤ºæ³•çš„å¿…è¦ã€‚</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import urllib
+
+# æŠ“å–Yahoo!å¥‡æ‘©å¤©æ°£çš„ç¶²é å…§å®¹æ”¾åˆ°WebContent
+weatherWeb = urllib.urlopen("http://tw.weather.yahoo.com/today.html")
+webContent = weatherWeb.read().decode('utf_8')
+weatherWeb.close()
+
+import HTMLParser
+
+# ç”¨ä¾†è§£æå°ä¸­åœ°å€å¤©æ°£è³‡è¨Šçš„è§£æå™¨ï¼Œç¹¼æ‰¿è‡ªHTMLParser
+class WeaterHTMLParser(HTMLParser.HTMLParser):
+    
+    def handle_data(self, data):
+        """è™•ç†æ¨™ç±¤ä»¥å¤–çš„è³‡æ–™ï¼Œä¹Ÿå°±æ˜¯ç¶²é ä¸­çš„æ–‡å­—"""
+
+        data = data.strip()
+
+        # å¦‚æœå°ä¸­åœ°å€å·²å‡ºç¾éï¼Œå°±è¨˜éŒ„å¤©æ°£è³‡è¨Š
+        if hasattr(self, 'found') and data:
+            # åˆ°äº†å½°åŒ–åœ°å€ï¼Œä¸­æ­¢è§£æ
+            if data == u'å½°åŒ–åœ°å€':
+                self.stop = True
+                return
+            self.weather.append(data)
+
+        # å‡ºç¾å°ä¸­åœ°å€
+        # è¨­å®šæ——æ¨™ä»¥é€šçŸ¥å¾Œé¢å¹¾æ¬¡å‘¼å«è¨˜ä¸‹è³‡è¨Š
+        if data == u'å°ä¸­åœ°å€':
+            self.found = True
+            self.weather = []
+            self.weather.append(data)
+
+    def unknown_decl(self, data):
+        """Override unknown handle method to avoid exception"""
+        pass
+
+Parser = WeaterHTMLParser()
+
+try:
+    # å°‡ç¶²é å…§å®¹æ‹†æˆä¸€è¡Œä¸€è¡Œé¤µçµ¦Parser
+    for line in webContent.splitlines():
+        # å¦‚æœå‡ºç¾åœæ­¢æ——æ¨™ï¼Œåœæ­¢é¤µé£Ÿè³‡æ–™ï¼Œä¸¦ä¸”è·³å‡ºè¿´åœˆ
+        if hasattr(Parser, 'stop') and Parser.stop:
+            break
+        Parser.feed(line)
+except HTMLParser.HTMLParseError, data:
+    print "# Parser error : " + data.msg
+
+Parser.close()
+
+print u"%s çš„ä»Šå¤©æ°£æ˜¯ %sï¼Œæ°£æº«æ˜¯ %såº¦%sï¼Œé™é›¨æ©Ÿç‡æ˜¯ %s" % tuple(Parser.weather)
+print "Press enter to continue."
+raw_input()
+</pre>
+
+<p>
+é¦–å…ˆä»‹ç´¹urllibé€™å€‹moduleï¼Œæ˜¯çš„ï¼Œä¸€èˆ¬æŠ“å–ç¶²é çš„å·¥ä½œï¼Œå°æ–¼urllibä¾†èªªçœŸçš„æ˜¯å†ç°¡å–®ä¹Ÿä¸éäº†ï¼Œä¸€å€‹urlopenå‡½æ•¸é–‹å•ŸæŸå€‹ç¶²å€ï¼Œç„¶å¾Œå°‡å‚³å›çš„ç‰©ä»¶å‘¼å«å®ƒçš„readå‡½æ•¸ï¼Œå–å‡ºæ‰€æœ‰ç¶²é çš„å…§å®¹ï¼Œæœ€å¾Œé—œé–‰ï¼ŒåŸæœ¬å¯èƒ½æœƒå¾ˆè¤‡é›œçš„å·¥ä½œå…¨éƒ¨éƒ½å·²ç¶“è¢«åŒ…å¥½äº†ï¼Œç•¶ç„¶ï¼Œä½ å¯èƒ½æœƒè¦ºå¾—ï¼Œé€™æ¨£æŠ“ç¶²é çš„åŠŸèƒ½å¤ªéé™½æ˜¥ï¼Œå¦‚æœä½ æƒ³é€è¡¨å–®ã€æ”¹è®Šheaderæ€éº¼è¾¦?
+Pythonéƒ½å¹«ä½ æƒ³å¥½äº†ï¼Œæœ‰urllib2ï¼Œæ¯”urllibæ›´å¼·å¤§çš„ç¶²é æŠ“å–å‡½å¼åº«å¯ä»¥ä½¿ç”¨ã€‚</p>
+
+<p><br />
+æ¥ä¸‹ä¾†ä»‹ç´¹HTMLParserï¼Œå°±å¦‚å­—é¢ä¸Šçš„æ„æ€ä¸€æ¨£ï¼Œæ˜¯HTMLçš„è§£æå™¨ï¼Œä¸æ˜¯åš´è¬¹åœ°å»è§£æç¶²é ï¼Œå®ƒå¯ä»¥è™•ç†åƒä¸å°ç¨±çš„HTMLèªæ³•ç­‰ç­‰ï¼Œå°æ–¼ç¶²è·¯ä¸Šå„ç¨®åƒå¥‡ç™¾æ€ªå‡ºéŒ¯çš„ç¶²é ä¾†èªªï¼Œç•¶ç„¶æ˜¯é¸æ“‡å¯ä»¥å®¹éŒ¯çš„
+Parseræ¯”è¼ƒå¥½ï¼Œå¦‚æœæ˜¯è§£æåš´è¬¹çš„XMLæˆ–XHTMLå°±å¯ä»¥è€ƒæ…®ç”¨å…¶å®ƒåš´è¬¹çš„Parserï¼Œå¦å‰‡ç”¨é€™å€‹å°±ç›¸ç•¶å¥½ç”¨äº†ã€‚</p>
+
+<p><br />
+å®ƒçš„é‹ä½œæ–¹å¼æ˜¯é€™æ¨£ï¼Œä½¿ç”¨è€…è¦†è¼‰(override)ä¸€ç³»åˆ—çš„handle_xxxå‡½æ•¸ï¼Œä¾‹å¦‚handle_dataå°±æ˜¯è² è²¬è™•ç†éHTMLæ¨™ç±¤ï¼Œä¹Ÿå°±æ˜¯ä¸åœ¨&lt;&gt;çš„é‚£äº›å­—ç”¨çš„æ–¹æ³•ï¼Œç•¶å®ƒåˆ†æåˆ°é€™æ¨£çš„è³‡æ–™å°±æœƒå‘¼å«handle_dataï¼Œæ‰€ä»¥è¦†è¼‰äº†é€™å€‹å‡½æ•¸å°±å¯ä»¥è™•ç†é€™äº›è³‡æ–™ï¼Œå¦‚æœä½ å¸Œæœ›å¯ä»¥è™•ç†HTMLæ¨™ç±¤ï¼Œä½ ä¹Ÿå¯ä»¥è¦†è¼‰handle_startagç­‰ç­‰æ–¹æ³•ï¼Œç›¸ç•¶å®¹æ˜“ä½¿ç”¨ï¼Œåœ¨é€™å€‹ä¾‹å­è£¡é¢æˆ‘å€‘åªå°å¤©æ°£çš„è³‡è¨Šæœ‰èˆˆè¶£ï¼Œå› ç‚ºå¤©æ°£è³‡è¨Šä¸åœ¨æ¨™ç±¤è£¡ï¼Œè€Œæ˜¯åœ¨å¤–é¢çš„å­—ï¼Œæ‰€ä»¥æˆ‘å€‘åªä½¿ç”¨handle_dataä¾†æŠ“è³‡æ–™ã€‚</p>
+
+<p><br />
+å®ƒçš„æµç¨‹å¾ˆç°¡å–®ï¼Œå°±æ˜¯ç™¼ç¾å°ä¸­åœ°å€çš„å­—æ¨£ä¹‹å¾Œï¼Œå°±ç‰©ä»¶è‡ªå·±æœ¬èº«ä¸€å€‹foundçš„å±¬æ€§ï¼Œç„¶å¾Œè¨­ç‚ºTrueï¼Œè®“æ¥ä¸‹ä¾†å¹¾æ¬¡é‡åˆ°dataè¢«å‘¼å«è¦è™•ç†æ™‚ï¼Œå°±èƒ½çŸ¥é“å°ä¸­åœ°å€å·²ç¶“å‡ºç¾éäº†ï¼Œå°±å¯ä»¥é–‹å§‹è¨˜ä¸‹å¤©æ°£è³‡è¨Šï¼Œè€Œå½°åŒ–åœ°å€çš„åˆ¤æ–·ï¼Œæ˜¯ç•¶é‡åˆ°å½°åŒ–åœ°å€å°±è¡¨ç¤ºè¶…éäº†æˆ‘å€‘æƒ³è¦çš„è³‡è¨Šç¯„åœï¼Œç‚ºäº†çœä¸€é»æ™‚é–“ï¼Œå°±è®“æ¥ä¸‹ä¾†çš„ç¶²é ä¸è¦å†åˆ†æäº†ï¼Œæ–¼æ˜¯è¨­å®šäº†stopçš„å±¬æ€§ï¼Œå‘Šè¨´å¤–é¢çš„è¿´åœˆå¯ä»¥åœæ­¢äº†ã€‚<br />
+å°±æ˜¯é€™éº¼ç°¡å–®ï¼Œä¸€å€‹æŠ“å–å¤©æ°£ç¶²é çš„ç¨‹å¼å°±å®Œæˆäº†ã€‚</p>
+
+<p>ç‚ºäº†è®“å¤§å®¶äº†è§£HTMLParserçš„é‹ä½œæ–¹å¼ï¼Œæˆ‘ç‰¹æ„æ”¹äº†åŸæœ¬ç¨‹å¼ï¼Œç”¨ä¾†ç¤ºç¯„HTMLParserçš„é‹ä½œæ–¹å¼:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import urllib
+
+# æŠ“å–Yahoo!å¥‡æ‘©å¤©æ°£çš„ç¶²é å…§å®¹æ”¾åˆ°WebContent
+weatherWeb = urllib.urlopen("http://tw.weather.yahoo.com/today.html")
+webContent = weatherWeb.read().decode('utf_8')
+weatherWeb.close()
+
+import HTMLParser
+
+# ç”¨ä¾†è§£æå°ä¸­åœ°å€å¤©æ°£è³‡è¨Šçš„è§£æå™¨ï¼Œç¹¼æ‰¿è‡ªHTMLParser
+class WeaterHTMLParser(HTMLParser.HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print u'æ¨™ç±¤ %s %s é–‹å§‹' % (tag, attrs)
+
+    def handle_startendtag(self, tag, attrs):
+        print u'ç©ºæ¨™ç±¤ %s %s' % (tag, attrs)
+
+    def handle_endtag(self, tag):
+        print u'æ¨™ç±¤ %s çµæŸ' % tag
+
+    def handle_data(self, data):
+        print u'è³‡æ–™ "%s"' % data
+
+    def handle_comment(self, data):
+        print u'è¨»è§£ "%s"' % data
+
+    def unknown_decl(self, data):
+        """Override unknown handle method to avoid exception"""
+        pass
+
+Parser = WeaterHTMLParser()
+
+try:
+    # å°‡ç¶²é å…§å®¹æ‹†æˆä¸€è¡Œä¸€è¡Œé¤µçµ¦Parser
+    for line in webContent.splitlines():
+        # å¦‚æœå‡ºç¾åœæ­¢æ——æ¨™ï¼Œåœæ­¢é¤µé£Ÿè³‡æ–™ï¼Œä¸¦ä¸”è·³å‡ºè¿´åœˆ
+        if hasattr(Parser, 'stop') and Parser.stop:
+            break
+        Parser.feed(line)
+except HTMLParser.HTMLParseError, data:
+    print "# Parser error : " + data.msg
+
+Parser.close()
+
+print "Press enter to continue."
+raw_input()
+</pre>
+
+<p><span class="visualHighlight">æ³¨æ„äº‹é … :
+æ­¤ç¨‹å¼æª”å¿…é ˆç”¨utf-8å„²å­˜ï¼Œå¦‚æœæ˜¯ç”¨Pythonå…§å»ºçš„IDLEæœƒè‡ªå‹•åˆ¤æ–·ç¬¬ä¸€è¡Œï¼Œä½†æ˜¯å¦‚æœä½¿ç”¨è¨ˆäº‹æœ¬ç­‰è»Ÿé«”å„²å­˜ï¼Œå°±å¿…é ˆé¸æ“‡utf-8</span></p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="177-python.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/177-python">&lt; å‰ä¸€å€‹</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="179-2009-02-11-13-09-43.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/179-2009-02-11-13-09-43">ä¸‹ä¸€å€‹ &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+</div>
+    </div>
+	<div id="rightcolumn">
+        </div>
+
+		
+    <br clear="all" />
+
+
+<p id="power_by" align="center">
+	æ ¸å¿ƒæ˜¯ <a href="javascript:if(confirm('http://www.joomla.org/  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.joomla.org/'" tppabs="http://www.joomla.org/">Joomla!</a>.
+    Designed by: <a href="javascript:if(confirm('http://www.themza.com/joomla1.5/computer-society-template.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.themza.com/joomla1.5/computer-society-template.html'" tppabs="http://www.themza.com/joomla1.5/computer-society-template.html" target="_blank" title="Computer Society template">Free Joomla Theme</a>, <a href="javascript:if(confirm('http://www.ntchosting.com/domains/whois-id-protection.html  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://www.ntchosting.com/domains/whois-id-protection.html'" tppabs="http://www.ntchosting.com/domains/whois-id-protection.html" target="_blank" title="protect the whois information of your domains">whois protect</a>.&nbsp;Valid <a href="javascript:if(confirm('http://validator.w3.org/check/referer  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://validator.w3.org/check/referer'" tppabs="http://validator.w3.org/check/referer">XHTML</a> and <a href="javascript:if(confirm('http://jigsaw.w3.org/css-validator/check/referer  \n\n¸ÓÀÉ®×¥¼³Q Teleport Pro ¤U¸ü¡A¦]¬° ¥¦¦ì©ó¶}©l¦ì§}¥H³]©wªºÃä¬É¥H¥~ªº°ì©Î¸ô®|¤¤¡C  \n\n§A·Q­n±q¦øªA¾¹¶}±Ò¥¦¶Ü?'))window.location='http://jigsaw.w3.org/css-validator/check/referer'" tppabs="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>.
+</p>
+
+
+
+</div>
+
+<!-- Google Analysis begin -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www./");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-390311-6");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!-- Google Analysis end -->
+
+</body>
+</html>

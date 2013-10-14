@@ -1,0 +1,10 @@
+﻿==概览==
+
+
+Python 提供了一些用于处理图片和音频文件的模块.
+
+
+另请参阅 //Pythonware Image Library// ( PIL , http://www.pythonware.com/products/pil/ ),
+以及 //PythonWare Sound Toolkit// (PST , http://www.pythonware.com/products/pst/ ).
+
+译注: 别参阅 PST 了, 废了, 用 ``pymedia`` 代替吧.

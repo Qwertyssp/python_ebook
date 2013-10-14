@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-tutorials/172-for" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="for迴圈" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>for迴圈</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					for迴圈			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>重覆的工作</h2>
+
+<p>重覆的工作令人討厭，想像一下有某個List，你想將裡面的東西都印出來，從目前你學到的方法你只能怎麼做?</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print s[0]
+print s[1]
+print s[2]
+print s[3]
+....
+</pre>
+
+<p>這很讓人討厭不是嗎? 如果這個List的元素只有100個，也許你打字每分鐘200個字，這對你來說根本不算什麼，但是如果1000個呢?
+如果有100000個呢?
+再者這樣的寫法是固定的，一點彈性都沒有，你寫1000行這樣的程式，就只能處理有1000個元素的List，而人類不善長重覆的工作，但重覆的工作正是電腦的專長，至於在Python裡要怎麼做，我們在此介紹Python的for語法。</p>
+
+<h2>for迴圈</h2>
+
+<p>
+就和其它程式語言很像，Python也有for迴圈，只是Python的for迴圈，與其說它像其它程式語言的for迴圈，不如說它像foreach這類的迴圈，它的作用是將某個容器的所有元素拿出來重覆執行同樣的工作，它的語法如下</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+for 變數名稱 in 容器:
+    執行的程式片段
+</pre>
+
+<p>舉個例子，某個List有'a'、'b'、'c'三個元素，如果這樣寫的話</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+for x in myList:
+    print x
+</pre>
+
+<p>上面的程式片段就會從myList依序取出'a'、'b'、'c'，然後指定給x變數，接著執行for下面的程式區塊，在這裡就等於是print
+x，於是就會依順序印出'a'、'b'、'c'的字樣，而用我們上面介紹的笨方法寫，會是像這樣</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print myList[0]
+print myList[1]
+print myList[2]
+</pre>
+
+<p>
+一個只能固定印出三個，而且重覆的類似程式碼要寫三行，另一個是不管有多少個，都會忠實地一一取出元素然後代入並執行下面的程式片段，當然正常的寫法都是會選擇使用for，這就是為什麼有for這樣的語法存在的原因。</p>
+
+<p>程式區塊的部份，我們之前已經在判段式裡已經教過，規則是一樣的，請參考該文章。</p>
+
+<p>
+而我們在這裡寫的是"容器"，而不是"序列"，或是什麼特定的物件種類，這表示只要符合一定條件的物件都可以這樣寫，目前已教過已知的串列、字典、元組都可以如此使用，比較特別的是字典取得的會是"鍵"，而有了鍵就可以存取對應值，以下程式我們示範如何使用for迴圈。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 建立List
+myList = [5, 5, 6, 6, 7, 7, 8, 8]
+
+# 建立Dictionary
+myDictionary = {'Tom': 10, 'John': 21, 'Sam Fisher': 41}
+
+# 建立Tuple
+myTuple = ('What are you doing Fisher!?', 'Get out there!', 'The mission is over')
+
+# 存放myList數字總合用的變數
+sum = 0
+
+# 用for迴圈每次取出一個元素後做加總
+for x in myList:
+    # 將sum的目前值加上x
+    sum += x
+    # 印出目前sum的值
+    print sum
+
+# 印出myList的總合
+print 'Sum of myList is :', sum
+
+# 印出myDictionary的每個人名以及對應的年齡
+for key in myDictionary:
+    print "%s's age is : %d" % (key, myDictionary[key])
+
+# 印出所有在myTuple裡的句子
+for line in myTuple:
+    print line
+</pre>
+
+<h2>for迴圈的計數器</h2>
+
+<p>如果你有學過C/C++之類的，你會看到類似這樣的for迴圈:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+for(int i = 0; i &lt; 10; ++i) {
+    // do something
+}
+</pre>
+
+<p>
+由每次數字改變，和判斷式，來決定迴圈是否繼續執行，很抱歉Python並沒有這樣的東西，並不是Python功能不齊全，而是Python提供了一個更好、更易懂的方式來達成這樣的目的，那就是這個函數:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+range([起始,] 終止[, 步進])
+</pre>
+
+<p>這個函數會回傳一個數列的List，假設我們想要迴圈跑100次，就可以這樣寫</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+for x in range(100):
+    print x
+</pre>
+
+<p>如此一來就會從0開始，一直印到99，因為range(100)會回傳一個[0, 1, 2, 3, .....,
+99]的List，這樣一來比起之前那種語法來得易懂和易寫得多了，然而你可能會想自訂起始數字，一般而言起始數字不寫預設是0，而終止的數字意思是到那個數字的前一個數字終止，換言之就是不包含終止的那個數字，而步進是每次加多少，預設是加1，你也可以改變這個來達成跳兩個數字等等你想要的方式，這個函數的整體概念和"切片"是很像的。</p>
+
+<p>以下我們示範如何使用for迴圈加上range()此函數來配合。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 1到100的總合變數
+sum = 0
+
+# x從1到100
+for x in range(1, 101):
+    sum += x
+
+# 印出數字加總的總合
+print '1 + 2 + 3 + ... + 100 =', sum
+
+# 建立List  
+myList = [5, 5, 6, 6, 7, 7, 8, 8]
+
+# 我們一樣也可以使用索引的方式來存取List之類的物件
+# 從0到len(myList)
+for i in range(len(myList)):
+    # print後留一個 , 表示不要換行
+    print myList[i],
+
+# 換行
+print
+
+# 印出0 2 4 6 8 
+for i in range(0, 10, 2):
+    print i,
+
+# 換行
+print
+
+# 印出10 8 6 4 2
+for i in range(10, 0, -2):
+    print i,
+
+# 換行
+print
+</pre>
+
+<h2>多重for迴圈</h2>
+
+<p>
+ Python從來沒規定你for迴圈裡的程式片段能寫什麼，只要是合語法規則的程式片段都能寫，因此你想在for迴圈裡加上一個for迴圈，加上兩個if，都沒問題，以下我們示範用for迴圈寫一個經典的九九乘法表。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 乘法的第一個數字
+for i in range(1, 10):
+
+    # 乘法的第二個數字
+    for j in range(1, 10):
+        print "%d * %d = %d" % (i, j, i*j)
+
+    # 斷行
+    print
+</pre>
+
+<p>第一圈負責改變前面的第一個數字，詳細運作的解釋如下:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+外圈第一次 i = 1，進入遇到了裡面的for，於是就在i = 1，而j分別從1到9的情況下印出了第一個區塊，然後印出一個斷行
+來到外圈第二次 i = 2，進入遇到了裡面的for，i = 2，而j還是一樣從1到9印出了第二個區塊，再印一個斷行
+來到了外圈第三次 i = 3，進入遇到了裡面的for，i = 3，而j還是一樣從1到9印出了第二個區塊，再印一個斷行
+</pre>
+
+<p>以此類推<br />
+整個迴圈就這樣跑完了，如果覺得混亂，可以一次只看這圈到底跑了幾次，再看裡面是在做哪"一件事"，把程式碼的片段想成"一件事"來看，就會容易許多</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="171-if.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/171-if">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="173-while.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-tutorials/173-while">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

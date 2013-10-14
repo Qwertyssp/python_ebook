@@ -1,0 +1,24 @@
+﻿==sha 模块==
+
+
+``sha`` 模块提供了计算信息摘要(密文)的另种方法, 如 [Example 2-39 #eg-2-39] 所示. 
+它与 ``md5`` 模块类似, 但生成的是 160 位签名.
+
+====Example 2-39. 使用 sha 模块====[eg-2-39]
+
+```
+File: sha-example-1.py
+
+import sha
+
+hash = sha.new()
+hash.update("spam, spam, and eggs")
+
+print repr(hash.digest())
+print hash.hexdigest()
+
+*B*'\321\333\003\026I\331\272-j\303\247\240\345\343Tvq\364\346\311'
+d1db031649d9ba2d6ac3a7a0e5e3547671f4e6c9*b*
+```
+
+关于 ``sha`` 密文的使用, 请参阅 ``md5`` 中的例子.

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<rss version="2.0">
+	<channel>
+		<title>Python基礎教學</title>
+		<description>Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包</description>
+		<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials</link>
+		<lastBuildDate>Thu, 11 Feb 2010 14:07:27 +0000</lastBuildDate>
+		<generator>Joomla! 1.5 - Open Source Content Management</generator>
+		<language>zh-tw</language>
+		<item>
+			<title>安裝Python</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/156-python</link>
+			<description><![CDATA[<h2>利用搜尋找到並下載Python</h2>
+
+<p>
+在這裡我們一樣希望讀者自己搜尋並且找到Python然後下載，而不是直接點準備好的連結然後下載，因為找資料的能力對於寫程式而言是相當重要的。如果你已經會利用搜尋自己下載並安裝Python，就可以跳過這篇文章。</p>
+
+<h2>下載說明</h2>
+
+<h3>找到Python官方網站</h3>
+
+<p>我們要找的是Python的官方網站，最直觀的想法就是直接搜尋"Python"，然後在列出的網頁中找到官方網頁。</p>
+
+<p>Python的官方網站:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+Python Programming Language -- Official Website
+</pre>
+
+<p>你找對了嗎?
+幸運的是，Python的是廣為大家所知的程式語言以及歷史長久，因此搜尋結果通常在第一筆，而不是出現什麼大蟒蛇的相關網頁。</p>
+
+<h3>進入下載頁面</h3>
+
+<p>由於這教學只針對Windows下的使用者，所以在這裡我們只選擇Windows的版本就好，而Windows有幾種選擇:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+Python 2.5.2 Windows installer(Windows binary -- does not include source)
+Python 2.5.2 Windows AMD64 installer (Windows AMD64 binary -- does not include source)
+Python 2.5.2 Windows Itanium installer (Windows Itanium binary -- does not include source)
+</pre>
+
+<p>基本上我們可以選擇Windows
+installer就可以了，其它兩個Windows的版本應該是分別針對AMD64和Intel的Itanium兩個系列的CPU做最佳化處理，如果你的電腦用的剛好是這兩系列的處理器之一，就可以選擇這些版本，執行速度可以更快。</p>
+
+<h2>開始安裝</h2>
+
+<p>
+下載完成後執行安裝檔，一開始出現的頁面是問你要安裝給所有使用者還是目前的使用者，可以直接按"Next"，接著是問你安裝的目錄，如果你沒有想要安裝在其它地方，也一樣直接按"Next"，接著是安裝的套件選擇，通常也直接按"Next"，這時如果有IE或某些程式在執行它可能會要求你關掉，在關掉後按"Retry"就可以繼續安裝，經過一小段時間的安裝就完成了，這時只要按"Finish"就可以結束安裝，然後它會要求你要重新啟動電腦以完成安裝，按"Yes"重新啟動電腦就大工告成了。<br /></p>]]></description>
+			<category>Python基礎教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:05 +0000</pubDate>
+		</item>
+		<item>
+			<title>交談式介面</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/157-2009-02-11-13-09-06</link>
+			<description><![CDATA[<h2>交談式的介面<br /></h2>
+
+<p>當你安裝好了Python，你就可以執行Python程式集裡的IDLE (Python
+GUI)，這是Python內建的一套非常陽春的IDE，而Python有個比較特別的介面，也就是交談式的介面，有別於一般程式，整個步驟和流程都寫好後再執行的，交談式的執行方式，是你下一個指令，它做一個動作，你來我往像交談一樣，所以叫做交談式的介面，<br /><br />
+如下面範例所示，第一個指令我們下</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+print 'Hello baby!'
+</pre>
+
+<p>意思是印出Hello baby!的字樣，接著我們下了</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+a = 3
+</pre>
+
+<p>建立一個a的變數，它的值指定為3，接著</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+b = 4
+</pre>
+
+<p>也就是把b這個變數指定為4，然後</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+a * b
+</pre>
+
+<p>也就是印出3*4的結果，答案是12，你可能覺得很奇怪，為什麼a *
+b這段指令應該是讓它計算a*b，但是沒要它印出a*b，為什麼會印出a*b的結果來?
+原因出在於，基本上Python的交談式介面，會把下的指令的結果或回傳值印出來，雖然我們只下a *
+b這樣的指令，但是它的結果因為這樣就會被印出來。</p>
+
+<dl class="image-inline captioned image-inline"><dt><img src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/0.jpg" alt="交談式介面" title="交談式介面" height="458" width="596" /></dt>
+ <dd class="image-caption" style="width:596px">交談式介面截圖</dd>
+</dl><p><br />
+這個介面主要的好處就是，你隨時可以馬上試你所想要的程式，不必特地寫一個Python程式檔再去執行它，當然這只是其中的一個介面，畢竟我們一般在寫程式還是執行整個程式檔，而不是每次都一個指令一個指令的下，所以我們還是需要一個Python的編輯器，下一篇就讓我們介紹Python的編輯器。</p>]]></description>
+			<category>Python基礎教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:06 +0000</pubDate>
+		</item>
+		<item>
+			<title>Python的編輯器</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/158-python</link>
+			<description><![CDATA[<h2>Python的編輯器</h2>
+
+<p>
+延續上一篇，我們在上一篇只講到Python交談式的介面，現在我們要介紹Python的編輯器，以後我們的範例，還有你要寫的Python程式，都是透過這個編輯器來編寫和執行的。</p>
+
+<p>要開啟編輯器，先開啟Python的IDLE (Python GUI)，然後按"File" -&gt; "New
+Window"，如下圖所示 :</p>
+
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/1.jpg" alt="編輯器 - 開新視窗" height="412" width="594" /> </p>
+
+<p>接著就會出現下面這個畫面，你就可以在這Python的編輯器中打入或貼上你想要的Python程式碼</p>
+
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/2.jpg" alt="編輯器 - 輸入程式碼" height="435" width="573" /></p>
+
+<p>
+接著你必需要把這個Python存到你的電腦裡才能執行，按"File"-&gt;"Save"，然後選擇你要儲存的地方，以及儲存的檔名，<span class="visualHighlight">有一點請注意的是，在檔名後面請加上".py"，這個編輯器並不會自動幫你加，例如你的檔名是hello，就打hello.py</span>
+，然後按儲存就可以了。</p>
+
+<p>當你儲存好你的Python程式檔後，我們就可以開始執行它，這時按"Run"-&gt;"Run Module
+F5"，或是直接按F5也可以。</p>
+
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/3.jpg" alt="編輯器 - 執行" height="435" width="573" /></p>
+
+<p>如果你做得沒錯，這個Python程式的執行結果就會出現在交談式介面裡，如下圖所示 :</p>
+
+<p><img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/4.jpg" alt="編輯器 - 執行結果" height="412" width="594" /></p>
+
+<p>做到這裡，恭喜你，你可以開始寫自己的Python程式了，透過這個簡單的編輯器。 </p>]]></description>
+			<category>Python基礎教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:07 +0000</pubDate>
+		</item>
+		<item>
+			<title>Python的內建文件</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/159-python</link>
+			<description><![CDATA[<h2>Python的內建文件</h2>
+
+<p>
+有別於其它語言，Python有個特別的地方，就是它有一種內建文件在程式裡的格式，基本上標準的程式庫都會按照這樣的格式去寫，因此所有Python的module幾乎都可以在它的程式碼裡找到相關的文件，使用方式等等，我們在這裡介紹如何找到這些文件。</p>
+
+<p>首先我們先看看這些文件在Python的標準程式庫的程式碼中長什麼樣子 :</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+"""Open an arbitrary URL.
+
+See the following document for more info on URLs:
+"Names and Addresses, URIs, URLs, URNs, URCs", at
+http://www.w3.org/pub/WWW/Addressing/Overview.html
+
+See also the HTTP spec (from which the error codes are derived):
+"HTTP - Hypertext Transfer Protocol", at
+http://www.w3.org/pub/WWW/Protocols/
+
+Related standards and specs:
+- RFC1808: the "relative URL" spec. (authoritative status)
+- RFC1738 - the "URL standard". (authoritative status)
+- RFC1630 - the "URI spec". (informational status)
+
+The object returned by URLopener().open(file) will differ per
+protocol.  All you know is that is has methods read(), readline(),
+readlines(), fileno(), close() and info().  The read*(), fileno()
+and close() methods work like those of open files.
+The info() method returns a mimetools.Message object which can be
+used to query various info about the object, if available.
+(mimetools.Message objects are queried with the getheader() method.)
+"""
+
+import string
+import socket
+import os
+import time
+import sys
+from urlparse import urljoin as basejoin
+
+__all__ = ["urlopen", "URLopener", "FancyURLopener", "urlretrieve",
+           "urlcleanup", "quote", "quote_plus", "unquote", "unquote_plus",
+           "urlencode", "url2pathname", "pathname2url", "splittag",
+           "localhost", "thishost", "ftperrors", "basejoin", "unwrap",
+           "splittype", "splithost", "splituser", "splitpasswd", "splitport",
+           "splitnport", "splitquery", "splitattr", "splitvalue",
+           "splitgophertype", "getproxies"]
+
+__version__ = '1.17'    # XXX This version is not always updated :-(
+
+MAXFTPCACHE = 10        # Trim the ftp cache beyond this size
+
+# Helper for non-unix systems
+if os.name == 'mac':
+    from macurl2path import url2pathname, pathname2url
+elif os.name == 'nt':
+    from nturl2path import url2pathname, pathname2url
+elif os.name == 'riscos':
+    from rourl2path import url2pathname, pathname2url
+else:
+    def url2pathname(pathname):
+        """OS-specific conversion from a relative URL of the 'file' scheme
+        to a file system path; not recommended for general use."""
+        return unquote(pathname)
+
+    def pathname2url('/pathname'):
+        """OS-specific conversion from a file system path to a relative URL
+        of the 'file' scheme; not recommended for general use."""
+        return quote(pathname)
+
+# 以下省略
+</pre>
+
+<p>這是
+urllib.py這個標準函式庫裡的一個module，是用來抓取網頁用的module，我們只列出前面的一部份來看，發現在檔案開頭就有一大段的文件，用我們之前介紹的註解方式包起來，而某些函數的def
+xxx():下來一行也有這樣的說明，其實這樣的註解，Python有一定的格式可以遵守，然後就可以有專門的程式來分析這樣的py程式檔案，把文件抓出來並整理，是非常方便的一個功能，文件寫在程式碼裡一方面可以當註解，一方面又可以被程式分析成另外的文件檔，一舉兩得，現在我們就來介紹如何用
+Python內建的工具幫我們找到我們想要的說明文件。</p>
+
+<h2>help函數</h2>
+
+<p>
+python有個好用的函數叫做help，這個函數會把傳進去的物件的內建文件抓出來並顯示出來，我們下面示範一個簡單的程式，來抓出我們想要的文件。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 引進urllib這個module，我們才能使用
+import urllib
+
+# 印出urllib的文件
+help(urllib)
+</pre>
+
+<p>
+就是這麼簡單，其實不止是module，任何你想要知道它文件的"物件"，你都可以把它丟進help，只要裡面有照格式寫文件，就都會被抓出來然後列印出來，下面我們介紹印出各種物件的文件程式碼。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# 是的，因為help也是一個物件函數
+# 所以我們能夠把它丟進去
+# 看help這個東西的文件
+help(help)
+
+# 看str的文件
+help(str)
+
+# 看str的split的文件
+help(str.split)
+
+# 看int的文件
+help(int)
+</pre>
+
+<p>
+有這樣的文件說明，遇到任何不懂或忘記怎樣使用的物件，都可以使用這種方式來查詢，當然，我們之前有教交談式的介面，像這種交談式的指令就非常好用，要查什麼就像在下指令一樣，不用特地開一個Python檔然後寫這樣的程式，下面畫面我們示範用交談式指令查文件。</p>
+
+<p><img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/5.jpg" alt="內建文件 - 範例" /></p>
+
+<h2>內建文件的瀏覽</h2>
+
+<p>
+除了help指令之外，Python在安裝完之後，就有內建一個相當方便的小程式，可以讓你用瀏覽器看目前已安裝的所有module的文件，這個小程式的捷徑放在程式集安裝的Python
+2.x的資料夾裡，叫做Module Docs，現在就讓我們來示範怎樣使用這個來找文件。</p>
+
+<p>在執行了Module Docs這個程式後的畫面 :</p>
+
+<img class="image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/6.jpg" alt="內建文件 - 模組瀏覽器" />  
+
+<p>接下來只要按Open
+browser，它就會幫你開啟瀏覽器來到瀏覽文件的頁面，當不使用時只要將此程式關閉就可以了，文件的頁面長得像這樣。</p>
+
+<img class="image-inline image-inline" src="http://ez2learn.com/images/stories/python-tutorial/basic-tutorial/7.jpg" alt="內建文件 - 模組瀏覽器頁面" />        
+
+<p>
+到了這裡，你就能選你要的module進入看內建的文件，例如你想看md5，就找到md5的連結，看md5的相關文件，也許你可能有疑問，就是這樣的文件和官方網站上的文件差在哪裡?
+答案就差在於，這裡的文件，是即時從你現有已安裝的module或標準的module裡抓出來的文件，也就是說，就算是第三方甚至是你自己寫的
+module，只要有寫內建文件，都可以被這個程式抓出來並整理成網頁，而官方網站的文件就只有標準程式庫的文件而已，這裡就是差別的地方。</p>]]></description>
+			<category>Python基礎教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:08 +0000</pubDate>
+		</item>
+		<item>
+			<title>Python的官方文件</title>
+			<link>http://ez2learn.com/index.php/python-tutorials/python-basic-tutorials/160-python</link>
+			<description><![CDATA[<h2>Python的官方文件</h2>
+<p>做為一個成功的程式語言，良好的文件是必不可少的，拜內建文件機制的功勞，Python的文件做得相當完備，我們在此介紹如何使用Python的官方文件。</p>
+<p>首先要介紹的是Python官方文件的網站</p>
+<p><a class="external-link" href="http://docs.python.org/index.html">Python官方文件</a></p>
+<h2>各種文件的種類</h2>
+<p>在該網站的頁面中，總共有以下的文件</p>
+<ul>
+<li>What's New in Python 2.5 (changes since previous major release)<br /></li>
+</ul>
+<ul>
+<li>Tutorial (start here)<br /></li>
+</ul>
+<ul>
+<li>Global Module Index (for quick access to all modules)<br /></li>
+</ul>
+<ul>
+<li>Library Reference (keep this under your pillow)<br /></li>
+</ul>
+<ul>
+<li>Macintosh Library Modules (this too, if you use a Macintosh)<br /></li>
+</ul>
+<ul>
+<li>Language Reference (for language lawyers)<br /></li>
+</ul>
+<ul>
+<li>Extending and Embedding (tutorial for C/C++ programmers)<br /></li>
+</ul>
+<ul>
+<li>
+<p>Python/C API (reference for C/C++ programmers)</p>
+</li>
+</ul>
+<ul>
+<li>Documenting Python (information for documentation authors)<br /></li>
+</ul>
+<ul>
+<li>Installing Python Modules (information for installers &amp; sys-admins)<br /></li>
+</ul>
+<ul>
+<li>Distributing Python Modules (sharing modules with others)</li>
+</ul>
+<p>我們在下面一一介紹各種文件的用途</p>
+<h2>文件的用途<br /></h2>
+<h3>What's New in Python 2.5</h3>
+<p>在此文件中說明新版的Python到底做了什麼樣的改版，如果你之前曾學過較先前版本的Python，你會對此文件有興趣</p>
+<h3>Tutorial</h3>
+<p>Python官方版本的教學文件，做為學習Python的目的而言，這也是相當值得參考的一份教學</p>
+<h3>Global Module Index</h3>
+<p>瀏覽在Python中所有標準的全域Modules的索引</p>
+<h3>Library Reference</h3>
+<p>這是所有Python文件中最常被用到的一個，如同它上面所寫的"keep this under your pillow"(把這個放在你的枕頭下)，幾乎每當你要使用Python標準函式庫，及內建的物件和函數時，你就會需要查詢這份文件</p>
+<h3>Macintosh Library Modules</h3>
+<p>如果你使用的是蘋果電腦的麥金塔系統，你會需要這份針對麥金塔的Module的索引</p>
+<h3>Language Reference</h3>
+<p>這是Python語言的參考文件，說明Python的語法和一些規則，當你想用到某些語言特性時你可能會需要參考這個，例如class的特殊方法，__init__、__cmp__、__getattr__等等的定義</p>
+<h3>Extending and Embedding</h3>
+<p>當你需要用C/C++語言擴充Python(寫給Python用的C語言module)，或是將Python直譯器嵌在你的C/C++語言程式裡，你需要參考這份文件</p>
+<h3>Python/C API</h3>
+<p>Python的C語言API參考手冊</p>
+<h3>Documenting Python</h3>
+<p>說明Python文件的一些語法與格式</p>
+<h3>Installing Python Modules (information for installers &amp; sys-admins)</h3>
+<p>安裝Python Module的相關文件</p>
+<h3>Distributing Python Modules</h3>
+<p>有關發佈Python Module的文件</p>]]></description>
+			<category>Python基礎教學</category>
+			<pubDate>Wed, 11 Feb 2009 13:09:10 +0000</pubDate>
+		</item>
+	</channel>
+</rss>

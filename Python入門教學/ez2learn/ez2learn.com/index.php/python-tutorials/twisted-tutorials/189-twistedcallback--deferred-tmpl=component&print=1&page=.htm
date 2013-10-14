@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/189-twistedcallback--deferred" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="Twisted的Callback機制 : Deferred" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Twisted的Callback機制 : Deferred</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					Twisted的Callback機制 : Deferred			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>什麼是Deferred</h2>
+
+<p>
+簡單的一句話來說，它是Twisted的Callback機制，或許會令人覺得很奇怪，Callback不就是函數當參數傳遞，執行完成後再呼叫如此而以，何以需要一個特別的機制，事實上除此之外還有更多事情要處理，而它的Deferred帶來很大的好處，我們直接參考<a class="external-link" href="javascript:if(confirm('http://twistedmatrix.com/projects/core/documentation/howto/defer.html  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://twistedmatrix.com/projects/core/documentation/howto/defer.html'" tppabs="http://twistedmatrix.com/projects/core/documentation/howto/defer.html">
+官方文件</a>，來說明什麼是Deferred</p>
+
+<h2>Deferred的使用方式<br /></h2>
+
+<p>以下這張圖說明Deferred物件是這樣被使用的</p>
+
+<p><img src="../../../images/stories/python-tutorial/third-party/twisted-tutorial/0.png" tppabs="http://ez2learn.com/images/stories/python-tutorial/third-party/twisted-tutorial/0.png" alt="" /></p>
+
+<ol><li>送出資料需求</li>
+
+<li>回傳Deferred物件</li>
+
+<li>綁定Callback到Deferred物件</li>
+</ol><p>這樣或許有些難懂，我們用一個實際一點的例子來說明</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    print html
+
+def printError(error):
+    print error
+
+# 1. request google page
+# 2. return deferred object
+deferred = getPage('http://www.google.com')
+
+# 3. add callbacks, printPage for print page content
+# print error for print error message
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<p>這個程式會下載Google的首頁並且印出來，我們的程式兩個Callbacks函數就是圖形中的Data
+sink，也就是最後資料的去處，而Data source就是getPage函數，所以對應的步驟是</p>
+
+<ol><li>呼叫getPage函數，它會送出http的request，但是並不會立刻完成</li>
+
+<li>
+因為getPage不會立刻完成，是非同步的任務，所以這個函數不會Blocked，而是立刻回傳一個deferred物件，我們就可以增加callback到deferred物件</li>
+
+<li>當網頁下載成功或失敗了，它就會呼叫deferred裡的callback函數</li>
+</ol><h2> Deferred的運作方式</h2>
+
+<p>以下這張圖是當非同步事件完成時，Deferred物件會呼叫Callback的流程</p>
+
+<img src="../../../images/stories/python-tutorial/third-party/twisted-tutorial/1.png" tppabs="http://ez2learn.com/images/stories/python-tutorial/third-party/twisted-tutorial/1.png" alt="" /><ol><li>
+當結果(非同步的任務完成的資料、或發生錯誤)已經準備好時，如果成功則呼叫.callback(結果)，如果失敗則呼叫.errback(失敗)
+(所謂的失敗是一個twisted.python.failure.Failure的實體，裡面夾帶了失敗的原因)</li>
+
+<li>Deferred物件會以上一個callback或errback的回傳值傳給下一層，並且根據下面的規責執行</li>
+</ol><ul><li>callback的回傳值都會當做下一個callback的第一個參數</li>
+
+<li>如果callback raise一個例外，則呼叫下一層的errback</li>
+
+<li>一個沒有被處理的失敗會往下面的errback傳，就像except:那樣一個一個的處理</li>
+
+<li>如果errback沒有回傳失敗或raise一個例外(表示被處理掉了)，則呼叫下一層的callback</li>
+</ul><h2>為什麼要有這樣的機制?</h2>
+
+<p>這樣的機制雖然沒有太複雜，但是也是要花一點心思去了解，那為何要有這樣的機制?
+因為在這樣非同步的情況下，沒有地方去攔截例外，因為所有事件的處理都是reactor.run()在做，例外會從那裡跑出來，但是那並不是我們想要的，我們只想針對某個非同步的事件做處理，因此有了這套機制我們就可以針對我們想要的例外或失敗做處理，除此之外，它本身也是<a class="external-link" href="javascript:if(confirm('http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern'" tppabs="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">責任鏈</a>的設計樣式(Design
+pattern)，這表示你可以增加一串的函數來處理資料，舉個例子</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+取得網頁資料 -&gt; 解析網頁資料 -&gt; 計算統計分析 -&gt; 儲存到資料庫
+</pre>
+
+<p>
+你可以有這樣一串的責任各負責不同的事情，它們都不與前後要做的事情無關，所以重覆使用性就大大提升，而且就算其中一個環節出錯，它並不是丟出例外，而是向下傳播，如果你在某一層上不想處理那樣的錯誤，就不要加上errback，錯誤還是會往下傳播，而且它們又無知於上層和下層，達到降低藕合度的效果。</p>
+
+<p>Deferred使用的技巧</p>
+
+<p>Deferred在回傳的時候，就是增加callback的好時機，舉個例子你可以這樣封裝你非同步函數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import re
+
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def parsePage(html):
+    result = re.match('(.*)&lt;title&gt;(.*?)&lt;/title&gt;(.*)', html, re.IGNORECASE)
+    return result.groups()[1]
+
+def getTitle(url):
+    d = getPage(url)
+    d.addCallback(parsePage)
+    return d
+
+def printTitle(title):
+    print title
+
+def printError(error):
+    print error
+
+# get page's title
+deferred = getTitle('http://www.google.com')
+
+deferred.addCallbacks(printTitle, printError)
+
+reactor.run()
+</pre>
+
+<p>在這個例子中我們封裝了getPage，取得它回傳的Deferred然後增加上我們的parsePage
+callback，如此一來外界看來這個getTitle就是取得某個網頁然後解析title的行為，當然，你也可以選擇不封裝成getTitle，而只是使用parsePage當做第一個callback去處理html</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+import re
+
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def parsePage(html):
+    result = re.match('(.*)&lt;title&gt;(.*?)&lt;/title&gt;(.*)', html, re.IGNORECASE)
+    return result.groups()[1]
+
+def printTitle(title):
+    print title
+
+def printError(error):
+    print error
+
+# get page's title
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(parsePage, printError)
+deferred.addCallbacks(printTitle, printError)
+
+reactor.run()
+</pre>
+
+<p>你有你的選擇，這就是它的彈性</p>
+
+<h2>Callback的回呼參數</h2>
+
+<p>
+callback函數的第一個參數是回傳的資料，在讀完上面的說明相信都已經很清楚，但是事實上很多時候，我們會有很多非同步事件同時進行，而完成時光靠第一個參數的資料，我們並不能知道當初我們呼叫這函數的目的為何，所以很多時候我們都想要在事情完成時，順便附帶一些當初這任務執行時的訊息，這時候就可以用到回呼參數了，下面這個例子示範如何使用回呼參數</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html, siteName):
+    print siteName, 'page length', len(html)
+
+def printError(error):
+    print error
+
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError, callbackArgs=('Google',))
+
+deferred = getPage('http://yahoo.com')
+deferred.addCallbacks(printPage, printError, callbackArgs=('Yahoo',))
+
+reactor.run()
+</pre>
+
+<p>
+回呼參數會當做第二個參數傳給callback，如此一來就可以夾代一些有用的資訊給回呼函數去處理，errback一樣可以使用這樣的參數，關於詳細情況請查詢Twisted的API參考手冊</p>
+
+<h2>為什麼我的錯誤不會被印出來?</h2>
+
+<p>
+有個很常見的問題就是，如果你的某個callback函數丟出某個例外，可是你卻發現錯誤訊息沒有被補捉並且印出來，以下例子示範這樣的情況</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    # raise a exception
+    a = 10 / 0
+    print html
+
+def printError(error):
+    print error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<p>
+你會發現你一直等，但是就是不見錯誤訊息出現，或是結果印出，原因出在於，未被補捉的錯誤，會在deferred物件被摧毀時才會印出，所以你看不到它被印出來，解決的方法就是，在下面再加一層的errback，如此一來就能補捉到上一層的錯誤，不用等到deferred被摧毀</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    # raise a exception
+    a = 10 / 0
+    print html
+
+def printError(error):
+    print error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+deferred.addErrback(printError)
+
+reactor.run()
+</pre>
+
+<h2>確保callback都有回傳資料</h2>
+
+<p>
+以上範例都因為目的只為印出資料程式便結束了，如果說你的程式想要被重覆使用，可以和其它callback串在一起，最好在每個callback後面都回傳資料，否則Python預設沒回傳的回傳值為None，下面的callback就不能處理上面的資料，以下範例示範正確的做法</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+from twisted.internet import reactor
+from twisted.web.client import getPage
+
+def printPage(html):
+    print html
+    # we pass it to chain, so other callback can handle it
+    return html
+
+def printError(error):
+    print error
+    # pass it
+    return error
+    
+deferred = getPage('http://www.google.com')
+deferred.addCallbacks(printPage, printError)
+
+reactor.run()
+</pre>
+
+<strong><span class="visualHighlight">請注意，如果errback沒有回傳值的話，依照Deferred的規則，回傳值不是失敗或是沒有丟出例外的話，會轉到callback繼續執行</span></strong>
+
+
+<p> </p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="188-twisted--reactor.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/188-twisted--reactor">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="190-deferred--retry.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/190-deferred--retry">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

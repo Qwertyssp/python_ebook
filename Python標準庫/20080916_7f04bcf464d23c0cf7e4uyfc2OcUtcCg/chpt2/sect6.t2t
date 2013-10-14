@@ -1,0 +1,40 @@
+﻿==cStringIO 模块==
+
+
+``cStringIO`` 是一个可选的模块, 是 ``StringIO`` 的更快速实现. 它的工作方式和 ``StringIO`` 基本相同, 
+但是它不可以被继承. [Example 2-11 #eg-2-11] 展示了 ``cStringIO`` 的用法, 另参考前一节.
+
+====Example 2-11. 使用 cStringIO 模块====[eg-2-11]
+
+```
+File: cstringio-example-1.py
+
+import cStringIO
+
+MESSAGE = "That man is depriving a village somewhere of a computer scientist."
+
+file = cStringIO.StringIO(MESSAGE)
+
+print file.read()
+
+*B*That man is depriving a village somewhere of a computer scientist.*b*
+```
+
+为了让你的代码尽可能快, 但同时保证兼容低版本的 Python ,你可以使用一个小技巧在 ``cStringIO`` 
+不可用时启用 ``StringIO`` 模块, 如 [Example 2-12 #eg-2-12] 所示.
+
+====Example 2-12. 后退至 StringIO====[eg-2-12]
+
+```
+File: cstringio-example-2.py
+
+try:
+    import cStringIO
+    StringIO = cStringIO
+except ImportError:
+    import StringIO
+
+print StringIO
+
+*B*<module  'StringIO' (built-in)>*b*
+```

@@ -1,0 +1,69 @@
+﻿==fileinput 模块==
+
+
+``fileinput`` 模块允许你循环一个或多个文本文件的内容, 如 [Example 2-1 #eg-2-1] 所示.
+
+====Example 2-1. 使用 fileinput 模块循环一个文本文件====[eg-2-1]
+
+```
+File: fileinput-example-1.py
+
+import fileinput
+import sys
+
+for line in fileinput.input("samples/sample.txt"):
+    sys.stdout.write("-> ")
+    sys.stdout.write(line)
+
+*B*-> We will perhaps eventually be writing only small
+-> modules which are identified by name as they are
+-> used to build larger ones, so that devices like
+-> indentation, rather than delimiters, might become
+-> feasible for expressing local structure in the
+-> source language.
+->      -- Donald E. Knuth, December 1974*b*
+```
+
+你也可以使用 ``fileinput`` 模块获得当前行的元信息 (meta information). 其中包括 ``isfirstline`` , 
+``filename`` , ``lineno`` , 如 [Example 2-2 #eg-2-2] 所示.
+
+====Example 2-2. 使用 fileinput 模块处理多个文本文件====[eg-2-2]
+
+```
+File: fileinput-example-2.py
+
+import fileinput
+import glob
+import string, sys
+
+for line in fileinput.input(glob.glob("samples/*.txt")):
+    if fileinput.isfirstline(): # first in a file?
+        sys.stderr.write("-- reading %s --\n" % fileinput.filename())
+    sys.stdout.write(str(fileinput.lineno()) + " " + string.upper(line))
+
+*B*-- reading samples\sample.txt --
+1 WE WILL PERHAPS EVENTUALLY BE WRITING ONLY SMALL
+2 MODULES WHICH ARE IDENTIFIED BY NAME AS THEY ARE
+3 USED TO BUILD LARGER ONES, SO THAT DEVICES LIKE
+4 INDENTATION, RATHER THAN DELIMITERS, MIGHT BECOME
+5 FEASIBLE FOR EXPRESSING LOCAL STRUCTURE IN THE
+6 SOURCE LANGUAGE.
+7    -- DONALD E. KNUTH, DECEMBER 1974*b*
+```
+
+文本文件的替换操作很简单. 只需要把 ``inplace`` 关键字参数设置为 1 , 
+传递给 ``input`` 函数, 该模块会帮你做好一切. [Example 2-3 #eg-2-3] 展示了这些.
+
+====Example 2-3. 使用 fileinput 模块将 CRLF 改为 LF====[eg-2-3]
+
+```
+File: fileinput-example-3.py
+
+import fileinput, sys
+
+for line in fileinput.input(inplace=1):
+    # convert Windows/DOS text files to Unix files
+    if line[-2:] == "\r\n":
+        line = line[:-2] + "\n"
+    sys.stdout.write(line)
+```

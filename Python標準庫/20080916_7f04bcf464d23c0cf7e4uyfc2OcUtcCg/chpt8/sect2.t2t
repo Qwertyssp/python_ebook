@@ -1,0 +1,46 @@
+﻿==unicodedata 模块==
+
+
+( 2.0 中新增) ``unicodedata`` 模块包含了 Unicode 字符的属性, 例如字符类别, 
+分解数据, 以及数值. 如 [Example 8-3 #eg-8-3] 所示.
+
+====Example 8-3. 使用 unicodedata 模块====[eg-8-3]
+
+```
+File: unicodedata-example-1.py
+
+import unicodedata
+
+for char in [u"A", u"-", u"1", u"\N{LATIN CAPITAL LETTER O WITH DIAERESIS}"]:
+    print repr(char),
+    print unicodedata.category(char),
+    print repr(unicodedata.decomposition(char)),
+
+    print unicodedata.decimal(char, None),
+    print unicodedata.numeric(char, None)
+
+*B*u'A' Lu '' None None
+u'-' Pd '' None None
+u'1' Nd '' 1 1.0
+u'\303\226' Lu '004F 0308' None None*b*
+```
+
+在 Python 2.0 中缺少 CJK 象形文字和韩语音节的属性. 这影响到了 0x3400-0x4DB5 , 0x4E00-0x9FA5 , 
+以及 0xAC00-D7A3 中的字符, 不过每个区间内的第一个字符属性是正确的, 我们可以把字符映射到起始
+实现正常操作:
+
+```
+def remap(char):
+    # fix for broken unicode property database in Python 2.0
+    c = ord(char)
+    if 0x3400 <= c <= 0x4DB5:
+        return unichr(0x3400)
+    if 0x4E00 <= c <= 0x9FA5:
+        return unichr(0x4E00)
+    if 0xAC00 <= c <= 0xD7A3:
+        return unichr(0xAC00)
+    return char
+```
+
+Python 2.1 修复了这个 bug .
+

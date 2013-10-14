@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-examples/177-python" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="巴哈雙小提琴Python版" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>巴哈雙小提琴Python版</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					巴哈雙小提琴Python版			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2><span id="content0"><span id="content2"><span id="content4">巴哈雙小提琴Python版<br /></span></span></span></h2>
+
+<p><span id="content0"><span id="content2"><span id="content4">這個程式是改寫自"巴哈雙小提琴"的C語言版本，因為我發現Python有一個winsound的module，裡面也有Beep的功能，因此就改了一個Python的版本出來。</span></span></span></p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+<span id="content0"><span id="content2"><span id="content4">"""
+@brief  Play Bach's concerto 
+@author Victor Lin 
+@author web-site : http://victorlin.serveftp.org/programming/
+
+"""
+import winsound
+import time
+
+# Base tune
+D_BASE = 264
+
+# How long a meter is
+METRE = 500
+
+DO = 0
+RE = 2
+MI = 4
+FA = 5
+SO = 7
+LA = 9
+SI = 11
+
+def Play(d, h, delay):
+    Tune = D_BASE * pow(pow(2, 1.0/12.0), d) * pow(2, h)
+    winsound.Beep(int(Tune), delay)
+
+def vibrato(d, h, delay, Times):
+    for i in range(Times):
+        Play(d    , h, METRE/(Times*2))
+        Play(d+1  , h, METRE/(Times*2))
+
+def Sleep(delay):
+    time.sleep(delay/1000.0)
+
+print "Concerto J.S. Bach (1685-1750) BWV 1043 Violin II"
+
+Play(RE    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+
+Play(LA    ,0,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(DO+1  ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(MI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA+1  ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(DO    ,1,int(METRE*1.50));
+
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(MI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(SI-1  ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(DO+1  ,0,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+
+Play(FA    ,0,METRE);
+
+vibrato(MI ,0,METRE,5);
+
+Play(RE    ,0,METRE/4);
+Play(DO+1  ,0,METRE/4);
+Play(RE    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(FA+1  ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE*2+METRE/4);
+
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE*2+METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/2);
+Play(LA    ,1,METRE);
+Play(SO+1  ,1,METRE/2);
+Play(LA    ,1,METRE/2);
+
+Play(LA    ,0,METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+
+Play(SI    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+
+Play(RE    ,1,METRE/2);
+Play(LA    ,1,METRE/2);
+
+Sleep(METRE/2);
+
+Play(FA    ,1,METRE/2);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE*2+METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE*2+METRE/4);
+Play(RE    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(RE    ,0,METRE/4);
+
+Play(DO    ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(FA    ,0,METRE/4);
+Play(MI    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+
+Play(FA    ,0,METRE/2);
+Play(RE    ,0,METRE/2);
+Play(LA    ,0,METRE + METRE/4);
+
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/2);
+Play(SO    ,1,METRE/2);
+Play(FA+1  ,1,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(SI    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA    ,1,int(METRE*1.50));
+
+Play(MI    ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+
+Play(MI    ,1,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(LA    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+Play(MI-1  ,1,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(FA+1  ,0,METRE/2);
+Play(RE    ,1,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(DO    ,1,METRE/2);
+
+Play(SI-1  ,0,METRE);
+Play(LA    ,0,METRE);
+Play(SO    ,0,METRE);
+
+Sleep(METRE/2);
+
+Play(MI    ,0,METRE/2);
+Play(LA    ,0,METRE*2 + METRE/4);
+Play(SO+1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SI    ,0,METRE/4);
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(DO+1  ,1,METRE/4);
+
+Play(RE    ,1,METRE/4);
+Play(SI-1  ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+Play(FA+1  ,0,METRE/4);
+Play(SO    ,0,METRE/4);
+Play(LA    ,0,METRE/4);
+
+Play(RE    ,0,METRE/2);
+Play(SO    ,0,METRE/2);
+Play(RE    ,1,METRE + METRE/2);
+
+Play(DO+1  ,1,METRE/4);
+Play(RE    ,1,METRE/4);
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(SO    ,1,METRE/2 + METRE/4);
+
+Play(MI    ,1,METRE/4);
+Play(FA    ,1,METRE/4);
+Play(SO    ,1,METRE/4);
+Play(LA    ,1,METRE/2);
+Play(MI    ,1,METRE/2 + METRE/2);
+
+Play(RE    ,1,METRE);
+Play(DO+1  ,1,METRE/2);
+Play(RE    ,1,METRE);
+</span></span></span>
+</pre>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_next">
+					<a href="178-yahoo.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

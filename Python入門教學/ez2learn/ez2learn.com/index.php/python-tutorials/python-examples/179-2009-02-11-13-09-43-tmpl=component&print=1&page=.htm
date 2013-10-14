@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/python-examples/179-2009-02-11-13-09-43" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="跳板程式" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>跳板程式</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					跳板程式			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:09	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>跳板程式</h2>
+
+<p>
+這個程式示範如何將一個連線轉向另一個連線，也就是俗稱的跳板，或是代理伺服器，而這個跳板的原理很簡單，它只是接收你的連線，然後轉向特定的目標，兩邊連線都建立以後，哪一方有資料進來，就丟給另一方，就像這樣:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+客戶端(連線) -&gt; 跳板(連線) -&gt; 目標主機
+客戶端(傳送) -&gt; 跳板(傳送) -&gt; 目標主機
+目標主機(傳送) -&gt; 跳板(傳送) -&gt; 客戶端
+</pre>
+
+<p>
+相當簡單，但是卻很有用的程式。舉個例子，如果今天你在某家公司裡面工作，但是這公司鎖住了80以外的所有port，如果你想上PTT打一下BBS
+該怎麼辦? 一個解決方法就是，在你家裡架一台有實體IP的跳板，然後開Port
+80，轉到你想要的站去，你在公司裡就可以連到你家的IP，再透過這台跳板轉到PTT去:</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+公司(無法連線Port 23) -&gt; PTT.CC
+公司(成功連線Port 80) -&gt; 家裡的跳板(連線 Port 23) -&gt; PTT.CC
+</pre>
+
+<p>上面是直接連PTT.CC的情況，因為其它Port被鎖了，所以無法直接連線，下面是透過跳板程式，因為Port
+80沒有鎖，因此可以連到家裡，再連到PTT，就是這樣的用途，當然還有其它很多的用途，甚至是惡意的用途，在這裡只做為示範，不鼓勵將此程式用在任何非法的用途。</p>
+
+<p>還有此程式只適用於TCP類形的連線。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+# -*- coding: utf-8 -*-
+
+import socket
+import asyncore
+
+# Agent service服務的port
+servicePort = 23
+
+# 目標主機的位置與Port
+serviceHostAddress = 'ptt.cc'
+serviceHostPort = 23
+
+class AgentClient(asyncore.dispatcher_with_send):
+    """服務host和client端的sokcet物件"""
+    
+    def __init__(self, otherSocket=None):
+        asyncore.dispatcher_with_send.__init__(self, otherSocket)
+
+        # 是否為client
+        self.client = False
+        # 是否已準備好傳送資料給對方
+        self.ready = False
+        # 另一端
+        self.other = None
+
+        if not otherSocket:
+            self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        else:
+            self.client = True
+
+    def handle_error(self):
+        """處理連線發生錯誤"""
+
+        print "Error"
+        self.handle_close()
+
+    def handle_read(self):
+        """讀取資料並傳送到另一端"""
+        
+        if self.other and self.other.ready:
+            data = self.recv(4096)
+            # 檢查是否有資料，沒資料可能表示已斷線，傳送會造成錯誤
+            if data:
+                self.other.send(data)
+
+    def handle_connect(self):
+        """連線成功，設定成ready狀態"""
+        
+        self.ready = True
+        self.other.ready = True
+
+    def handle_close(self):
+        """"連線被關閉，同時關閉另一端連線"""
+
+        if self.client:
+            print "Close connection from : " + self.socket.getpeername()[0]
+        
+        self.ready = False
+        self.close()
+        if self.other and self.other.ready:
+            self.other.handle_close()
+
+class AgentServer(asyncore.dispatcher):
+    """中繼服務Server的socket物件，負責接聽連線"""
+    
+    def __init__(self, port):
+        asyncore.dispatcher.__init__(self)
+
+        self.port = port
+        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.bind(('', self.port))
+        self.listen(5)
+    
+    def handle_accept(self):
+        """接收連線"""
+        
+        clientSocket, address = self.accept()
+        print 'New client from : ' + address[0]
+        
+        agentClient = AgentClient(clientSocket)
+        agentHost = AgentClient()
+
+        # 連線到另一端，可能會連線失敗
+        try:
+            agentHost.connect((serviceHostAddress, serviceHostPort))
+        except socket.error, (socketError, errorMessage):
+            print 'Failed to connect %s : %s' % (serviceHostAddress, errorMessage)
+            agentClient.handle_close()
+            return
+
+        agentHost.other = agentClient
+        agentClient.other = agentHost
+
+def cleanSocketMapUp():
+    """清除所有正在運作的Socket"""
+    
+    # 使用keys()傳回與map無關的keys來關閉socket以避免發生 : 
+    # RuntimeError: dictionary changed size during iteration
+    for fileno in asyncore.socket_map.keys():
+        asyncore.socket_map[fileno].close()
+
+agentServer = AgentServer(servicePort)
+print "Agent is serving at %d and target to %s:%d ..." % (servicePort, serviceHostAddress, serviceHostPort)
+print "Press Ctrl + C to stop service."
+    
+try:
+    asyncore.loop(1)
+except KeyboardInterrupt:
+    print "Stop agent service."
+finally:
+    agentServer.close()
+    cleanSocketMapUp()
+</pre>
+
+<p>
+這個程式分成兩大部份，第一個部份是AgentServer，繼承自Python標準函式庫裡的asyncore這個module裡的dispatcher
+類別，此物件的用意是在於接受連線，並且負責開另外一個連線，連到目標主機，而AgentClient是接受連線以後的物件，和連到目標主機的物件，因為兩個都做一樣的工作，就是把來的資料丟給對方，斷線就和另一端同歸於盡，所以就只寫在一個類別裡，其實也可以分開寫，但為求精簡所以合在一起寫，最後就是
+asyncore.loop(0)這個函數，用來進行輪詢的函數，這個程式雖然看起來有點複雜，但是其實很簡單，就只有這樣而已。</p>
+
+<p>以下就是這個程式執行的成果，我們在PCMan上連到127.0.0.1，但是卻被重新導向了PTT。</p>
+
+<img class="image-inline image-inline" src="../../../images/stories/python-tutorial/examples/0.jpg" tppabs="http://ez2learn.com/images/stories/python-tutorial/examples/0.jpg" alt="跳板程式 - 示範畫面" />
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="178-yahoo.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/python-examples/178-yahoo">&lt; 前一個</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

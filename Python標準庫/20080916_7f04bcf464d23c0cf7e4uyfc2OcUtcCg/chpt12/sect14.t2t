@@ -1,0 +1,20 @@
+﻿==posix 模块==
+
+
+(非直接使用模块, 只用于 Unix/POSIX ) ``posix`` 模块是 ``os`` 模块在 Unix 及其他 POSIX 系统下使用的实现模块. 
+一般只需要通过 ``os`` 模块访问它即可. 如 [Example 12-18 #eg-12-18] 所示.
+
+====Example 12-18. 使用 posix 模块====[eg-12-18]
+
+```
+File: posix-example-1.py
+
+import posix
+
+for file in posix.listdir("."):
+    print file, posix.stat(file)[6]
+
+*B*aifc-example-1.py 314
+anydbm-example-1.py 259
+array-example-1.py 48*b*
+```

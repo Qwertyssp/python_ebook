@@ -1,0 +1,101 @@
+﻿==ftplib 模块==
+
+
+``ftplib`` 模块包含了一个 File Transfer Protocol (FTP , 文件传输协议)客户端的实现.
+
+[Example 7-22 #eg-7-22] 展示了如何登陆并获得登陆目录的文件列表. 注意这里的文件列表
+(列目录操作)格式与服务器有关(一般和主机平台的列目录工具输出格式相同, 例如 Unix 下的 
+``ls`` 和 Windows/DOS 下的 ``dir`` ).
+
+====Example 7-22. 使用 ftplib 模块获得目录列表====[eg-7-22]
+
+```
+File: ftplib-example-1.py
+
+import ftplib
+
+ftp = ftplib.FTP("www.python.org")
+ftp.login("anonymous", "ftplib-example-1")
+
+print ftp.dir()
+
+ftp.quit()
+
+*B*total 34
+drwxrwxr-x  11 root     4127         512 Sep 14 14:18 .
+drwxrwxr-x  11 root     4127         512 Sep 14 14:18 ..
+drwxrwxr-x   2 root     4127         512 Sep 13 15:18 RCS
+lrwxrwxrwx   1 root     bin           11 Jun 29 14:34 README -> welcome.msg
+drwxr-xr-x   3 root     wheel        512 May 19  1998 bin
+drwxr-sr-x   3 root     1400         512 Jun  9  1997 dev
+drwxrwxr--   2 root     4127         512 Feb  8  1998 dup
+drwxr-xr-x   3 root     wheel        512 May 19  1998 etc
+...*b*
+```
+
+下载文件很简单; 使用合适的 ``retr`` 函数即可. 注意当你下载文本文件时, 
+你必须自己加上行结束符. [Example 7-23 #eg-7-23] 中使用了一个 ``lambda`` 表达式完成这项工作.
+
+====Example 7-23. 使用 ftplib 模块下载文件====[eg-7-23]
+
+```
+File: ftplib-example-2.py
+
+import ftplib
+import sys
+
+def gettext(ftp, filename, outfile=None):
+    # fetch a text file
+    if outfile is None:
+        outfile = sys.stdout
+    # use a lambda to add newlines to the lines read from the server
+    ftp.retrlines("RETR " + filename, lambda s, w=outfile.write: w(s+"\n"))
+
+def getbinary(ftp, filename, outfile=None):
+    # fetch a binary file
+    if outfile is None:
+        outfile = sys.stdout
+    ftp.retrbinary("RETR " + filename, outfile.write)
+
+ftp = ftplib.FTP("www.python.org")
+ftp.login("anonymous", "ftplib-example-2")
+
+gettext(ftp, "README")
+getbinary(ftp, "welcome.msg")
+
+*B*WELCOME to python.org, the Python programming language home site.
+
+You are number %N of %M allowed users.  Ni!
+
+Python Web site: http://www.python.org/
+
+CONFUSED FTP CLIENT?  Try begining your login password with '-' dash.
+This turns off continuation messages that may be confusing your client.
+...*b*
+```
+
+最后, [Example 7-24 #eg-7-24] 将文件复制到 FTP 服务器上. 这个脚本使用文件扩展名来
+判断文件是文本文件还是二进制文件.
+
+====Example 7-24. 使用 ftplib 模块上传文件====[eg-7-24]
+
+```
+File: ftplib-example-3.py
+
+import ftplib
+import os
+
+def upload(ftp, file):
+    ext = os.path.splitext(file)[1]
+    if ext in (".txt", ".htm", ".html"):
+        ftp.storlines("STOR " + file, open(file))
+    else:
+        ftp.storbinary("STOR " + file, open(file, "rb"), 1024)
+
+ftp = ftplib.FTP("ftp.fbi.gov")
+ftp.login("mulder", "trustno1")
+
+upload(ftp, "trixie.zip")
+upload(ftp, "file.txt")
+upload(ftp, "sightings.jpg")
+```

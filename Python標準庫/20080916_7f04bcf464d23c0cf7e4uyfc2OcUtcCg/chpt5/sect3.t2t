@@ -1,0 +1,104 @@
+﻿==xml.parsers.expat 模块==
+
+
+(可选) ``xml.parsers.expat`` 模块是 James Clark's Expat XML parser 的接口. 
+[Example 5-3 #eg-5-3] 展示了这个功能完整且性能很好的语法分析器.
+
+====Example 5-3. 使用 xml.parsers.expat 模块====[eg-5-3]
+
+```
+File: xml-parsers-expat-example-1.py
+
+from xml.parsers import expat
+
+class Parser:
+
+    def _ _init_ _(self):
+        self._parser = expat.ParserCreate()
+        self._parser.StartElementHandler = self.start
+        self._parser.EndElementHandler = self.end
+        self._parser.CharacterDataHandler = self.data
+
+    def feed(self, data):
+        self._parser.Parse(data, 0)
+
+    def close(self):
+        self._parser.Parse("", 1) # end of data
+        del self._parser # get rid of circular references
+
+    def start(self, tag, attrs):
+        print "START", repr(tag), attrs
+
+    def end(self, tag):
+        print "END", repr(tag)
+
+    def data(self, data):
+        print "DATA", repr(data)
+
+p = Parser()
+p.feed("<tag>data</tag>")
+p.close()
+
+*B*START u'tag' {}
+DATA u'data'
+END u'tag'*b*
+```
+
+注意即使你传入的是普通的文本, 这里的分析器仍然会返回 Unicode 字符串. 默认情况下, 
+分析器将源文本作为 UTF-8 解析. 如果要使用其他编码, 请确保 XML 文件包含 //encoding// 说明. 
+如 [Example 5-4 #eg-5-4] 所示.
+
+====Example 5-4. 使用 xml.parsers.expat 模块读取 ISO Latin-1 文本====[eg-5-4]
+
+```
+File: xml-parsers-expat-example-2.py
+
+from xml.parsers import expat
+
+class Parser:
+
+    def _ _init_ _(self):
+        self._parser = expat.ParserCreate()
+        self._parser.StartElementHandler = self.start
+        self._parser.EndElementHandler = self.end
+        self._parser.CharacterDataHandler = self.data
+
+    def feed(self, data):
+        self._parser.Parse(data, 0)
+
+    def close(self):
+        self._parser.Parse("", 1) # end of data
+        del self._parser # get rid of circular references
+
+    def start(self, tag, attrs):
+        print "START", repr(tag), attrs
+
+    def end(self, tag):
+        print "END", repr(tag)
+
+    def data(self, data):
+        print "DATA", repr(data)
+
+p = Parser()
+p.feed("""\
+<?xml version='1.0' encoding='iso-8859-1'?>
+<author>
+<name>fredrik lundh</name>
+<city>linköping</city>
+</author>
+"""
+)
+p.close()
+
+*B*START u'author' {}
+DATA u'\012'
+START u'name' {}
+DATA u'fredrik lundh'
+END u'name'
+DATA u'\012'
+START u'city' {}
+DATA u'link\366ping'
+END u'city'
+DATA u'\012'
+END u'author'*b*
+```

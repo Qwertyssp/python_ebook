@@ -1,0 +1,21 @@
+﻿==cmp 模块==
+
+
+(已废弃, 只用于 1.5.2) ``cmp`` 模块用于比较两个文件, 如 [Example 14-19 #eg-14-19] 所示.
+
+====Example 14-19. 使用 cmp 模块====[eg-14-19]
+
+```
+File: cmp-example-1.py
+
+import cmp
+
+if cmp.cmp("samples/sample.au", "samples/sample.wav"):
+    print "files are identical"
+else:
+    print "files differ!"
+
+*B*files differ!*b*
+```
+
+Python 2.0 后, 该模块被 ``filecmp`` 替换.

@@ -1,0 +1,102 @@
+﻿==httplib 模块==
+
+
+``httplib`` 模块提供了一个 HTTP 客户端接口, 如 [Example 7-26 #eg-7-26] 所示.
+
+====Example 7-26. 使用 httplib 模块====[eg-7-26]
+
+```
+File: httplib-example-1.py
+
+import httplib
+
+USER_AGENT = "httplib-example-1.py"
+
+class Error:
+    # indicates an HTTP error
+    def _ _init_ _(self, url, errcode, errmsg, headers):
+        self.url = url
+        self.errcode = errcode
+        self.errmsg = errmsg
+        self.headers = headers
+    def _ _repr_ _(self):
+        return (
+            "<Error for %s: %s %s>" %
+            (self.url, self.errcode, self.errmsg)
+            )
+
+class Server:
+
+    def _ _init_ _(self, host):
+        self.host = host
+
+    def fetch(self, path):
+        http = httplib.HTTP(self.host)
+
+        # write header
+        http.putrequest("GET", path)
+        http.putheader("User-Agent", USER_AGENT)
+        http.putheader("Host", self.host)
+        http.putheader("Accept", "*/*")
+        http.endheaders()
+
+        # get response
+        errcode, errmsg, headers = http.getreply()
+
+        if errcode != 200:
+            raise Error(errcode, errmsg, headers)
+
+        file = http.getfile()
+        return file.read()
+
+if _ _name_ _ == "_ _main_ _":
+
+    server = Server("www.pythonware.com")
+    print server.fetch("/index.htm")
+```
+
+注意 httplib 提供的 HTTP 客户端在等待服务器回复的时候会阻塞程序. 
+异步的解决方法请参阅 ``asyncore`` 模块中的例子.
+
+=== 将数据发送给服务器===
+
+``httplib`` 可以用来发送其他 HTTP 命令, 例如 ``POST`` , 如 [Example 7-27 #eg-7-27] 所示.
+
+====Example 7-27. 使用 httplib 发送数据====[eg-7-27]
+
+```
+File: httplib-example-2.py
+
+import httplib
+
+USER_AGENT = "httplib-example-2.py"
+
+def post(host, path, data, type=None):
+
+    http = httplib.HTTP(host)
+
+    # write header
+    http.putrequest("PUT", path)
+    http.putheader("User-Agent", USER_AGENT)
+    http.putheader("Host", host)
+    if type:
+        http.putheader("Content-Type", type)
+    http.putheader("Content-Length", str(len(size)))
+    http.endheaders()
+
+    # write body
+    http.send(data)
+
+    # get response
+    errcode, errmsg, headers = http.getreply()
+
+    if errcode != 200:
+        raise Error(errcode, errmsg, headers)
+
+    file = http.getfile()
+    return file.read()
+
+if _ _name_ _ == "_ _main_ _":
+
+    post("www.spam.egg", "/bacon.htm", "a piece of data", "text/plain")
+```

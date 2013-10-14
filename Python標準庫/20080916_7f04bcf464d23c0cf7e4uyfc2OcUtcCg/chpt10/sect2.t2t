@@ -1,0 +1,31 @@
+﻿==anydbm 模块==
+
+
+``anydbm`` 模块为简单数据库驱动提供了统一标准的接口. 
+
+当第一次被导入的时候, ``anydbm`` 模块会自动寻找一个合适的数据库驱动, 按照 ``dbhash`` ``,`` gdbm , ``dbm`` , 
+或 ``dumbdbm`` 的顺序尝试. 如果没有找到任何模块, 它将引发一个 //ImportError// 异常.
+
+``open`` 函数用于打开或创建一个数据库(使用导入时找到的数据库驱动), 如 [Example 10-1 #eg-10-1] 所示.
+
+====Example 10-1. 使用 anydbm 模块====[eg-10-1]
+
+```
+File: anydbm-example-1.py
+
+import anydbm
+
+db = anydbm.open("database", "c")
+db["1"] = "one"
+db["2"] = "two"
+db["3"] = "three"
+db.close()
+
+db = anydbm.open("database", "r")
+for key in db.keys():
+    print repr(key), repr(db[key])
+
+*B*'2' 'two'
+'3' 'three'
+'1' 'one'*b*
+```

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr">
+<head>
+	  <xbasehref="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/188-twisted--reactor" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="keywords" content="Python, 程式設計, 教學, 程式設計教學, c語言, C++, c++語言, TurboGears, Twisted" />
+  <meta name="title" content="Twisted的核心 : Reactor" />
+  <meta name="author" content="Victor" />
+  <meta name="description" content="Victor的 易記學 程式設計教學，包含Python、C/C++語言、TurboGears等教學，以及以承接Python為主的程式設計外包" />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Twisted的核心 : Reactor</title>
+  <link href="/templates/themza_j15_11/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <script type="text/javascript" src="../../../media/system/js/mootools.js" tppabs="http://ez2learn.com/media/system/js/mootools.js"></script>
+  <script type="text/javascript" src="../../../media/system/js/caption.js" tppabs="http://ez2learn.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" language="javascript">
+var J_BasePath = '/';
+</script>
+<link type="text/css" rel="stylesheet" href="../../../plugins/content/joomler_syntaxhighlighter/Styles/SyntaxHighlighter.css" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter//Styles/SyntaxHighlighter.css"></link>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shCore.js"></script>
+<script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/J_dpCall.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/J_dpCall.js"></script>
+  <script type="text/javascript" language="javascript" src="../../../plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js" tppabs="http://ez2learn.com/plugins/content/joomler_syntaxhighlighter/Scripts/shBrushPython.js"></script>
+
+	<link rel="stylesheet" href="../../../templates/themza_j15_11/css/template.css" tppabs="http://ez2learn.com/templates/themza_j15_11/css/template.css" type="text/css" />
+
+</head>
+<body class="contentpane">
+	
+	<table class="contentpaneopen">
+<tr>
+		<td class="contentheading" width="100%">
+					Twisted的核心 : Reactor			</td>
+				<td align="right" width="100%" class="buttonheading">
+		<a href="#" onclick="window.print();return false;"><img src="../../../images/M_images/printButton.png" tppabs="http://ez2learn.com/images/M_images/printButton.png" alt="列印"  /></a>		</td>
+	</tr>
+</table>
+
+<table class="contentpaneopen">
+<tr>
+	<td valign="top">
+		<span class="small">
+			作者是 Victor		</span>
+		&nbsp;&nbsp;
+	</td>
+</tr>
+
+<tr>
+	<td valign="top" class="createdate">
+		週三, 11 二月 2009 21:10	</td>
+</tr>
+
+
+<tr>
+<td valign="top">
+<h2>什麼是Reactor</h2>
+
+<p>Reactor是Twisted運作的核心，它實作了<a class="external-link" href="javascript:if(confirm('http://en.wikipedia.org/wiki/Reactor_pattern  \n\n���ɮץ��Q Teleport Pro �U���A�]�� �����}�l��}�H�]�w����ɥH�~����θ��|���C  \n\n�A�Q�n�q���A���}�ҥ���?'))window.location='http://en.wikipedia.org/wiki/Reactor_pattern'" tppabs="http://en.wikipedia.org/wiki/Reactor_pattern">Reactor
+pattern</a>，是用來處理非同步事件的一種模形，在一開始有點難以理解它是如何運作，所以我們用擬人的形容來說明reactor的運作方式</p>
+
+<p>
+Reactor就像是一個中央指揮所，而非同步事件就像派給別人去做的工作，中央指揮所派出去工作，到完成前它不會想去管這件事的細節，但是一但完成了工作，或是出了差錯，就回排隊向中央指揮所回報，舉個例子:</p>
+
+<blockquote>
+<p>張三去砍柴<br />
+李四挖壕溝<br />
+王五煮飯</p>
+</blockquote>
+
+<p>
+這些事情同時開始做，過了一陣子李四做完了，便到中央指揮所去排隊報告完成這件事，王五也做完了，就排在李四後面，接著張三也完成了，排在王五後面，而中央指揮所就一一地檢視這些報告，做出相應的命令</p>
+
+<p>
+而對於網路程式而言，就會像這樣的例子很多非同步的任務，例如下載一個頁面，事情從開始做到發生，就是一個非同步的事件，一個下載網頁頁面的過程，從Reactor的角度來看會像這樣子</p>
+
+<blockquote>
+<p>開始執行下載網頁<br />
+開始執行連線到遠端<br />
+開始接受連線<br /><br />
+下載網頁完成，將完成的訊息放入reactor的queue裡<br />
+接受連線完成，將完成訊息放入reactor的queue裡<br />
+連線遠端錯誤，將錯誤訊息放入reactor的queue裡</p>
+</blockquote>
+
+<p>
+如你所見reactor有一個queue，所有事情完成或失敗都會推入queue中，而reactor的主要迴圈就是負責從queue中拿出這些事件一個一個處理，在Twisted中這樣的迴圈就是由這個方法所執行的。</p>
+
+<pre name="code" class="python:nogutter:nocontrols">
+reactor.run()
+</pre>
+
+<p>使用Reactor有什麼樣的好處?
+好處在於，所有事情最終處理的thread，都是執行reactor.run()的那個thread，這表示，你不必擔心race
+condition等事情，因為它們都會在同一個thread裡被完成。</p>
+			<table align="center" class="pagenav">
+			<tr>
+				<th class="pagenav_prev">
+					<a href="187-twisted.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/187-twisted">&lt; 前一個</a>
+				</th>
+				<td width="50">
+					&nbsp;
+				</td>
+				<th class="pagenav_next">
+					<a href="189-twistedcallback--deferred.htm" tppabs="http://ez2learn.com/index.php/python-tutorials/twisted-tutorials/189-twistedcallback--deferred">下一個 &gt;</a>
+				</th>
+			</tr>
+			</table></td>
+</tr>
+
+</table>
+<span class="article_separator">&nbsp;</span>
+
+</body>
+</html>

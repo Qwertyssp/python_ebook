@@ -1,0 +1,48 @@
+﻿==pwd 模块==
+
+
+(只用于 Unix) ``pwd`` 提供了一个到 Unix 密码/password "数据库"( /etc/passwd 以及相关文件 )的接口. 
+这个数据库(一般是一个纯文本文件)包含本地机器用户账户的信息. 如 [Example 12-2 #eg-12-2] 所示.
+
+====Example 12-2. 使用 pwd 模块====[eg-12-2]
+
+```
+File: pwd-example-1.py
+
+import pwd
+import os
+
+print pwd.getpwuid(os.getgid())
+print pwd.getpwnam("root")
+
+('effbot', 'dsWjk8', 4711, 4711, 'eff-bot', '/home/effbot', '/bin/bosh')
+('root', 'hs2giiw', 0, 0, 'root', '/root', '/bin/bash')
+```
+
+``getpwall`` 函数返回一个包含所有可用用户数据库入口的列表. 你可以使用它搜索一个用户.
+
+当需要查询很多名称的时候, 你可以使用 ``getpwall`` 来预加载一个字典, 如 [Example 12-3 #eg-12-3] 所示.
+
+====Example 12-3. 使用 pwd 模块====[eg-12-3]
+
+```
+File: pwd-example-2.py
+
+import pwd
+import os
+
+# preload password dictionary
+_pwd = {}
+for info in pwd.getpwall():
+    _pwd[info[0]] = _pwd[info[2]] = info
+
+def userinfo(uid):
+    # name or uid integer
+    return _pwd[uid]
+
+print userinfo(os.getuid())
+print userinfo("root")
+
+('effbot', 'dsWjk8', 4711, 4711, 'eff-bot', '/home/effbot', '/bin/bosh')
+('root', 'hs2giiw', 0, 0, 'root', '/root', '/bin/bash')
+```
